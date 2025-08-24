@@ -180,6 +180,9 @@
     body.drawer-open .drawer{ transform:translateX(0) }
     body.drawer-open .drawer-mask{ opacity:1; pointer-events:auto }
     body.drawer-open{ overflow:hidden }
+    /* 固定頂欄補償與安全區 */
+    body{ padding-top: calc(var(--navH) + env(safe-area-inset-top)) }
+    .progress{ pointer-events:none }
   </style>
 </head>
 <body>
@@ -860,5 +863,25 @@
     }
     if(toTopBtn){ toTopBtn.addEventListener('click', ()=>window.scrollTo({top:0,behavior:'smooth'})); }
   </script>
+<script>
+  // 兜底交互綁定與初始位置處理
+  (function(){
+    try{ if('scrollRestoration' in history){ history.scrollRestoration='manual'; } }catch(e){}
+    if(!location.hash){ window.scrollTo(0,0); }
+    var menuBtn = document.getElementById('menuBtn');
+    var drawer = document.getElementById('drawer');
+    var mask = document.getElementById('drawerMask');
+    var toTopBtn = document.getElementById('toTop');
+    function openDrawer(){ document.body.classList.add('drawer-open'); }
+    function closeDrawer(){ document.body.classList.remove('drawer-open'); }
+    if(menuBtn){ menuBtn.addEventListener('click', openDrawer); }
+    if(mask){ mask.addEventListener('click', closeDrawer); }
+    if(drawer){
+      var links = drawer.querySelectorAll('a');
+      for(var i=0;i<links.length;i++){ links[i].addEventListener('click', closeDrawer); }
+    }
+    if(toTopBtn){ toTopBtn.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); }); }
+  })();
+</script>
 </body>
 </html>
