@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#c7b7ff" />
   <meta name="format-detection" content="telephone=no,email=no,address=no" />
-  <title>饮食改变人生｜澳门增肌减脂饮食顾问：市场研究与商业规划</title>
-  <meta name="description" content="以澳门文化为底色的增肌减脂饮食顾问IP定位、市场研究、商业模式与内容传播全链路方案。" />
+  <title>飲食改變人生｜澳門增肌減脂飲食顧問：市場研究與商業規劃</title>
+  <meta name="description" content="以澳門文化為底色的增肌減脂飲食顧問IP定位、市場研究、商業模式與內容傳播全鏈路方案。" />
   <style>
     :root{
-      --primary: #c7b7ff;            /* 淡紫主题 */
-      --primary-600:#a78bfa;         /* 强调 */
-      --primary-700:#8b5cf6;         /* 按钮 */
+      --primary: #c7b7ff;            /* 淡紫主題 */
+      --primary-600:#a78bfa;         /* 強調 */
+      --primary-700:#8b5cf6;         /* 按鈕 */
       --ink:#151515;
       --ink-2:#444;
       --bg:#fbfbfe;
@@ -25,18 +25,19 @@
     a{color:var(--primary-700);text-decoration:none}
     .container{max-width:1200px;margin:0 auto;padding:0 20px}
 
-    /* 顶部导航 */
-    header.appbar{
-      position:fixed;top:0;left:0;right:0;z-index:90;backdrop-filter:saturate(180%) blur(12px);
+    /* 頂部導航 */
+    header{
+      position:sticky;top:0;z-index:50;backdrop-filter:saturate(180%) blur(12px);
       background:linear-gradient(to bottom, #ffffffee 30%, #ffffffcc 100%);
       border-bottom:1px solid var(--border);
     }
-    .bar{display:flex;align-items:center;gap:12px;height:var(--navH)}
-    .brand{display:flex;align-items:center;gap:10px;font-weight:700}
-    .badge{padding:4px 10px;border-radius:999px;background:var(--primary);font-size:12px}
+    .nav{display:flex;align-items:center;gap:24px;height:64px;overflow:hidden;}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700;white-space:nowrap;}
+    .badge{padding:4px 10px;border-radius:999px;background:var(--primary);font-size:12px;white-space:nowrap;}
     .nav a:hover{opacity:.8}
+    .nav-actions {margin-left:auto;display:flex;align-items:center;gap:12px;}
 
-    /* 英雄区 */
+    /* 英雄區 */
     .hero{
       position:relative;overflow:hidden;padding:80px 0 56px;background:var(--grad);
     }
@@ -54,24 +55,24 @@
     .btn-primary{background:var(--primary-700);color:#fff;box-shadow:0 8px 24px rgba(139,92,246,.25)}
     .btn-ghost{background:#fff;border:1px solid var(--border)}
 
-    /* 布局 */
+    /* 佈局 */
     .grid{display:grid;grid-template-columns:300px 1fr;gap:28px}
     @media (max-width: 980px){.grid{grid-template-columns:1fr}}
 
-    /* 目录 */
+    /* 目錄 */
     .toc{position:sticky;top:84px;align-self:start;background:var(--card-strong);border:1px solid var(--border);border-radius:16px;padding:18px}
     .toc h4{margin:0 0 8px;font-size:14px;color:#6a6a7a}
     .toc a{display:block;padding:8px 10px;border-radius:10px;color:#3d3756}
     .toc a.active{background:var(--primary);font-weight:700}
 
-    /* 卡片/分区 */
+    /* 卡片/分區 */
     section{scroll-margin-top:90px}
     .card{background:var(--card-strong);border:1px solid var(--border);border-radius:18px;padding:22px;margin:16px 0}
     .card h3{margin:0 0 8px}
     .muted{color:#666}
     .tag{display:inline-block;padding:4px 10px;border-radius:999px;border:1px solid var(--border);margin:0 6px 6px 0;background:#fff8}
 
-    /* 手风琴 */
+    /* 手風琴 */
     details{border:1px solid var(--border);border-radius:14px;background:#fff;margin:12px 0}
     summary{cursor:pointer;list-style:none;padding:14px 16px;font-weight:700;color:#413a66}
     summary::-webkit-details-marker{display:none}
@@ -84,15 +85,15 @@
     th{white-space:nowrap;text-align:left;color:#5a4f84}
     tbody tr:hover{background:#faf7ff}
 
-    /* 时间轴 */
+    /* 時間軸 */
     .timeline{display:grid;gap:14px}
     .tl{display:grid;grid-template-columns:120px 1fr;gap:10px;align-items:start}
     .tl .dot{width:10px;height:10px;border-radius:50%;background:var(--primary-700);margin-top:8px}
 
-    /* 页脚 */
+    /* 頁腳 */
     footer{margin:56px 0 0;padding:28px 0;border-top:1px solid var(--border);background:linear-gradient(180deg,#fff, #faf7ff)}
 
-    /* 底部图片 */
+    /* 底部圖片 */
     .image-stack{display:grid;gap:20px;margin-top:18px}
     .image-stack img{display:block;width:100%;height:auto;border-radius:16px;border:1px solid var(--border);object-fit:contain}
 
@@ -118,644 +119,72 @@
       table{display:block; overflow-x:auto}
       th,td{padding:10px 8px}
       .btn{padding:12px 14px}
+      .badge {display:none;} /* 在中等屏幕隐藏徽章 */
     }
 
     @media (max-width: 640px){
       .title{font-size:28px}
-      .bar{height:60px}
+      .nav{height:60px;gap:10px}
+      .brand span:last-child {font-size:14px;}
       .cta{gap:8px}
       .cta .btn{flex:1 1 140px}
       .timeline{gap:10px}
       .tl{grid-template-columns:96px 1fr}
       .toc{top:64px}
+      .nav-actions {gap:8px;}
+      .btn {padding:10px 12px; font-size:14px;}
     }
-    /* ========= NAV REDESIGN & SAFE-AREA ========= */
-    :root{ --navH:64px }
-    header.appbar{ position:fixed; top:0; left:0; right:0; z-index:120; min-height:var(--navH); padding-top:env(safe-area-inset-top); padding-top:constant(safe-area-inset-top); backdrop-filter:saturate(180%) blur(12px); background:linear-gradient(to bottom, #ffffffee 30%, #ffffffcc 100%); border-bottom:1px solid var(--border) }
-    .nav{ display:flex; align-items:center; gap:12px; height:var(--navH) }
-    .icon-btn{ appearance:none; border:none; background:var(--primary-700); color:#fff; border-radius:12px; width:40px; height:40px; display:grid; place-items:center; box-shadow:0 6px 18px rgba(139,92,246,.18) }
-    .brand .pill{ padding:4px 8px }
-    .hide-sm{ display:inline-flex }
-    .show-sm{ display:none }
-    section{ scroll-margin-top:calc(var(--navH) + env(safe-area-inset-top)) }
 
-    /* Drawer */
-    .drawer-mask{ position:fixed; inset:0; background:rgba(0,0,0,.25); backdrop-filter:blur(2px); opacity:0; pointer-events:none; transition:.2s; z-index:80 }
-    .drawer{ position:fixed; right:0; top:0; bottom:0; width:min(86vw,360px); background:#fff; border-left:1px solid var(--border); transform:translateX(100%); transition:.25s cubic-bezier(.2,.7,.2,1); z-index:90; padding-top:calc(env(safe-area-inset-top) + 10px) }
-    .drawer .list{ padding:14px }
-    .drawer .list a{ display:block; padding:12px 14px; border-radius:12px; border:1px solid var(--border); margin-bottom:10px; color:#3d3756; background:#fbfaff }
-    .drawer-open .drawer{ transform:translateX(0) }
-    .drawer-open .drawer-mask{ opacity:1; pointer-events:auto }
-
-    /* Mobile tweaks */
-    @media (max-width:980px){
-      .container{padding:0 14px}
-      .hero{ padding:80px 0 56px }
-      header .container.nav, header .badge, header .cta{ display:none !important }
-      .spy{ display:none !important }
-      .toc{ display:none }
+    @media (max-width: 480px){
+      .brand span:last-child {display:none;} /* 在极小屏幕只显示品牌标识 */
+      .btn span {display:none;}
+      .btn:before {content:'查看';}
+      .btn-primary:before {content:'開始';}
     }
-    .spy a.active{ background:var(--primary); border-color:#d8ccff; font-weight:700 }
-
-    /* Sticky offset & hero 顶部留白 */
-    section{ scroll-margin-top: calc(var(--navH) + 6px) }
-
-    /* 桌面保持原導航（側邊目錄），移動端隱藏側欄，用頂部spy */
-    @media (max-width:980px){
-      .container{padding:0 14px}
-      .hero{ padding:80px 0 56px }
-      header .container.nav, header .badge, header .cta{ display:none !important }
-      .spy{ display:flex }
-      .toc{ display:none }
-    }
-    /* Appbar mobile layout */
-  .bar{display:flex;align-items:center;gap:12px;height:var(--navH)}
-  .brand-title{flex:1 1 auto;min-width:0;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#3d3756}
-  body{ padding-top: calc(var(--navH) + env(safe-area-inset-top)) } .actions{margin-left:auto;display:flex;gap:8px;align-items:center}
-    /* ===== Drawer（移动端目录抽屉，支持滚动） ===== */
-    .drawer-mask{ position:fixed; inset:0; background:rgba(0,0,0,.25); backdrop-filter:blur(2px); opacity:0; pointer-events:none; transition:.2s; z-index:110 }
-    .drawer{ position:fixed; right:0; top:0; width:min(86vw,360px); height:100dvh; background:#fff; border-left:1px solid var(--border); transform:translateX(100%); transition:transform .25s cubic-bezier(.2,.7,.2,1); z-index:130; display:flex; flex-direction:column; padding-top:calc(env(safe-area-inset-top) + var(--navH) + 8px) }
-    .drawer .list{ flex:1 1 auto; overflow:auto; -webkit-overflow-scrolling:touch; padding:14px }
-    .drawer .list a{ display:block; padding:12px 14px; border-radius:12px; border:1px solid var(--border); margin-bottom:10px; color:#3d3756; background:#fbfaff }
-    body.drawer-open .drawer{ transform:translateX(0) }
-    body.drawer-open .drawer-mask{ opacity:1; pointer-events:auto }
-    body.drawer-open{ overflow:hidden }
-    /* 固定頂欄補償與安全區 */
-    body{ padding-top: calc(var(--navH) + env(safe-area-inset-top)) }
-    .progress{ pointer-events:none }
   </style>
 </head>
 <body>
   <div class="progress" id="progress"></div>
-  <header class="appbar">
-  <div class="container bar">
-    <div class="brand-title">饮食改变人生 · 澳门增肌减脂饮食顾问</div>
-    <div class="actions">
-      <button class="icon-btn" id="toTop" aria-label="返回顶部" title="返回顶部">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 6l-6 6M12 6l6 6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-      <button class="icon-btn" id="menuBtn" aria-label="打开目录" title="目录">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
-      </button>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <span class="pill">獨角獸</span>
+        <span>飲食改變人生 · 澳門增肌減脂飲食顧問</span>
+      </div>
+      <span class="badge">給自己一個新的機會</span>
+      <div class="nav-actions">
+        <button class="btn btn-ghost" id="expandAll">
+          <span>展開全部</span>
+        </button>
+        <a href="#info" class="btn btn-primary">
+          <span>跳到信息速覽表</span>
+        </a>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
 
   <section class="hero">
     <div class="bg-blob"></div>
     <div class="container">
-      <h1 class="title">饮食改变人生：增肌减脂饮食顾问的澳门市场研究与商业规划</h1>
-      <p class="subtitle">以澳门饮食文化为语境，打造<mark style="background:transparent;color:#6b43da;font-weight:700">“街坊美食里找肌肉线条”</mark>的人设与可落地的商业方案。</p>
+      <h1 class="title">飲食改變人生：增肌減脂飲食顧問的澳門市場研究與商業規劃</h1>
+      <p class="subtitle">以澳門飲食文化為語境，打造<mark style="background:transparent;color:#6b43da;font-weight:700">“街坊美食裡找肌肉線條”</mark>的人設與可落地的商業方案。</p>
       <div class="chipbar">
-        <span class="chip">地域：澳门（街坊人情味）</span>
-        <span class="chip">赛道：增肌减脂｜科学饮食</span>
-        <span class="chip">目标：创业｜可持续被动收入</span>
-        <span class="chip">核心人设：同理心＋专业权威</span>
+        <span class="chip">地域：澳門（街坊人情味）</span>
+        <span class="chip">賽道：增肌減脂｜科學飲食</span>
+        <span class="chip">目標：創業｜可持續被動收入</span>
+        <span class="chip">核心人設：同理心＋專業權威</span>
       </div>
       <div class="cta">
-        <a href="#sec1" class="btn btn-primary">开始阅读</a>
-        <a href="#scripts" class="btn btn-ghost">查看可拍剧本</a>
+        <a href="#sec1" class="btn btn-primary">開始閱讀</a>
+        <a href="#scripts" class="btn btn-ghost">查看可拍劇本</a>
       </div>
     </div>
   </section>
 
   <div class="container grid">
-    <!-- 目录 -->
+    <!-- 目錄 -->
     <aside class="toc" id="toc">
-      <h4>导航</h4>
-      <a href="#sec1">一、项目背景与研究概述</a>
-      <a href="#sec2">二、澳门市场分析</a>
-      <a href="#sec3">三、个人优势与定位</a>
-      <a href="#sec4">四、商业模式设计</a>
-      <a href="#sec5">五、内容创作与传播</a>
-      <a href="#sec6">六、客户关系管理</a>
-      <a href="#sec7">七、扩展与规模化</a>
-      <a href="#sec8">八、执行计划与时间表</a>
-      <a href="#sec9">九、结论与建议</a>
-      <a href="#info">信息速览表</a>
-      <a href="#persona">人设与标签</a>
-      <a href="#scripts">剧本建议</a>
-      <a href="#themes">主题系列选题库</a>
-      <a href="#qa">质检与平台适配</a>
-      <a href="#images">附：图片</a>
-    </aside>
-
-    <!-- 主体内容 -->
-    <main>
-      <!-- 一、背景 -->
-      <section id="sec1" class="card">
-        <h2>一、项目背景与研究概述</h2>
-        <details open>
-          <summary>1.1 研究背景与目标</summary>
-          <div class="content">
-            <p>在澳门这个美食之都，居民既热爱美食，也追求健康。根据公开统计口径（2016），澳门成年人超重占比约 <b>21.3%</b>、肥胖 <b>30.6%</b>，合计 <b>51.9%</b>。这既是挑战，也是增肌减脂饮食顾问的机会窗口。</p>
-            <p>主人公具备 <b>外向社交、开放创新、同理心强</b> 的人格优势，以及 <b>9年食品销售</b> 背景，目标转型为“以饮食改变人生”的创业型饮食顾问，建设可持续的被动收入。</p>
-          </div>
-        </details>
-        <details>
-          <summary>1.2 研究内容与方法</summary>
-          <div class="content">
-            <p>方法论：市场调研、竞品分析、SWOT、商业模式画布、内容策略、客户旅程设计。覆盖 <span class="tag">市场环境</span><span class="tag">定位</span><span class="tag">商业模式</span><span class="tag">内容传播</span><span class="tag">CRM</span><span class="tag">规模化</span> 六大板块。</p>
-          </div>
-        </details>
-      </section>
-
-      <!-- 二、市场分析 -->
-      <section id="sec2" class="card">
-        <h2>二、澳门增肌减脂饮食市场分析</h2>
-        <details open>
-          <summary>2.1 市场规模与需求</summary>
-          <div class="content">
-            <ul>
-              <li><b>健康意识提升：</b>政府倡导从“被动治病”转向“主动防病”，<i>健康澳门蓝图（2030）</i>导向明确。</li>
-              <li><b>消费能力强：</b>澳门人均GDP长期处于全球前列，为高质量健康服务付费意愿高。</li>
-              <li><b>需求增长：</b>“食得健康餐厅”计划已有160+商户响应；健身俱乐部市场规模（2025E）约5亿澳门元，CAGR&gt;10%。</li>
-              <li><b>目标客群：</b>25–45岁城市群体，节奏快、压力大、渴望通过饮食管理改善体态与健康。</li>
-            </ul>
-          </div>
-        </details>
-        <details>
-          <summary>2.2 竞争格局</summary>
-          <div class="content">
-            <p>多元主体：健身房营养师、独立顾问、健康餐厅、线上平台、医疗系统营养科。</p>
-            <p>形式多样：<span class="tag">1v1咨询</span><span class="tag">团体课</span><span class="tag">线上指导</span><span class="tag">定制餐配</span>；价格区间从数百至数千澳门元不等。</p>
-          </div>
-        </details>
-        <details>
-          <summary>2.3 发展趋势与机会（结合澳门文化）</summary>
-          <div class="content">
-            <ul>
-              <li><b>街坊文化 × 科学饮食：</b>以 <i>茶餐厅点单</i>、<i>猪扒包</i>、<i>牛杂</i> 等在地饮食为入口，做“<b>代换术</b>”与分量管理，降低改变门槛。</li>
-              <li><b>科技赋能：</b>穿戴设备、APP、数据分析与EMS 能量训练等成为服务提效与差异化工具。</li>
-              <li><b>线上线下融合：</b>线上指导 + 线下体验工作坊，形成可复制流程。</li>
-              <li><b>可持续：</b>顺应餐饮“可持续食材日”，倡导本地食材与减少浪费。</li>
-            </ul>
-          </div>
-        </details>
-      </section>
-
-      <!-- 三、个人优势与定位 -->
-      <section id="sec3" class="card">
-        <h2>三、个人优势与市场定位</h2>
-        <details open>
-          <summary>3.1 特质与背景</summary>
-          <div class="content">
-            <ul>
-              <li>性格：外向社交、开放新事物、富同理心、做事有条理（偶有粗心）。</li>
-              <li>背景：<b>9年食品销售</b>，对食材与供应链敏感，沟通与解决问题能力强。</li>
-              <li>改进：系统学习营养学/运动营养并取得资质；提升细节与时间管理。</li>
-            </ul>
-          </div>
-        </details>
-        <details>
-          <summary>3.2 定位</summary>
-          <div class="content">
-            <p class="muted">定位关键词：<b>澳门</b>｜<b>增肌减脂</b>｜<b>创新实践</b>｜<b>跨界融合</b>｜<b>情感连接</b>｜<b>可持续</b></p>
-            <div class="card" style="background:#f7f4ff">
-              <b>一句定位：</b>澳门增肌减脂饮食的<b>创新实践者与跨界融合者</b>
-            </div>
-          </div>
-        </details>
-        <details>
-          <summary>3.3 核心价值主张</summary>
-          <div class="content">
-            <ul>
-              <li>基于营养与运动科学，提供<b>个性化、可持续</b>的方案。</li>
-              <li>以澳门饮食文化为抓手，提高<b>在地可执行性</b>与<b>坚持度</b>。</li>
-              <li>强调<b>生活平衡</b>与<b>全方位支持</b>（饮食×行为×心理）。</li>
-            </ul>
-          </div>
-        </details>
-      </section>
-
-      <!-- 四、商业模式设计 -->
-      <section id="sec4" class="card">
-        <h2>四、商业模式设计与开发</h2>
-        <details open>
-          <summary>4.1 服务与产品线</summary>
-          <div class="content">
-            <ul>
-              <li><b>基础：</b>个人评估｜个性化餐单｜1v1指导｜效果跟踪。</li>
-              <li><b>进阶：</b>工作坊｜企业健康计划｜人群专属课程｜跨境健康之旅。</li>
-              <li><b>增值：</b>电子食谱｜健康食材包｜补剂建议｜生活指南。</li>
-            </ul>
-          </div>
-        </details>
-        <details>
-          <summary>4.2 定价策略与盈利模型</summary>
-          <div class="content">
-            <p>分级定价参考：入门 <b>500–1000</b> MOP/月｜进阶 <b>1500–3000</b> MOP/月｜VIP <b>3000–5000+</b> MOP/月；初期以亲民价获取口碑。</p>
-            <p>盈利来源：服务费＋产品销售＋平台分成＋授权加盟＋企业合作。</p>
-          </div>
-        </details>
-        <details>
-          <summary>4.3 客户获取与交付</summary>
-          <div class="content">
-            <ul>
-              <li>获取：内容营销｜口碑推荐｜跨界合作｜线下活动｜限时优惠。</li>
-              <li>交付：线上线下结合｜个性化定制｜社群运营｜APP/可穿戴数据跟踪｜标准化流程。</li>
-              <li>客户旅程：认知→评估→购买→服务→评估调整→维护→推荐。</li>
-            </ul>
-          </div>
-        </details>
-      </section>
-
-      <!-- 五、内容策略 -->
-      <section id="sec5" class="card">
-        <h2>五、内容创作与传播策略（澳门语境）</h2>
-        <details open>
-          <summary>5.1 短视频主题与形式</summary>
-          <div class="content">
-            <ul>
-              <li><b>知识科普：</b>原理、误区、热量与计算。</li>
-              <li><b>实用技巧：</b>5分钟早餐、办公室点餐指南、茶餐厅“走酱/走糖”。</li>
-              <li><b>案例分享：</b>在地客户蜕变记。</li>
-              <li><b>文化融合：</b>澳门小吃健康吃法、特色食材营养。</li>
-              <li><b>生活方式：</b>压力/睡眠与体重管理。</li>
-              <li><b>互动挑战：</b>7天饮食挑战、办公室打卡。</li>
-            </ul>
-          </div>
-        </details>
-        <details>
-          <summary>5.2 创作与发布计划</summary>
-          <div class="content">
-            <ul>
-              <li>初期：储备10–15条；0–3月每周3–4条；4–6月每周2–3条；后续根据数据优化。</li>
-              <li>多平台分发：抖音｜视频号｜小红书，按平台偏好做轻定制。</li>
-            </ul>
-          </div>
-        </details>
-        <details>
-          <summary>5.3 互动与社群运营</summary>
-          <div class="content">
-            <ul>
-              <li>及时回复、问题引导、话题挑战、定期直播、用户共创。</li>
-              <li>社群分层、线上线下活动、独家内容与优惠、培养意见领袖。</li>
-              <li>粉丝转化：钩子设计→免费福利→低价体验→价值展示→社群沉淀。</li>
-            </ul>
-          </div>
-        </details>
-      </section>
-
-      <!-- 六、CRM -->
-      <section id="sec6" class="card">
-        <h2>六、客户关系管理与服务优化</h2>
-        <details open>
-          <summary>6.1 客户画像与需求</summary>
-          <div class="content">
-            <p>按年龄/性别/目标/职业/健康状况细分；核心需求涵盖：减脂持久性、增肌效率、健康维护与慢病营养。</p>
-          </div>
-        </details>
-        <details>
-          <summary>6.2 个性化服务设计</summary>
-          <div class="content">
-            <ul>
-              <li>评估：体成分｜饮食与生活方式｜心理状态｜文化背景。</li>
-              <li>方案：SMART目标｜餐单｜行为干预｜心理支持｜阶段性调整。</li>
-              <li>交付：1v1｜团体｜混合｜数字化｜文化适配。</li>
-            </ul>
-          </div>
-        </details>
-        <details>
-          <summary>6.3 质量控制与迭代</summary>
-          <div class="content">
-            <ul>
-              <li>标准化流程与知识更新、满意度评估、问题处理与风险管理。</li>
-              <li>持续优化：服务迭代｜培训学习｜案例复盘｜跨界创新。</li>
-            </ul>
-          </div>
-        </details>
-      </section>
-
-      <!-- 七、扩展与规模化 -->
-      <section id="sec7" class="card">
-        <h2>七、扩展与规模化发展策略</h2>
-        <details open>
-          <summary>7.1 深耕澳门</summary>
-          <div class="content">
-            <ul>
-              <li>文化融合深化：将葡挞、猪扒包、牛杂等做<b>健康改良</b>示范。</li>
-              <li>社区融入与本地合作：餐厅/供应商/健身中心/政府项目联动。</li>
-              <li>品牌建设：定位强化、品牌故事、体验升级。</li>
-            </ul>
-          </div>
-        </details>
-        <details>
-          <summary>7.2 向中国大陆扩展</summary>
-          <div class="content">
-            <p>进入模式（授权/合资/直营/混合）、文化/价格/政策适配、渠道与营销（社媒与KOL）。</p>
-          </div>
-        </details>
-        <details>
-          <summary>7.3 可持续增长</summary>
-          <div class="content">
-            <ul>
-              <li>模式优化与成本结构、规模效应、资源整合与价值链延伸。</li>
-              <li>团队建设与激励、知识管理、数字化与智能化、社会责任。</li>
-            </ul>
-          </div>
-        </details>
-      </section>
-
-      <!-- 八、执行计划与时间表 -->
-      <section id="sec8" class="card">
-        <h2>八、执行计划与时间表</h2>
-        <div class="timeline">
-          <div class="tl"><div><span class="dot"></span>0–2个月</div><div>市场深研与资质获取、完善商业计划、洽谈合作、组建团队。</div></div>
-          <div class="tl"><div><span class="dot"></span>3–4个月</div><div>品牌定位与视觉、官网/社媒搭建、内容库启动、小规模试点。</div></div>
-          <div class="tl"><div><span class="dot"></span>5–6个月</div><div>线下活动、内容营销、初始获客、流程优化与模式验证。</div></div>
-          <div class="tl"><div><span class="dot"></span>7–12个月</div><div>服务扩展与团队扩编、品牌传播、客户增长、深耕澳门。</div></div>
-          <div class="tl"><div><span class="dot"></span>13–18个月</div><div>模式优化与技术深化、伙伴拓展、社区影响力提升。</div></div>
-          <div class="tl"><div><span class="dot"></span>19–36个月</div><div>确立澳门领先地位，标准化体系，向内地试点→全国布局，生态构建与平台升级。</div></div>
-        </div>
-      </section>
-
-      <!-- 九、结论与建议 -->
-      <section id="sec9" class="card">
-        <h2>九、结论与建议</h2>
-        <details open>
-          <summary>9.1 核心结论</summary>
-          <div class="content">
-            <ul>
-              <li>需求旺盛＋消费能力强＋政策导向，澳门具备良好赛道土壤。</li>
-              <li>差异化关键：<b>街坊文化 × 科学饮食</b> 的本地化与可持续实践。</li>
-              <li>内容是增长飞轮，服务质量是留存基石。</li>
-            </ul>
-          </div>
-        </details>
-        <details>
-          <summary>9.2 核心建议（立即/中期/长期）</summary>
-          <div class="content">
-            <ul>
-              <li><b>立即：</b>强化专业学习与认证、小规模试点、启动内容、洽谈合作、组建核心团队。</li>
-              <li><b>中期：</b>明确品牌定位与价格带、流程优化与模式验证、加大内容与口碑。</li>
-              <li><b>长期：</b>深耕澳门、扩展内地、搭建数字化平台与生态。</li>
-            </ul>
-          </div>
-        </details>
-        <details>
-          <summary>9.3 实施保障与风险控制</summary>
-          <div class="content">
-            <p>组织/人才/资金/技术/资源保障；市场/技术/人才/财务/合规风险识别与预案。</p>
-          </div>
-        </details>
-      </section>
-
-      <!-- 信息速览表 -->
-      <section id="info" class="card">
-        <h2>二、信息速览表（证据就近引用、澳门语境）</h2>
-        <table>
-          <tbody>
-          <tr><th>人物</th><td>洪 Dicken（外向、同理心；可持续价值观）</td></tr>
-          <tr><th>行业/年资</th><td>食品销售 9年；目标转型“增肌减脂饮食顾问”</td></tr>
-          <tr><th>里程碑</th><td>① 9年销售→洞察食材与市场；② 明确“以饮食改变人生与生活”；③ 创业目标确立</td></tr>
-          <tr><th>受众</th><td>20岁以上；情绪目标：信任＋好奇</td></tr>
-          <tr><th>风格偏好</th><td>亲和力、值得信赖；内容以真实日常＋在地场景（澳门街坊人情味）</td></tr>
-          <tr><th>禁区</th><td>绝对化承诺、夸大利润/功效；平台高危词需替换</td></tr>
-          <tr><th>过往痛点</th><td>（需核实）缺少本地化饮食案例、镜头标准化方法</td></tr>
-          <tr><th>可验证证据</th><td>人格特质/主信息/受众/价值观来自问卷记录；“街坊人情味＋4:4:2结构”来自澳门餐饮账号方案</td></tr>
-          </tbody>
-        </table>
-      </section>
-
-      <!-- 反差与人设 -->
-      <section id="persona" class="card">
-        <h2>反差线索与一句话人设</h2>
-        <details open>
-          <summary>反差线索（10条）</summary>
-          <div class="content">
-            <ul>
-              <li>爱吃澳门街头美食｜却做增肌减脂配方</li>
-              <li>食品销售9年｜转型科学饮食顾问</li>
-              <li>外向能聊｜方案克制有数字</li>
-              <li>茶餐厅常客｜热量替代术讲究</li>
-              <li>值得信赖的人设｜不卖神话只给步骤</li>
-              <li>澳门街坊语境｜国际化营养术语翻译</li>
-              <li>同理心强｜也敢对“错误饮食”说不</li>
-              <li>崇尚可持续｜拒绝极端减脂</li>
-              <li>喜新体验｜坚持熟悉日常可复制</li>
-              <li>目标创业｜先用内容做口碑背书</li>
-            </ul>
-          </div>
-        </details>
-        <details>
-          <summary>一句话人设（≤28字，含适用场景）</summary>
-          <div class="content">
-            <ul>
-              <li><b>街坊美食里找肌肉线条的饮食顾问</b>｜主页签名</li>
-              <li><b>会吃会练的澳门在地配餐师</b>｜视频开场</li>
-              <li><b>不饿肚子的增肌减脂陪跑</b>｜直播间顶置</li>
-              <li><b>茶餐厅点单也能越吃越型</b>｜视频开场</li>
-              <li><b>把人情味做成可坚持的餐单</b>｜主页签名</li>
-            </ul>
-          </div>
-        </details>
-      </section>
-
-      <!-- 标准定位成稿 -->
-      <section class="card">
-        <h2>标准定位成稿</h2>
-        <details open>
-          <summary>姓名或昵称 & 个性特质</summary>
-          <div class="content">
-            <p><b>洪 Dicken（Dicken）</b></p>
-            <ul>
-              <li>外向社交、沟通顺滑，具同理心；情绪稳定</li>
-              <li>对新体验开放，偶有粗心；长期主义与可持续价值观</li>
-            </ul>
-          </div>
-        </details>
-        <details>
-          <summary>职业背景（时间线＋里程碑）</summary>
-          <div class="content">
-            <ul>
-              <li>食品销售 9年（供应链/市场敏感度）</li>
-              <li>明确主信息：用饮食改变人生与生活</li>
-              <li>目标：创业，转型“增肌减脂饮食顾问”</li>
-            </ul>
-          </div>
-        </details>
-        <details>
-          <summary>人设偏好与核心资讯（口头禅/穿搭/道具/禁区/价值观）</summary>
-          <div class="content">
-            <ul>
-              <li>期望感知：亲和力、值得信赖；激发“信任＋好奇”</li>
-              <li>价值观：可持续饮食，不极端、不内耗</li>
-              <li>视觉/穿搭：运动休闲＋街区色；场景：澳门茶餐厅/街头</li>
-              <li>道具：便携秤、分量餐盒、<i>澳门小吃热量卡</i></li>
-              <li>禁区：承诺速成、极端热量赤字</li>
-            </ul>
-          </div>
-        </details>
-        <details>
-          <summary>人物标签（10个｜含用途/吸引力说明）</summary>
-          <div class="content">
-            <ul>
-              <li><b>街坊饮食改造官：</b>标题/封面→本地可信入口</li>
-              <li><b>茶餐厅点单教练：</b>开场自报→常点餐“增肌/减脂版”</li>
-              <li><b>同理心营养顾问：</b>直播话术→少说教，先理解</li>
-              <li><b>可持续饮食倡导者：</b>封面→反PUA、可长期</li>
-              <li><b>澳门热量换算员：</b>钩子→用猪扒包/牛杂做示例</li>
-              <li><b>上班族备餐设计师：</b>直播→30分钟搞定一周</li>
-              <li><b>科学吃与练翻译官：</b>封面→术语译成街坊话</li>
-              <li><b>家庭友好餐单策划：</b>标题→全家可吃的轻负担</li>
-              <li><b>数据感执行陪跑：</b>直播→秤重/打卡/复盘</li>
-              <li><b>在地口碑创业者：</b>开场→先做口碑再承接业务</li>
-            </ul>
-          </div>
-        </details>
-      </section>
-
-      <!-- 剧本建议 -->
-      <section id="scripts" class="card">
-        <h2>可直接开拍的剧本建议（钩子｜论点｜镜头｜动作｜引导）</h2>
-        <details open>
-          <summary>街头与茶餐厅实操</summary>
-          <div class="content">
-            <ul>
-              <li><b>猪扒包想吃不增脂？</b>｜代换与分量控制也能吃喜爱食物｜店门口热量卡对比｜切半＋加蛋白｜评论“猪扒包”领代换清单</li>
-              <li><b>牛杂排队不怕胖</b>｜点单顺序＋汤底处理＝少油少盐｜长队第一视角｜先清后浓｜私信“牛杂”领打卡表</li>
-              <li><b>焗饭怎么点更聪明？</b>｜主食/蛋白/纤维3:2:1｜餐桌俯拍＋秤重｜走酱示范｜@爱焗饭的朋友</li>
-              <li><b>一周三餐模板</b>｜模板更容易坚持｜台面餐盒排布｜装盒贴签｜评论“模板”拿可打印版</li>
-              <li><b>逛街也能补蛋白</b>｜便利店清单｜货架走拍｜挑拣实操｜转发收藏</li>
-              <li><b>聚会不破功</b>｜蛋白优先＋喝水＋共享甜品｜圆桌分食｜点赞领“聚会三步走”</li>
-              <li><b>一碗面也能增肌</b>｜清汤＋加蛋＋走油｜厨房快切｜前后对比｜评论“面条”领三种加蛋法</li>
-              <li><b>减脂与情绪</b>｜不挨饿的可持续策略｜口播＋称重日记｜展示围度优先｜关注领“无惧波动”讲义</li>
-            </ul>
-          </div>
-        </details>
-      </section>
-
-      <!-- 主题系列选题库 -->
-      <section id="themes" class="card">
-        <h2>主题系列选题库＋首镜头与钩子句（5×6）</h2>
-        <details open>
-          <summary>系列A｜茶餐厅点单“增肌/减脂版”</summary>
-          <div class="content">
-            <ul>
-              <li>焗饭｜“这份焗饭我少了几百卡？”｜托盘近景＋秤｜替酱＋分量</li>
-              <li>咖喱类｜“咖喱怎么点更友好？”｜勺起酱汁｜走油＋加蔬</li>
-              <li>西多士/奶茶｜“甜口党如何不破功？”｜淋蜜对比｜半糖＋低脂奶</li>
-              <li>干炒/汤粉面｜“同一碗面，吃法差很大”｜清汤vs浓汤｜先蛋白</li>
-              <li>烧味饭｜“三拼变二拼，再加一招”｜拼盘俯拍｜去皮＋半饭</li>
-              <li>套餐思路｜“3:2:1点单法”｜菜单指点｜从主食倒推蛋白</li>
-            </ul>
-          </div>
-        </details>
-        <details>
-          <summary>系列B｜街坊小吃“代换术”</summary>
-          <div class="content">
-            <ul>
-              <li>猪扒包｜“切半＋加走步”｜手持店外｜示范分量</li>
-              <li>牛杂｜“清汤先行的点单顺序”｜排队跟拍｜去肥留味</li>
-              <li>焗土司/奶茶｜“甜香不减的替代”｜搅拌对比｜半糖＋低脂奶</li>
-              <li>炸物拼盘｜“空气炸锅在家复刻”｜厨房演示｜改炸法</li>
-              <li>宵夜｜“凌晨也能友好一点”｜夜景｜先蛋白再主食</li>
-              <li>节庆/手信｜“伴手礼热量地图”｜平铺拍｜分食＋留份</li>
-            </ul>
-          </div>
-        </details>
-        <details>
-          <summary>系列C｜一周可持续餐单（模板优先）</summary>
-          <div class="content">
-            <ul>
-              <li>3天模板｜“先从3天做起”｜餐盒排布｜模板可下载</li>
-              <li>通勤早餐｜“5分钟蛋白＋纤维”｜台面快拍｜三选一</li>
-              <li>家庭共享晚餐｜“一家都能吃”｜圆桌｜大盘分配</li>
-              <li>外食午餐｜“就近选择清单”｜地图屏录｜清单化</li>
-              <li>周末放松｜“放开吃的边界”｜甜品分食｜不自责</li>
-              <li>复盘日｜“一周复盘三问题”｜手写记录｜围度先于体重</li>
-            </ul>
-          </div>
-        </details>
-        <details>
-          <summary>系列D｜科学吃与练（街区轻运动）</summary>
-          <div class="content">
-            <ul>
-              <li>上坡路快走｜“10分钟就有效”｜街区走拍｜餐后</li>
-              <li>弹力带训练｜“小器械也够”｜室内演示｜3组循环</li>
-              <li>拉伸放松｜“坚持比强度更重要”｜地垫｜3动作</li>
-              <li>喝水/睡眠｜“停滞期关键”｜水杯/眼罩｜作息表</li>
-              <li>补剂观｜“何时需要蛋白粉？”｜摇摇杯｜场景判断</li>
-              <li>步数与餐量｜“动多能多吃？”｜计步器｜原则化</li>
-            </ul>
-          </div>
-        </details>
-        <details>
-          <summary>系列E｜情绪与饮食（不PUA）</summary>
-          <div class="content">
-            <ul>
-              <li>体重波动｜“1–2kg很正常”｜秤/软尺｜围度优先</li>
-              <li>外界评价｜“别把餐单变人设”｜街拍口播｜做自己</li>
-              <li>应激进食｜“三步自救”｜卡片书写｜冷静后再点餐</li>
-              <li>平台流言｜“只谈可复制”｜评论截图｜数据说话</li>
-              <li>复食期｜“如何回到正常量”｜餐盘排布｜逐步增加</li>
-              <li>小目标｜“连续七天打卡”｜手机界面｜群内互认</li>
-            </ul>
-          </div>
-        </details>
-      </section>
-
-      <!-- 质检与平台适配 -->
-      <section id="qa" class="card">
-        <h2>质检与平台适配（合规替换）</h2>
-        <details open>
-          <summary>可信-反差-落地打分</summary>
-          <div class="content">
-            <ul>
-              <li><b>可信 4/5：</b>信息与动机来自问卷；需补体测数据（建议开放匿名打卡样本）。</li>
-              <li><b>反差 4.5/5：</b>“街坊美食 × 科学饮食”记忆点强（每条片固定一个在地锚点词）。</li>
-              <li><b>落地 4/5：</b>4:4:2结构＋本地场景即可开拍（先做7天存量，执行“7连更/隔日更”）。</li>
-            </ul>
-          </div>
-        </details>
-        <details>
-          <summary>平台适配与高危词替代表达</summary>
-          <div class="content">
-            <ul>
-              <li><b>抖音：</b>三秒钩子：“澳门××能这样吃？”；结尾“关键词领取清单”。</li>
-              <li><b>视频号：</b>重“信任＋复盘”，每周1条模板复盘＋1条在地示范。</li>
-              <li><b>小红书：</b>图文+视频，“前后对比/三步法/可下载模板”。</li>
-            </ul>
-            <p><b>合规替换：</b>“保证瘦/稳赚/内幕/保本/财务自由”→“更稳妥/更友好/经验总结/风控做法/长期更可持续”；“三天暴瘦/快速清脂”→“短期水分波动/阶段性围度优化”；“私信我加微信”→“按主页指引领取清单/进群说明”。</p>
-          </div>
-        </details>
-        <details>
-          <summary>加速包：3条立刻开拍</summary>
-          <div class="content">
-            <ol>
-              <li><b>《澳门猪扒包的“半份幸福”》</b>｜钩子：“切半＋加蛋白，也能很满足。”｜镜头：店外手持＋便携秤＋步数｜动作：称重→切半→加鸡胸/鸡蛋｜引导：评论“猪扒包”领清单</li>
-              <li><b>《茶餐厅焗饭“走酱版”》</b>｜钩子：“走一半酱，比你想象更友好。”｜镜头：餐台俯拍｜动作：标准vs走酱同框｜引导：评论“焗饭”领点单卡</li>
-              <li><b>《牛杂排队不破功》</b>｜钩子：“清汤先行，口味不减、负担更小。”｜镜头：排队跟拍｜动作：点单顺序演示｜引导：评论“牛杂”领“三步走”</li>
-            </ol>
-          </div>
-        </details>
-      </section>
-
-      <!-- 附图：两张图片必须完整显示 -->
-      <section id="images" class="card">
-        <h2>附：图片（完整显示，不裁切）</h2>
-        <p class="note">以下为用户提供的两张图片链接，已放置在最底部并设置 <span class="kbd">object-fit:contain</span> 与 <span class="kbd">height:auto</span> 确保不被裁切、不变形。</p>
-        <div class="image-stack">
-          <img src="https://p9-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/ab9ac614600b4d6bab5ce6099b5cd945.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&x-expires=1786176241&x-signature=TOlUkuLzyvvrbn3DXWJUxsQjzrs%3D&x-wf-file_name=%E5%85%AC%E5%9F%9F.jpg" alt="公域图片" loading="lazy" />
-          <img src="https://p3-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/522ab5e32bf54ba0b2ccc9cc78470cd9.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&x-expires=1786176244&x-signature=EZ2mHPBdJ7gK7Oka9%2B87jX5ClZE%3D&x-wf-file_name=a0d9b4d4a5963de6a5b98c77cde476c.jpg" alt="图片2" loading="lazy" />
-        </div>
-      </section>
-
-      <footer>
-        <div class="container">
-          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-            <span class="pill">Made for 澳门｜淡紫主题</span>
-            <span class="note">提示：使用顶部“展开全部”可快速展开全文；支持锚点跳转与阅读进度条。</span>
-          </div>
-        </div>
-      </footer>
-    </main>
-  </div>
-  <!-- 抽屉导航（可滚动） -->
-  <div class="drawer-mask" id="drawerMask"></div>
-  <nav class="drawer" id="drawer" aria-label="页面目录">
-    <div class="list">
+      <h4>導航</h4>
       <a href="#sec1">一、專案背景與研究概述</a>
       <a href="#sec2">二、澳門市場分析</a>
       <a href="#sec3">三、個人優勢與定位</a>
@@ -771,33 +200,522 @@
       <a href="#themes">主題系列選題庫</a>
       <a href="#qa">質檢與平臺適配</a>
       <a href="#images">公域與私域介紹</a>
-    </div>
-  </nav>
+    </aside>
 
-  <!-- Drawer for Mobile Navigation -->
-  <div class="drawer-mask" id="drawerMask"></div>
-  <nav class="drawer" id="drawer">
-    <div class="list">
-      <a href="#sec1">一、项目背景与研究概述</a>
-      <a href="#sec2">二、澳门市场分析</a>
-      <a href="#sec3">三、个人优势与定位</a>
-      <a href="#sec4">四、商业模式设计</a>
-      <a href="#sec5">五、内容创作与传播</a>
-      <a href="#sec6">六、客户关系管理</a>
-      <a href="#sec7">七、扩展与规模化</a>
-      <a href="#sec8">八、执行计划与时间表</a>
-      <a href="#sec9">九、结论与建议</a>
-      <a href="#info">信息速览表</a>
-      <a href="#persona">人设与标签</a>
-      <a href="#scripts">剧本建议</a>
-      <a href="#themes">主题系列选题库</a>
-      <a href="#qa">质检与平台适配</a>
-      <a href="#images">附：图片</a>
-    </div>
-  </nav>
+    <!-- 主體內容 -->
+    <main>
+      <!-- 一、背景 -->
+      <section id="sec1" class="card">
+        <h2>一、專案背景與研究概述</h2>
+        <details open>
+          <summary>1.1 研究背景與目標</summary>
+          <div class="content">
+            <p>在澳門這個美食之都，居民既熱愛美食，也追求健康。根據公開統計口徑（2016），澳門成年人超重占比約 <b>21.3%</b>、肥胖 <b>30.6%</b>，合計 <b>51.9%</b>。這既是挑戰，也是增肌減脂飲食顧問的機會視窗。</p>
+            <p>主人公具備 <b>外向社交、開放創新、同理心強</b> 的人格優勢，以及 <b>9年食品銷售</b> 背景，目標轉型為“以飲食改變人生”的創業型飲食顧問，建設可持續的被動收入。</p>
+          </div>
+        </details>
+        <details>
+          <summary>1.2 研究內容與方法</summary>
+          <div class="content">
+            <p>方法論：市場調研、競品分析、SWOT、商業模式畫布、內容策略、客戶旅程設計。覆蓋 <span class="tag">市場環境</span><span class="tag">定位</span><span class="tag">商業模式</span><span class="tag">內容傳播</span><span class="tag">CRM</span><span class="tag">規模化</span> 六大板塊。</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- 二、市場分析 -->
+      <section id="sec2" class="card">
+        <h2>二、澳門增肌減脂飲食市場分析</h2>
+        <details open>
+          <summary>2.1 市場規模與需求</summary>
+          <div class="content">
+            <ul>
+              <li><b>健康意識提升：</b>政府宣導從“被動治病”轉向“主動防病”，<i>健康澳門藍圖（2030）</i>導向明確。</li>
+              <li><b>消費能力強：</b>澳門人均GDP長期處於全球前列，為高品質健康服務付費意願高。</li>
+              <li><b>需求增長：</b>“食得健康餐廳”計畫已有160+商戶回應；健身俱樂部市場規模（2025E）約5億澳門元，CAGR&gt;10%。</li>
+              <li><b>目標客群：</b>25–45歲城市群體，節奏快、壓力大、渴望通過飲食管理改善體態與健康。</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary>2.2 競爭格局</summary>
+          <div class="content">
+            <p>多元主體：健身房營養師、獨立顧問、健康餐廳、線上平臺、醫療系統營養科。</p>
+            <p>形式多樣：<span class="tag">1v1諮詢</span><span class="tag">團體課</span><span class="tag">線上指導</span><span class="tag">定制餐配</span>；價格區間從數百至數千澳門元不等。</p>
+          </div>
+        </details>
+        <details>
+          <summary>2.3 發展趨勢與機會（結合澳門文化）</summary>
+          <div class="content">
+            <ul>
+              <li><b>街坊文化 × 科學飲食：</b>以 <i>茶餐廳點單</i>、<i>豬扒包</i>、<i>牛雜</i> 等在地飲食為入口，做“<b>代換術</b>”與分量管理，降低改變門檻。</li>
+              <li><b>科技賦能：</b>穿戴設備、APP、資料分析與EMS 能量訓練等成為服務提效與差異化工具。</li>
+              <li><b>線上線下融合：</b>線上指導 + 線下體驗工作坊，形成可複製流程。</li>
+              <li><b>可持續：</b>順應餐飲“可持續食材日”，宣導本地食材與減少浪費。</li>
+            </ul>
+          </div>
+        </details>
+      </section>
+
+      <!-- 三、個人優勢與定位 -->
+      <section id="sec3" class="card">
+        <h2>三、個人優勢與市場定位</h2>
+        <details open>
+          <summary>3.1 特質與背景</summary>
+          <div class="content">
+            <ul>
+              <li>性格：外向社交、開放新事物、富同理心、做事有條理（偶有粗心）。</li>
+              <li>背景：<b>9年食品銷售</b>，對食材與供應鏈敏感，溝通與解決問題能力強。</li>
+              <li>改進：系統學習營養學/運動營養並取得資質；提升細節與時間管理。</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary>3.2 定位</summary>
+          <div class="content">
+            <p class="muted">定位關鍵字：<b>澳門</b>｜<b>增肌減脂</b>｜<b>創新實踐</b>｜<b>跨界融合</b>｜<b>情感連接</b>｜<b>可持續</b></p>
+            <div class="card" style="background:#f7f4ff">
+              <b>一句定位：</b>澳門增肌減脂飲食的<b>創新實踐者與跨界融合者</b>
+            </div>
+          </div>
+        </details>
+        <details>
+          <summary>3.3 核心價值主張</summary>
+          <div class="content">
+            <ul>
+              <li>基於營養與運動科學，提供<b>個性化、可持續</b>的方案。</li>
+              <li>以澳門飲食文化為抓手，提高<b>在地可執行性</b>與<b>堅持度</b>。</li>
+              <li>強調<b>生活平衡</b>與<b>全方位支持</b>（飲食×行為×心理）。</li>
+            </ul>
+          </div>
+        </details>
+      </section>
+
+      <!-- 四、商業模式設計 -->
+      <section id="sec4" class="card">
+        <h2>四、商業模式設計與開發</h2>
+        <details open>
+          <summary>4.1 服務與產品線</summary>
+          <div class="content">
+            <ul>
+              <li><b>基礎：</b>個人評估｜個性化餐單｜1v1指導｜效果跟蹤。</li>
+              <li><b>進階：</b>工作坊｜企業健康計畫｜人群專屬課程｜跨境健康之旅。</li>
+              <li><b>增值：</b>電子食譜｜健康食材包｜補劑建議｜生活指南。</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary>4.2 定價策略與盈利模型</summary>
+          <div class="content">
+            <p>分級定價參考：入門 <b>500–1000</b> MOP/月｜進階 <b>1500–3000</b> MOP/月｜VIP <b>3000–5000+</b> MOP/月；初期以親民價獲取口碑。</p>
+            <p>盈利來源：服務費＋產品銷售＋平臺分成＋授權加盟＋企業合作。</p>
+          </div>
+        </details>
+        <details>
+          <summary>4.3 客戶獲取與交付</summary>
+          <div class="content">
+            <ul>
+              <li>獲取：內容行銷｜口碑推薦｜跨界合作｜線下活動｜限時優惠。</li>
+              <li>交付：線上線下結合｜個性化定制｜社群運營｜APP/可穿戴資料跟蹤｜標準化流程。</li>
+              <li>客戶旅程：認知→評估→購買→服務→評估調整→維護→推薦。</li>
+            </ul>
+          </div>
+        </details>
+      </section>
+
+      <!-- 五、內容策略 -->
+      <section id="sec5" class="card">
+        <h2>五、內容創作與傳播策略（澳門語境）</h2>
+        <details open>
+          <summary>5.1 短視頻主題與形式</summary>
+          <div class="content">
+            <ul>
+              <li><b>知識科普：</b>原理、誤區、熱量與計算。</li>
+              <li><b>實用技巧：</b>5分鐘早餐、辦公室點餐指南、茶餐廳“走醬/走糖”。</li>
+              <li><b>案例分享：</b>在地客戶蛻變記。</li>
+              <li><b>文化融合：</b>澳門小吃健康吃法、特色食材營養。</li>
+              <li><b>生活方式：</b>壓力/睡眠與體重管理。</li>
+              <li><b>互動挑戰：</b>7天飲食挑戰、辦公室打卡。</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary>5.2 創作與發佈計畫</summary>
+          <div class="content">
+            <ul>
+              <li>初期：儲備10–15條；0–3月每週3–4條；4–6月每週2–3條；後續根據資料優化。</li>
+              <li>多平臺分發：抖音｜視頻號｜小紅書，按平臺偏好做輕定制。</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary>5.3 互動與社群運營</summary>
+          <div class="content">
+            <ul>
+              <li>及時回復、問題引導、話題挑戰、定期直播、用戶共創。</li>
+              <li>社群分層、線上線下活動、獨家內容與優惠、培養意見領袖。</li>
+              <li>粉絲轉化：鉤子設計→免費福利→低價體驗→價值展示→社群沉澱。</li>
+            </ul>
+          </div>
+        </details>
+      </section>
+
+      <!-- 六、CRM -->
+      <section id="sec6" class="card">
+        <h2>六、客戶關係管理與服務優化</h2>
+        <details open>
+          <summary>6.1 客戶畫像與需求</summary>
+          <div class="content">
+            <p>按年齡/性別/目標/職業/健康狀況細分；核心需求涵蓋：減脂持久性、增肌效率、健康維護與慢病營養。</p>
+          </div>
+        </details>
+        <details>
+          <summary>6.2 個性化服務設計</summary>
+          <div class="content">
+            <ul>
+              <li>評估：體成分｜飲食與生活方式｜心理狀態｜文化背景。</li>
+              <li>方案：SMART目標｜餐單｜行為幹預｜心理支持｜階段性調整。</li>
+              <li>交付：1v1｜團體｜混合｜數位化｜文化適配。</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary>6.3 品質控制與反覆運算</summary>
+          <div class="content">
+            <ul>
+              <li>標準化流程與知識更新、滿意度評估、問題處理與風險管理。</li>
+              <li>持續優化：服務反覆運算｜培訓學習｜案例複盤｜跨界創新。</li>
+            </ul>
+          </div>
+        </details>
+      </section>
+
+      <!-- 七、擴展與規模化 -->
+      <section id="sec7" class="card">
+        <h2>七、擴展與規模化發展策略</h2>
+        <details open>
+          <summary>7.1 深耕澳門</summary>
+          <div class="content">
+            <ul>
+              <li>文化融合深化：將葡撻、豬扒包、牛雜等做<b>健康改良</b>示範。</li>
+              <li>社區融入與本地合作：餐廳/供應商/健身中心/政府專案聯動。</li>
+              <li>品牌建設：定位強化、品牌故事、體驗升級。</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary>7.2 向中國大陸擴展</summary>
+          <div class="content">
+            <p>進入模式（授權/合資/直營/混合）、文化/價格/政策適配、管道與行銷（社媒與KOL）。</p>
+          </div>
+        </details>
+        <details>
+          <summary>7.3 可持續增長</summary>
+          <div class="content">
+            <ul>
+              <li>模式優化與成本結構、規模效應、資源整合與價值鏈延伸。</li>
+              <li>團隊建設與激勵、知識管理、數位化與智慧化、社會責任。</li>
+            </ul>
+          </div>
+        </details>
+      </section>
+
+      <!-- 八、執行計畫與時間表 -->
+      <section id="sec8" class="card">
+        <h2>八、執行計畫與時間表</h2>
+        <div class="timeline">
+          <div class="tl"><div><span class="dot"></span>0–2個月</div><div>市場深研與資質獲取、完善商業計畫、洽談合作、組建團隊。</div></div>
+          <div class="tl"><div><span class="dot"></span>3–4個月</div><div>品牌定位與視覺、官網/社媒搭建、內容庫啟動、小規模試點。</div></div>
+          <div class="tl"><div><span class="dot"></span>5–6個月</div><div>線下活動、內容行銷、初始獲客、流程優化與模式驗證。</div></div>
+          <div class="tl"><div><span class="dot"></span>7–12個月</div><div>服務擴展與團隊擴編、品牌傳播、客戶增長、深耕澳門。</div></div>
+          <div class="tl"><div><span class="dot"></span>13–18個月</div><div>模式優化與技術深化、夥伴拓展、社區影響力提升。</div></div>
+          <div class="tl"><div><span class="dot"></span>19–36個月</div><div>確立澳門領先地位，標準化體系，向內地試點→全國佈局，生態構建與平臺升級。</div></div>
+        </div>
+      </section>
+
+      <!-- 九、結論與建議 -->
+      <section id="sec9" class="card">
+        <h2>九、結論與建議</h2>
+        <details open>
+          <summary>9.1 核心結論</summary>
+          <div class="content">
+            <ul>
+              <li>需求旺盛＋消費能力強＋政策導向，澳門具備良好賽道土壤。</li>
+              <li>差異化關鍵：<b>街坊文化 × 科學飲食</b> 的當地語系化與可持續實踐。</li>
+              <li>內容是增長飛輪，服務品質是留存基石。</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary>9.2 核心建議（立即/中期/長期）</summary>
+          <div class="content">
+            <ul>
+              <li><b>立即：</b>強化專業學習與認證、小規模試點、啟動內容、洽談合作、組建核心團隊。</li>
+              <li><b>中期：</b>明確品牌定位與價格帶、流程優化與模式驗證、加大內容與口碑。</li>
+              <li><b>長期：</b>深耕澳門、擴展內地、搭建數位化平臺與生態。</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary>9.3 實施保障與風險控制</summary>
+          <div class="content">
+            <p>組織/人才/資金/技術/資源保障；市場/技術/人才/財務/合規風險識別與預案。</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- 信息速覽表 -->
+      <section id="info" class="card">
+        <h2>二、信息速覽表（證據就近引用、澳門語境）</h2>
+        <table>
+          <tbody>
+          <tr><th>人物</th><td>洪 Dicken（外向、同理心；可持續價值觀）</td></tr>
+          <tr><th>行業/年資</th><td>食品銷售 9年；目標轉型“增肌減脂飲食顧問”</td></tr>
+          <tr><th>里程碑</th><td>① 9年銷售→洞察食材與市場；② 明確“以飲食改變人生與生活”；③ 創業目標確立</td></tr>
+          <tr><th>受眾</th><td>20歲以上；情緒目標：信任＋好奇</td></tr>
+          <tr><th>風格偏好</th><td>親和力、值得信賴；內容以真實日常＋在地場景（澳門街坊人情味）</td></tr>
+          <tr><th>禁區</th><td>絕對化承諾、誇大利潤/功效；平臺高危詞需替換</td></tr>
+          <tr><th>過往痛點</th><td>（需核實）缺少當地語系化飲食案例、鏡頭標準化方法</td></tr>
+          <tr><th>可驗證證據</th><td>人格特質/主資訊/受眾/價值觀來自問卷記錄；“街坊人情味＋4:4:2結構”來自澳門餐飲帳號方案</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 反差與人設 -->
+      <section id="persona" class="card">
+        <h2>反差線索與一句話人設</h2>
+        <details open>
+          <summary>反差線索（10條）</summary>
+          <div class="content">
+            <ul>
+              <li>愛吃澳門街頭美食｜卻做增肌減脂配方</li>
+              <li>食品銷售9年｜轉型科學飲食顧問</li>
+              <li>外向能聊｜方案克制有數字</li>
+              <li>茶餐廳常客｜熱量替代術講究</li>
+              <li>值得信賴的人設｜不賣神話只給步驟</li>
+              <li>澳門街坊語境｜國際化營養術語翻譯</li>
+              <li>同理心強｜也敢對“錯誤飲食”說不</li>
+              <li>崇尚可持續｜拒絕極端減脂</li>
+              <li>喜新體驗｜堅持熟悉日常可複製</li>
+              <li>目標創業｜先用內容做口碑背書</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary>一句話人設（≤28字，含適用場景）</summary>
+          <div class="content">
+            <ul>
+              <li><b>街坊美食裡找肌肉線條的飲食顧問</b>｜主頁簽名</li>
+              <li><b>會吃會練的澳門在地配餐師</b>｜視頻開場</li>
+              <li><b>不餓肚子的增肌減脂陪跑</b>｜直播間頂置</li>
+              <li><b>茶餐廳點單也能越吃越型</b>｜視頻開場</li>
+              <li><b>把人情味做成可堅持的餐單</b>｜主頁簽名</li>
+            </ul>
+          </div>
+        </details>
+      </section>
+
+      <!-- 標準定位成稿 -->
+      <section class="card">
+        <h2>標準定位成稿</h2>
+        <details open>
+          <summary>姓名或昵稱 & 個性特質</summary>
+          <div class="content">
+            <p><b>洪 Dicken（Dicken）</b></p>
+            <ul>
+              <li>外向社交、溝通順滑，具同理心；情緒穩定</li>
+              <li>對新體驗開放，偶有粗心；長期主義與可持續價值觀</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary>職業背景（時間線＋里程碑）</summary>
+          <div class="content">
+            <ul>
+              <li>食品銷售 9年（供應鏈/市場敏感度）</li>
+              <li>明確主資訊：用飲食改變人生與生活</li>
+              <li>目標：創業，轉型“增肌減脂飲食顧問”</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary>人設偏好與核心資訊（口頭禪/穿搭/道具/禁區/價值觀）</summary>
+          <div class="content">
+            <ul>
+              <li>期望感知：親和力、值得信賴；激發“信任＋好奇”</li>
+              <li>價值觀：可持續飲食，不極端、不內耗</li>
+              <li>視覺/穿搭：運動休閒＋街區色；場景：澳門茶餐廳/街頭</li>
+              <li>道具：便攜秤、分量餐盒、<i>澳門小吃熱量卡</i></li>
+              <li>禁區：承諾速成、極端熱量赤字</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary>人物標籤（10個｜含用途/吸引力說明）</summary>
+          <div class="content">
+            <ul>
+              <li><b>街坊飲食改造官：</b>標題/封面→本地可信入口</li>
+              <li><b>茶餐廳點單教練：</b>開場自報→常點餐“增肌/減脂版”</li>
+              <li><b>同理心營養顧問：</b>直播話術→少說教，先理解</li>
+              <li><b>可持續飲食宣導者：</b>封面→反PUA、可長期</li>
+              <li><b>澳門熱量換算員：</b>鉤子→用豬扒包/牛雜做示例</li>
+              <li><b>上班族備餐設計師：</b>直播→30分鐘搞定一周</li>
+              <li><b>科學吃與練翻譯官：</b>封面→術語譯成街坊話</li>
+              <li><b>家庭友好餐單策劃：</b>標題→全家可吃的輕負擔</li>
+              <li><b>資料感執行陪跑：</b>直播→秤重/打卡/複盤</li>
+              <li><b>在地口碑創業者：</b>開場→先做口碑再承接業務</li>
+            </ul>
+          </div>
+        </details>
+      </section>
+
+      <!-- 劇本建議 -->
+      <section id="scripts" class="card">
+        <h2>可直接開拍的劇本建議（鉤子｜論點｜鏡頭｜動作｜引導）</h2>
+        <details open>
+          <summary>街頭與茶餐廳實操</summary>
+          <div class="content">
+            <ul>
+              <li><b>豬扒包想吃不增脂？</b>｜代換與分量控制也能吃喜愛食物｜店門口熱量卡對比｜切半＋加蛋白｜評論“豬扒包”領代換清單</li>
+              <li><b>牛雜排隊不怕胖</b>｜點單順序＋湯底處理＝少油少鹽｜長隊第一視角｜先清後濃｜私信“牛雜”領打卡表</li>
+              <li><b>焗飯怎麼點更聰明？</b>｜主食/蛋白/纖維3:2:1｜餐桌俯拍＋秤重｜走醬示範｜@愛焗飯的朋友</li>
+              <li><b>一周三餐範本</b>｜範本更容易堅持｜檯面餐盒排布｜裝盒貼簽｜評論“範本”拿可列印版</li>
+              <li><b>逛街也能補蛋白</b>｜便利店清單｜貨架走拍｜挑揀實操｜轉發收藏</li>
+              <li><b>聚會不破功</b>｜蛋白優先＋喝水＋共用甜品｜圓桌分食｜點贊領“聚會三步走”</li>
+              <li><b>一碗面也能增肌</b>｜清湯＋加蛋＋走油｜廚房快切｜前後對比｜評論“麵條”領三種加蛋法</li>
+              <li><b>減脂與情緒</b>｜不挨餓的可持續策略｜口播＋稱重日記｜展示圍度優先｜關注領“無懼波動”講義</li>
+            </ul>
+          </div>
+        </details>
+      </section>
+
+      <!-- 主題系列選題庫 -->
+      <section id="themes" class="card">
+        <h2>主題系列選題庫＋首鏡頭與鉤子句（5×6）</h2>
+        <details open>
+          <summary>系列A｜茶餐廳點單“增肌/減脂版”</summary>
+          <div class="content">
+            <ul>
+              <li>焗飯｜“這份焗飯我少了幾百卡？”｜託盤近景＋秤｜替醬＋分量</li>
+              <li>咖喱類｜“咖喱怎麼點更友好？”｜勺起醬汁｜走油＋加蔬</li>
+              <li>西多士/奶茶｜“甜口黨如何不破功？”｜淋蜜對比｜半糖＋低脂奶</li>
+              <li>幹炒/湯粉面｜“同一碗面，吃法差很大”｜清湯vs濃湯｜先蛋白</li>
+              <li>燒味飯｜“三拼變二拼，再加一招”｜拼盤俯拍｜去皮＋半飯</li>
+              <li>套餐思路｜“3:2:1點單法”｜菜單指點｜從主食倒推蛋白</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary>系列B｜街坊小吃“代換術”</summary>
+          <div class="content">
+            <ul>
+              <li>豬扒包｜“切半＋加走步”｜手持店外｜示範分量</li>
+              <li>牛雜｜“清湯先行的點單順序”｜排隊跟拍｜去肥留味</li>
+              <li>焗土司/奶茶｜“甜香不減的替代”｜攪拌對比｜半糖＋低脂奶</li>
+              <li>炸物拼盤｜“空氣炸鍋在家複刻”｜廚房演示｜改炸法</li>
+              <li>宵夜｜“淩晨也能友好一點”｜夜景｜先蛋白再主食</li>
+              <li>節慶/手信｜“伴手禮熱量地圖”｜平鋪拍｜分食＋留份</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary>系列C｜一周可持續餐單（範本優先）</summary>
+          <div class="content">
+            <ul>
+              <li>3天範本｜“先從3天做起”｜餐盒排布｜範本可下載</li>
+              <li>通勤早餐｜“5分鐘蛋白＋纖維”｜檯面快拍｜三選一</li>
+              <li>家庭共用晚餐｜“一家都能吃”｜圓桌｜大盤分配</li>
+              <li>外食午餐｜“就近選擇清單”｜地圖屏錄｜清單化</li>
+              <li>週末放鬆｜“放開吃的邊界”｜甜品分食｜不自責</li>
+              <li>複盤日｜“一周複盤三問題”｜手寫記錄｜圍度先於體重</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary>系列D｜科學吃與練（街區輕運動）</summary>
+          <div class="content">
+            <ul>
+              <li>上坡路快走｜“10分鐘就有效”｜街區走拍｜餐後</li>
+              <li>彈力帶訓練｜“小器械也夠”｜室內演示｜3組迴圈</li>
+              <li>拉伸放鬆｜“堅持比強度更重要”｜地墊｜3動作</li>
+              <li>喝水/睡眠｜“停滯期關鍵”｜水杯/眼罩｜作息表</li>
+              <li>補劑觀｜“何時需要蛋白粉？”｜搖搖杯｜場景判斷</li>
+              <li>步數與餐量｜“動多能多吃？”｜計步器｜原則化</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary>系列E｜情緒與飲食（不PUA）</summary>
+          <div class="content">
+            <ul>
+              <li>體重波動｜“1–2kg很正常”｜秤/軟尺｜圍度優先</li>
+              <li>外界評價｜“別把餐單變人設”｜街拍口播｜做自己</li>
+              <li>應激進食｜“三步自救”｜卡片書寫｜冷靜後再點餐</li>
+              <li>平臺流言｜“只談可複製”｜評論截圖｜資料說話</li>
+              <li>複食期｜“如何回到正常量”｜餐盤排布｜逐步增加</li>
+              <li>小目標｜“連續七天打卡”｜手機介面｜群內互認</li>
+            </ul>
+          </div>
+        </details>
+      </section>
+
+      <!-- 質檢與平臺適配 -->
+      <section id="qa" class="card">
+        <h2>質檢與平臺適配（合規替換）</h2>
+        <details open>
+          <summary>可信-反差-落地打分</summary>
+          <div class="content">
+            <ul>
+              <li><b>可信 4/5：</b>信息與動機來自問卷；需補體測資料（建議開放匿名打卡樣本）。</li>
+              <li><b>反差 4.5/5：</b>“街坊美食 × 科學飲食”記憶點強（每條片固定一個在地錨點詞）。</li>
+              <li><b>落地 4/5：</b>4:4:2結構＋本地場景即可開拍（先做7天存量，執行“7連更/隔日更”）。</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary>平臺適配與高危詞替代表達</summary>
+          <div class="content">
+            <ul>
+              <li><b>抖音：</b>三秒鉤子：“澳門××能這樣吃？”；結尾“關鍵字領取清單”。</li>
+              <li><b>視頻號：</b>重“信任＋複盤”，每週1條範本複盤＋1條在地示範。</li>
+              <li><b>小紅書：</b>圖文+視頻，“前後對比/三步法/可下載範本”。</li>
+            </ul>
+            <p><b>合規替換：</b>“保證瘦/穩賺/內幕/保本/財務自由”→“更穩妥/更友好/經驗總結/風控做法/長期更可持續”；“三天暴瘦/快速清脂”→“短期水分波動/階段性圍度優化”；“私信我加微信”→“按主頁指引領取清單/進群說明”。</p>
+          </div>
+        </details>
+        <details>
+          <summary>加速包：3條立刻開拍</summary>
+          <div class="content">
+            <ol>
+              <li><b>《澳門豬扒包的“半份幸福”》</b>｜鉤子：“切半＋加蛋白，也能很滿足。”｜鏡頭：店外手持＋便攜秤＋步數｜動作：稱重→切半→加雞胸/雞蛋｜引導：評論“豬扒包”領清單</li>
+              <li><b>《茶餐廳焗飯“走醬版”》</b>｜鉤子：“走一半醬，比你想像更友好。”｜鏡頭：餐台俯拍｜動作：標準vs走醬同框｜引導：評論“焗飯”領點單卡</li>
+              <li><b>《牛雜排隊不破功》</b>｜鉤子：“清湯先行，口味不減、負擔更小。”｜鏡頭：排隊跟拍｜動作：點單順序演示｜引導：評論“牛雜”領“三步走”</li>
+            </ol>
+          </div>
+        </details>
+      </section>
+
+         <section id="images" class="card">
+        <h2>馬上聯繫我們，為您開啟專屬定制</h2>
+        <p class="note">以下為公域與私域介紹 <span class="kbd"> </span> 與 <span class="kbd"> </span>。</p>
+        <div class="image-stack">
+          <img src="https://p9-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/ab9ac614600b4d6bab5ce6099b5cd945.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&x-expires=1786176241&x-signature=TOlUkuLzyvvrbn3DXWJUxsQjzrs%3D&x-wf-file_name=%E5%85%AC%E5%9F%9F.jpg" alt="公域圖片" loading="lazy" />
+          <img src="https://p3-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/522ab5e32bf54ba0b2ccc9cc78470cd9.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&x-expires=1786176244&x-signature=EZ2mHPBdJ7gK7Oka9%2B87jX5ClZE%3D&x-wf-file_name=a0d9b4d4a5963de6a5b98c77cde476c.jpg" alt="圖片2" loading="lazy" />
+        </div>
+      </section>
+
+      <footer>
+        <div class="container">
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <span class="pill">Made for 澳門｜獨角獸</span>
+            <span class="note">提示：使用頂部“展開全部”可快速展開全文；支援錨點跳轉與閱讀進度條。</span>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </div>
 
   <script>
-    // 阅读进度
+    // 閱讀進度
     const bar = document.getElementById('progress');
     document.addEventListener('scroll', () => {
       const h = document.documentElement;
@@ -805,83 +723,25 @@
       bar.style.transform = `scaleX(${scrolled})`;
     });
 
-    // 目录高亮
-    const tocLinks = [...document.querySelectorAll('#toc a')];
-    const spyLinks = [...document.querySelectorAll('#spy a')];
-    const allNavLinks = [...new Set([...tocLinks, ...spyLinks])];
-    const sections = allNavLinks.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    // 目錄高亮
+    const links = [...document.querySelectorAll('#toc a')];
+    const sections = links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
     const io = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if(e.isIntersecting){
-          allNavLinks.forEach(l=>l.classList.remove('active'));
+          links.forEach(l=>l.classList.remove('active'));
           const id = '#' + e.target.id;
-          const match = allNavLinks.filter(l=>l.getAttribute('href')===id);
-          match.forEach(m=>m.classList.add('active'));
-          const spyWrap = document.getElementById('spy');
-          const activeSpy = [...document.querySelectorAll('#spy a')].find(a=>a.getAttribute('href')===id);
-          if(spyWrap && activeSpy){
-            const left = activeSpy.offsetLeft - (spyWrap.clientWidth - activeSpy.clientWidth)/2;
-            spyWrap.scrollTo({left:Math.max(left,0), behavior:'smooth'});
-          }
+          const link = links.find(l=>l.getAttribute('href')===id);
+          if(link) link.classList.add('active');
         }
       })
-    },{rootMargin:'-55% 0px -40% 0px',threshold:[0,1]});
+    },{rootMargin:'-50% 0px -40% 0px',threshold:[0,1]});
     sections.forEach(s=>io.observe(s));
 
-    // 展开全部 details
-    const expandBtn = document.getElementById('expandAll');
-    if(expandBtn){
-      expandBtn.addEventListener('click',()=>{
-        document.querySelectorAll('details').forEach(d=>d.open=true);
-      });
-    }
-    const toTopBtn = document.getElementById('toTop');
-    if(toTopBtn){ toTopBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'})); }
-      // Drawer interactions
-    const menuBtn = document.getElementById('menuBtn');
-    const drawer = document.getElementById('drawer');
-    const mask = document.getElementById('drawerMask');
-    function openDrawer(){ document.documentElement.classList.add('drawer-open'); }
-    function closeDrawer(){ document.documentElement.classList.remove('drawer-open'); }
-    if(menuBtn){ menuBtn.addEventListener('click',openDrawer); }
-    if(mask){ mask.addEventListener('click',closeDrawer); }
-    document.querySelectorAll('.drawer .list a').forEach(a=>{
-      a.addEventListener('click',()=>{ closeDrawer(); });
+    // 展開全部 details
+    document.getElementById('expandAll').addEventListener('click',()=>{
+      document.querySelectorAll('details').forEach(d=>d.open=true);
     });
-    // === 抽屉目录交互（移动端可滚动） ===
-    const menuBtn = document.getElementById('menuBtn');
-    const drawer = document.getElementById('drawer');
-    const mask = document.getElementById('drawerMask');
-    const toTopBtn = document.getElementById('toTop');
-    function openDrawer(){ document.body.classList.add('drawer-open'); }
-    function closeDrawer(){ document.body.classList.remove('drawer-open'); }
-    if(menuBtn){ menuBtn.addEventListener('click', openDrawer); }
-    if(mask){ mask.addEventListener('click', closeDrawer); }
-    if(drawer){
-      drawer.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDrawer(); });
-      drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click', closeDrawer));
-    }
-    if(toTopBtn){ toTopBtn.addEventListener('click', ()=>window.scrollTo({top:0,behavior:'smooth'})); }
   </script>
-<script>
-  // 兜底交互綁定與初始位置處理
-  (function(){
-    try{ if('scrollRestoration' in history){ history.scrollRestoration='manual'; } }catch(e){}
-    if(!location.hash){ window.scrollTo(0,0); }
-    var menuBtn = document.getElementById('menuBtn');
-    var drawer = document.getElementById('drawer');
-    var mask = document.getElementById('drawerMask');
-    var toTopBtn = document.getElementById('toTop');
-    function openDrawer(){ document.body.classList.add('drawer-open'); }
-    function closeDrawer(){ document.body.classList.remove('drawer-open'); }
-    if(menuBtn){ menuBtn.addEventListener('click', openDrawer); }
-    if(mask){ mask.addEventListener('click', closeDrawer); }
-    if(drawer){
-      var links = drawer.querySelectorAll('a');
-      for(var i=0;i<links.length;i++){ links[i].addEventListener('click', closeDrawer); }
-    }
-    if(toTopBtn){ toTopBtn.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); }); }
-  })();
-</script>
 </body>
 </html>
