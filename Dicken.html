@@ -172,6 +172,14 @@
   .bar{display:flex;align-items:center;gap:12px;height:var(--navH)}
   .brand-title{flex:1 1 auto;min-width:0;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#3d3756}
   body{ padding-top: calc(var(--navH) + env(safe-area-inset-top)) } .actions{margin-left:auto;display:flex;gap:8px;align-items:center}
+    /* ===== Drawer（移动端目录抽屉，支持滚动） ===== */
+    .drawer-mask{ position:fixed; inset:0; background:rgba(0,0,0,.25); backdrop-filter:blur(2px); opacity:0; pointer-events:none; transition:.2s; z-index:110 }
+    .drawer{ position:fixed; right:0; top:0; width:min(86vw,360px); height:100dvh; background:#fff; border-left:1px solid var(--border); transform:translateX(100%); transition:transform .25s cubic-bezier(.2,.7,.2,1); z-index:130; display:flex; flex-direction:column; padding-top:calc(env(safe-area-inset-top) + var(--navH) + 8px) }
+    .drawer .list{ flex:1 1 auto; overflow:auto; -webkit-overflow-scrolling:touch; padding:14px }
+    .drawer .list a{ display:block; padding:12px 14px; border-radius:12px; border:1px solid var(--border); margin-bottom:10px; color:#3d3756; background:#fbfaff }
+    body.drawer-open .drawer{ transform:translateX(0) }
+    body.drawer-open .drawer-mask{ opacity:1; pointer-events:auto }
+    body.drawer-open{ overflow:hidden }
   </style>
 </head>
 <body>
@@ -741,6 +749,27 @@
       </footer>
     </main>
   </div>
+  <!-- 抽屉导航（可滚动） -->
+  <div class="drawer-mask" id="drawerMask"></div>
+  <nav class="drawer" id="drawer" aria-label="页面目录">
+    <div class="list">
+      <a href="#sec1">一、專案背景與研究概述</a>
+      <a href="#sec2">二、澳門市場分析</a>
+      <a href="#sec3">三、個人優勢與定位</a>
+      <a href="#sec4">四、商業模式設計</a>
+      <a href="#sec5">五、內容創作與傳播</a>
+      <a href="#sec6">六、客戶關係管理</a>
+      <a href="#sec7">七、擴展與規模化</a>
+      <a href="#sec8">八、執行計畫與時間表</a>
+      <a href="#sec9">九、結論與建議</a>
+      <a href="#info">信息速覽表</a>
+      <a href="#persona">人設與標籤</a>
+      <a href="#scripts">劇本建議</a>
+      <a href="#themes">主題系列選題庫</a>
+      <a href="#qa">質檢與平臺適配</a>
+      <a href="#images">公域與私域介紹</a>
+    </div>
+  </nav>
 
   <!-- Drawer for Mobile Navigation -->
   <div class="drawer-mask" id="drawerMask"></div>
@@ -816,6 +845,20 @@
     document.querySelectorAll('.drawer .list a').forEach(a=>{
       a.addEventListener('click',()=>{ closeDrawer(); });
     });
+    // === 抽屉目录交互（移动端可滚动） ===
+    const menuBtn = document.getElementById('menuBtn');
+    const drawer = document.getElementById('drawer');
+    const mask = document.getElementById('drawerMask');
+    const toTopBtn = document.getElementById('toTop');
+    function openDrawer(){ document.body.classList.add('drawer-open'); }
+    function closeDrawer(){ document.body.classList.remove('drawer-open'); }
+    if(menuBtn){ menuBtn.addEventListener('click', openDrawer); }
+    if(mask){ mask.addEventListener('click', closeDrawer); }
+    if(drawer){
+      drawer.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDrawer(); });
+      drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click', closeDrawer));
+    }
+    if(toTopBtn){ toTopBtn.addEventListener('click', ()=>window.scrollTo({top:0,behavior:'smooth'})); }
   </script>
 </body>
 </html>
