@@ -149,29 +149,12 @@
 
     /* Mobile tweaks */
     @media (max-width:980px){
-      :root{ --navH:60px }
-      .hide-sm{ display:none }
-      .show-sm{ display:inline-grid }
-      .brand-title{ font-size:14px }
-      .toc{ top:calc(var(--navH) + 8px) }
-      .hero{ padding-top:56px }
+      .container{padding:0 14px}
+      .hero{ padding: calc(var(--navH) + 8px) 0 56px }
+      header .container.nav, header .badge, header .cta{ display:none !important }
+      .spy{ display:none !important }
+      .toc{ display:none }
     }
-
-    @media (max-width:640px){
-      :root{ --navH:56px }
-      .title{ font-size:28px }
-    }
-    /* ===== Appbar（移動端重構）===== */
-    :root{ --navH: 92px }
-    header.appbar{ position:sticky; top:0; z-index:80; padding-top:env(safe-area-inset-top); background:linear-gradient(to bottom, #ffffffee 30%, #ffffffcc 100%); border-bottom:1px solid var(--border); backdrop-filter:saturate(180%) blur(12px) }
-    header.appbar .bar{ height:56px; display:flex; align-items:center; gap:12px }
-    .brand-title{ flex:1 1 auto; min-width:0; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:#3d3756 }
-    .icon-btn{ appearance:none; border:1px solid var(--border); background:var(--primary-700); color:#fff; border-radius:12px; width:40px; height:40px; display:grid; place-items:center; box-shadow:0 6px 18px rgba(139,92,246,.14) }
-    .icon-btn svg{ display:block }
-
-    /* 置頂分段導航（隨頁同步） */
-    .spy{ display:none; gap:8px; overflow-x:auto; padding:8px 10px; border-top:1px solid var(--border); background:#fff9; backdrop-filter:blur(10px) }
-    .spy a{ flex:0 0 auto; padding:8px 12px; border-radius:999px; border:1px solid var(--border); background:#fff; color:#3d3756; font-size:13px }
     .spy a.active{ background:var(--primary); border-color:#d8ccff; font-weight:700 }
 
     /* Sticky offset & hero 顶部留白 */
@@ -190,34 +173,13 @@
 <body>
   <div class="progress" id="progress"></div>
   <header class="appbar">
-    <div class="container bar">
-      <button class="icon-btn" id="toTop" aria-label="回到頂部" title="回到頂部">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 5l-6 6m6-6l6 6" stroke="#6b43da" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-      <div class="brand-title">飲食改變人生 · 澳門增肌減脂飲食顧問</div>
-      <a href="#info" class="icon-btn" aria-label="跳到信息速覽表" title="信息速覽表">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
-      </a>
-    </div>
-    <!-- 移動端置頂分段導航（隨頁同步） -->
-    <nav class="spy" id="spy">
-      <a href="#sec1">概述</a>
-      <a href="#sec2">市場</a>
-      <a href="#sec3">定位</a>
-      <a href="#sec4">商業</a>
-      <a href="#sec5">內容</a>
-      <a href="#sec6">CRM</a>
-      <a href="#sec7">擴展</a>
-      <a href="#sec8">時間表</a>
-      <a href="#sec9">結論</a>
-      <a href="#info">速覽表</a>
-      <a href="#persona">人設</a>
-      <a href="#scripts">劇本</a>
-      <a href="#themes">選題</a>
-      <a href="#qa">質檢</a>
-      <a href="#images">圖片</a>
-    </nav>
-  </header>
+  <div class="container bar">
+    <button class="icon-btn" id="menuBtn" aria-label="打开目录" title="目录">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+    <div class="brand-title">饮食改变人生 · 澳门增肌减脂饮食顾问</div>
+  </div>
+</header>
 
   <section class="hero">
     <div class="bg-blob"></div>
@@ -805,25 +767,35 @@
     // 目录高亮
     const tocLinks = [...document.querySelectorAll('#toc a')];
     const spyLinks = [...document.querySelectorAll('#spy a')];
-    const allNavLinks = [...new Set([...tocLinks, ...spyLinks])];)];
- const sections = allNavLinks.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);..tocLinks, ...spyLinks])];
-    const sections = links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const allNavLinks = [...new Set([...tocLinks, ...spyLinks])];
+    const sections = allNavLinks.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
     const io = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if(e.isIntersecting){
-          links.forEach(l=>l.classList.remove('active'));
+          allNavLinks.forEach(l=>l.classList.remove('active'));
           const id = '#' + e.target.id;
-          const link = links.find(l=>l.getAttribute('href')===id);
-          if(link) link.classList.add('active');
+          const match = allNavLinks.filter(l=>l.getAttribute('href')===id);
+          match.forEach(m=>m.classList.add('active'));
+          const spyWrap = document.getElementById('spy');
+          const activeSpy = [...document.querySelectorAll('#spy a')].find(a=>a.getAttribute('href')===id);
+          if(spyWrap && activeSpy){
+            const left = activeSpy.offsetLeft - (spyWrap.clientWidth - activeSpy.clientWidth)/2;
+            spyWrap.scrollTo({left:Math.max(left,0), behavior:'smooth'});
+          }
         }
       })
-    },{rootMargin:'-50% 0px -40% 0px',threshold:[0,1]});
+    },{rootMargin:'-55% 0px -40% 0px',threshold:[0,1]});
     sections.forEach(s=>io.observe(s));
 
     // 展开全部 details
-    document.getElementById('expandAll').addEventListener('click',()=>{
-      document.querySelectorAll('details').forEach(d=>d.open=true);
-    });
+    const expandBtn = document.getElementById('expandAll');
+    if(expandBtn){
+      expandBtn.addEventListener('click',()=>{
+        document.querySelectorAll('details').forEach(d=>d.open=true);
+      });
+    }
+    const toTopBtn = document.getElementById('toTop');
+    if(toTopBtn){ toTopBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'})); }
       // Drawer interactions
     const menuBtn = document.getElementById('menuBtn');
     const drawer = document.getElementById('drawer');
