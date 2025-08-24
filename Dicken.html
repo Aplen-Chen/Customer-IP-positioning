@@ -7,6 +7,7 @@
   <meta name="format-detection" content="telephone=no,email=no,address=no" />
   <title>飲食改變人生｜澳門增肌減脂飲食顧問：市場研究與商業規劃</title>
   <meta name="description" content="以澳門文化為底色的增肌減脂飲食顧問IP定位、市場研究、商業模式與內容傳播全鏈路方案。" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root{
       --primary: #c7b7ff;            /* 淡紫主題 */
@@ -102,6 +103,62 @@
     .kbd{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;background:#f3f0ff;border:1px solid var(--border);padding:2px 6px;border-radius:6px}
     .pill{padding:4px 8px;border-radius:999px;background:#efe9ff;color:#6b43da;font-weight:700;font-size:12px}
     .progress{position:fixed;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--primary-700),#d8b4fe);transform-origin:0% 50%;transform:scaleX(0);z-index:100}
+    
+    /* 底部导航栏 - 移动设备专用 */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--card-strong);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border);
+      z-index: 40;
+      padding: 10px 0;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    .mobile-nav-inner {
+      display: flex;
+      justify-content: space-around;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    .mobile-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--ink-2);
+      text-decoration: none;
+      font-size: 11px;
+      padding: 5px 8px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      width: 20%;
+      text-align: center;
+    }
+    
+    .mobile-nav-item i {
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+    
+    .mobile-nav-item.active {
+      color: var(--primary-700);
+      background: rgba(139, 92, 246, 0.08);
+    }
+    
+    .mobile-nav-item:hover {
+      background: rgba(139, 92, 246, 0.05);
+    }
+
+    /* 内容底部留白，避免被导航栏遮挡 */
+    .content-spacer {
+      height: 80px;
+    }
+
     /* ======= Mobile Adaptation (iOS/Android) ======= */
     html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
     body, p, li, td, th{ word-break:break-word; hyphens:auto }
@@ -113,10 +170,14 @@
       .subtitle{font-size:15px}
       .card{padding:16px}
       .chip{font-size:12px;padding:6px 10px}
-      .toc{position:sticky; top:72px; display:flex; gap:8px; flex-wrap:nowrap; overflow-x:auto; padding:10px; border-radius:12px; background:var(--card-strong)}
-      .toc h4{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0)}
-      .toc a{flex:0 0 auto; white-space:nowrap; border:1px solid var(--border); background:#fff; margin-right:6px}
-      table{display:block; overflow-x:auto}
+      /* 隐藏传统目录，改用底部导航 */
+      .toc {
+        display: none;
+      }
+      .mobile-nav {
+        display: block;
+      }
+      table{display:block;overflow-x:auto}
       th,td{padding:10px 8px}
       .btn{padding:12px 14px}
       .badge {display:none;} /* 在中等屏幕隐藏徽章 */
@@ -130,7 +191,6 @@
       .cta .btn{flex:1 1 140px}
       .timeline{gap:10px}
       .tl{grid-template-columns:96px 1fr}
-      .toc{top:64px}
       .nav-actions {gap:8px;}
       .btn {padding:10px 12px; font-size:14px;}
     }
@@ -182,7 +242,7 @@
   </section>
 
   <div class="container grid">
-    <!-- 目錄 -->
+    <!-- 目錄 - 在移动设备上隐藏 -->
     <aside class="toc" id="toc">
       <h4>導航</h4>
       <a href="#sec1">一、專案背景與研究概述</a>
@@ -703,6 +763,9 @@
         </div>
       </section>
 
+      <!-- 内容底部留白，避免被导航栏遮挡 -->
+      <div class="content-spacer"></div>
+
       <footer>
         <div class="container">
           <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
@@ -714,6 +777,32 @@
     </main>
   </div>
 
+  <!-- 移动设备底部导航栏 -->
+  <nav class="mobile-nav">
+    <div class="mobile-nav-inner">
+      <a href="#sec1" class="mobile-nav-item" data-section="sec1">
+        <i class="fas fa-file-alt"></i>
+        <span>背景</span>
+      </a>
+      <a href="#sec2" class="mobile-nav-item" data-section="sec2">
+        <i class="fas fa-chart-pie"></i>
+        <span>市場</span>
+      </a>
+      <a href="#sec3" class="mobile-nav-item" data-section="sec3">
+        <i class="fas fa-user"></i>
+        <span>定位</span>
+      </a>
+      <a href="#scripts" class="mobile-nav-item" data-section="scripts">
+        <i class="fas fa-film"></i>
+        <span>劇本</span>
+      </a>
+      <a href="#images" class="mobile-nav-item" data-section="images">
+        <i class="fas fa-info-circle"></i>
+        <span>聯繫</span>
+      </a>
+    </div>
+  </nav>
+
   <script>
     // 閱讀進度
     const bar = document.getElementById('progress');
@@ -723,7 +812,7 @@
       bar.style.transform = `scaleX(${scrolled})`;
     });
 
-    // 目錄高亮
+    // 目錄高亮 - 桌面版
     const links = [...document.querySelectorAll('#toc a')];
     const sections = links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
     const io = new IntersectionObserver(entries => {
@@ -733,6 +822,9 @@
           const id = '#' + e.target.id;
           const link = links.find(l=>l.getAttribute('href')===id);
           if(link) link.classList.add('active');
+          
+          // 更新移动导航高亮
+          updateMobileNavActive(e.target.id);
         }
       })
     },{rootMargin:'-50% 0px -40% 0px',threshold:[0,1]});
@@ -742,6 +834,37 @@
     document.getElementById('expandAll').addEventListener('click',()=>{
       document.querySelectorAll('details').forEach(d=>d.open=true);
     });
+
+    // 移动导航相关功能
+    function updateMobileNavActive(sectionId) {
+      const mobileItems = document.querySelectorAll('.mobile-nav-item');
+      mobileItems.forEach(item => {
+        if (item.getAttribute('data-section') === sectionId) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+    }
+
+    // 为移动导航项添加点击动画
+    const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+    mobileNavItems.forEach(item => {
+      item.addEventListener('click', function() {
+        // 添加点击效果
+        this.classList.add('active');
+        setTimeout(() => {
+          this.classList.remove('active');
+          // 延迟后重新设置当前激活项
+          updateMobileNavActive(this.getAttribute('data-section'));
+        }, 300);
+      });
+    });
+
+    // 初始设置第一个导航项为激活状态
+    if (mobileNavItems.length > 0) {
+      mobileNavItems[0].classList.add('active');
+    }
   </script>
 </body>
 </html>
