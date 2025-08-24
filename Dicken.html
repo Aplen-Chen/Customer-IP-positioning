@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#c7b7ff" />
+  <meta name="format-detection" content="telephone=no,email=no,address=no" />
   <title>飲食改變人生｜澳門增肌減脂飲食顧問：市場研究與商業規劃</title>
   <meta name="description" content="以澳門文化為底色的增肌減脂飲食顧問IP定位、市場研究、商業模式與內容傳播全鏈路方案。" />
   <style>
@@ -99,6 +101,34 @@
     .kbd{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;background:#f3f0ff;border:1px solid var(--border);padding:2px 6px;border-radius:6px}
     .pill{padding:4px 8px;border-radius:999px;background:#efe9ff;color:#6b43da;font-weight:700;font-size:12px}
     .progress{position:fixed;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--primary-700),#d8b4fe);transform-origin:0% 50%;transform:scaleX(0);z-index:100}
+    /* ======= Mobile Adaptation (iOS/Android) ======= */
+    html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+    body, p, li, td, th{ word-break:break-word; hyphens:auto }
+    img{ max-width:100%; height:auto }
+
+    @media (max-width: 980px){
+      .container{padding:0 14px}
+      .title{font-size:34px}
+      .subtitle{font-size:15px}
+      .card{padding:16px}
+      .chip{font-size:12px;padding:6px 10px}
+      .toc{position:sticky; top:72px; display:flex; gap:8px; flex-wrap:nowrap; overflow-x:auto; padding:10px; border-radius:12px; background:var(--card-strong)}
+      .toc h4{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0)}
+      .toc a{flex:0 0 auto; white-space:nowrap; border:1px solid var(--border); background:#fff; margin-right:6px}
+      table{display:block; overflow-x:auto}
+      th,td{padding:10px 8px}
+      .btn{padding:12px 14px}
+    }
+
+    @media (max-width: 640px){
+      .title{font-size:28px}
+      .nav{height:60px}
+      .cta{gap:8px}
+      .cta .btn{flex:1 1 140px}
+      .timeline{gap:10px}
+      .tl{grid-template-columns:96px 1fr}
+      .toc{top:64px}
+    }
   </style>
 </head>
 <body>
@@ -106,10 +136,10 @@
   <header>
     <div class="container nav">
       <div class="brand">
-        <span class="pill">獨角獸</span>
+        <span class="pill">淡紫主題</span>
         <span>飲食改變人生 · 澳門增肌減脂飲食顧問</span>
       </div>
-      <span class="badge">專業打造屬於您的IP定位</span>
+      <span class="badge">Apple風｜輕盈交互｜科技感</span>
       <div style="margin-left:auto" class="cta">
         <button class="btn btn-ghost" id="expandAll">展開全部</button>
         <a href="#info" class="btn btn-primary">跳到信息速覽表</a>
@@ -650,8 +680,8 @@
 
       <!-- 附圖：兩張圖片必須完整顯示 -->
       <section id="images" class="card">
-        <h2>馬上聯繫我們，開啟為您制定詳細策略</h2>
-        <p class="note">公域與私域介紹 <span class=" </span> 與 <span class="kbd"> </span>  。</p>
+        <h2>附：圖片（完整顯示，不裁切）</h2>
+        <p class="note">以下為使用者提供的兩張圖片連結，已放置在最底部並設置 <span class="kbd">object-fit:contain</span> 與 <span class="kbd">height:auto</span> 確保不被裁切、不變形。</p>
         <div class="image-stack">
           <img src="https://p9-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/ab9ac614600b4d6bab5ce6099b5cd945.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&x-expires=1786176241&x-signature=TOlUkuLzyvvrbn3DXWJUxsQjzrs%3D&x-wf-file_name=%E5%85%AC%E5%9F%9F.jpg" alt="公域圖片" loading="lazy" />
           <img src="https://p3-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/522ab5e32bf54ba0b2ccc9cc78470cd9.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&x-expires=1786176244&x-signature=EZ2mHPBdJ7gK7Oka9%2B87jX5ClZE%3D&x-wf-file_name=a0d9b4d4a5963de6a5b98c77cde476c.jpg" alt="圖片2" loading="lazy" />
@@ -661,8 +691,8 @@
       <footer>
         <div class="container">
           <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-            <span class="pill">Made for 澳門｜獨角獸</span>
-            <span class="note">相信獨角獸給自己一個改變的機會。</span>
+            <span class="pill">Made for 澳門｜淡紫主題</span>
+            <span class="note">提示：使用頂部“展開全部”可快速展開全文；支援錨點跳轉與閱讀進度條。</span>
           </div>
         </div>
       </footer>
