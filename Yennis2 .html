@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>澳門金融保險經理 Yennis 個人 IP 打造方案 · 交互增強版</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    /* =============================
+       設計系統 · 變數與基礎樣式
+       ============================= */
+    :root {
+      --bg: #f6f7fb;
+      --surface: #ffffff;
+      --surface-2: rgba(255, 255, 255, 0.6);
+      --text: #1f2330;
+      --muted: #6b7280;
+      --brand: #7c3aed; /* 紫色主色 */
+      --brand-2: #9b59f6;
+      --accent: #22d3ee; /* 青色點綴 */
+      --border: #e5e7eb;
+      --shadow: 0 10px 25px rgba(17, 24, 39, 0.08);
+      --radius: 16px;
+      --radius-sm: 12px;
+      --radius-lg: 24px;
+      --blur: blur(12px);
+    }
+
+    [data-theme="dark"] {
+      --bg: #0b0e14;
+      --surface: #0f1420;
+      --surface-2: rgba(16, 20, 32, 0.65);
+      --text: #e6e7eb;
+      --muted: #a7b0c0;
+      --brand: #9b59f6;
+      --brand-2: #7c3aed;
+      --accent: #22d3ee;
+      --border: #1f2430;
+      --shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "PingFang SC", "Microsoft YaHei", Arial, "Noto Sans SC", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 100% -10%, rgba(124, 58, 237, 0.25), transparent 60%),
+        radial-gradient(1200px 600px at -10% 100%, rgba(34, 211, 238, 0.15), transparent 60%),
+        var(--bg);
+      line-height: 1.75;
+      letter-spacing: 0.2px;
+      padding-bottom: 80px; /* 底部導航留白 */
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    /* 頂部標題區 */
+    .hero {
+      position: relative;
+      background: linear-gradient(135deg, var(--surface-2), rgba(255,255,255,0.3));
+      backdrop-filter: var(--blur);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px 24px 24px;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(600px 200px at 85% 10%, rgba(34, 211, 238, 0.25), transparent 60%),
+                  radial-gradient(600px 240px at 10% 90%, rgba(124, 58, 237, 0.22), transparent 60%);
+      pointer-events: none; z-index: -1;
+    }
+
+    .title {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .title h1 {
+      margin: 0; font-size: clamp(22px, 3.5vw, 36px); font-weight: 800;
+      letter-spacing: 0.3px;
+      color: var(--text);
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 10px; border-radius: 999px; border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.35));
+      font-size: 12px; color: var(--muted);
+    }
+
+    .toolbar {
+      margin-top: 18px; display: flex; gap: 10px; flex-wrap: wrap;
+    }
+    .btn {
+      appearance: none; border: 1px solid var(--border); background: var(--surface);
+      color: var(--text); border-radius: 12px; padding: 8px 12px; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 8px; transition: transform .15s ease, box-shadow .2s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+
+    /* 頂部搜索條 */
+    .searchbar {
+      margin-top: 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    }
+    .searchbar input {
+      flex: 1; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    /* 閱讀進度條 */
+    .progress {
+      position: sticky; top: 0; height: 4px; background: linear-gradient(90deg, var(--brand), var(--accent));
+      width: var(--progress, 0%); transition: width .1s linear; z-index: 9999;
+    }
+
+    /* 分節卡片 */
+    .section-card {
+      position: relative; margin: 22px 0; padding: 0; border-radius: var(--radius);
+      border: 1px solid var(--border); background: var(--surface); box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .section-header {
+      display: flex; align-items: center; gap: 12px; padding: 16px 18px; cursor: pointer;
+      background: linear-gradient(180deg, rgba(124,58,237,0.06), transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .section-header h2 { margin: 0; font-size: clamp(18px, 2.2vw, 22px); font-weight: 700; }
+    .section-header .icon {
+      width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center;
+      background: linear-gradient(135deg, rgba(124,58,237,0.18), rgba(34,211,238,0.15));
+      color: var(--brand);
+      flex: 0 0 auto;
+    }
+    .section-actions { margin-left: auto; display: flex; gap: 8px; }
+
+    .section-body { padding: 16px 18px; display: grid; gap: 14px; }
+
+    /* 文字方塊（減少密度：分塊閱讀） */
+    .text-box {
+      border: 1px dashed var(--border); border-radius: 12px; padding: 14px 14px; background:
+      linear-gradient(180deg, rgba(124,58,237,0.03), transparent);
+    }
+    .text-box h3 { margin-top: 2px; margin-bottom: 6px; font-size: 18px; }
+    .text-muted { color: var(--muted); }
+
+    /* 柵格列表卡（點列分欄，提取重點） */
+    .grid-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+    .chip {
+      display: inline-flex; gap: 8px; align-items: center; padding: 8px 10px; border: 1px solid var(--border);
+      border-radius: 999px; background: var(--surface); color: var(--text); font-size: 13px;
+    }
+
+    /* 折疊內容（減少初屏字量） */
+    .collapsible { overflow: hidden; transition: grid-template-rows .3s ease; display: grid; grid-template-rows: 0fr; }
+    .collapsible.open { grid-template-rows: 1fr; }
+    .collapsible > div { min-height: 0; }
+    .toggle-more { text-align: center; }
+
+    /* 圖片展示區 */
+    .image-section { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .report-image {
+      width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--border);
+      box-shadow: var(--shadow); transition: transform .25s ease; background: #fafafa;
+    }
+    .report-image:hover { transform: scale(1.01); }
+
+    /* 表格（保留但優化可讀性） */
+    table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    th, td { padding: 12px 14px; border-bottom: 1px solid var(--border); }
+    th { background: linear-gradient(180deg, rgba(124,58,237,0.08), transparent); text-align: left; }
+    tr:hover td { background: rgba(124,58,237,0.04); }
+
+    /* 懸浮工具條 */
+    .floating-tools {
+      position: fixed; right: 16px; bottom: 96px; display: grid; gap: 10px; z-index: 1100;
+    }
+    .fab { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: var(--brand);
+      color: #fff; border: none; box-shadow: var(--shadow); cursor: pointer; }
+    .fab.outline { background: var(--surface); color: var(--brand); border: 1px solid var(--border); }
+
+    /* 底部導航（保持原有結構與類名） */
+    .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--surface); box-shadow: 0 -8px 24px rgba(0,0,0,0.08); display: flex; justify-content: space-around; padding: 10px 0; z-index: 1000; border-top: 1px solid var(--border); }
+    .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--muted); text-decoration: none; font-size: 0.86rem; padding: 8px 0; width: 100%; transition: all .2s ease; }
+    .nav-item i { font-size: 1.1rem; margin-bottom: 4px; }
+    .nav-item.active { color: var(--brand); font-weight: 600; }
+    .nav-item:hover { background-color: rgba(124,58,237,0.08); border-radius: 8px; }
+
+    /* 回應式調整 */
+    @media (max-width: 768px) {
+      .container { padding: 16px; }
+      .section-body { padding: 14px 14px 18px; }
+      .nav-item span { font-size: 0.72rem; }
+      .nav-item i { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"></div>
+
+  <div class="container">
+    <section class="hero" id="top">
+      <div class="title">
+        <span class="badge"><i class="fa-solid fa-shield-heart"></i> 金融保險 · IP 戰略</span>
+        <h1>澳門金融保險經理 Yennis 個人 IP 打造方案</h1>
+      </div>
+      <div class="toolbar" role="toolbar" aria-label="頁面工具">
+        <button class="btn" id="toggle-theme" aria-pressed="false"><i class="fa-solid fa-circle-half-stroke"></i> 深淺主題</button>
+        <button class="btn" id="toggle-compact"><i class="fa-solid fa-text-height"></i> 緊湊/寬鬆</button>
+        <button class="btn" id="expand-all"><i class="fa-solid fa-up-right-and-down-left-from-center"></i> 展開全部</button>
+        <button class="btn" id="collapse-all"><i class="fa-solid fa-down-left-and-up-right-to-center"></i> 收起全部</button>
+      </div>
+      <div class="searchbar" role="search">
+        <input id="section-search" type="search" placeholder="搜索章節與要點（如：合規 / 女性財務 / 轉化）" aria-label="搜索" />
+        <button class="btn" id="clear-search"><i class="fa-solid fa-xmark"></i> 清除</button>
+      </div>
+    </section>
+
+    <!-- ============ 一、專案背景與研究概述 ============ -->
+    <section id="background" class="section section-card">
+      <header class="section-header" data-toggle>
+        <div class="icon"><i class="fa-solid fa-compass"></i></div>
+        <h2>一、專案背景與研究概述</h2>
+        <div class="section-actions"><span class="chip"><i class="fa-solid fa-clock"></i> 10分鐘讀完</span></div>
+      </header>
+      <div class="section-body">
+        <div class="text-box">
+          <h3>1.1 研究背景與目標</h3>
+          <p class="text-muted">在“信任經濟”環境下，金融從業者的個人IP成為成交效率與品牌溢價的重要杠杆。本方案幫助 Yennis 建立差異化、專業化、兼具溫度的澳門本地金融IP。</p>
+          <div class="grid-list">
+            <div class="text-box"><strong>目標 1：</strong>樹立“值得信賴、知識淵博”的專業形象，聚焦30–50歲女性職業人群。</div>
+            <div class="text-box"><strong>目標 2：</strong>提升轉化率與溢價能力，形成穩定的精確獲客管道。</div>
+            <div class="text-box"><strong>目標 3：</strong>打造系統化創作機制，建立可複製運營流程。</div>
+            <div class="text-box"><strong>目標 4：</strong>塑造澳門在地特色，增強辨識度與親近感。</div>
+          </div>
+        </div>
+        <div class="text-box">
+          <h3>1.2 研究方法</h3>
+          <div class="collapsible" data-collapsible>
+            <div>
+              <ul>
+                <li>個人特質分析：性格、履歷、價值取向 → 明確定位與差異。</li>
+                <li>行業趨勢研究：2025 金融與內容生態脈動 → 找到“增長位”。</li>
+                <li>受眾洞察：動機 / 阻礙 / 場景 / 語言 → 精准情緒與利益點。</li>
+                <li>競品與對標：成功與反向對標 → 避免同質化。</li>
+                <li>內容映射：主題-平臺-腳本 → 多端矩陣協同。</li>
+              </ul>
+            </div>
+          </div>
+          <div class="toggle-more"><button class="btn" data-toggle-more><i class="fa-solid fa-angles-down"></i> 展開細節</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 二、市場分析與目標受眾 ============ -->
+    <section id="market" class="section section-card">
+      <header class="section-header" data-toggle>
+        <div class="icon"><i class="fa-solid fa-chart-pie"></i></div>
+        <h2>二、市場分析與目標受眾</h2>
+      </header>
+      <div class="section-body">
+        <div class="text-box">
+          <h3>2.1 澳門金融保險市場概況</h3>
+          <p class="text-muted">聚焦政策、數位化與人群結構，明確IP增長的現實土壤。</p>
+          <div class="grid-list">
+            <div class="text-box">市場穩步增長 · 保險需求升級 · 線上獲客更高效</div>
+            <div class="text-box">政策鼓勵特色金融 · 合規為先，專業表達更重要</div>
+            <div class="text-box">高淨值密度高 · 付費意願強 · 服務可溢價</div>
+            <div class="text-box">“在地化+女性視角”仍稀缺 · 機會顯性</div>
+          </div>
+        </div>
+        <div class="text-box">
+          <h3>2.2 目標受眾畫像</h3>
+          <div class="grid-list">
+            <div class="text-box">職業：教育/醫療/金融等中高層，時間稀缺，重視確定性。</div>
+            <div class="text-box">需求：家庭保障、教育金、退休金、資產穩健增長。</div>
+            <div class="text-box">習慣：社媒獲取資訊，喜歡“短而准”的實操建議。</div>
+            <div class="text-box">決策：重證據與口碑，週期較長，需要陪伴式信任。</div>
+          </div>
+        </div>
+        <div class="text-box">
+          <h3>2.3 競爭格局與機會</h3>
+          <ul>
+            <li>從業者做IP比例低、同質化高、違規顧慮強 → 差異化空間足。</li>
+            <li>機會：女性視角×澳門在地化×專業視覺化表達。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 三、IP定位與差異化 ============ -->
+    <section id="positioning" class="section section-card">
+      <header class="section-header" data-toggle>
+        <div class="icon"><i class="fa-solid fa-user-tag"></i></div>
+        <h2>三、個人 IP 定位與差異化策略</h2>
+      </header>
+      <div class="section-body">
+        <div class="text-box">
+          <h3>3.1 定位金句</h3>
+          <p><strong>“值得信賴的澳門金融規劃顧問——用專業與溫度，為女性打造安心的金融未來。”</strong></p>
+          <div class="grid-list">
+            <div class="text-box">USP①：11年從業經驗，跨保險與財務規劃。</div>
+            <div class="text-box">USP②：女性視角，關注真實家庭場景。</div>
+            <div class="text-box">USP③：在地化策略，合規表達可驗證。</div>
+          </div>
+        </div>
+        <div class="text-box">
+          <h3>3.2 人設與語言</h3>
+          <div class="grid-list">
+            <div class="text-box">形象：商務休閒、親和有度、專業道具輕點綴。</div>
+            <div class="text-box">語氣：通俗但嚴謹，避免誇大與絕對化。</div>
+            <div class="text-box">場景：金融中心/咖啡館/書房，構建可信環境。</div>
+            <div class="text-box">鏡頭：近景講解+B-roll資訊卡片，強化視覺化。</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 四、內容策略與創作規劃 ============ -->
+    <section id="content" class="section section-card">
+      <header class="section-header" data-toggle>
+        <div class="icon"><i class="fa-solid fa-file-lines"></i></div>
+        <h2>四、內容策略與創作規劃</h2>
+      </header>
+      <div class="section-body">
+        <div class="text-box">
+          <h3>4.1 主題與選題</h3>
+          <div class="grid-list">
+            <div class="text-box">女性財務規劃 · 年齡段規劃 / 家庭帳本 / 教育金</div>
+            <div class="text-box">保險與風險 · 家庭配置 / 理賠案例 / 規避誤區</div>
+            <div class="text-box">穩健投資 · 養老金 / 現金流管理 / 資產分層</div>
+            <div class="text-box">職業×財務獨立 · 晉升策略 / 收入結構優化</div>
+          </div>
+        </div>
+        <div class="text-box">
+          <h3>4.2 表現形態</h3>
+          <ul>
+            <li>短視頻：口播+情景化，首3秒給“鉤子”。</li>
+            <li>圖文長帖：規則拆解與對比表，利於收藏。</li>
+            <li>直播：每週答疑，強化陪伴與信任。</li>
+            <li>線下：小型沙龍與工作坊，深度轉化。</li>
+          </ul>
+        </div>
+        <div class="text-box">
+          <h3>4.3 發佈節奏（示例）</h3>
+          <table aria-label="發佈節奏建議">
+            <thead><tr><th>管道</th><th>頻次</th><th>目標指標</th></tr></thead>
+            <tbody>
+              <tr><td>短視頻</td><td>每週3–4條</td><td>完播≥40%，收藏≥6%</td></tr>
+              <tr><td>圖文</td><td>每週1–2篇</td><td>閱讀完成率≥50%</td></tr>
+              <tr><td>直播</td><td>每週1次</td><td>進私域率≥8%</td></tr>
+              <tr><td>線下</td><td>每月1次</td><td>線索成本可控</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="text-box">
+          <div class="contact-guide">
+            <h3>內容創作支援與合作諮詢</h3>
+            <p>需要完整腳本、鏡頭表與標題庫，可聯繫我們獲取一對一落地方案與合規審核。</p>
+            <a href="#contact" class="btn"><i class="fas fa-comments"></i> 立即諮詢</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 五、平臺運營與增長 ============ -->
+    <section id="operation" class="section section-card">
+      <header class="section-header" data-toggle>
+        <div class="icon"><i class="fa-solid fa-rocket"></i></div>
+        <h2>五、平臺運營與用戶增長</h2>
+      </header>
+      <div class="section-body">
+        <div class="text-box">
+          <h3>5.1 多平臺策略</h3>
+          <div class="grid-list">
+            <div class="text-box"><strong>抖音/視頻號：</strong>15–30秒快節奏，關鍵字卡片+案例拆解。</div>
+            <div class="text-box"><strong>小紅書：</strong>圖文教程+關鍵字佈局，利於檢索與收藏。</div>
+            <div class="text-box"><strong>知乎/公眾號：</strong>深度案例+表格對比，建立權威心智。</div>
+            <div class="text-box"><strong>社群：</strong>分層運營，福利試用→低價體驗→會員。</div>
+          </div>
+        </div>
+        <div class="text-box">
+          <h3>5.2 增長與轉化</h3>
+          <ul>
+            <li>精准獲客：高品質內容+跨界合作+線下沙龍。</li>
+            <li>轉化鏈路：鉤子→價值展示→試用→私域→服務包。</li>
+            <li>數據優化：每週複盤內容指標，每月反覆運算策略。</li>
+          </ul>
+        </div>
+        <div class="text-box">
+          <h3>5.3 合規與風險</h3>
+          <ul>
+            <li>禁絕對化與收益承諾；以“情境+範圍+假設”表達。</li>
+            <li>資質與隱私合規：展示證書，不洩露客戶資訊。</li>
+            <li>建立敏感詞替換表與三級審核流程。</li>
+          </ul>
+          <div class="contact-guide">
+            <h3>合規審核與平臺適配支援</h3>
+            <p>需要合規範本與稽核流程，我們可提供平臺適配清單與風險預案。</p>
+            <a href="#contact" class="btn"><i class="fas fa-shield-alt"></i> 諮詢合規方案</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 六、執行與時間表 ============ -->
+    <section id="execution" class="section section-card">
+      <header class="section-header" data-toggle>
+        <div class="icon"><i class="fa-solid fa-timeline"></i></div>
+        <h2>六、執行計畫與時間安排</h2>
+      </header>
+      <div class="section-body">
+        <div class="text-box">
+          <h3>6.1 短期（0–3個月）</h3>
+          <div class="grid-list">
+            <div class="text-box">IP定位定稿 · 統一品牌物料 · 專業形象照</div>
+            <div class="text-box">儲備10–15條短視頻 · 3–5篇深度圖文</div>
+            <div class="text-box">小規模發佈 · 收集回饋 · 優化腳本</div>
+            <div class="text-box">搭建私域與CRM · 首場線下小沙龍</div>
+          </div>
+        </div>
+        <div class="text-box">
+          <h3>6.2 中長期（4–12個月）</h3>
+          <ul>
+            <li>內容深化：系列課程、欄目化與SOP。</li>
+            <li>增長提效：分層會員與價格梯度。</li>
+            <li>品牌升級：跨界合作與行業論壇。</li>
+          </ul>
+        </div>
+        <div class="text-box">
+          <h3>6.3 資源與預算（估）</h3>
+          <table aria-label="預算規劃">
+            <thead><tr><th>階段</th><th>預算範圍</th><th>重點投入</th></tr></thead>
+            <tbody>
+              <tr><td>0–3月</td><td>¥3–5萬</td><td>拍攝物料、剪輯、設計、基礎投放</td></tr>
+              <tr><td>4–6月</td><td>¥5–8萬</td><td>課程打磨、合規審核、社群與CRM</td></tr>
+              <tr><td>7–12月</td><td>¥8–12萬</td><td>品牌升級、團隊擴編、跨界合作</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 七、評估與優化 ============ -->
+    <section id="evaluation" class="section section-card">
+      <header class="section-header" data-toggle>
+        <div class="icon"><i class="fa-solid fa-gauge-high"></i></div>
+        <h2>七、效果評估與優化機制</h2>
+      </header>
+      <div class="section-body">
+        <div class="text-box">
+          <h3>7.1 KPI</h3>
+          <div class="grid-list">
+            <div class="text-box">傳播：播放/完播/收藏/互動</div>
+            <div class="text-box">增長：新增關注/增長率/留存/入群</div>
+            <div class="text-box">轉化：諮詢轉化/付費轉化/客單/複購</div>
+            <div class="text-box">品牌：行業提及/邀約/轉介紹</div>
+          </div>
+        </div>
+        <div class="text-box">
+          <h3>7.2 數據與複盤節律</h3>
+          <ul>
+            <li>日：基礎監控；周：內容複盤；月：策略調整；季：方向換擋。</li>
+            <li>工具：平臺後臺+協力廠商分析+CRM。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 八、結論與建議 ============ -->
+    <section id="conclusion" class="section section-card">
+      <header class="section-header" data-toggle>
+        <div class="icon"><i class="fa-solid fa-lightbulb"></i></div>
+        <h2>八、結論與建議</h2>
+      </header>
+      <div class="section-body">
+        <div class="text-box">
+          <h3>要點回顧</h3>
+          <ul>
+            <li>IP化是趨勢；差異化定位與合規表達是底座；內容矩陣驅動增長。</li>
+            <li>以受眾語言拆解“場景×情緒×利益”，將專業轉譯為可執行方案。</li>
+            <li>資料閉環與節律複盤，避免“一次性爆點”。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 聯繫我們 ============ -->
+    <section id="contact" class="section section-card">
+      <header class="section-header" data-toggle>
+        <div class="icon"><i class="fa-solid fa-id-card"></i></div>
+        <h2>馬上聯絡我們，開啟專屬定制</h2>
+      </header>
+      <div class="section-body">
+        <div class="text-box">
+          <h3>獲取完整劇本與選題資源</h3>
+          <p class="text-muted">無論想瞭解“澳門金融保險IP”細節，還是需要可直接開拍的腳本與鏡頭表，我們都提供落地支援。</p>
+          <div class="grid-list">
+            <div class="text-box">WeChat（Seko）：Zzzz2ko</div>
+            <div class="text-box">地址：澳門廣發商業中心15樓F</div>
+          </div>
+        </div>
+        <div class="text-box">
+          <h3>公域與私域介紹</h3>
+          <div class="image-section">
+           <img src="https://p9-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/ab9ac614600b4d6bab5ce6099b5cd945.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&x-expires=1786176241&x-signature=TOlUkuLzyvvrbn3DXWJUxsQjzrs%3D&x-wf-file_name=%E5%85%AC%E5%9F%9F.jpg" alt="公域" class="report-image">
+            <img src="https://p3-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/522ab5e32bf54ba0b2ccc9cc78470cd9.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&x-expires=1786176244&x-signature=EZ2mHPBdJ7gK7Oka9%2B87jX5ClZE%3D&x-wf-file_name=a0d9b4d4a5963de6a5b98c77cde476c.jpg" alt="私域" class="report-image">
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- 懸浮工具按鈕 -->
+  <div class="floating-tools" aria-label="快捷工具">
+    <button class="fab outline" id="back-to-top" title="回到頂部"><i class="fa-solid fa-arrow-up"></i></button>
+    <button class="fab" id="open-contact" title="快速諮詢"><i class="fa-solid fa-message"></i></button>
+  </div>
+
+  <!-- 快速諮詢模態框 -->
+  <dialog id="contact-modal" style="border:none; border-radius:16px; padding:0; max-width: 520px; width: 92%; background: var(--surface); color: var(--text); box-shadow: var(--shadow);">
+    <div style="padding:18px 18px 8px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px;">
+      <i class="fa-solid fa-handshake-angle" style="color:var(--brand)"></i>
+      <strong>快速諮詢</strong>
+      <button class="btn" id="close-modal" style="margin-left:auto;"><i class="fa-solid fa-xmark"></i> 關閉</button>
+    </div>
+    <form method="dialog" style="padding:16px 18px 18px; display:grid; gap:12px;">
+      <label>稱呼<input required name="name" placeholder="如何稱呼您" style="width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:12px; background:var(--surface);" /></label>
+      <label>聯繫方式<input required name="contact" placeholder="微信/電話/郵箱" style="width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:12px; background:var(--surface);" /></label>
+      <label>需求概述<textarea name="msg" placeholder="您的目標與當下挑戰…" style="width:100%; min-height:110px; padding:10px 12px; border:1px solid var(--border); border-radius:12px; background:var(--surface);"></textarea></label>
+      <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:6px;">
+        <button class="btn" value="cancel"><i class="fa-regular fa-circle-xmark"></i> 取消</button>
+        <button class="btn" value="default" id="submit-modal"><i class="fa-solid fa-paper-plane"></i> 提交</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- 底部固定導航（保持原結構與類名不變） -->
+  <nav class="bottom-nav">
+    <a href="#background" class="nav-item" data-section="background">
+      <i class="fas fa-home"></i>
+      <span>專案背景</span>
+    </a>
+    <a href="#market" class="nav-item" data-section="market">
+      <i class="fas fa-chart-pie"></i>
+      <span>市場分析</span>
+    </a>
+    <a href="#positioning" class="nav-item" data-section="positioning">
+      <i class="fas fa-user-tag"></i>
+      <span>IP定位</span>
+    </a>
+    <a href="#content" class="nav-item" data-section="content">
+      <i class="fas fa-file-alt"></i>
+      <span>內容策略</span>
+    </a>
+    <a href="#contact" class="nav-item" data-section="contact">
+      <i class="fas fa-id-card-alt"></i>
+      <span>聯繫我們</span>
+    </a>
+  </nav>
+
+  <script>
+    // 平滑滾動與底部導航高亮
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const id = a.getAttribute('href');
+        const el = document.querySelector(id);
+        if (el) window.scrollTo({ top: el.offsetTop - 100, behavior: 'smooth' });
+      });
+    });
+
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver(entries => {
+      let activeId = '';
+      entries.forEach(entry => { if (entry.isIntersecting) activeId = entry.target.id; });
+      if (activeId) {
+        navItems.forEach(i => i.classList.toggle('active', i.dataset.section === activeId));
+      }
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0.01 });
+    sections.forEach(s => observer.observe(s));
+
+    // 閱讀進度條
+    const progress = document.querySelector('.progress');
+    const updateProgress = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.body.scrollHeight - window.innerHeight;
+      const percent = Math.max(0, Math.min(1, scrollTop / docHeight)) * 100;
+      progress.style.setProperty('--progress', percent + '%');
+    };
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    // 折疊面板：點擊標題折疊/展開
+    document.querySelectorAll('.section-header[data-toggle]').forEach(h => {
+      const section = h.parentElement;
+      h.addEventListener('click', () => section.classList.toggle('collapsed'));
+    });
+
+    // 可展開塊
+    document.querySelectorAll('[data-toggle-more]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const wrap = btn.closest('.text-box').querySelector('[data-collapsible]');
+        const open = wrap.classList.toggle('open');
+        btn.innerHTML = open ? '<i class="fa-solid fa-angles-up"></i> 收起細節' : '<i class="fa-solid fa-angles-down"></i> 展開細節';
+      });
+    });
+
+    // 主題切換
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('toggle-theme');
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+    themeBtn.addEventListener('click', () => {
+      const isDark = root.getAttribute('data-theme') === 'dark';
+      root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+      themeBtn.setAttribute('aria-pressed', String(!isDark));
+    });
+
+    // 字型大小密度切換
+    const compactBtn = document.getElementById('toggle-compact');
+    compactBtn.addEventListener('click', () => {
+      document.body.classList.toggle('compact');
+      const compact = document.body.classList.contains('compact');
+      document.body.style.letterSpacing = compact ? '0.1px' : '0.2px';
+      document.body.style.lineHeight = compact ? '1.65' : '1.75';
+    });
+
+    // 展開/收起全部文字區塊（針對 data-collapsible）
+    const expandAll = document.getElementById('expand-all');
+    const collapseAll = document.getElementById('collapse-all');
+    expandAll.addEventListener('click', () => document.querySelectorAll('[data-collapsible]').forEach(c => c.classList.add('open')));
+    collapseAll.addEventListener('click', () => document.querySelectorAll('[data-collapsible]').forEach(c => c.classList.remove('open')));
+
+    // 頂部搜索：過濾包含關鍵字的分節
+    const search = document.getElementById('section-search');
+    const clearSearch = document.getElementById('clear-search');
+    const filter = () => {
+      const q = search.value.trim().toLowerCase();
+      sections.forEach(s => {
+        const has = s.textContent.toLowerCase().includes(q);
+        s.style.display = q ? (has ? '' : 'none') : '';
+      });
+    };
+    search.addEventListener('input', filter);
+    clearSearch.addEventListener('click', () => { search.value = ''; filter(); search.focus(); });
+
+    // 懸浮：回到頂部與打開諮詢
+    document.getElementById('back-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    const contactModal = document.getElementById('contact-modal');
+    document.getElementById('open-contact').addEventListener('click', () => contactModal.showModal());
+    document.getElementById('close-modal').addEventListener('click', () => contactModal.close());
+    document.getElementById('submit-modal').addEventListener('click', () => {
+      contactModal.close();
+      alert('已收到您的需求，我們會儘快與您聯繫。');
+    });
+
+    // 保障：鍵盤Esc關閉對話方塊
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && contactModal.open) contactModal.close(); });
+
+    // 圖片懶載入回退
+    if (!('loading' in HTMLImageElement.prototype)) {
+      const imgs = document.querySelectorAll('img[loading="lazy"]');
+      imgs.forEach(img => { const src = img.getAttribute('src'); img.removeAttribute('loading'); img.setAttribute('src', src); });
+    }
+  </script>
+</body>
+</html>
