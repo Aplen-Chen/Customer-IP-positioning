@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catherine IP定位報告 - 餐飲與大健康產業</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #9d65d0;
+            --primary-light: #f0e6ff;
+            --primary-dark: #7e48b8;
+            --secondary: #f8f5ff;
+            --accent: #c9b3f0;
+            --text-dark: #3a2e58;
+            --text-light: #7d6ba6;
+            --white: #ffffff;
+            --shadow: 0 8px 25px rgba(157, 101, 208, 0.12);
+            --shadow-hover: 0 12px 30px rgba(157, 101, 208, 0.18);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background-color: var(--secondary);
+            overflow-x: hidden;
+            padding-bottom: 90px; /* 為底部導航預留空間 */
+        }
+        
+        /* 頁面容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 頭部樣式 */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            padding: 5rem 0 3rem;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 3rem;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: var(--secondary);
+            border-radius: 50% 50% 0 0;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .header-content h1 {
+            font-size: 2.3rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.3;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-content p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 1.8rem;
+        }
+        
+        .header-avatar {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            background-color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .header-avatar i {
+            font-size: 3rem;
+            color: var(--primary-dark);
+        }
+        
+        /* 聯繫按鈕樣式 */
+        .contact-btn {
+            background-color: var(--white);
+            color: var(--primary-dark);
+            border: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-block;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(157, 101, 208, 0.2);
+        }
+        
+        .contact-btn:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(157, 101, 208, 0.3);
+        }
+        
+        /* 諮詢提示區塊 */
+        .consult-hint {
+            background-color: var(--primary-light);
+            border-left: 4px solid var(--primary-dark);
+            padding: 1rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 2rem 0;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+        }
+        
+        .consult-hint i {
+            color: var(--primary-dark);
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+        }
+        
+        /* 主內容區樣式 */
+        main {
+            margin-bottom: 4rem;
+        }
+        
+        section {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 2.2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        
+        h2 {
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            font-size: 1.6rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+        
+        h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 70%;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+        
+        h3 {
+            color: var(--primary);
+            margin: 1.8rem 0 1rem;
+            font-size: 1.3rem;
+        }
+        
+        h4 {
+            color: var(--text-dark);
+            margin: 1.2rem 0 0.8rem;
+            font-size: 1.1rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        ul, ol {
+            margin-left: 1.8rem;
+            margin-bottom: 1.2rem;
+        }
+        
+        li {
+            margin-bottom: 0.6rem;
+        }
+        
+        .highlight {
+            background-color: var(--primary-light);
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+            color: var(--primary-dark);
+            font-weight: 500;
+        }
+        
+        /* 數據視覺化容器 */
+        .data-container {
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* 卡片樣式 */
+        .card {
+            background-color: var(--secondary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .card-title {
+            color: var(--primary-dark);
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card-title i {
+            margin-right: 0.8rem;
+            color: var(--primary);
+        }
+        
+        /* 多列佈局 */
+        .two-columns {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .three-columns {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+        }
+        
+        /* 表格樣式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        
+        th, td {
+            padding: 0.8rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--primary-light);
+        }
+        
+        th {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+        }
+        
+        tr:hover {
+            background-color: rgba(157, 101, 208, 0.05);
+        }
+        
+        /* 聯繫我們區塊 */
+        .section {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 2.2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .section-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        
+        .section-body {
+            padding: 1rem 0;
+        }
+        
+        .text-box {
+            margin-bottom: 2rem;
+        }
+        
+        .text-muted {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+        
+        .grid-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .image-section {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .report-image {
+            width: 50%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .report-image:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        /* 圖片展示區域 */
+        .image-gallery {
+            display: flex;
+            width: 100%;
+            gap: 1.5rem;
+            margin: 3rem 0 4rem;
+        }
+        
+        .gallery-image {
+            width: 50%;
+            height: auto;
+            object-fit: contain;
+            max-height: 400px;
+            border-radius: 8px;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        
+        .gallery-image:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        /* 底部巡覽列 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--white);
+            box-shadow: 0 -5px 15px rgba(157, 101, 208, 0.1);
+            z-index: 100;
+            display: flex;
+            justify-content: space-around;
+            padding: 0.8rem 0;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-light);
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+        
+        .nav-item.active {
+            color: var(--primary-dark);
+        }
+        
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--primary);
+        }
+        
+        .nav-item i {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .nav-item span {
+            font-size: 0.85rem;
+        }
+        
+        .nav-item:hover {
+            color: var(--primary);
+            background-color: var(--primary-light);
+        }
+        
+        /* 回到頂部按鈕 */
+        .back-to-top {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background-color: var(--primary);
+            color: var(--white);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(157, 101, 208, 0.3);
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 99;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+        
+        /* 回應式設計 */
+        @media screen and (max-width: 768px) {
+            .header-content h1 {
+                font-size: 2rem;
+            }
+            
+            section {
+                padding: 1.5rem;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+            }
+            
+            h3 {
+                font-size: 1.2rem;
+            }
+            
+            .three-columns {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-image {
+                width: 100%;
+                max-height: 300px;
+            }
+            
+            .image-gallery {
+                flex-direction: column;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+            }
+            
+            .nav-item span {
+                font-size: 0.8rem;
+            }
+            
+            .nav-item i {
+                font-size: 1.1rem;
+            }
+            
+            .consult-hint {
+                padding: 0.8rem 1rem;
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .consult-hint i {
+                margin-right: 0;
+                margin-bottom: 0.5rem;
+            }
+            
+            .image-section {
+                flex-direction: column;
+            }
+            
+            .report-image {
+                width: 100%;
+                max-height: 300px;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .bottom-nav {
+                padding: 0.5rem 0;
+            }
+            
+            .nav-item span {
+                font-size: 0.75rem;
+            }
+            
+            .nav-item i {
+                font-size: 1rem;
+            }
+            
+            .contact-form {
+                padding: 1.5rem;
+            }
+            
+            .header-content h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="header-avatar">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <h1>Catherine IP定位報告</h1>
+                <p>餐飲與大健康產業垂直領域影響力打造方案</p>
+                <a href="#contact" class="contact-btn">獲取定制化IP方案</a>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <!-- 專案背景與定位概述 -->
+        <section id="background">
+            <h2>一、專案背景與定位概述</h2>
+            
+            <h3>1.1 市場環境分析</h3>
+            <p>2025 年，短視頻平臺已成為商業傳播的核心陣地，抖音日活用戶突破 8 億，微信視頻號依託微信生態強勢崛起。在內容同質化嚴重的當下，老闆個人 IP 作為企業與消費者之間的信任橋樑，正成為商業增長的新引擎。據資料顯示，老闆 IP 運營成功的企業，其客戶複購率平均提升 30% 以上，路演成功率提升 25%。</p>
+            
+            <p>在餐飲與大健康產業領域，消費者對 "真實的人" 的信任度遠高於對抽象企業品牌的認知。尤其是 30-45 歲的目標受眾，他們既追求健康生活方式，又面臨工作與家庭的雙重壓力，對專業、實用且有溫度的內容需求強烈。</p>
+            
+            <h3>1.2 目標受眾畫像</h3>
+            <p><strong>核心目標受眾：30-45 歲男性和女性</strong></p>
+            
+            <div class="two-columns">
+                <div class="card">
+                    <p class="card-title"><i class="fas fa-chart-line"></i>年齡與行為特徵</p>
+                    <ul>
+                        <li>年齡分層：30-45 歲使用者在短視頻平臺呈現兩極分化特徵</li>
+                        <li>一部分追求生活記錄與情感共鳴</li>
+                        <li>另一部分則更關注職業技能提升與消費決策參考</li>
+                        <li>日均使用時長增速達 132%</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <p class="card-title"><i class="fas fa-shopping-cart"></i>內容偏好與消費特徵</p>
+                    <ul>
+                        <li>內容偏好：實用技能 (39%)、健康養生 (38%)、社會記錄 (37%)</li>
+                        <li>消費特徵：家庭群組分享量占比 68%</li>
+                        <li>客單價高出平均值 35%</li>
+                        <li>時段特徵：早間時段 (6-8 點) 活躍度高出均值 2 倍</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>1.3 IP 定位核心價值</h3>
+            <p>打造 "專業 + 反差 + 溫度" 的老闆 IP 形象，通過真實、專業的形象成為企業的 "超級代言人"，建立信任基石。</p>
+            
+            <div class="card">
+                <p class="card-title"><i class="fas fa-star"></i>核心價值主張</p>
+                <ul>
+                    <li><strong>專業權威</strong>：餐飲與大健康領域的專業知識輸出者</li>
+                    <li><strong>反差魅力</strong>：打破企業家刻板印象，展現多元人格</li>
+                    <li><strong>實用價值</strong>：提供可操作的解決方案和行業洞察</li>
+                    <li><strong>情感連接</strong>：通過真實故事引發共鳴，建立情感紐帶</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- 老闆IP人設建議 -->
+        <section id="persona">
+            <h2>二、老闆 IP 人設建議</h2>
+            
+            <h3>2.1 基礎人設定位</h3>
+            <p>基於目標受眾分析和行業特性，建議老闆 IP 設定為：</p>
+            
+            <div class="highlight">"健康生活洞察者"—— 一位既有深厚行業背景，又能以輕鬆方式分享專業知識的老闆形象，打破傳統企業家的刻板印象。</div>
+            
+            <h4>三大核心特徵：</h4>
+            <ol>
+                <li><strong>專業可靠</strong>：具備餐飲與大健康行業的專業知識和豐富經驗，是行業內的 "明白人"</li>
+                <li><strong>真實親和</strong>：展現真實的一面，包括創業中的困難、生活中的趣事，讓觀眾感受到 "人" 的溫度</li>
+                <li><strong>創新引領</strong>：對行業趨勢有敏銳洞察力，敢於嘗試新事物，引領行業創新方向</li>
+            </ol>
+            
+            <h3>2.2 反差感人設打造</h3>
+            <p>通過反差感增強記憶點和傳播力，打破用戶固有認知：</p>
+            
+            <div class="three-columns">
+                <div class="card">
+                    <p class="card-title"><i class="fas fa-user-circle"></i>形象反差</p>
+                    <ul>
+                        <li>西裝革履的老闆在廚房親自下廚</li>
+                        <li>嚴肅的企業家在田間地頭挑選食材</li>
+                        <li>專業的健康專家分享自己的"cheat day"</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <p class="card-title"><i class="fas fa-heart"></i>性格反差</p>
+                    <ul>
+                        <li>外表嚴肅但內心幽默，偶爾展現"冷幽默"</li>
+                        <li>工作中雷厲風行，生活中溫和耐心</li>
+                        <li>專業領域嚴謹認真，興趣愛好上卻有"不為人知"的一面</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <p class="card-title"><i class="fas fa-map-marker-alt"></i>場景反差</p>
+                    <ul>
+                        <li>在高端餐廳探討美食哲學，也在街邊小攤品嘗市井風味</li>
+                        <li>實驗室裡研究健康產品，客廳裡與家人分享養生之道</li>
+                        <li>商務場合談行業趨勢，家庭場景展示生活智慧</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>2.3 差異化競爭策略</h3>
+            <p>在老闆 IP 紅海中脫穎而出，需構建差異化競爭優勢：</p>
+            
+            <ul>
+                <li><strong>垂直聚焦</strong>：專注餐飲與大健康產業的交叉領域，如健康飲食、功能性食品、餐飲健康化轉型等細分方向</li>
+                <li><strong>知識深度</strong>：提供比普通博主更專業、更深入的行業洞察和實用知識，展現"真懂行"的細節</li>
+                <li><strong>情感連接</strong>：通過真實故事和情感表達，與目標受眾建立深層次情感連接，而非單純的知識輸出</li>
+                <li><strong>實用價值</strong>：將專業知識轉化為可操作的解決方案，幫助受眾解決實際問題</li>
+            </ul>
+        </section>
+        
+        <!-- 內容選題策略 -->
+        <section id="content-strategy">
+            <h2>三、內容選題策略</h2>
+            
+            <h3>3.1 核心內容方向</h3>
+            <p>圍繞餐飲與大健康產業，打造四大內容矩陣：</p>
+            
+            <div class="four-columns">
+                <div class="two-columns">
+                    <div class="card">
+                        <p class="card-title"><i class="fas fa-binoculars"></i>行業洞察類</p>
+                        <ul>
+                            <li>餐飲與大健康產業趨勢解讀</li>
+                            <li>政策法規對行業的影響分析</li>
+                            <li>消費趨勢變化與市場機會捕捉</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <p class="card-title"><i class="fas fa-book"></i>專業知識類</p>
+                        <ul>
+                            <li>健康飲食知識科普</li>
+                            <li>食材營養與健康價值解析</li>
+                            <li>餐飲經營管理經驗分享</li>
+                            <li>健康產品研發與創新實踐</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="two-columns">
+                    <div class="card">
+                        <p class="card-title"><i class="fas fa-tools"></i>實用技能類</p>
+                        <ul>
+                            <li>健康美食製作技巧</li>
+                            <li>家庭健康管理方法</li>
+                            <li>餐飲門店經營實用技巧</li>
+                            <li>健康生活方式養成指南</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <p class="card-title"><i class="fas fa-user-friends"></i>人物故事類</p>
+                        <ul>
+                            <li>創業歷程與經驗分享</li>
+                            <li>行業前輩訪談與對話</li>
+                            <li>團隊成長與企業文化展示</li>
+                            <li>個人生活與工作平衡之道</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>3.2 爆款選題公式</h3>
+            <p>基於 2025 年短視頻平臺演算法特點和使用者偏好，打造高傳播力的選題：</p>
+            
+            <div class="highlight">爆款選題 = 痛點洞察 + 專業解讀 + 實用價值 + 情感共鳴</div>
+            
+            <h4>六大爆款選題模型：</h4>
+            <div class="two-columns">
+                <div>
+                    <p><strong>1. 痛點解決型：</strong></p>
+                    <ul>
+                        <li>"餐飲老闆必看：如何在健康飲食趨勢下提升利潤？"</li>
+                        <li>"30 + 人群必知：如何平衡工作與健康飲食？"</li>
+                    </ul>
+                    
+                    <p><strong>2. 知識顛覆型：</strong></p>
+                    <ul>
+                        <li>"你以為健康的食物，可能正在傷害你"</li>
+                        <li>"傳統餐飲的 3 大健康誤區，90% 的人不知道"</li>
+                    </ul>
+                    
+                    <p><strong>3. 實用技巧型：</strong></p>
+                    <ul>
+                        <li>"3 招讓你的餐廳菜單更健康更賺錢"</li>
+                        <li>"5 分鐘快速製作營養均衡的工作餐"</li>
+                    </ul>
+                </div>
+                <div>
+                    <p><strong>4. 趨勢解讀型：</strong></p>
+                    <ul>
+                        <li>"2025 年健康飲食新趨勢：從減鹽減油到功能化升級"</li>
+                        <li>"餐飲行業如何抓住健康化轉型機遇？"</li>
+                    </ul>
+                    
+                    <p><strong>5. 對比分析型：</strong></p>
+                    <ul>
+                        <li>"傳統餐飲 vs 健康餐飲：成本、利潤與市場接受度對比"</li>
+                        <li>"不同年齡段人群的健康飲食偏好差異分析"</li>
+                    </ul>
+                    
+                    <p><strong>6. 人物訪談型：</strong></p>
+                    <ul>
+                        <li>"對話健康餐飲先鋒：他們如何改變行業？"</li>
+                        <li>"成功企業家的健康生活方式訪談"</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>3.3 內容排期建議</h3>
+            <p>採用 "3+1+1" 內容排期策略，平衡垂直內容與破圈內容：</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>類型</th>
+                        <th>頻率</th>
+                        <th>內容方向</th>
+                        <th>目標</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>垂直專業內容</td>
+                        <td>每週 3 篇</td>
+                        <td>行業知識、專業解讀、實用技巧</td>
+                        <td>建立專業形象，培養忠實粉絲</td>
+                    </tr>
+                    <tr>
+                        <td>熱點關聯內容</td>
+                        <td>每週 1 篇</td>
+                        <td>結合熱點事件的專業解讀</td>
+                        <td>擴大影響力，吸引新粉絲</td>
+                    </tr>
+                    <tr>
+                        <td>生活分享內容</td>
+                        <td>每週 1 篇</td>
+                        <td>個人生活、興趣愛好、家庭故事</td>
+                        <td>增強真實感，拉近與受眾距離</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- 內容形式與呈現方式 -->
+        <section id="content-form">
+            <h2>四、內容形式與呈現方式</h2>
+            
+            <h3>4.1 視頻內容形式</h3>
+            <p>根據 2025 年短視頻平臺特點和使用者偏好，採用多樣化的內容形式：</p>
+            
+            <div class="three-columns">
+                <div class="card">
+                    <p class="card-title"><i class="fas fa-microphone"></i>單口播講類</p>
+                    <ul>
+                        <li>老闆親自出鏡講解專業知識</li>
+                        <li>背景採用書架、辦公室等專業場景</li>
+                        <li>適合深度知識分享和觀點表達</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <p class="card-title"><i class="fas fa-film"></i>情景短劇類</p>
+                    <ul>
+                        <li>通過小劇情展示行業現象或問題</li>
+                        <li>融入幽默或情感元素，增強吸引力</li>
+                        <li>適合痛點展示和解決方案呈現</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <p class="card-title"><i class="fas fa-map-marked-alt"></i>實地探訪類</p>
+                    <ul>
+                        <li>探訪食材基地、生產車間、健康機構等</li>
+                        <li>展示真實場景和專業流程</li>
+                        <li>增強可信度和視覺衝擊力</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <p class="card-title"><i class="fas fa-flask"></i>實驗演示類</p>
+                    <ul>
+                        <li>通過實驗展示食材特性、營養成分等</li>
+                        <li>使用專業設備和科學方法</li>
+                        <li>增強專業性和說服力</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <p class="card-title"><i class="fas fa-comments"></i>訪談對話類</p>
+                    <ul>
+                        <li>與行業專家、知名人士、普通消費者對話</li>
+                        <li>多角度探討行業話題</li>
+                        <li>豐富內容層次，擴大影響力</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <p class="card-title"><i class="fas fa-video"></i>Vlog 記錄類</p>
+                    <ul>
+                        <li>記錄老闆日常工作與生活</li>
+                        <li>展現真實、接地氣的一面</li>
+                        <li>增強情感連接和粉絲黏性</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>4.2 內容製作要點</h3>
+            <p>根據平臺演算法特點和使用者行為習慣，優化內容製作：</p>
+            
+            <h4>1. 黃金開頭：</h4>
+            <p>前 3 秒必須出現 "視覺衝擊 / 懸念提問 / 情緒共鳴"，例如 "月薪 3 萬的我為什麼選擇健康飲食？"</p>
+            
+            <h4>2. 內容節奏：</h4>
+            <ul>
+                <li>知識類視頻：47-52 秒，資訊密度 0.8 個 / 秒</li>
+                <li>劇情類視頻：33-38 秒，反轉間隔≤8 秒</li>
+                <li>帶貨類視頻：22-27 秒，產品露出 3 次法則</li>
+            </ul>
+            
+            <h4>3. 互動引導：</h4>
+            <ul>
+                <li>在視頻中明確引導互動："覺得這招管用的，點個贊讓我知道～"</li>
+                <li>設置問題引發評論："你遇到過最坑的食材供應商是什麼？"</li>
+                <li>結尾引導關注："關注我，獲取更多健康飲食知識"</li>
+            </ul>
+            
+            <h4>4. 視覺與聲音設計：</h4>
+            <p>使用高飽和度色彩和清晰字幕，選擇適合內容調性的 BGM，控制語速適中，關鍵知識點加重語氣或重複強調。</p>
+            
+            <h3>4.3 平臺差異化策略</h3>
+            <p>針對抖音和微信視頻號的不同特點，採用差異化內容策略：</p>
+            
+            <div class="two-columns">
+                <div class="card">
+                    <p class="card-title"><i class="fab fa-tiktok"></i>抖音平臺策略</p>
+                    <ul>
+                        <li>內容更注重娛樂性和傳播性</li>
+                        <li>開頭 3 秒必須抓住眼球</li>
+                        <li>節奏更快，資訊密度更高</li>
+                        <li>積極參與熱門挑戰和話題</li>
+                        <li>利用抖音的演算法推薦機制，提高曝光率</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <p class="card-title"><i class="fab fa-weixin"></i>微信視頻號策略</p>
+                    <ul>
+                        <li>內容更注重深度和價值</li>
+                        <li>強調專業權威性和可信度</li>
+                        <li>利用社交裂變，鼓勵用戶分享</li>
+                        <li>結合公眾號、社群等私域流量，形成閉環</li>
+                        <li>發佈時間可選擇在工作日晚上或週末</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="consult-hint">
+                <i class="fas fa-info-circle"></i>
+                <span>平臺演算法優化技巧、內容製作SOP、爆款案例分析等詳細資料，可聯繫我們獲取專業指導。</span>
+            </div>
+        </section>
+        
+        <!-- 劇本建議 -->
+        <section id="script">
+            <h2>五、劇本建議</h2>
+            
+            <h3>5.1 劇本結構</h3>
+            <div class="card">
+                <p class="card-title"><i class="fas fa-file-script"></i>標準劇本框架</p>
+                <ol>
+                    <li><strong>開場</strong>：簡潔地介紹自己，結合餐飲和健康生活的背景，引發觀眾的興趣。可以通過個人故事或行業背景引入。</li>
+                    <li><strong>情感共鳴</strong>：通過真實的生活例子或客戶故事，分享一些壓力管理或健康飲食的心得。可以結合生活中的小插曲或遇到的困境，引發觀眾的情感共鳴。</li>
+                    <li><strong>健康分享</strong>：根據選題內容，分享健康飲食的小技巧或生活習慣的調整方法，同時通過她的經驗讓觀眾更容易理解和接受。</li>
+                    <li><strong>互動與號召</strong>：鼓勵觀眾分享自己的故事或參與健康挑戰，增加互動和粘性，增強社群感。</li>
+                </ol>
+            </div>
+            
+            <h3>5.2 劇本示例：健康飲食與壓力管理</h3>
+            
+            <div class="card">
+                <p class="card-title"><i class="fas fa-play-circle"></i>視頻劇本："忙碌餐飲人的3分鐘減壓餐"</p>
+                
+                <p><strong>時長</strong>：45秒</p>
+                <p><strong>場景</strong>：餐廳後廚/辦公室</p>
+                
+                <p><strong>鏡頭1（0-3秒）：</strong>老闆穿著廚師服，略顯疲憊地靠在廚房檯面上，對著鏡頭說："餐飲人最懂，忙起來連吃飯的時間都沒有，壓力大到睡不著？"</p>
+                
+                <p><strong>鏡頭2（4-15秒）：</strong>快速切換幾個忙碌的餐飲工作場景，然後老闆拿起幾種簡單食材："我曾經連續一周每天只睡4小時，直到發現了這個3分鐘就能做好的減壓餐。"</p>
+                
+                <p><strong>鏡頭3（16-30秒）：</strong>快速展示製作過程："一把菠菜、一個雞蛋、半根香蕉，打成汁，加一勺奇亞籽。這裡面的鎂元素能幫你放鬆神經，維生素B能對抗壓力。"</p>
+                
+                <p><strong>鏡頭4（31-40秒）：</strong>老闆喝下飲品，露出輕鬆表情："現在每天再忙，我都會抽3分鐘做這個。餐飲人照顧好自己，才能更好地服務客人，對嗎？"</p>
+                
+                <p><strong>鏡頭5（41-45秒）：</strong>對著鏡頭微笑："你有什麼減壓小妙招？評論區告訴我，下期分享給大家。關注我，餐飲人也能健康生活。"</p>
+            </div>
+            
+            <h3>5.3 劇本示例：行業洞察與趨勢解讀</h3>
+            
+            <div class="card">
+                <p class="card-title"><i class="fas fa-play-circle"></i>視頻劇本："2025年健康餐飲3大賺錢趨勢"</p>
+                
+                <p><strong>時長</strong>：55秒</p>
+                <p><strong>場景</strong>：辦公室/餐廳雅座</p>
+                
+                <p><strong>鏡頭1（0-5秒）：</strong>老闆翻看資料包表，抬頭對鏡頭說："最近3個月，我的餐廳健康菜品銷量增長了180%，秘訣就在這3個趨勢裡。"</p>
+                
+                <p><strong>鏡頭2（6-20秒）：</strong>展示功能表上的健康標識："第一，透明化。我們把每道菜的卡路里、過敏原都標出來，信任感提升了，客單價也高了15%。"</p>
+                
+                <p><strong>鏡頭3（21-35秒）：</strong>展示客人選擇半份菜的場景："第二，靈活化。推出半份菜、小份菜，浪費減少了28%，翻台率提高了。"</p>
+                
+                <p><strong>鏡頭4（36-48秒）：</strong>展示特色健康套餐："第三，功能化。針對熬夜黨、健身族推出定制套餐，複購率提升了40%。"</p>
+                
+                <p><strong>鏡頭5（49-55秒）：</strong>老闆合上筆記本："想知道具體怎麼落地？明天下午3點直播詳細講，點擊預約，教你健康餐飲也能賺大錢。"</p>
+            </div>
+        </section>
+        
+        <!-- 反差感與爆款元素 -->
+        <section id="viral-elements">
+            <h2>六、反差感與爆款元素</h2>
+            
+            <h3>6.1 反差感打造</h3>
+            
+            <div class="two-columns">
+                <div class="card">
+                    <p class="card-title"><i class="fas fa-exchange-alt"></i>職業與身份反差</p>
+                    <p>從"餐飲老闆娘"到"健康引領者"：展現如何將餐飲經驗轉化為健康飲食和生活方式的指導，讓故事充滿反差感。</p>
+                    <p>示例選題：</p>
+                    <ul>
+                        <li>"從每天賣500份油炸食品到健康餐飲轉型，我的收入翻了3倍"</li>
+                        <li>"別人開餐廳追求口味，我卻堅持減鹽減糖，客人反而更多了"</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <p class="card-title"><i class="fas fa-balance-scale"></i>生活狀態反差</p>
+                    <p>繁忙工作生活中的健康秘訣：通過反差感展示如何在快節奏的生活中找到健康生活的平衡。</p>
+                    <p>示例選題：</p>
+                    <ul>
+                        <li>"每天工作16小時的餐飲老闆，如何保持精力充沛？"</li>
+                        <li>"淩晨3點下班，我依然能保持健康生活的3個秘訣"</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>6.2 爆款元素設計</h3>
+            
+            <div class="three-columns">
+                <div class="card">
+                    <p class="card-title"><i class="fas fa-trophy"></i>挑戰與互動</p>
+                    <p>例如"30天健康飲食挑戰"，不僅有趣且容易讓觀眾參與，還能夠長期沉澱粉絲群體。</p>
+                    <p>執行要點：</p>
+                    <ul>
+                        <li>設計簡單易行的每日任務</li>
+                        <li>提供打卡工具和範本</li>
+                        <li>設置階梯式獎勵機制</li>
+                        <li>定期展示參與者成果</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <p class="card-title"><i class="fas fa-smile"></i>生活化內容</p>
+                    <p>通過輕鬆幽默的語言風格，結合一些生活化的場景（如廚房、辦公室等），讓視頻內容既有實用性，又能帶給觀眾愉悅的觀影體驗。</p>
+                    <p>執行要點：</p>
+                    <ul>
+                        <li>使用日常對話式語言</li>
+                        <li>展示真實生活場景</li>
+                        <li>適當加入幽默元素</li>
+                        <li>分享個人小習慣和偏好</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <p class="card-title"><i class="fas fa-heart"></i>情感共鳴</p>
+                    <p>通過展現自己的壓力、困境與解決方案，讓觀眾產生共鳴，特別是在生活中的實際困難與挑戰面前，親和力和同理心能大大增加觀眾的參與感和情感連結。</p>
+                    <p>執行要點：</p>
+                    <ul>
+                        <li>分享真實的困難和挑戰</li>
+                        <li>展示解決問題的過程</li>
+                        <li>表達真實的情感和感受</li>
+                        <li>承認不足和不完美</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 互動運營策略 -->
+        <section id="interaction">
+            <h2>七、互動運營策略</h2>
+            
+            <h3>7.1 評論區運營</h3>
+            <p>評論區是短視頻互動的核心陣地，採用以下策略提升互動率：</p>
+            
+            <div class="two-columns">
+                <div>
+                    <h4>1. 引導式提問：</h4>
+                    <ul>
+                        <li>在視頻中提出具體問題，引導觀眾在評論區回答</li>
+                        <li>例如："你覺得健康飲食最大的挑戰是什麼？"</li>
+                        <li>或："這兩種方法你更喜歡哪一種？為什麼？"</li>
+                    </ul>
+                    
+                    <h4>2. 神評論引導：</h4>
+                    <ul>
+                        <li>提前準備幾條高品質評論，引導討論方向</li>
+                        <li>例如："我按照這個方法做了，效果真的很好！"</li>
+                        <li>或："我有一個不同的看法..."</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>3. 及時回復：</h4>
+                    <ul>
+                        <li>新評論產生後，黃金 1 小時內及時回應</li>
+                        <li>針對問題具體解答，對誇讚表達感謝</li>
+                        <li>回復時可追加小問題，引導進一步互動</li>
+                    </ul>
+                    
+                    <h4>4. 評論置頂：</h4>
+                    <ul>
+                        <li>選擇高品質或代表性評論置頂</li>
+                        <li>展示在視頻下方，引導更多互動</li>
+                        <li>例如："這位觀眾提到的點很重要..."</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>7.2 直播互動策略</h3>
+            <p>直播是增強粉絲黏性和變現的重要管道：</p>
+            
+            <h4>1. 直播主題設計：</h4>
+            <ul>
+                <li>圍繞熱點話題或粉絲關心的問題</li>
+                <li>例如："健康飲食答疑專場"、"餐飲創業經驗分享"</li>
+            </ul>
+            
+            <h4>2. 互動形式多樣化：</h4>
+            <div class="three-columns">
+                <div>
+                    <p><strong>連麥互動</strong></p>
+                    <p>與粉絲直接對話，解答問題，增強參與感</p>
+                </div>
+                <div>
+                    <p><strong>問答環節</strong></p>
+                    <p>解答專業問題，提供個性化建議</p>
+                </div>
+                <div>
+                    <p><strong>抽獎活動</strong></p>
+                    <p>提高參與度，贈送產品或服務體驗</p>
+                </div>
+            </div>
+            
+            <h4>3. 直播節奏把控：</h4>
+            <ul>
+                <li>開場留懸念："今天要揭秘三個健康飲食誤區"</li>
+                <li>中途設關卡："點贊到 1 萬就分享獨家配方"</li>
+                <li>結尾埋鉤子："下播前抽三位粉絲送健康禮包"</li>
+            </ul>
+            
+            <h3>7.3 私域流量沉澱</h3>
+            <p>將公域流量轉化為私域資產，建立長期關係：</p>
+            
+            <div class="two-columns">
+                <div class="card">
+                    <p class="card-title"><i class="fas fa-link"></i>引流策略</p>
+                    <ul>
+                        <li>在視頻結尾使用短鏈工具跳轉私域</li>
+                        <li>例如："添加微信獲取健康飲食指南"</li>
+                        <li>或："掃碼加入健康生活社群"</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <p class="card-title"><i class="fas fa-users"></i>社群運營</p>
+                    <ul>
+                        <li>建立垂直細分社群，如"健康飲食交流群"</li>
+                        <li>定期分享專業知識和獨家內容</li>
+                        <li>組織線上活動，增強社群活躍度</li>
+                        <li>建立會員等級和權益體系</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 變現路徑與商業轉化 -->
+        <section id="monetization">
+            <h2>八、變現路徑與商業轉化</h2>
+            
+            <h3>8.1 品牌曝光與影響力變現</h3>
+            <p>通過 IP 影響力提升品牌價值和商業機會：</p>
+            
+            <div class="three-columns">
+                <div class="card">
+                    <p class="card-title"><i class="fas fa-handshake"></i>品牌合作</p>
+                    <ul>
+                        <li>與相關品牌進行戰略合作</li>
+                        <li>例如：健康食品品牌、餐飲設備品牌等</li>
+                        <li>通過內容植入、聯合活動等形式實現合作</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <p class="card-title"><i class="fas fa-bullhorn"></i>行業影響力</p>
+                    <ul>
+                        <li>成為行業意見領袖，參與行業論壇</li>
+                        <li>接受媒體採訪，提升知名度</li>
+                        <li>出版專業書籍或發表專業文章</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <p class="card-title"><i class="fas fa-line-chart"></i>企業估值提升</p>
+                    <ul>
+                        <li>根據 2025 年趨勢，企業估值公式可能變為"帳面資產 × 創始人 IP 係數"</li>
+                        <li>通過提升個人 IP 影響力，間接提升企業估值</li>
+                        <li>增強投資吸引力和合作機會</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>8.2 產品銷售與服務變現</h3>
+            <p>將 IP 影響力轉化為產品銷售和服務收入：</p>
+            
+            <div class="two-columns">
+                <div>
+                    <h4>1. 自有產品銷售：</h4>
+                    <ul>
+                        <li>開發與 IP 定位相關的健康產品</li>
+                        <li>通過短視頻和直播進行推廣</li>
+                        <li>建立電商管道，實現直接銷售</li>
+                    </ul>
+                    
+                    <h4>2. 知識付費：</h4>
+                    <ul>
+                        <li>開發專業課程，如《健康飲食管理課》</li>
+                        <li>通過直播、社群等形式進行教學</li>
+                        <li>提供一對一諮詢服務，實現高價值變現</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>3. 線下活動：</h4>
+                    <ul>
+                        <li>舉辦健康飲食講座、餐飲管理培訓等</li>
+                        <li>組織食材品鑒會、健康生活體驗活動</li>
+                        <li>通過門票、贊助等形式實現變現</li>
+                    </ul>
+                    
+                    <h4>4. 精准獲客：</h4>
+                    <ul>
+                        <li>為線下門店引流，提高到店率</li>
+                        <li>通過 IP 影響力吸引加盟合作</li>
+                        <li>轉化為企業 B 端服務客戶</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>8.3 執行路徑與時間表</h3>
+            <p>分階段實現商業變現目標：</p>
+            
+            <div class="three-columns">
+                <div class="card">
+                    <p class="card-title"><i class="fas fa-seedling"></i>短期啟動（1-3個月）</p>
+                    <ul>
+                        <li>完成 IP 人設設計和內容規劃</li>
+                        <li>搭建帳號矩陣，每週發佈3-5條內容</li>
+                        <li>建立基礎互動機制，收集用戶回饋</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <p class="card-title"><i class="fas fa-tree"></i>中期增長（4-6個月）</p>
+                    <ul>
+                        <li>優化內容策略，啟動直播常態化</li>
+                        <li>建立私域流量池，開始嘗試變現</li>
+                        <li>拓展品牌合作，提升行業影響力</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <p class="card-title"><i class="fas fa-forest"></i>長期變現（7-12個月）</p>
+                    <ul>
+                        <li>開發自有產品和服務體系</li>
+                        <li>建立多元化變現管道</li>
+                        <li>打造完整商業生態，實現持續盈利</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ============ 聯繫我們 ============ -->
+        <section id="contact" class="section section-card">
+          
+          <div class="section-body">
+            <div class="text-box">
+              <h3>獲取完整劇本與選題資源</h3>
+              <p class="text-muted">無論想瞭解零售店主IP深度分析與短視頻運營策略細節，還是需要可直接開拍的腳本與鏡頭表，我們都提供落地支援。</p>
+              <div class="grid-list">
+                <div class="text-box">WeChat（Seko）：Zzzz2ko</div>
+                <div class="text-box">地址：澳門廣發商業中心15樓F</div>
+              </div>
+            </div>
+            <div class="text-box">
+              <h3>公域與私域介紹</h3>
+              <div class="image-section">
+               <img src="https://p9-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/ab9ac614600b4d6bab5ce6099b5cd945.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&x-expires=1786176241&x-signature=TOlUkuLzyvvrbn3DXWJUxsQjzrs%3D&x-wf-file_name=%E5%85%AC%E5%9F%9F.jpg" alt="公域" class="report-image">
+                <img src="https://p3-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/522ab5e32bf54ba0b2ccc9cc78470cd9.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&x-expires=1786176244&x-signature=EZ2mHPBdJ7gK7Oka9%2B87jX5ClZE%3D&x-wf-file_name=a0d9b4d4a5963de6a5b98c77cde476c.jpg" alt="私域" class="report-image">
+              </div>
+            </div>
+          </div>
+        </section>
+    </main>
+    
+    <!-- 底部巡覽列 -->
+    <nav class="bottom-nav">
+        <a href="#background" class="nav-item" data-target="background">
+            <i class="fas fa-info-circle"></i>
+            <span>專案背景</span>
+        </a>
+        <a href="#persona" class="nav-item" data-target="persona">
+            <i class="fas fa-user"></i>
+            <span>IP人設</span>
+        </a>
+        <a href="#content-strategy" class="nav-item" data-target="content-strategy">
+            <i class="fas fa-list-alt"></i>
+            <span>選題策略</span>
+        </a>
+        <a href="#script" class="nav-item" data-target="script">
+            <i class="fas fa-file-script"></i>
+            <span>劇本建議</span>
+        </a>
+        <a href="#contact" class="nav-item" data-target="contact">
+            <i class="fas fa-headset"></i>
+            <span>聯繫我們</span>
+        </a>
+    </nav>
+    
+    <!-- 回到頂部按鈕 -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    
+    <script>
+        // 底部導航高亮與平滑滾動
+        document.addEventListener('DOMContentLoaded', function() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const sections = document.querySelectorAll('section, .section');
+            const backToTopBtn = document.querySelector('.back-to-top');
+            
+            // 導航點擊事件 - 添加視覺回饋
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // 添加點擊回饋
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // 滾動監聽，更新導航高亮
+            window.addEventListener('scroll', function() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (pageYOffset >= (sectionTop - 100)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('data-target') === current) {
+                        item.classList.add('active');
+                    }
+                });
+                
+                // 回到頂部按鈕顯示/隱藏
+                if (window.pageYOffset > 500) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            });
+            
+            // 回到頂部功能
+            backToTopBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // 初始觸發一次滾動事件，確保導航狀態正確
+            window.dispatchEvent(new Event('scroll'));
+        });
+    </script>
+</body>
+</html>
+    
