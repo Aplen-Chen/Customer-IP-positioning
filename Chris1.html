@@ -1,0 +1,1175 @@
+
+<html lang="zh-CN"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>餐飲科技創業者Chris的個人IP打造與短視頻內容策略研究</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF9AA2', // 桃粉色
+                        secondary: '#C7CEEA', // 淡紫色
+                        accent: '#B5838D', // 深粉紫色
+                        purple: {
+                            light: '#E2D1F8',
+                            DEFAULT: '#9F7AEA',
+                            dark: '#6B46C1'
+                        },
+                        pink: {
+                            light: '#FFB7B2',
+                            DEFAULT: '#FF9AA2',
+                            dark: '#E57373'
+                        },
+                        neutral: {
+                            100: '#F7FAFC',
+                            200: '#EDF2F7',
+                            300: '#E2E8F0',
+                            400: '#CBD5E0',
+                            500: '#A0AEC0',
+                            600: '#718096',
+                            700: '#4A5568',
+                            800: '#2D3748',
+                            900: '#1A202C'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px rgba(0, 0, 0, 0.05)',
+                        'hover': '0 10px 25px rgba(159, 122, 234, 0.1)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .bg-gradient {
+                background: linear-gradient(135deg, #FF9AA2 0%, #C7CEEA 100%);
+            }
+            .transition-all-300 {
+                transition: all 300ms ease-in-out;
+            }
+        }
+    </style>
+</head>
+<body class="bg-neutral-100 font-sans text-neutral-800">
+    <!-- 巡覽列 -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm shadow-soft transition-all duration-300">
+        <div class="container mx-auto px-4 py-4">
+            <nav class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 rounded-full bg-gradient flex items-center justify-center">
+                        <i class="fa fa-cutlery text-white"></i>
+                    </div>
+                    <!-- 獨角獸圖示替代文字 -->
+                    <svg width="100" height="24" viewBox="0 0 100 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 12C10 15.3137 7.31371 18 4 18C0.686292 18 -2 15.3137 -2 12C-2 8.68629 0.686292 6 4 6C7.31371 6 10 8.68629 10 12Z" stroke="url(#unicornGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M10 12H18" stroke="url(#unicornGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M26 19C26 21.2091 24.2091 23 22 23H18" stroke="url(#unicornGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M18 14V23" stroke="url(#unicornGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M26 5C26 2.79086 24.2091 1 22 1H18" stroke="url(#unicornGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M18 10V1" stroke="url(#unicornGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M18 12H40C45.5228 12 50 16.4772 50 22V22" stroke="url(#unicornGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M50 22C50 16.4772 54.4772 12 60 12H75" stroke="url(#unicornGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M75 12L85 5" stroke="url(#unicornGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M75 12L85 19" stroke="url(#unicornGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <defs>
+                            <linearGradient id="unicornGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#FF9AA2"/>
+                                <stop offset="100%" stop-color="#9F7AEA"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                
+                <!-- 桌面導航 -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#page1" class="text-neutral-600 hover:text-purple transition-all-300 page-link" data-page="page1">專案背景</a>
+                    <a href="#page2" class="text-neutral-600 hover:text-purple transition-all-300 page-link" data-page="page2">個人特質</a>
+                    <a href="#page3" class="text-neutral-600 hover:text-purple transition-all-300 page-link" data-page="page3">目標受眾</a>
+                    <a href="#page4" class="text-neutral-600 hover:text-purple transition-all-300 page-link" data-page="page4">內容策略</a>
+                    <a href="#page5" class="text-neutral-600 hover:text-purple transition-all-300 page-link" data-page="page5">業務拓展</a>
+                </div>
+                
+                <!-- 移動端功能表按鈕 -->
+                <button id="menu-toggle" class="md:hidden text-neutral-700 focus:outline-none">
+                    <i class="fa fa-bars text-xl"></i>
+                </button>
+            </nav>
+            
+            <!-- 移動端導航菜單 -->
+            <div id="mobile-menu" class="md:hidden hidden mt-4 pb-2">
+                <div class="flex flex-col space-y-3">
+                    <a href="#page1" class="text-neutral-600 hover:text-purple transition-all-300 py-2 page-link" data-page="page1">專案背景</a>
+                    <a href="#page2" class="text-neutral-600 hover:text-purple transition-all-300 py-2 page-link" data-page="page2">個人特質</a>
+                    <a href="#page3" class="text-neutral-600 hover:text-purple transition-all-300 py-2 page-link" data-page="page3">目標受眾</a>
+                    <a href="#page4" class="text-neutral-600 hover:text-purple transition-all-300 py-2 page-link" data-page="page4">內容策略</a>
+                    <a href="#page5" class="text-neutral-600 hover:text-purple transition-all-300 py-2 page-link" data-page="page5">業務拓展</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- 英雄區域 -->
+        <section class="relative rounded-2xl overflow-hidden mb-12 bg-white shadow-soft">
+            <div class="absolute inset-0 bg-gradient opacity-10"></div>
+            <div class="relative p-8 md:p-12">
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-neutral-900 leading-tight">
+                    餐飲科技創業者Chris的個人IP打造與短視頻內容策略研究
+                </h1>
+                <p class="text-lg md:text-xl text-neutral-600 max-w-3xl">
+                    本研究聚焦於餐飲科技領域創業者Chris的個人IP打造與短視頻內容策略規劃，旨在説明Chris建立專業且具親和力的個人IP，吸引18-50歲的目標受眾，傳遞正能量與飲食業的心路歷程，同時推動業務發展。
+                </p>
+                
+                <!-- 分頁指示器 -->
+                <div class="flex items-center mt-10 space-x-2">
+                    <span class="text-neutral-500 text-sm">流覽章節:</span>
+                    <div class="flex space-x-1">
+                        <button class="w-3 h-3 rounded-full bg-primary page-indicator" data-page="page1"></button>
+                        <button class="w-3 h-3 rounded-full bg-neutral-300 page-indicator" data-page="page2"></button>
+                        <button class="w-3 h-3 rounded-full bg-neutral-300 page-indicator" data-page="page3"></button>
+                        <button class="w-3 h-3 rounded-full bg-neutral-300 page-indicator" data-page="page4"></button>
+                        <button class="w-3 h-3 rounded-full bg-neutral-300 page-indicator" data-page="page5"></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 分頁內容容器 -->
+        <div class="page-container">
+            <!-- 第1頁：專案背景與研究概述 -->
+            <div id="page1" class="page active">
+                <section class="bg-white rounded-2xl shadow-soft p-6 md:p-8 mb-8 transform hover:shadow-hover transition-all duration-300">
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 rounded-full bg-pink/20 flex items-center justify-center mr-4">
+                            <i class="fa fa-lightbulb-o text-pink-dark"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-neutral-900">專案背景與研究概述</h2>
+                    </div>
+                    
+                    <p class="text-neutral-700 mb-6 leading-relaxed">
+                        本研究聚焦於餐飲科技領域創業者Chris的個人IP打造與短視頻內容策略規劃。Chris作為餐飲科技行業20年經驗的資深從業者和企業創辦人，具備豐富的行業經驗和專業知識，希望通過短視頻平臺建立專業且具親和力的個人IP。
+                    </p>
+                    
+                    <h3 class="text-xl font-semibold text-neutral-800 mb-4 mt-8">研究目標</h3>
+                    <ul class="space-y-3 mb-8 pl-6">
+                        <li class="flex items-start">
+                            <i class="fa fa-check-circle text-purple mt-1 mr-2"></i>
+                            <span>分析Chris的個人特質與職業背景，構建精准的IP定位</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check-circle text-purple mt-1 mr-2"></i>
+                            <span>制定符合目標受眾需求的短視頻內容策略與劇本建議</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check-circle text-purple mt-1 mr-2"></i>
+                            <span>結合餐飲科技行業特點，規劃短視頻製作的未來發展方向</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check-circle text-purple mt-1 mr-2"></i>
+                            <span>設計基於個人IP的業務拓展與商業變現路徑</span>
+                        </li>
+                    </ul>
+                    
+                    <h3 class="text-xl font-semibold text-neutral-800 mb-4 mt-8">研究方法</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+                        <div class="bg-neutral-50 rounded-xl p-5 border border-neutral-100 hover:border-pink/30 transition-all duration-300">
+                            <div class="w-12 h-12 rounded-full bg-pink/10 flex items-center justify-center mb-4">
+                                <i class="fa fa-user text-pink-dark"></i>
+                            </div>
+                            <h4 class="font-semibold text-neutral-800 mb-2">個人特質分析法</h4>
+                            <p class="text-neutral-600 text-sm">基於MBTI人格理論與職業特質評估</p>
+                        </div>
+                        
+                        <div class="bg-neutral-50 rounded-xl p-5 border border-neutral-100 hover:border-pink/30 transition-all duration-300">
+                            <div class="w-12 h-12 rounded-full bg-purple/10 flex items-center justify-center mb-4">
+                                <i class="fa fa-line-chart text-purple-dark"></i>
+                            </div>
+                            <h4 class="font-semibold text-neutral-800 mb-2">行業趨勢分析法</h4>
+                            <p class="text-neutral-600 text-sm">結合2025年餐飲科技行業發展趨勢</p>
+                        </div>
+                        
+                        <div class="bg-neutral-50 rounded-xl p-5 border border-neutral-100 hover:border-pink/30 transition-all duration-300">
+                            <div class="w-12 h-12 rounded-full bg-pink/10 flex items-center justify-center mb-4">
+                                <i class="fa fa-users text-pink-dark"></i>
+                            </div>
+                            <h4 class="font-semibold text-neutral-800 mb-2">受眾畫像法</h4>
+                            <p class="text-neutral-600 text-sm">精准定位18-50歲目標受眾的需求與偏好</p>
+                        </div>
+                        
+                        <div class="bg-neutral-50 rounded-xl p-5 border border-neutral-100 hover:border-pink/30 transition-all duration-300">
+                            <div class="w-12 h-12 rounded-full bg-purple/10 flex items-center justify-center mb-4">
+                                <i class="fa fa-book text-purple-dark"></i>
+                            </div>
+                            <h4 class="font-semibold text-neutral-800 mb-2">案例研究法</h4>
+                            <p class="text-neutral-600 text-sm">參考成功IP案例，提煉可借鑒經驗</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- 第2頁：Chris個人特質與職業背景分析 -->
+            <div id="page2" class="page hidden">
+                <section class="bg-white rounded-2xl shadow-soft p-6 md:p-8 mb-8 transform hover:shadow-hover transition-all duration-300">
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 rounded-full bg-purple/20 flex items-center justify-center mr-4">
+                            <i class="fa fa-id-card-o text-purple-dark"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-neutral-900">Chris個人特質與職業背景分析</h2>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold text-neutral-800 mb-4 mt-4">核心性格特徵</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4 mb-8">
+                        <div class="bg-gradient-to-br from-pink/5 to-purple/5 rounded-xl p-6 border border-pink/10">
+                            <h4 class="font-semibold text-neutral-800 mb-3 flex items-center">
+                                <i class="fa fa-comments text-pink mr-2"></i>外向社交型
+                            </h4>
+                            <p class="text-neutral-600">
+                                性格外向、喜歡社交，具備出色的人際溝通能力和社交感知力，能快速與不同年齡層的人建立連接。
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-br from-purple/5 to-pink/5 rounded-xl p-6 border border-purple/10">
+                            <h4 class="font-semibold text-neutral-800 mb-3 flex items-center">
+                                <i class="fa fa-check-square-o text-purple mr-2"></i>可靠專業型
+                            </h4>
+                            <p class="text-neutral-600">
+                                做事有條理、可靠，20年餐飲科技行業經驗積累了豐富的專業知識和行業洞察力。
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-br from-purple/5 to-pink/5 rounded-xl p-6 border border-purple/10">
+                            <h4 class="font-semibold text-neutral-800 mb-3 flex items-center">
+                                <i class="fa fa-lightbulb-o text-purple mr-2"></i>開放創新型
+                            </h4>
+                            <p class="text-neutral-600">
+                                對新體驗持開放態度，結合餐飲科技行業的創新特性，展現出對新技術、新模式的敏銳感知。
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-br from-pink/5 to-purple/5 rounded-xl p-6 border border-pink/10">
+                            <h4 class="font-semibold text-neutral-800 mb-3 flex items-center">
+                                <i class="fa fa-balance-scale text-pink mr-2"></i>情緒穩定型
+                            </h4>
+                            <p class="text-neutral-600">
+                                情緒穩定、冷靜，面對行業變化和挑戰能夠保持理性思考，提供穩定、可靠的決策參考。
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold text-neutral-800 mb-4 mt-8">職業優勢與成就</h3>
+                    <div class="bg-neutral-50 rounded-xl p-6 mb-8">
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <div class="w-8 h-8 rounded-full bg-pink/10 flex items-center justify-center mt-1 mr-4 flex-shrink-0">
+                                    <i class="fa fa-trophy text-pink-dark text-sm"></i>
+                                </div>
+                                <div>
+                                    <span class="font-medium text-neutral-800">行業資深專家：</span>
+                                    <span class="text-neutral-600">20年餐飲科技行業經驗，積累了豐富的行業資源和專業知識</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="w-8 h-8 rounded-full bg-purple/10 flex items-center justify-center mt-1 mr-4 flex-shrink-0">
+                                    <i class="fa fa-cogs text-purple-dark text-sm"></i>
+                                </div>
+                                <div>
+                                    <span class="font-medium text-neutral-800">技術創新推動者：</span>
+                                    <span class="text-neutral-600">作為餐飲科技領域的創辦人，具備將技術創新應用于傳統餐飲業的實踐經驗</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="w-8 h-8 rounded-full bg-pink/10 flex items-center justify-center mt-1 mr-4 flex-shrink-0">
+                                    <i class="fa fa-chess text-pink-dark text-sm"></i>
+                                </div>
+                                <div>
+                                    <span class="font-medium text-neutral-800">戰略思維能力：</span>
+                                    <span class="text-neutral-600">在行業變革中保持戰略定力，能夠把握市場機遇</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="w-8 h-8 rounded-full bg-purple/10 flex items-center justify-center mt-1 mr-4 flex-shrink-0">
+                                    <i class="fa fa-heart text-purple-dark text-sm"></i>
+                                </div>
+                                <div>
+                                    <span class="font-medium text-neutral-800">誠信價值觀：</span>
+                                    <span class="text-neutral-600">秉持誠信經營理念，在行業內樹立了良好的口碑和信譽</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold text-neutral-800 mb-4">行業影響力與定位</h3>
+                    <div class="flex flex-wrap gap-3 mt-2">
+                        <span class="inline-flex items-center px-4 py-2 bg-pink/10 text-pink-dark rounded-full text-sm font-medium">
+                            <i class="fa fa-flag mr-2"></i>行業引領者
+                        </span>
+                        <span class="inline-flex items-center px-4 py-2 bg-purple/10 text-purple-dark rounded-full text-sm font-medium">
+                            <i class="fa fa-bolt mr-2"></i>技術賦能者
+                        </span>
+                        <span class="inline-flex items-center px-4 py-2 bg-pink/10 text-pink-dark rounded-full text-sm font-medium">
+                            <i class="fa fa-random mr-2"></i>跨界融合推動者
+                        </span>
+                    </div>
+                </section>
+            </div>
+
+            <!-- 第3頁：目標受眾分析與內容偏好 -->
+            <div id="page3" class="page hidden">
+                <section class="bg-white rounded-2xl shadow-soft p-6 md:p-8 mb-8 transform hover:shadow-hover transition-all duration-300">
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 rounded-full bg-pink/20 flex items-center justify-center mr-4">
+                            <i class="fa fa-users text-pink-dark"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-neutral-900">目標受眾分析與內容偏好</h2>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold text-neutral-800 mb-4 mt-4">目標受眾畫像</h3>
+                    <p class="text-neutral-700 mb-6">
+                        Chris的目標受眾為18-50歲人群，這一群體具有以下特徵：
+                    </p>
+                    
+                    <div class="bg-neutral-50 rounded-xl p-4 md:p-6 mb-8">
+                        <div class="h-80">
+                            <canvas id="audienceChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold text-neutral-800 mb-4">內容偏好分析</h3>
+                    <div class="bg-neutral-50 rounded-xl p-4 md:p-6 mb-8">
+                        <div class="h-80">
+                            <canvas id="contentPreferencesChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold text-neutral-800 mb-4">平臺使用習慣</h3>
+                    <div class="bg-neutral-50 rounded-xl p-4 md:p-6 mb-8">
+                        <div class="h-80">
+                            <canvas id="platformUsageChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold text-neutral-800 mb-4">受眾心理需求</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                        <div class="bg-gradient-to-r from-pink/5 to-transparent p-5 rounded-xl border border-pink/10">
+                            <h4 class="font-medium text-neutral-800 mb-2 flex items-center">
+                                <i class="fa fa-graduation-cap text-pink mr-2"></i>知識獲取需求
+                            </h4>
+                            <p class="text-neutral-600 text-sm">
+                                希望瞭解餐飲科技的最新發展趨勢、應用場景和商業價值
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-purple/5 to-transparent p-5 rounded-xl border border-purple/10">
+                            <h4 class="font-medium text-neutral-800 mb-2 flex items-center">
+                                <i class="fa fa-wrench text-purple mr-2"></i>技能提升需求
+                            </h4>
+                            <p class="text-neutral-600 text-sm">
+                                渴望獲得實用的餐飲經營技能和科技創新應用方法
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-purple/5 to-transparent p-5 rounded-xl border border-purple/10">
+                            <h4 class="font-medium text-neutral-800 mb-2 flex items-center">
+                                <i class="fa fa-handshake-o text-purple mr-2"></i>商業機會探索
+                            </h4>
+                            <p class="text-neutral-600 text-sm">
+                                尋求餐飲行業的創業機會、投資方向和合作資源
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-pink/5 to-transparent p-5 rounded-xl border border-pink/10">
+                            <h4 class="font-medium text-neutral-800 mb-2 flex items-center">
+                                <i class="fa fa-heart text-pink mr-2"></i>情感共鳴需求
+                            </h4>
+                            <p class="text-neutral-600 text-sm">
+                                希望通過內容獲得情感認同和心理支持，特別是在行業變革期
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-pink/5 to-transparent p-5 rounded-xl border border-pink/10 md:col-span-2">
+                            <h4 class="font-medium text-neutral-800 mb-2 flex items-center">
+                                <i class="fa fa-share-alt text-pink mr-2"></i>社交分享需求
+                            </h4>
+                            <p class="text-neutral-600 text-sm">
+                                通過分享有價值的內容提升個人形象和社交影響力
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- 第4頁：IP定位與核心價值主張 -->
+            <div id="page4" class="page hidden">
+                <section class="bg-white rounded-2xl shadow-soft p-6 md:p-8 mb-8 transform hover:shadow-hover transition-all duration-300">
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 rounded-full bg-purple/20 flex items-center justify-center mr-4">
+                            <i class="fa fa-compass text-purple-dark"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-neutral-900">IP定位與核心價值主張</h2>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold text-neutral-800 mb-4 mt-4">核心IP定位</h3>
+                    <div class="bg-gradient-to-r from-pink/10 to-purple/10 rounded-xl p-6 mb-8 border-l-4 border-purple">
+                        <h4 class="text-xl font-semibold text-neutral-800 mb-3">"大灣區餐飲科技領航者"</h4>
+                        <p class="text-neutral-700">
+                            這一IP定位既體現了Chris在餐飲科技領域的專業地位，又突出了其在大灣區的地域優勢，能夠有效吸引目標受眾的關注。
+                        </p>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold text-neutral-800 mb-4">IP價值主張</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4 mb-8">
+                        <div class="bg-white rounded-xl p-6 shadow-sm border border-neutral-100 hover:border-pink/30 transition-all duration-300">
+                            <div class="w-14 h-14 rounded-full bg-pink/10 flex items-center justify-center mb-5">
+                                <i class="fa fa-book text-pink-dark text-xl"></i>
+                            </div>
+                            <h4 class="font-semibold text-neutral-800 mb-3">專業知識輸出</h4>
+                            <p class="text-neutral-600 text-sm">
+                                基於20年餐飲科技行業經驗，提供專業、系統的行業洞察和技術解析，滿足受眾對專業知識的需求。
+                            </p>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl p-6 shadow-sm border border-neutral-100 hover:border-purple/30 transition-all duration-300">
+                            <div class="w-14 h-14 rounded-full bg-purple/10 flex items-center justify-center mb-5">
+                                <i class="fa fa-binoculars text-purple-dark text-xl"></i>
+                            </div>
+                            <h4 class="font-semibold text-neutral-800 mb-3">行業趨勢引領</h4>
+                            <p class="text-neutral-600 text-sm">
+                                通過對餐飲科技發展趨勢的深入分析，為受眾提供前瞻性的行業指導，幫助其把握市場機遇。
+                            </p>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl p-6 shadow-sm border border-neutral-100 hover:border-pink/30 transition-all duration-300">
+                            <div class="w-14 h-14 rounded-full bg-pink/10 flex items-center justify-center mb-5">
+                                <i class="fa fa-flask text-pink-dark text-xl"></i>
+                            </div>
+                            <h4 class="font-semibold text-neutral-800 mb-3">創新實踐分享</h4>
+                            <p class="text-neutral-600 text-sm">
+                                結合自身創業經驗和行業案例，分享餐飲科技的創新應用和實踐經驗，為受眾提供可借鑒的解決方案。
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold text-neutral-800 mb-4">人物標籤與形象塑造</h3>
+                    <div class="flex flex-wrap gap-3 mb-8">
+                        <span class="inline-flex items-center px-4 py-2 bg-pink/10 text-pink-dark rounded-full text-sm font-medium">
+                            餐飲科技先行者
+                        </span>
+                        <span class="inline-flex items-center px-4 py-2 bg-purple/10 text-purple-dark rounded-full text-sm font-medium">
+                            大灣區飲食文化交流使者
+                        </span>
+                        <span class="inline-flex items-center px-4 py-2 bg-pink/10 text-pink-dark rounded-full text-sm font-medium">
+                            科技創新賦能者
+                        </span>
+                        <span class="inline-flex items-center px-4 py-2 bg-purple/10 text-purple-dark rounded-full text-sm font-medium">
+                            誠信經營踐行者
+                        </span>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold text-neutral-800 mb-4">短視頻內容策略與劇本建議</h3>
+                    
+                    <div class="space-y-4 mt-6">
+                        <!-- 劇本1 -->
+                        <div class="border border-neutral-200 rounded-xl overflow-hidden">
+                            <div class="collapsible-header bg-neutral-50 p-5 cursor-pointer flex justify-between items-center">
+                                <h4 class="font-medium text-neutral-800">《20年行業親歷者：餐飲科技如何改變大灣區飲食文化》</h4>
+                                <i class="fa fa-chevron-right text-neutral-500 transition-transform duration-300"></i>
+                            </div>
+                            <div class="collapsible-content hidden p-5 border-t border-neutral-100 bg-white">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                                    <div>
+                                        <p class="text-neutral-500 mb-1">時長</p>
+                                        <p class="font-medium">2分鐘</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-neutral-500 mb-1">場景</p>
+                                        <p>Chris在大灣區標誌性餐飲場景（如茶樓、餐廳）進行實地拍攝，背景體現傳統與現代融合的元素</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-neutral-500 mb-1">亮點</p>
+                                        <p>結合大灣區特色飲食場景，通過對比展示科技如何與傳統融合，體現專業深度和文化內涵。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 劇本2 -->
+                        <div class="border border-neutral-200 rounded-xl overflow-hidden">
+                            <div class="collapsible-header bg-neutral-50 p-5 cursor-pointer flex justify-between items-center">
+                                <h4 class="font-medium text-neutral-800">《從後廚到餐桌：餐飲科技如何重塑食品安全與信任》</h4>
+                                <i class="fa fa-chevron-right text-neutral-500 transition-transform duration-300"></i>
+                            </div>
+                            <div class="collapsible-content hidden p-5 border-t border-neutral-100 bg-white">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                                    <div>
+                                        <p class="text-neutral-500 mb-1">時長</p>
+                                        <p class="font-medium">2分30秒</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-neutral-500 mb-1">場景</p>
+                                        <p>Chris在餐飲科技實驗室或智慧廚房環境中進行講解，背景展示相關技術設備</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-neutral-500 mb-1">亮點</p>
+                                        <p>通過技術解析和案例展示，體現Chris的專業深度和行業洞察力，突出誠信價值觀。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 劇本3 -->
+                        <div class="border border-neutral-200 rounded-xl overflow-hidden">
+                            <div class="collapsible-header bg-neutral-50 p-5 cursor-pointer flex justify-between items-center">
+                                <h4 class="font-medium text-neutral-800">《對話大灣區餐飲創新者》</h4>
+                                <i class="fa fa-chevron-right text-neutral-500 transition-transform duration-300"></i>
+                            </div>
+                            <div class="collapsible-content hidden p-5 border-t border-neutral-100 bg-white">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                                    <div>
+                                        <p class="text-neutral-500 mb-1">時長</p>
+                                        <p class="font-medium">3分鐘</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-neutral-500 mb-1">場景</p>
+                                        <p>Chris與大灣區餐飲創新者在其工作場所進行對話，環境體現創新與傳統融合的特色</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-neutral-500 mb-1">亮點</p>
+                                        <p>通過與行業創新者的對話，展示科技與傳統的融合案例，增強內容的權威性和可信度。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- 第5頁：業務拓展與商業變現路徑 -->
+            <div id="page5" class="page hidden">
+                <section class="bg-white rounded-2xl shadow-soft p-6 md:p-8 mb-8 transform hover:shadow-hover transition-all duration-300">
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 rounded-full bg-pink/20 flex items-center justify-center mr-4">
+                            <i class="fa fa-line-chart text-pink-dark"></i>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-neutral-900">業務拓展與商業變現路徑</h2>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold text-neutral-800 mb-4 mt-4">短期業務拓展（0-6個月）</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4 mb-10">
+                        <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-neutral-100">
+                            <div class="h-2 bg-pink"></div>
+                            <div class="p-6">
+                                <div class="w-12 h-12 rounded-full bg-pink/10 flex items-center justify-center mb-4">
+                                    <i class="fa fa-comments text-pink-dark"></i>
+                                </div>
+                                <h4 class="font-semibold text-neutral-800 mb-4">行業顧問服務</h4>
+                                <ul class="space-y-2 text-sm text-neutral-600">
+                                    <li class="flex items-start">
+                                        <i class="fa fa-angle-right text-pink mt-1 mr-2"></i>
+                                        <span>為餐飲企業提供餐飲科技應用諮詢服務</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-angle-right text-pink mt-1 mr-2"></i>
+                                        <span>為科技企業提供餐飲行業需求分析</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-angle-right text-pink mt-1 mr-2"></i>
+                                        <span>為投資機構提供餐飲科技領域的投資分析</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-neutral-100">
+                            <div class="h-2 bg-purple"></div>
+                            <div class="p-6">
+                                <div class="w-12 h-12 rounded-full bg-purple/10 flex items-center justify-center mb-4">
+                                    <i class="fa fa-credit-card text-purple-dark"></i>
+                                </div>
+                                <h4 class="font-semibold text-neutral-800 mb-4">知識付費產品</h4>
+                                <ul class="space-y-2 text-sm text-neutral-600">
+                                    <li class="flex items-start">
+                                        <i class="fa fa-angle-right text-purple mt-1 mr-2"></i>
+                                        <span>開發《餐飲科技入門指南》等入門級課程</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-angle-right text-purple mt-1 mr-2"></i>
+                                        <span>製作《大灣區餐飲科技發展報告》</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-angle-right text-purple mt-1 mr-2"></i>
+                                        <span>推出《餐飲科技前沿洞察》訂閱服務</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-neutral-100">
+                            <div class="h-2 bg-pink"></div>
+                            <div class="p-6">
+                                <div class="w-12 h-12 rounded-full bg-pink/10 flex items-center justify-center mb-4">
+                                    <i class="fa fa-calendar text-pink-dark"></i>
+                                </div>
+                                <h4 class="font-semibold text-neutral-800 mb-4">線下活動策劃</h4>
+                                <ul class="space-y-2 text-sm text-neutral-600">
+                                    <li class="flex items-start">
+                                        <i class="fa fa-angle-right text-pink mt-1 mr-2"></i>
+                                        <span>舉辦餐飲科技沙龍和研討會</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-angle-right text-pink mt-1 mr-2"></i>
+                                        <span>組織"科技+美食"體驗活動</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-angle-right text-pink mt-1 mr-2"></i>
+                                        <span>開展"餐飲科技創業營"</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold text-neutral-800 mb-4">執行計畫與關鍵節點</h3>
+                    <div class="relative">
+                        <!-- 時間線 -->
+                        <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-purple/20 transform -translate-x-1/2"></div>
+                        
+                        <div class="space-y-12 relative">
+                            <!-- 第一階段 -->
+                            <div class="md:flex items-center">
+                                <div class="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
+                                    <h4 class="text-lg font-semibold text-neutral-800 mb-2">第一階段（0-3個月）</h4>
+                                    <p class="text-neutral-600 mb-3"><span class="font-medium">核心目標：</span>建立IP基礎，積累初始粉絲</p>
+                                    <div class="bg-neutral-50 p-4 rounded-lg inline-block md:ml-auto">
+                                        <p class="text-sm font-medium text-neutral-800 mb-1">關鍵節點：</p>
+                                        <ul class="text-sm text-neutral-600 space-y-1">
+                                            <li>第1個月：完成帳號搭建和首批內容製作</li>
+                                            <li>第2個月：開始規律發佈，粉絲數突破1000</li>
+                                            <li>第3個月：舉辦首次直播，粉絲數突破5000</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="hidden md:flex absolute left-1/2 w-6 h-6 rounded-full bg-pink transform -translate-x-1/2 z-10"></div>
+                                
+                                <div class="md:w-1/2 md:pl-12">
+                                    <div class="w-10 h-10 md:hidden rounded-full bg-pink flex items-center justify-center mb-4">
+                                        <span class="text-white font-medium">1</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 第二階段 -->
+                            <div class="md:flex items-center">
+                                <div class="md:w-1/2 md:pr-12 mb-6 md:mb-0">
+                                    <div class="w-10 h-10 md:hidden rounded-full bg-purple flex items-center justify-center mb-4">
+                                        <span class="text-white font-medium">2</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="hidden md:flex absolute left-1/2 w-6 h-6 rounded-full bg-purple transform -translate-x-1/2 z-10"></div>
+                                
+                                <div class="md:w-1/2 md:pl-12">
+                                    <h4 class="text-lg font-semibold text-neutral-800 mb-2">第二階段（4-6個月）</h4>
+                                    <p class="text-neutral-600 mb-3"><span class="font-medium">核心目標：</span>擴大影響力，提升內容品質</p>
+                                    <div class="bg-neutral-50 p-4 rounded-lg">
+                                        <p class="text-sm font-medium text-neutral-800 mb-1">關鍵節點：</p>
+                                        <ul class="text-sm text-neutral-600 space-y-1">
+                                            <li>第4個月：粉絲數突破1萬，開始接品牌合作</li>
+                                            <li>第5個月：推出首個付費產品，銷售額突破5萬</li>
+                                            <li>第6個月：舉辦首次線下活動，粉絲數突破3萬</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 第三階段 -->
+                            <div class="md:flex items-center">
+                                <div class="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
+                                    <h4 class="text-lg font-semibold text-neutral-800 mb-2">第三階段（7-12個月）</h4>
+                                    <p class="text-neutral-600 mb-3"><span class="font-medium">核心目標：</span>實現規模化變現，建立商業模式</p>
+                                    <div class="bg-neutral-50 p-4 rounded-lg inline-block md:ml-auto">
+                                        <p class="text-sm font-medium text-neutral-800 mb-1">關鍵節點：</p>
+                                        <ul class="text-sm text-neutral-600 space-y-1">
+                                            <li>第8個月：課程銷售額突破50萬，建立穩定變現管道</li>
+                                            <li>第10個月：開始提供諮詢服務，建立服務體系</li>
+                                            <li>第12個月：粉絲數突破10萬，月均變現收入突破10萬</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="hidden md:flex absolute left-1/2 w-6 h-6 rounded-full bg-pink transform -translate-x-1/2 z-10"></div>
+                                
+                                <div class="md:w-1/2 md:pl-12">
+                                    <div class="w-10 h-10 md:hidden rounded-full bg-pink flex items-center justify-center mb-4">
+                                        <span class="text-white font-medium">3</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold text-neutral-800 mb-4 mt-12">結論與建議</h3>
+                    <div class="bg-gradient-to-r from-purple/5 to-pink/5 rounded-xl p-6 mb-8">
+                        <h4 class="font-semibold text-neutral-800 mb-4">核心建議</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="bg-white p-5 rounded-lg shadow-sm">
+                                <h5 class="font-medium text-neutral-800 mb-3 text-pink">立即行動建議</h5>
+                                <ul class="space-y-2 text-sm text-neutral-600">
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check text-pink mt-1 mr-2"></i>
+                                        <span>儘快確定IP定位和核心價值主張，開始內容創作</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check text-pink mt-1 mr-2"></i>
+                                        <span>建立多平臺帳號矩陣，統一視覺標識</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check text-pink mt-1 mr-2"></i>
+                                        <span>每週發佈3-5條高品質短視頻，保持持續性</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-white p-5 rounded-lg shadow-sm">
+                                <h5 class="font-medium text-neutral-800 mb-3 text-purple">核心發展建議</h5>
+                                <ul class="space-y-2 text-sm text-neutral-600">
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check text-purple mt-1 mr-2"></i>
+                                        <span>聚焦"專業知識+行業洞察+創新實踐"內容矩陣</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check text-purple mt-1 mr-2"></i>
+                                        <span>優先發展與大灣區餐飲科技相關的內容</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check text-purple mt-1 mr-2"></i>
+                                        <span>注重與粉絲的互動和關係維護，建立粘性</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-white p-5 rounded-lg shadow-sm">
+                                <h5 class="font-medium text-neutral-800 mb-3 text-pink">長期戰略建議</h5>
+                                <ul class="space-y-2 text-sm text-neutral-600">
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check text-pink mt-1 mr-2"></i>
+                                        <span>構建餐飲科技產業生態，整合產業鏈資源</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check text-pink mt-1 mr-2"></i>
+                                        <span>發展多元化業務模式，實現可持續發展</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check text-pink mt-1 mr-2"></i>
+                                        <span>推動大灣區餐飲科技的國際化交流</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        
+        <!-- 分頁導航 -->
+        <div class="flex justify-between items-center mt-6 mb-12">
+            <button id="prev-page" class="px-5 py-3 rounded-lg bg-white shadow-sm border border-neutral-200 text-neutral-700 hover:border-pink hover:text-pink transition-all duration-300 flex items-center opacity-50 cursor-not-allowed">
+                <i class="fa fa-chevron-left mr-2"></i>
+                <span>上一頁</span>
+            </button>
+            
+            <div class="flex space-x-2">
+                <button class="w-10 h-10 rounded-full bg-pink text-white flex items-center justify-center page-number" data-page="1">1</button>
+                <button class="w-10 h-10 rounded-full bg-neutral-200 text-neutral-700 flex items-center justify-center page-number" data-page="2">2</button>
+                <button class="w-10 h-10 rounded-full bg-neutral-200 text-neutral-700 flex items-center justify-center page-number" data-page="3">3</button>
+                <button class="w-10 h-10 rounded-full bg-neutral-200 text-neutral-700 flex items-center justify-center page-number" data-page="4">4</button>
+                <button class="w-10 h-10 rounded-full bg-neutral-200 text-neutral-700 flex items-center justify-center page-number" data-page="5">5</button>
+            </div>
+            
+            <button id="next-page" class="px-5 py-3 rounded-lg bg-white shadow-sm border border-neutral-200 text-neutral-700 hover:border-pink hover:text-pink transition-all duration-300 flex items-center">
+                <span>下一頁</span>
+                <i class="fa fa-chevron-right ml-2"></i>
+            </button>
+        </div>
+    </main>
+
+    <footer class="bg-neutral-900 text-neutral-300 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-8 h-8 rounded-full bg-gradient flex items-center justify-center">
+                            <i class="fa fa-cutlery text-white"></i>
+                        </div>
+                        <span class="text-lg font-bold text-white">Chris IP 研究</span>
+                    </div>
+                    <p class="text-neutral-400 text-sm">
+                        本研究聚焦於餐飲科技領域創業者Chris的個人IP打造與短視頻內容策略規劃，旨在説明Chris建立專業且具親和力的個人IP。
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="text-white font-semibold mb-4">主要章節</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#page1" class="text-neutral-400 hover:text-pink transition-colors duration-300 page-link" data-page="page1">專案背景與研究概述</a></li>
+                        <li><a href="#page2" class="text-neutral-400 hover:text-pink transition-colors duration-300 page-link" data-page="page2">Chris個人特質分析</a></li>
+                        <li><a href="#page3" class="text-neutral-400 hover:text-pink transition-colors duration-300 page-link" data-page="page3">目標受眾分析</a></li>
+                        <li><a href="#page4" class="text-neutral-400 hover:text-pink transition-colors duration-300 page-link" data-page="page4">IP定位與內容策略</a></li>
+                        <li><a href="#page5" class="text-neutral-400 hover:text-pink transition-colors duration-300 page-link" data-page="page5">業務拓展與商業變現</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-white font-semibold mb-4">聯繫方式</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center">
+                            <i class="fa fa-envelope text-pink mr-2"></i>
+                            <a href="mailto:chris@example.com" class="text-neutral-400 hover:text-pink transition-colors duration-300">chris@example.com</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-globe text-pink mr-2"></i>
+                            <a href="https://www.example.com" target="_blank" class="text-neutral-400 hover:text-pink transition-colors duration-300">官方網站</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-share-alt text-pink mr-2"></i>
+                            <a href="https://www.example.com/social" target="_blank" class="text-neutral-400 hover:text-pink transition-colors duration-300">社交媒體</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-6 border-t border-neutral-800 text-center text-neutral-500 text-sm">
+                © 2025 餐飲科技創業者Chris的個人IP打造與短視頻內容策略研究. 保留所有權利。
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 初始化當前頁碼
+        let currentPage = 1;
+        const totalPages = 5;
+        
+        // 頁面載入完成後初始化圖表
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化圖表
+            initCharts();
+            
+            // 初始化折疊面板
+            initCollapsibles();
+            
+            // 初始化移動端菜單
+            initMobileMenu();
+            
+            // 初始化分頁導航
+            initPagination();
+        });
+        
+        // 初始化圖表
+        function initCharts() {
+            // 目標受眾畫像圖表
+            const audienceCtx = document.getElementById('audienceChart');
+            if (audienceCtx) {
+                new Chart(audienceCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['18-30歲', '31-50歲'],
+                        datasets: [
+                            {
+                                label: '性別分佈（女性）',
+                                data: [36, 24],
+                                backgroundColor: '#FF9AA2',
+                                borderWidth: 0
+                            },
+                            {
+                                label: '性別分佈（男性）',
+                                data: [24, 16],
+                                backgroundColor: '#C7CEEA',
+                                borderWidth: 0
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: '目標受眾年齡與性別分佈',
+                                font: {
+                                    size: 16
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: '占比 (%)'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // 內容偏好分析圖表
+            const contentPreferencesCtx = document.getElementById('contentPreferencesChart');
+            if (contentPreferencesCtx) {
+                new Chart(contentPreferencesCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['實用技能類', '行業洞察類', '案例解析類'],
+                        datasets: [
+                            {
+                                data: [42, 35, 23],
+                                backgroundColor: [
+                                    '#FF9AA2',
+                                    '#C7CEEA',
+                                    '#E2D1F8'
+                                ],
+                                borderWidth: 0
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                            },
+                            title: {
+                                display: true,
+                                text: '內容類別型偏好',
+                                font: {
+                                    size: 16
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // 平臺使用習慣圖表
+            const platformUsageCtx = document.getElementById('platformUsageChart');
+            if (platformUsageCtx) {
+                new Chart(platformUsageCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['抖音/快手', '微信視頻號', '小紅書', 'B站'],
+                        datasets: [
+                            {
+                                label: '用戶比例',
+                                data: [60, 45, 30, 25],
+                                backgroundColor: [
+                                    '#FF9AA2',
+                                    '#C7CEEA',
+                                    '#E2D1F8',
+                                    '#B794F4'
+                                ],
+                                borderWidth: 0
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                                text: '平臺使用習慣',
+                                font: {
+                                    size: 16
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: '用戶比例 (%)'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        
+        // 初始化折疊面板
+        function initCollapsibles() {
+            const headers = document.querySelectorAll('.collapsible-header');
+            
+            headers.forEach(header => {
+                header.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const icon = this.querySelector('.fa-chevron-right');
+                    
+                    content.classList.toggle('hidden');
+                    icon.classList.toggle('rotate-90');
+                });
+            });
+        }
+        
+        // 初始化移動端菜單
+        function initMobileMenu() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+                const icon = this.querySelector('i');
+                if (icon.classList.contains('fa-bars')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        }
+        
+        // 初始化分頁功能
+        function initPagination() {
+            // 頁面連結點擊事件
+            document.querySelectorAll('.page-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    goToPage(parseInt(pageId.replace('page', '')));
+                    
+                    // 關閉移動功能表（如果打開）
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                    const menuIcon = document.querySelector('#menu-toggle i');
+                    if (menuIcon.classList.contains('fa-times')) {
+                        menuIcon.classList.remove('fa-times');
+                        menuIcon.classList.add('fa-bars');
+                    }
+                });
+            });
+            
+            // 頁碼指示器點擊事件
+            document.querySelectorAll('.page-indicator').forEach(indicator => {
+                indicator.addEventListener('click', function() {
+                    const pageId = this.getAttribute('data-page');
+                    goToPage(parseInt(pageId.replace('page', '')));
+                });
+            });
+            
+            // 頁碼數字點擊事件
+            document.querySelectorAll('.page-number').forEach(number => {
+                number.addEventListener('click', function() {
+                    const pageNum = parseInt(this.getAttribute('data-page'));
+                    goToPage(pageNum);
+                });
+            });
+            
+            // 上一頁按鈕點擊事件
+            document.getElementById('prev-page').addEventListener('click', function() {
+                if (currentPage > 1) {
+                    goToPage(currentPage - 1);
+                }
+            });
+            
+            // 下一頁按鈕點擊事件
+            document.getElementById('next-page').addEventListener('click', function() {
+                if (currentPage < totalPages) {
+                    goToPage(currentPage + 1);
+                }
+            });
+        }
+        
+        // 跳轉到指定頁面
+        function goToPage(pageNum) {
+            if (pageNum < 1 || pageNum > totalPages) return;
+            
+            // 隱藏當前頁面
+            document.getElementById(`page${currentPage}`).classList.add('hidden');
+            document.getElementById(`page${currentPage}`).classList.remove('active');
+            
+            // 顯示目標頁面
+            document.getElementById(`page${pageNum}`).classList.remove('hidden');
+            document.getElementById(`page${pageNum}`).classList.add('active');
+            
+            // 更新當前頁碼
+            currentPage = pageNum;
+            
+            // 更新分頁指示器
+            document.querySelectorAll('.page-indicator').forEach(indicator => {
+                const indPage = parseInt(indicator.getAttribute('data-page').replace('page', ''));
+                if (indPage === currentPage) {
+                    indicator.classList.remove('bg-neutral-300');
+                    indicator.classList.add('bg-primary');
+                } else {
+                    indicator.classList.remove('bg-primary');
+                    indicator.classList.add('bg-neutral-300');
+                }
+            });
+            
+            // 更新頁碼按鈕樣式
+            document.querySelectorAll('.page-number').forEach(number => {
+                const numPage = parseInt(number.getAttribute('data-page'));
+                if (numPage === currentPage) {
+                    number.classList.remove('bg-neutral-200', 'text-neutral-700');
+                    number.classList.add('bg-pink', 'text-white');
+                } else {
+                    number.classList.remove('bg-pink', 'text-white');
+                    number.classList.add('bg-neutral-200', 'text-neutral-700');
+                }
+            });
+            
+            // 更新上一頁/下一頁按鈕狀態
+            const prevBtn = document.getElementById('prev-page');
+            const nextBtn = document.getElementById('next-page');
+            
+            if (currentPage === 1) {
+                prevBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                prevBtn.classList.remove('hover:border-pink', 'hover:text-pink');
+            } else {
+                prevBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                prevBtn.classList.add('hover:border-pink', 'hover:text-pink');
+            }
+            
+            if (currentPage === totalPages) {
+                nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                nextBtn.classList.remove('hover:border-pink', 'hover:text-pink');
+            } else {
+                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                nextBtn.classList.add('hover:border-pink', 'hover:text-pink');
+            }
+            
+            // 滾動到頂部
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+
+
+</body></html>
+    
