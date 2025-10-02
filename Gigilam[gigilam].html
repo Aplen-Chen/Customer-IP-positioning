@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover" />
+  <title>澳門餐飲獨角獸客戶洞察｜Gigilam個人IP策略（移動端）</title>
+  <meta name="description" content="基於《澳門餐飲行業獨角獸客戶洞察研究報告》的移動端策略頁：定位金句、畫像洞察、選題與劇本（引導頁+完整內容）、運營與變現、KPI與節奏、質檢與平臺適配、聯繫CTA。" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root{
+      --bg:#F5EEFF;              /* 淡紫背景 */
+      --bg-soft:#fbf7ff;         /* 更淺的面板 */
+      --ink:#2f2452;             /* 文字主色（深紫）*/
+      --muted:#6c5a99;           /* 次級文字 */
+      --brand:#8A6CFF;           /* 品牌主紫 */
+      --brand-2:#C6B6FF;         /* 品牌輔紫 */
+      --ok:#2ecc71;
+      --warn:#ffb703;
+      --danger:#ff5c7a;
+      --card-shadow:0 6px 20px rgba(138,108,255,.12);
+      --radius:14px;
+      --nav-h:64px;
+      --safe-bottom:env(safe-area-inset-bottom, 0px);
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",sans-serif;line-height:1.55}
+    html{scroll-behavior:smooth}
+    a{color:var(--brand);text-decoration:none}
+    img{max-width:100%;height:auto;border-radius:12px;display:block}
+
+    /* 頁面結構 */
+    header.page-hero{
+      position:relative;
+      padding:24px 18px 20px;
+      background:linear-gradient(180deg, rgba(198,182,255,.35), rgba(245,238,255,0));
+      border-bottom:1px solid rgba(138,108,255,.18);
+    }
+    .hero-title{font-size:20px;font-weight:800;margin:2px 0 8px}
+    .hero-sub{font-size:14px;color:var(--muted);margin:0 0 8px}
+    .usp-badges{display:flex;gap:8px;flex-wrap:wrap}
+    .badge{
+      font-size:12px;padding:6px 10px;border-radius:999px;
+      background:var(--bg-soft);border:1px solid rgba(138,108,255,.28);
+    }
+
+    main{padding:14px 14px calc(var(--nav-h) + var(--safe-bottom) + 28px)}
+    section{
+      background:#fff;border-radius:var(--radius);box-shadow:var(--card-shadow);
+      padding:16px;margin:12px 0;border:1px solid rgba(138,108,255,.12)
+    }
+    section h2{font-size:16px;margin:0 0 10px}
+    section h3{font-size:14px;margin:14px 0 8px}
+    .meta{font-size:12px;color:var(--muted)}
+
+    .grid{display:grid;gap:10px}
+    .grid.cols-2{grid-template-columns:1fr 1fr}
+    @media (min-width:680px){main{max-width:720px;margin:auto}}
+
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      border:1px dashed rgba(138,108,255,.35);border-radius:999px;
+      padding:8px 12px;background:var(--bg-soft);font-size:12px
+    }
+
+    .cta{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:10px 14px;border-radius:12px;border:1px solid rgba(138,108,255,.25);
+      background:linear-gradient(180deg,#fff,#faf7ff);color:var(--ink);font-weight:600;
+      transition:transform .12s ease, box-shadow .12s ease, background .2s ease;
+      box-shadow:0 6px 18px rgba(198,182,255,.18);
+    }
+    .btn:active{transform:translateY(1px) scale(.98)}
+    .btn.primary{background:linear-gradient(180deg,#9f88ff,#7a5dff);color:#fff;border-color:transparent}
+    .btn.ghost{background:transparent}
+
+    /* details 展開塊 */
+    details{border:1px solid rgba(138,108,255,.22);border-radius:12px;padding:10px;background:var(--bg-soft)}
+    details summary{cursor:pointer;list-style:none}
+    details summary::-webkit-details-marker{display:none}
+    details[open]{background:#fff}
+
+    /* 底部固定導航（移動端） */
+    nav.bottom{
+      position:fixed;left:0;right:0;bottom:0;height:var(--nav-h);
+      background:#fff;border-top:1px solid rgba(138,108,255,.18);
+      box-shadow:0 -8px 24px rgba(60,20,140,.08);
+      display:flex;justify-content:space-around;align-items:stretch;z-index:9999;
+      padding-bottom:var(--safe-bottom)
+    }
+    .nav-item{
+      flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+      gap:4px;font-size:11px;color:var(--muted);position:relative;overflow:hidden
+    }
+    .nav-item i{font-size:18px}
+    .nav-item.active{color:var(--brand)}
+    .nav-item.active i{transform:translateY(-1px)}
+    .nav-item .ripple{
+      position:absolute;border-radius:50%;transform:scale(0);opacity:.25;background:var(--brand);
+      animation:ripple .6s ease-out;pointer-events:none
+    }
+    @keyframes ripple{to{transform:scale(14);opacity:0}}
+
+    /* 引導頁（選題/劇本） */
+    .overlay{
+      position:fixed;inset:0;background:rgba(15,0,40,.42);
+      display:none;align-items:flex-end;justify-content:center;z-index:10000;padding:18px
+    }
+    .overlay.open{display:flex}
+    .sheet{
+      width:100%;max-width:720px;background:#fff;border-radius:16px 16px 14px 14px;
+      box-shadow:0 18px 60px rgba(60,20,140,.35);padding:16px;border:1px solid rgba(138,108,255,.18)
+    }
+    .sheet h3{margin:0 0 10px}
+    .sheet .hint{font-size:13px;color:var(--muted)}
+    .sheet .cta .btn{flex:1;justify-content:center}
+
+    /* 表格簡化樣式（KPI/甘特） */
+    table{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:12px}
+    th,td{padding:10px;border:1px solid rgba(138,108,255,.18);background:#fff}
+    th{background:linear-gradient(180deg,#f4efff,#fff);text-align:left}
+    .chip{display:inline-flex;align-items:center;gap:6px;padding:2px 8px;border-radius:999px;font-size:11px;background:var(--bg-soft);border:1px solid rgba(138,108,255,.28)}
+    .chip.ok{background:rgba(46,204,113,.08);border-color:rgba(46,204,113,.25);color:#1f8b54}
+    .chip.warn{background:rgba(255,183,3,.08);border-color:rgba(255,183,3,.25);color:#a96b00}
+
+    /* 底部留白提示（可見即可忽略） */
+    .end-spacer{height:8px}
+    .caption{font-size:12px;color:var(--muted);margin-top:6px}
+  </style>
+</head>
+<body>
+
+
+<header class="page-hero" id="home">
+  <div class="hero-title">Gigilam 個人IP｜澳門餐飲獨角獸客戶洞察與落地策略</div>
+  <p class="hero-sub">定位金句：<strong>“健康生活的洞察者，用專業守護品質生活。”</strong></p>
+  <div class="usp-badges">
+    <div class="badge"><i class="fa-solid fa-shield-heart"></i> 25年行業積累 & 專業權威</div>
+    <div class="badge"><i class="fa-solid fa-leaf"></i> 可持續理念與本地食材實踐</div>
+    <div class="badge"><i class="fa-solid fa-sparkles"></i> 跨界整合 × 實操為王</div>
+  </div>
+  <p class="meta" style="margin-top:10px">頁面為移動端優先設計：底部固定導航，當前位置高亮，點擊回饋，平滑滾動，底部留白不遮擋內容。</p>
+</header>
+
+<main>
+  <!-- 背景與要點 -->
+  <section id="brief" data-section="home">
+    <h2><i class="fa-solid fa-compass"></i> 專案背景與關鍵要點</h2>
+    <p>澳門餐飲在 2025 年持續回暖並走向品質化與文化體驗融合，高端餐飲與在地文化的結合尤為顯著。報告顯示：</p>
+    <ul>
+      <li>2025年1月飲食業交易額約<strong>11.0億澳門元</strong>，同比<strong>+17.2%</strong>，呈現強勁恢復與結構升級。</li>
+      <li>“品質消費 → 文化體驗消費”加速，獨角獸客戶更看重<strong>口味、氛圍、服務、創新</strong>與可持續實踐。</li>
+      <li>Gigilam 的<strong>專業背景、社交能力與可持續價值觀</strong>與目標人群高度匹配，可塑“健康生活洞察者”的差異化人設。</li>
+    </ul>
+    <p class="meta">
+  </section>
+
+  <!-- 客戶畫像 -->
+  <section id="persona" data-section="persona">
+    <h2><i class="fa-solid fa-user-astronaut"></i> 獨角獸客戶畫像與洞察</h2>
+    <div class="grid">
+      <div>
+        <h3>核心畫像</h3>
+        <ul>
+          <li>年齡：<strong>35+</strong>為主；職業：企業主/高管/專業人士；受教育程度較高，部分具海外經歷。</li>
+          <li>消費：每週外出 2–3 次，單次 500–2000 MOP；偏好<strong>高端粵菜、精緻西餐、米其林/新派融合</strong>。</li>
+          <li>決策：更信任<strong>真實分享 & 平臺評分</strong>，重“值價比”（綜合體驗與情緒價值）。</li>
+        </ul>
+      </div>
+      <div>
+        <h3>價值觀與動機</h3>
+        <ul>
+          <li><strong>文化認同：</strong>國風/非遺/東方美學等元素更易引發共鳴。</li>
+          <li><strong>社交身份：</strong>“選餐廳能反映品味”，餐飲亦是深度社交場景。</li>
+          <li><strong>健康與可持續：</strong>輕負擔飲食、環保實踐、在地食材的認可度上升。</li>
+        </ul>
+      </div>
+    </div>
+    <p class="meta">
+  </section>
+
+  <!-- 人設與USP -->
+  <section id="positioning" data-section="persona">
+    <h2><i class="fa-solid fa-gem"></i> 人設定位 & USP / RTB</h2>
+    <div class="grid">
+      <div>
+        <h3>一句話定位（金句）</h3>
+        <p class="pill"><i class="fa-solid fa-quote-left"></i> 健康生活的洞察者——用餐飲專業把“好吃、健康、可持續”落到每一餐。</p>
+        <h3>三大 USP</h3>
+        <ol>
+          <li><strong>專業權威：</strong>25年餐飲一線經驗與系統方法論（原料選擇、功能表設計、經營實操）。</li>
+          <li><strong>可持續範式：</strong>在地食材、減廢與綠色供應鏈實踐，既美味也負責任。</li>
+          <li><strong>跨界整合：</strong>把東方美學、健康科學與商業效率融成可複製的經營方案。</li>
+        </ol>
+      </div>
+      <div>
+        <h3>RTB（信任理由）</h3>
+        <ul>
+          <li>報告資料背書與案例方法庫，配套腳本骨架與複盤機制。:</li>
+          <li>實地探訪/實驗演示/訪談對話等多形態內容，驗證可操作性。</li>
+          <li>公開的KPI與節奏承諾：階段性目標、A/B與灰度更新。</li>
+        </ul>
+        <h3>人設標籤與鏡頭用法</h3>
+        <ul>
+          <li><strong>專業親和</strong>（近景半身、語速中等、術語首現解釋）</li>
+          <li><strong>理性×感性</strong>（資料+真實故事雙線敘事）</li>
+          <li><strong>創新引領</strong>（“先原則後策略”的第一性原理拆解）</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 選題 / 劇本：引導頁 & 完整內容 -->
+  <section id="topics" data-section="topics">
+    <h2><i class="fa-solid fa-lightbulb"></i> 選題與劇本</h2>
+    <p class="meta">導航已調整：點擊底部“選題/劇本”先進入<strong>引導頁</strong>（版權合規與轉化考慮），可在引導頁中一鍵展開<strong>完整內容</strong>或跳轉聯繫獲取深度方案。</p>
+
+    <details id="topics-preview">
+      <summary><strong>預覽目錄（可展開）</strong></summary>
+      <div style="margin-top:8px" class="grid">
+        <div>
+          <h3>六大爆款選題模型（預覽）</h3>
+          <ol>
+            <li>痛點解決型：如“健康化趨勢下，餐廳如何提升利潤？”</li>
+            <li>知識顛覆型：如“你以為健康的搭配，可能正在拖累複購”</li>
+            <li>實用技巧型：如“菜單瘦身3步：人均上漲不掉評”</li>
+            <li>趨勢解讀型：如“2025東方美學餐飲為何更能打動35+？”</li>
+            <li>對比分析型：如“傳統 vs 健康餐飲：毛利、坪效、留存”</li>
+            <li>人物訪談型：如“對話綠色餐飲先鋒：如何做減廢不減味”</li>
+          </ol>
+          <p class="meta"> </p>
+        </div>
+        <div>
+          <h3>標題母版（示例10條，可A/B）</h3>
+          <ul>
+            <li>“為什麼35+開始追求‘值價比’？餐飲人的3個動作”</li>
+            <li>“菜單只改一格，完播率+複看率雙升的秘密”</li>
+            <li>“東方美學≠擺拍：把‘文化體驗’做進毛利”</li>
+            <li>“減鹽不減味：廚師長的3個科學微調”</li>
+            <li>“顧客不是不買單，是你沒講‘這句話’”</li>
+            <li>“在地食材如何講好？四句敘事讓顧客願付溢價”</li>
+            <li>“餐廳直播別帶貨，先帶‘信任’（流程範本）”</li>
+            <li>“老闆出鏡不尬聊：黃金開頭的5秒範式”</li>
+            <li>“人設做不動？試試‘反向對標’破局法”</li>
+            <li>“本月運營複盤：假設→實驗→結果→改版”</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details id="full-topics" style="margin-top:10px">
+      <summary><strong>查看完整選題庫 + 劇本骨架（完整保留）</strong></summary>
+      <div style="margin-top:10px">
+        <h3>一、完整選題庫（按受眾動機 × 場景）</h3>
+        <ul>
+          <li><strong>動機：健康/輕負擔</strong>｜場景：工作日晚餐、商務簡餐
+            <ul>
+              <li>“5分鐘做出‘輕負擔’工作餐：配比與擺盤範本”</li>
+              <li>“高端食材的‘家常解法’：3步走”</li>
+            </ul>
+          </li>
+          <li><strong>動機：社交與品味</strong>｜場景：高端宴請/紀念日
+            <ul>
+              <li>“選餐廳像選名片：三類場景三套話術”</li>
+              <li>“紀念日功能表的‘情緒錨點’如何設計？”</li>
+            </ul>
+          </li>
+          <li><strong>動機：文化體驗</strong>｜場景：節令/非遺/東方美學
+            <ul>
+              <li>“把‘節氣’做成複購：從食材到文案的閉環”</li>
+              <li>“一桌菜講一段城：澳門在地敘事的四步法”</li>
+            </ul>
+          </li>
+          <li><strong>動機：可持續認同</strong>｜場景：綠色供應鏈/減廢
+            <ul>
+              <li>“減廢不減味：出成率與口碑的雙贏路徑圖”</li>
+              <li>“在地食材溢價的‘證據鏈’怎麼講？”</li>
+            </ul>
+          </li>
+        </ul>
+
+        <h3>二、短視頻劇本骨架（通用於口播/探店/實驗/訪談）</h3>
+        <ol>
+          <li><strong>黃金開頭（0–5s）</strong>：懸念/反直覺/強利益點（例：<em>“把油少一半，客訴也少一半？”</em>）</li>
+          <li><strong>問題界定</strong>：誰在什麼場景遇到什麼阻礙？（動機-阻礙-場景-語言）</li>
+          <li><strong>方法三段論</strong>：第一性原理 → 簡化步驟（≤3）→ 注意事項（避坑詞）</li>
+          <li><strong>證據</strong>：資料/對比/協力廠商背書/顧客原話</li>
+          <li><strong>情緒回扣</strong>：把“健康/品味/文化/社交”中的一個錨回到人設價值</li>
+          <li><strong>互動引導</strong>：單一動作（收藏/進私域/預約直播），不混指令</li>
+          <li><strong>合規收口</strong>：不承諾收益，用“可能/建議/示例”替代表述</li>
+        </ol>
+        <p class="meta"> </p>
+
+        <h3>三、標題與封面母版（再加10條）</h3>
+        <ul>
+          <li>“餐飲老闆避坑清單：這3個‘偽健康’我刪了”</li>
+          <li>“一張表看懂顧客‘值價比’：你該講哪句話？”</li>
+          <li>“米其林不是目的：把‘體驗’做進複購率”</li>
+          <li>“本地食材怎麼選才不貴？我用這套評估表”</li>
+          <li>“菜單減負：調一個參數，毛利更穩”</li>
+          <li>“在店拍Vlog也專業：光線與收音的極簡組合”</li>
+          <li>“直播不賣貨也能轉化：三段節奏法”</li>
+          <li>“東方美學不是濾鏡：五個‘觸點’讓畫面高級”</li>
+          <li>“顧客故事的四象限：挑素材有章法”</li>
+          <li>“複盤範本公開：假設→實驗→結果→改版”</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- 運營與變現 -->
+  <section id="ops" data-section="ops">
+    <h2><i class="fa-solid fa-network-wired"></i> 運營策略（互動留存 × 私域 × 線上線下 × 變現）</h2>
+    <div class="grid">
+      <div>
+        <h3>互動留存</h3>
+        <ul>
+          <li>評論區“神評論”引導 & 1小時黃金回復機制</li>
+          <li>直播三段節奏：開場懸念 → 中段關卡 → 結尾鉤子</li>
+          <li>會員分層：專屬內容/優先體驗/線下私享</li>
+        </ul>
+        <h3>私域沉澱</h3>
+        <ul>
+          <li>內容入口+福利入口雙軌引流（社群/公眾號）</li>
+          <li>用戶標籤與分層運營（價值×活躍度）</li>
+        </ul>
+      </div>
+      <div>
+        <h3>線上線下融合</h3>
+        <ul>
+          <li>“內容→到店”與“體驗→傳播”的閉環</li>
+          <li>健康/文化/社交主題活動（月度固定）</li>
+        </ul>
+        <h3>多元變現</h3>
+        <ul>
+          <li>諮詢/課程/報告/聯名產品/高端定制/體驗活動</li>
+          <li>品牌合作：植入/聯名/大使/聯合活動</li>
+        </ul>
+      </div>
+    </div>
+    <p class="meta">策略路徑與階段規劃</p>
+  </section>
+
+  <!-- KPI 與 90天節奏 -->
+  <section id="kpi" data-section="kpi">
+    <h2><i class="fa-solid fa-chart-line"></i> KPI 與90天節奏（甘特樣式）</h2>
+
+    <h3>內容KPI</h3>
+    <table>
+      <thead><tr><th>指標</th><th>目標區間</th><th>備註</th></tr></thead>
+      <tbody>
+        <tr><td>完播率</td><td>≥ 45%</td><td>知識類 47–52秒；劇情類 33–38秒</td></tr>
+        <tr><td>複看率</td><td>≥ 12%</td><td>關鍵知識點複述+字幕回扣</td></tr>
+        <tr><td>收藏率</td><td>≥ 4.5%</td><td>範本/清單型內容更易提升</td></tr>
+        <tr><td>進私域率</td><td>≥ 2.5%</td><td>單一引導動作，不混指令</td></tr>
+        <tr><td>線索成本</td><td class="chip warn">動態監控</td><td>按平臺流量與轉化即時校準</td></tr>
+      </tbody>
+    </table>
+
+    <h3>管道節奏（示例，品牌30/產品40/互動20/情感10）</h3>
+    <table>
+      <thead><tr><th>週期</th><th>抖音</th><th>視頻號</th><th>小紅書</th><th>重點</th></tr></thead>
+      <tbody>
+        <tr><td>第1–4周</td><td>日更3–4</td><td>周更2–3</td><td>周更3</td><td>人設建立/黃金開頭驗證</td></tr>
+        <tr><td>第5–8周</td><td>日更4–5</td><td>周更3</td><td>周更3–4</td><td>矩陣協同/直播常態化</td></tr>
+        <tr><td>第9–12周</td><td>日更3–4</td><td>周更3</td><td>周更3</td><td>轉化強化/品類聯動</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 質檢與平臺適配（引導聯繫） -->
+  <section id="qa" data-section="qa">
+    <h2><i class="fa-solid fa-clipboard-check"></i> 質檢與平臺適配（引導頁）</h2>
+    <p>為確保<strong>真實性/合規</strong>與<strong>平臺分發邏輯</strong>高度匹配，本頁僅展示<strong>簡版要點</strong>：</p>
+    <ul>
+      <li>反誇大/反收益承諾：用“示例/建議/可能”替代絕對化表述。</li>
+      <li>避坑詞：財經/醫療敏感詞與“承諾回報”類說法統一替換。</li>
+      <li>分發映射：抖音（開頭搶眼、強互動）、視頻號（深度與私域閉環）、小紅書（視覺生活方式與搜索權重）。</li>
+    </ul>
+    <div class="cta" style="margin-top:8px">
+      <a href="#contact" class="btn primary"><i class="fa-solid fa-comments"></i> 聯繫獲取《全量質檢清單 & 適配詞庫》</a>
+      <a href="#full-topics" class="btn"><i class="fa-solid fa-eye"></i> 繼續查看完整選題/劇本</a>
+    </div>
+  </section>
+
+  <!-- 聯繫我們 -->
+  <section id="contact" data-section="contact">
+    <h2><i class="fa-solid fa-paper-plane"></i> 聯繫與獲取完整方案</h2>
+    <p>想獲取<strong>完整選題庫、成片腳本、拍攝鏡頭表、平臺避坑詞庫、周/月複盤範本</strong>？點擊下方按鈕直達。</p>
+    <div class="cta">
+      <a class="btn primary" href="mailto:your@email.here?subject=%E8%AF%B7%E6%8F%90%E4%BE%9B%E5%AE%8C%E6%95%B4%E6%96%B9%E6%A1%88&body=%E8%AF%B7%E5%9C%A8%E9%82%AE%E4%BB%B6%E4%B8%AD%E8%AF%B4%E6%98%8E%E4%BD%A0%E7%9A%84%E4%BA%A7%E4%B8%9A%E3%80%81%E7%9B%AE%E6%A0%87%E4%B8%8E%E9%A2%84%E7%AE%97%EF%BC%8C%E6%88%91%E4%BB%AC%E5%9C%A8%E7%A7%81%E5%9F%9F%E9%80%9A%E4%BF%A1%E7%BB%99%E4%BD%A0%E5%85%A8%E9%87%8F%E6%96%87%E6%A1%88%E3%80%82">
+        <i class="fa-solid fa-envelope">联系我们获取全部</i> 
+      </a>
+      <a class="btn ghost" href="#home"><i class="fa-solid fa-circle-up"></i> 返回頂部</a>
+    </div>
+    <p class="caption"></p>
+  </section>
+
+  <!-- 附圖：放在最底部 -->
+  <section id="images" data-section="images">
+    <h2><i class="fa-solid fa-image"></i>联系方式 </h2>
+    <figure>
+      <img src="https://p9-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/ab9ac614600b4d6bab5ce6099b5cd945.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&x-expires=1786176241&x-signature=TOlUkuLzyvvrbn3DXWJUxsQjzrs%3D&x-wf-file_name=%E5%85%AC%E5%9F%9F.jpg" alt="公域投放示意圖（圖1）">
+      <figcaption class="caption">圖1：公域場景示意。</figcaption>
+    </figure>
+    <figure style="margin-top:12px">
+      <img src="https://p3-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/522ab5e32bf54ba0b2ccc9cc78470cd9.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&x-expires=1786176244&x-signature=EZ2mHPBdJ7gK7Oka9%2B87jX5ClZE%3D&x-wf-file_name=a0d9b4d4a5963de6a5b98c77cde476c.jpg" alt="投放與管道示意圖（圖2）">
+      <figcaption class="caption">圖2：私域場景示意。</figcaption>
+    </figure>
+ 
+  </section>
+
+  <div class="end-spacer" aria-hidden="true"></div>
+</main>
+
+<!-- 底部固定導航（精選關鍵導航項） -->
+<nav class="bottom" role="navigation" aria-label="底部導航">
+  <a class="nav-item active" href="#home" data-target="home"><i class="fa-solid fa-house"></i><span>首頁</span></a>
+  <a class="nav-item" href="#persona" data-target="persona"><i class="fa-solid fa-users-viewfinder"></i><span>畫像</span></a>
+  <a class="nav-item" href="#" data-guide="topics"><i class="fa-solid fa-pen-nib"></i><span>選題/劇本</span></a>
+  <a class="nav-item" href="#ops" data-target="ops"><i class="fa-solid fa-diagram-project"></i><span>運營</span></a>
+  <a class="nav-item" href="#contact" data-target="contact"><i class="fa-solid fa-message"></i><span>聯繫</span></a>
+</nav>
+
+<!-- 選題/劇本 引導頁（可展開預覽/跳聯繫/解鎖完整） -->
+<div class="overlay" id="guideOverlay" aria-hidden="true">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="guideTitle">
+    <h3 id="guideTitle"><i class="fa-solid fa-circle-info"></i> 選題 / 劇本 引導頁</h3>
+    <p class="hint">
+      為保護原創與確保合規，入口先到引導頁。你可：
+      <br>① 查看<strong>預覽目錄</strong>；② 一鍵<strong>展開完整內容</strong>；③ 直接<strong>聯繫獲取成片腳本與鏡頭表</strong>。
+    </p>
+    <div class="cta" style="margin-top:10px">
+      <a class="btn" id="btnPreview"><i class="fa-solid fa-eye"></i> 查看預覽目錄</a>
+      <a class="btn" id="btnUnlock"><i class="fa-solid fa-folder-open"></i> 展開完整內容</a>
+      <a class="btn primary" href="#contact"><i class="fa-solid fa-comments"></i> 聯繫獲取全量方案</a>
+    </div>
+    <div class="cta" style="margin-top:6px">
+      <a class="btn ghost" id="btnClose"><i class="fa-solid fa-xmark"></i> 關閉</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ---- 底部導航：點擊漣漪回饋 & 平滑滾動（系統已支援） ----
+  const nav = document.querySelector('nav.bottom');
+  nav.addEventListener('click', (e)=>{
+    const item = e.target.closest('.nav-item');
+    if(!item) return;
+
+    // Ripple
+    const rect = item.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    ripple.className='ripple';
+    const size = Math.max(rect.width, rect.height);
+    ripple.style.width=ripple.style.height = size+'px';
+    ripple.style.left = (e.clientX - rect.left - size/2)+'px';
+    ripple.style.top  = (e.clientY - rect.top  - size/2)+'px';
+    item.appendChild(ripple);
+    ripple.addEventListener('animationend', ()=>ripple.remove());
+
+    // 引導頁處理（選題/劇本）
+    if(item.dataset.guide === 'topics'){
+      e.preventDefault();
+      document.getElementById('guideOverlay').classList.add('open');
+      document.getElementById('guideOverlay').setAttribute('aria-hidden','false');
+    }
+  });
+
+  // ---- 引導頁按鈕動作 ----
+  const overlay = document.getElementById('guideOverlay');
+  document.getElementById('btnClose').onclick = ()=>{ overlay.classList.remove('open'); overlay.setAttribute('aria-hidden','true'); };
+  document.getElementById('btnPreview').onclick = ()=>{
+    overlay.classList.remove('open'); overlay.setAttribute('aria-hidden','true');
+    const d = document.getElementById('topics-preview');
+    if(d && !d.open) d.open = true;
+    document.getElementById('topics').scrollIntoView({behavior:'smooth',block:'start'});
+  };
+  document.getElementById('btnUnlock').onclick = ()=>{
+    overlay.classList.remove('open'); overlay.setAttribute('aria-hidden','true');
+    const d = document.getElementById('full-topics');
+    if(d && !d.open) d.open = true;
+    document.getElementById('full-topics').scrollIntoView({behavior:'smooth',block:'start'});
+  };
+
+  // ---- 當前章節高亮（IntersectionObserver） ----
+  const items = [...document.querySelectorAll('.nav-item')].filter(i=>i.dataset.target);
+  const map = new Map(items.map(i=>[i.dataset.target,i]));
+  const sections = [...document.querySelectorAll('section[id]')];
+
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const id = entry.target.id;
+        // persona & positioning同屬“畫像”導航
+        const key = (id==='positioning')?'persona':(id==='brief'?'home':id);
+        if(map.has(key)){
+          items.forEach(i=>i.classList.remove('active'));
+          map.get(key).classList.add('active');
+        }
+      }
+    });
+  },{
+    rootMargin:'-40% 0px -55% 0px',
+    threshold:[0, .25, .5, .75, 1]
+  });
+  sections.forEach(sec=>io.observe(sec));
+
+  // ---- 防止底部遮擋（已在main添加padding），此處僅相容iOS安全區 ----
+</script>
+</body>
+</html>
