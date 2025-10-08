@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Maymei · 短視頻人設與內容策略（分頁版）</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+
+<style>
+  :root{
+    --bg:#F6F0FF;           /* 淡紫背景 */
+    --card:#ffffff;         /* 卡片底色 */
+    --text:#2e2850;         /* 主文字深紫 */
+    --muted:#6f6690;        /* 次要文字 */
+    --brand:#8C7AE6;        /* 品牌主色：薰衣草紫 */
+    --brand2:#B9A9FF;       /* 次色 */
+    --radius:16px;
+    --shadow:0 10px 28px rgba(51,36,113,.08);
+    --nav-h:64px;           /* 底部導航高度 */
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;background:linear-gradient(180deg,#FBF8FF 0%, var(--bg) 100%);
+    color:var(--text);
+    font:15px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,Helvetica,Arial;
+    -webkit-font-smoothing:antialiased;
+  }
+  .app{
+    max-width:980px;margin:0 auto;padding:14px 14px calc(var(--nav-h) + env(safe-area-inset-bottom) + 24px);
+  }
+  header.page-head{
+    background:radial-gradient(110% 120% at 0 0,#EEE8FF 0%,#F6F0FF 50%,#FAF8FF 100%);
+    border-radius:16px;padding:16px 14px;margin:8px 0 14px;box-shadow:var(--shadow);
+  }
+  header.page-head h1{font-size:20px;margin:0 0 6px}
+  header.page-head p{margin:0;color:var(--muted)}
+
+  /* 卡片與結構 */
+  section.block{
+    background:var(--card);border:1px solid #EFEAFE;border-radius:var(--radius);
+    padding:14px;margin:12px 0;box-shadow:var(--shadow);
+  }
+  h2{font-size:18px;margin:0 0 10px;display:flex;gap:8px;align-items:center}
+  h3{font-size:16px;margin:12px 0 6px}
+  .muted{color:var(--muted)}
+  .list{margin:6px 0 0;padding-left:18px}
+  .tag{display:inline-block;padding:4px 8px;border-radius:999px;background:#F1ECFF;border:1px solid #E6E0FF;margin:4px 6px 0 0;font-size:12px;color:#5c4fd0}
+
+  .grid{display:grid;gap:12px}
+  @media(min-width:820px){ .grid.cols-2{grid-template-columns:1fr 1fr} }
+
+  .chip{
+    display:inline-flex;gap:6px;align-items:center;
+    padding:6px 10px;border-radius:999px;background:#fff;border:1px solid #EFEAFE;color:var(--brand);
+    font-size:12px;margin:6px 6px 0 0;
+  }
+
+  /* 分頁容器：僅顯示啟動頁 */
+  .page{display:none;opacity:0;transform:translateY(6px);transition:opacity .28s ease, transform .28s ease}
+  .page.active{display:block;opacity:1;transform:translateY(0)}
+
+  /* 引導提示與CTA */
+  .guide{
+    border-left:4px solid var(--brand);background:#F6F2FF;padding:10px;border-radius:12px;color:#4f3fa0;
+  }
+  .cta{
+    display:inline-flex;align-items:center;gap:10px;padding:12px 14px;border-radius:12px;
+    background:linear-gradient(180deg,var(--brand) 0%, #A695F5 100%); color:#fff; text-decoration:none; font-weight:700;
+    box-shadow:0 6px 16px rgba(140,122,230,.28);
+  }
+  .cta.ghost{
+    background:#fff;color:var(--brand);border:1px solid #E6E0FF;font-weight:600;
+  }
+  .cta-row{display:flex;gap:10px;flex-wrap:wrap}
+
+  /* KPI小卡 */
+  .mini{border:1px solid #EFEAFE;border-radius:12px;padding:10px;background:#FCFBFF}
+  .kpi{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media(min-width:700px){.kpi{grid-template-columns:repeat(4,1fr)}}
+  .mini strong{display:block;font-size:18px}
+
+  /* 底部導航（分頁切換） */
+  nav.bottom{
+    position:fixed;left:0;right:0;bottom:0;z-index:99;height:var(--nav-h);
+    background:#fff;border-top:1px solid #EDE7FF;
+    display:flex;justify-content:space-around;align-items:center;
+    padding-bottom:env(safe-area-inset-bottom);
+    box-shadow:0 -6px 24px rgba(51,36,113,.06);
+  }
+  nav .tab{
+    flex:1;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:6px;text-decoration:none;color:var(--muted);font-size:11px;position:relative;overflow:hidden;
+    transition:color .25s ease, transform .12s ease;
+  }
+  nav .tab i{font-size:18px}
+  nav .tab:active{transform:scale(.96)}
+  nav .tab.active{color:var(--brand);font-weight:700}
+  nav .pulse{
+    position:absolute;width:10px;height:10px;border-radius:50%;background:rgba(140,122,230,.18);
+    transform:translate(-50%,-50%) scale(1);pointer-events:none;animation:pulse .45s ease-out;
+  }
+  @keyframes pulse{from{opacity:1;transform:translate(-50%,-50%) scale(.5)} to{opacity:0;transform:translate(-50%,-50%) scale(3)}}
+
+  /* 底部圖片 */
+  .bottom-images img{
+    width:100%;height:auto;display:block;border-radius:12px;border:1px solid #EFEAFE;margin:8px 0;
+  }
+
+  /* 可編輯的聯繫方式（便於你替換） */
+  .contact-box{
+    border:1px dashed #DCD3FF;background:#F9F7FF;padding:10px;border-radius:12px;color:#4c3fb0
+  }
+  .contact-box [contenteditable="true"]{
+    outline:2px dashed transparent;transition:outline .15s ease;padding:2px 4px;border-radius:6px
+  }
+  .contact-box [contenteditable="true"]:focus{
+    outline:2px dashed #B9A9FF;background:#fff;
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- 概覽頁 -->
+  <div class="page active" id="page-overview">
+    <header class="page-head">
+      <h1>Maymei短視頻人設與內容策略</h1>
+      <p class="muted"> </p>
+      <div>
+        <span class="chip"><i class="fa-solid fa-user-shield"></i> 價值觀：誠信</span>
+        <span class="chip"><i class="fa-solid fa-star"></i> 從業 10 年</span>
+        <span class="chip"><i class="fa-solid fa-scissors"></i> 美容 / 美甲美睫</span>
+        <span class="chip"><i class="fa-solid fa-location-dot"></i> 澳門</span>
+      </div>
+    </header>
+
+    <section class="block">
+      <h2><i class="fa-solid fa-bullseye"></i> 定位金句</h2>
+      <p><strong>“10年美業經驗的誠信美甲美睫師，用專業和真心守護您的變美之旅。”</strong></p>
+      <p><span class="tag">誠信可靠</span> <span class="tag">專業資深</span> <span class="tag">溫和細心</span></p>
+    </section>
+
+    <section class="block">
+      <h2><i class="fa-solid fa-diagram-project"></i> 帳號架構與主線</h2>
+      <ul class="list">
+        <li>主線：真誠專業的門店主理人 → 科普與案例雙輪驅動，線下轉化。</li>
+        <li>四大系列：小課堂 / 變美故事 / 趨勢情報 / 幕後日常。</li>
+        <li>節奏：每週 3–4 條；首屏抓痛點，過程給細節，結尾做引導。</li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <h2><i class="fa-solid fa-chart-simple"></i> 起步KPI（90天觀察）</h2>
+      <div class="kpi">
+        <div class="mini"><strong>完播率</strong> ≥35%</div>
+        <div class="mini"><strong>複看率</strong> ≥8%</div>
+        <div class="mini"><strong>收藏/轉發</strong> ≥6% / ≥3%</div>
+        <div class="mini"><strong>進私域率</strong> ≥4%</div>
+      </div>
+    </section>
+  </div>
+
+  <!-- 人設頁 -->
+  <div class="page" id="page-persona">
+    <header class="page-head">
+      <h1>人設 · 標籤與USP</h1>
+      <p class="muted">以“真誠 + 專業 + 溫和”為核心的人格化表達</p>
+    </header>
+
+    <section class="block">
+      <h2><i class="fa-solid fa-user-pen"></i> 人設標籤</h2>
+      <ul class="list">
+        <li><strong>誠信可靠：</strong>價格透明，不誇大功效；如實告知維護成本與適配邊界。</li>
+        <li><strong>專業資深：</strong>10年經驗 + 操作細節特寫 + 作品集/案例持續輸出。</li>
+        <li><strong>溫和細心：</strong>同理心諮詢、耐心解釋、體驗感優先。</li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <h2><i class="fa-solid fa-badge-check"></i> 三大USP & RTB</h2>
+      <div class="grid cols-2">
+        <div class="mini">
+          <h3>誠信安全</h3>
+          <p class="muted">材料合規、流程可視、風險如實說明。</p>
+        </div>
+        <div class="mini">
+          <h3>技術實力</h3>
+          <p class="muted">標準化手法與案例庫；必要時資質背書。</p>
+        </div>
+        <div class="mini">
+          <h3>貼心定制</h3>
+          <p class="muted">因人而異的款式/卷翹度/護理週期建議。</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- 系列頁 -->
+  <div class="page" id="page-series">
+    <header class="page-head">
+      <h1>內容系列 · 欄目規劃</h1>
+      <p class="muted">統一Slogan與結構，便於規模化生產</p>
+    </header>
+
+    <section class="block">
+      <h2><i class="fa-solid fa-clapperboard"></i> 四大系列（結構示例）</h2>
+      <div class="grid cols-2">
+        <div class="mini">
+          <h3>① 專業小課堂</h3>
+          <p>痛點提問 → 技巧演示（操作特寫）→ 要點總結 + 溫馨提醒。</p>
+        </div>
+        <div class="mini">
+          <h3>② 真實變美故事</h3>
+          <p>困擾引入 → 方案&過程 → 前後對比 → 情緒昇華 + CTA。</p>
+        </div>
+        <div class="mini">
+          <h3>③ 趨勢情報局</h3>
+          <p>Top榜/合集 → 專業點評（適用人群/場合）→ 店內作品示例。</p>
+        </div>
+        <div class="mini">
+          <h3>④ 幕後日常</h3>
+          <p>門店準備/消毒/團隊協作 → 學習與反思 → 輕鬆花絮。</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- 節奏頁 -->
+  <div class="page" id="page-cadence">
+    <header class="page-head">
+      <h1>節奏 · 發佈與轉化</h1>
+      <p class="muted">每週 3–4 條 · 寧精勿濫 · 公域吸引 → 私域承接</p>
+    </header>
+
+    <section class="block">
+      <h2><i class="fa-solid fa-calendar-check"></i> 節奏建議</h2>
+      <ul class="list">
+        <li>頻次：一/三/五固定，週末視情況加更；首屏 3–5 秒抓住痛點。</li>
+        <li>配比：品牌30% · 產品/技術40% · 互動20% · 情感10%。</li>
+        <li>時段：中午12:00；晚間20:00–22:00（按後臺數據優化）。</li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <h2><i class="fa-solid fa-hand-holding-heart"></i> 轉化路徑（簡）</h2>
+      <ol class="list">
+        <li>軟引導：每條視頻結尾“留言/私信領取新人體驗/預約”。</li>
+        <li>承接：評論&私信快捷話術 → 加微進群 → 分層關懷（新客/VIP）。</li>
+        <li>沉澱：前後對比UGC、術語庫、B-roll 素材、固定欄目口播。</li>
+      </ol>
+    </section>
+  </div>
+
+  <!-- 引導&聯繫頁（劇本與選題僅展示部分 + 聯繫我們獲取完整內容/服務） -->
+  <div class="page" id="page-guide">
+    <header class="page-head">
+      <h1>劇本&選題（部分展示） · 聯繫獲取完整方案</h1>
+      <p class="muted">為保護素材資產與適配策略，完整庫請聯繫獲取</p>
+    </header>
+
+    <section class="block">
+      <h2><i class="fa-solid fa-list-check"></i> 選題母庫（部分示例）</h2>
+      <ol class="list">
+        <li><strong>「十年美甲師提醒」</strong> 延長指甲油持久度的3個小技巧！</li>
+        <li>嫁接睫毛總是掉得快？專業美睫師來告訴你原因</li>
+        <li>從咬甲女孩到自信女神：指尖蛻變真實記錄</li>
+        <!-- 更多選題已隱藏，聯繫獲取完整 10+N 條母庫 -->
+      </ol>
+      <div class="guide" style="margin-top:10px">
+        <strong>完整選題庫</strong>（按不同人群/場景/價格帶細分）與可A/B的標題母版，請點擊下方按鈕聯繫我們獲取。
+      </div>
+      <div class="cta-row" style="margin-top:10px">
+        <a class="cta" href="#contact-panel"><i class="fa-solid fa-phone-volume"></i> 聯繫我們 · 獲取完整選題</a>
+        <button class="cta ghost" onclick="copyContact()"><i class="fa-solid fa-copy"></i> 複製聯繫方式</button>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2><i class="fa-solid fa-scroll"></i> 樣板劇本（部分片段）</h2>
+      <div class="mini">
+        <h3>《咬甲女孩的蛻變》· 片段</h3>
+        <p>鏡頭一：破損指甲特寫 + 溫柔旁白（共情）<br>
+           鏡頭二：操作特寫（清理死皮→營養底油）+ 專業解釋</p>
+        <!-- 完整分鏡與臺詞、機位元清單、收音腳本、字幕範本等請聯繫獲取 -->
+      </div>
+      <div class="guide" style="margin-top:10px">
+        <strong>完整劇本包</strong>（分鏡表、臺詞、機位/光位元、收音、字幕範本、封面樣機）可按你的門店風格定制，點擊下方聯繫。
+      </div>
+      <div class="cta-row" style="margin-top:10px">
+        <a class="cta" href="#contact-panel"><i class="fa-solid fa-comments-dollar"></i> 獲取完整劇本與報價</a>
+        <button class="cta ghost" onclick="copyContact()"><i class="fa-solid fa-copy"></i> 複製聯繫方式</button>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2><i class="fa-solid fa-shield-heart"></i> 質檢與平臺適配（引導）</h2>
+      <ul class="list">
+        <li>真實性/合規審查：避免誇大與“收益承諾”，提供等價表述與免責聲明建議。</li>
+        <li>平臺適配：抖音（首屏抓取+人設連貫）；小紅書（圖文可信+搜索佈局）；視頻號（熟人分發+社群承接）。</li>
+        <li>避坑詞庫、審查清單、平臺SOP：<strong>內含敏感規則，完整包請聯繫獲取</strong>。</li>
+      </ul>
+      <div class="cta-row" style="margin-top:10px">
+        <a class="cta" href="#contact-panel"><i class="fa-solid fa-envelope-open-text"></i> 索取適配清單</a>
+        <button class="cta ghost" onclick="copyContact()"><i class="fa-solid fa-copy"></i> 複製聯繫方式</button>
+      </div>
+    </section>
+
+    <!-- 聯繫面板（你可直接在頁面中替換為自己的微信/電話後，一鍵複製） -->
+    <section class="block" id="contact-panel">
+      <h2><i class="fa-solid fa-handshake-angle"></i> 聯繫我們 · 獲取完整內容與服務</h2>
+      <div class="contact-box">
+       
+        <p><strong id="contact-info" contenteditable="true">微信：Zzzz2ko</strong></p>
+        <div class="cta-row" style="margin-top:8px">
+          <button class="cta" onclick="copyContact()"><i class="fa-solid fa-copy"></i> 一鍵複製聯繫資訊</button>
+        </div>
+        <p class="muted" style="margin-top:8px"> </p>
+      </div>
+    </section>
+
+    <!-- 底部圖片（按要求插入，位於頁面最下方） -->
+    <section class="block">
+      <h2><i class="fa-solid fa-image"></i> 公域与私域介绍海报</h2>
+      <div class="bottom-images">
+        <img alt="公域示意圖" src="https://p9-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/ab9ac614600b4d6bab5ce6099b5cd945.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&amp;x-expires=1786176241&amp;x-signature=TOlUkuLzyvvrbn3DXWJUxsQjzrs%3D&amp;x-wf-file_name=%E5%85%AC%E5%9F%9F.jpg">
+        <img alt="補充圖" src="https://p3-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/522ab5e32bf54ba0b2ccc9cc78470cd9.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&amp;x-expires=1786176244&amp;x-signature=EZ2mHPBdJ7gK7Oka9%2B87jX5ClZE%3D&amp;x-wf-file_name=a0d9b4d4a5963de6a5b98c77cde476c.jpg">
+      </div>
+      <p class="muted">以上兩圖已按要求插入，並放置在引導頁底部。</p>
+    </section>
+  </div>
+
+</div>
+
+<!-- 固定底部分頁導航（精選5項） -->
+<nav class="bottom" aria-label="底部導航">
+  <a class="tab active" data-go="overview" aria-label="概覽">
+    <i class="fa-solid fa-house"></i><span>概覽</span>
+  </a>
+  <a class="tab" data-go="persona" aria-label="人設">
+    <i class="fa-solid fa-user"></i><span>人設</span>
+  </a>
+  <a class="tab" data-go="series" aria-label="系列">
+    <i class="fa-solid fa-film"></i><span>系列</span>
+  </a>
+  <a class="tab" data-go="cadence" aria-label="節奏">
+    <i class="fa-solid fa-calendar-check"></i><span>節奏</span>
+  </a>
+  <!-- 按要求：劇本&選題導航集中到“引導&聯繫”分頁，且僅展示部分內容 -->
+  <a class="tab" data-go="guide" aria-label="劇本與選題">
+    <i class="fa-solid fa-compass"></i><span>劇本&選題</span>
+  </a>
+</nav>
+
+<script>
+  // ------ 分頁切換 / 當前位置高亮 / 點擊回饋 ------
+  const PAGES = {
+    overview: document.getElementById('page-overview'),
+    persona:  document.getElementById('page-persona'),
+    series:   document.getElementById('page-series'),
+    cadence:  document.getElementById('page-cadence'),
+    guide:    document.getElementById('page-guide'),
+  };
+  const tabs = [...document.querySelectorAll('nav.bottom .tab')];
+
+  function showPage(key){
+    Object.keys(PAGES).forEach(k=>{
+      PAGES[k].classList.toggle('active', k===key);
+    });
+    tabs.forEach(t=>{
+      t.classList.toggle('active', t.dataset.go===key);
+    });
+    // 更新hash以便直達
+    if(location.hash.replace('#','')!==key){
+      history.replaceState(null,'','#'+key);
+    }
+    // 滾回頂部
+    window.scrollTo({top:0, behavior:'instant'});
+  }
+
+  // 點擊帶脈衝回饋
+  tabs.forEach(tab=>{
+    tab.addEventListener('click',(e)=>{
+      const key = tab.dataset.go;
+      // 視覺脈衝
+      const pulse = document.createElement('span');
+      pulse.className = 'pulse';
+      const rect = tab.getBoundingClientRect();
+      pulse.style.left = (e.clientX - rect.left) + 'px';
+      pulse.style.top  = (e.clientY - rect.top)  + 'px';
+      tab.appendChild(pulse);
+      setTimeout(()=>pulse.remove(),450);
+
+      showPage(key);
+    });
+  });
+
+  // 首次載入：根據 hash 決定頁面
+  const initKey = location.hash ? location.hash.replace('#','') : 'overview';
+  if(PAGES[initKey]) showPage(initKey);
+
+  // 複製聯繫方式（從可編輯區讀取）
+  function copyContact(){
+    const el = document.getElementById('contact-info');
+    const text = el ? el.innerText.trim() : '';
+    if(!text || text.includes(' Zzzz2ko ')){
+      alert(' Zzzz2ko');
+      return;
+    }
+    navigator.clipboard.writeText(text).then(()=>{
+      alert('已複製：' + text);
+    }).catch(()=>{
+      // 相容寫法
+      const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();
+      try{document.execCommand('copy');alert('已複製：' + text);}catch(e){alert('複製失敗，請手動選擇文本複製');}
+      ta.remove();
+    });
+  }
+  // 暴露到全域
+  window.copyContact = copyContact;
+</script>
+</body>
+</html>
