@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>美业人Maymei的短视频运营与个人IP发展全案报告</title>
+    <title>美業人Maymei的短視頻運營與個人IP發展全案報告</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -148,6 +148,46 @@
             margin-top: 15px;
         }
 
+        .contact-info {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(168, 85, 247, 0.05));
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            border-left: 4px solid #8b5cf6;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(139, 92, 246, 0.1);
+        }
+
+        .contact-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .contact-item i {
+            color: #8b5cf6;
+            font-size: 1.2em;
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .contact-item span {
+            color: #374151;
+            font-weight: 500;
+            font-size: 1em;
+        }
+
         .image-gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -176,7 +216,17 @@
             font-weight: 500;
         }
 
-        /* 底部导航栏 */
+        /* 頁面容器 */
+        .page {
+            display: none;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* 底部巡覽列 */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -209,6 +259,7 @@
             padding: 8px 12px;
             border-radius: 12px;
             min-width: 60px;
+            cursor: pointer;
         }
 
         .nav-item:hover, .nav-item.active {
@@ -232,7 +283,7 @@
             font-weight: 500;
         }
 
-        /* 响应式设计 */
+        /* 回應式設計 */
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
@@ -286,17 +337,17 @@
             }
         }
 
-        /* 平滑滚动 */
+        /* 平滑滾動 */
         html {
             scroll-behavior: smooth;
         }
 
-        /* 内容留白 */
+        /* 內容留白 */
         .content-spacer {
             height: 100px;
         }
 
-        /* 加载动画 */
+        /* 載入動畫 */
         .fade-in {
             animation: fadeIn 0.6s ease-in;
         }
@@ -309,422 +360,433 @@
 </head>
 <body>
     <div class="container">
-        <!-- 页面标题 -->
+        <!-- 頁面標題 -->
         <div class="header fade-in">
-            <h1><i class="fas fa-star"></i> 美业人Maymei的短视频运营与个人IP发展全案报告</h1>
-            <p>专业·创新·实用的短视频营销策略指南</p>
+            <h1><i class="fas fa-star"></i> 美業人Maymei的短視頻運營與個人IP發展全案報告</h1>
+            <p>專業·創新·實用的短視頻行銷策略指南</p>
         </div>
 
-        <!-- 第一章：项目背景与目标定位 -->
-        <section id="background" class="section fade-in">
-            <h2><i class="fas fa-bullseye"></i> 一、项目背景与目标定位</h2>
+        <!-- 第一頁：專案背景與目標定位 -->
+        <div id="background" class="page active">
+        <section class="section fade-in">
+            <h2><i class="fas fa-bullseye"></i> 一、專案背景與目標定位</h2>
             
-            <h3>1.1 项目背景概述</h3>
-            <p>Maymei作为拥有10年美容行业经验的店主理人，正处于职业发展的关键转型期。在当前短视频营销成为美业获客主流渠道的背景下，Maymei希望通过短视频平台拓展业务边界，提升个人影响力，将专业知识转化为商业价值。</p>
+            <h3>1.1 專案背景概述</h3>
+            <p>Maymei作為擁有10年美容行業經驗的店主理人，正處於職業發展的關鍵轉型期。在當前短視頻行銷成為美業獲客主流管道的背景下，Maymei希望通過短視頻平臺拓展業務邊界，提升個人影響力，將專業知識轉化為商業價值。</p>
             
             <div class="data-point">
-                <strong>行业数据：</strong>根据2025年最新数据显示，美容行业短视频日均播放量已突破25亿，较年初增长27%；月活创作者数量超80万，半年增幅达25%。
+                <strong>行業資料：</strong>根據2025年最新資料顯示，美容行業短視頻日均播放量已突破25億，較年初增長27%；月活創作者數量超80萬，半年增幅達25%。
             </div>
 
-            <p>Maymei的核心需求是：通过短视频平台打造专业可靠的个人IP形象，吸引20-40岁女性客群，提升店铺知名度，获取更多客源，并为未来持续发展奠定基础。</p>
+            <p>Maymei的核心需求是：通過短視頻平臺打造專業可靠的個人IP形象，吸引20-40歲女性客群，提升店鋪知名度，獲取更多客源，並為未來持續發展奠定基礎。</p>
 
-            <h3>1.2 个人特质分析</h3>
-            <p>Maymei的性格特点与职业背景构成了其短视频IP的核心竞争力：</p>
+            <h3>1.2 個人特質分析</h3>
+            <p>Maymei的性格特點與職業背景構成了其短視頻IP的核心競爭力：</p>
             
-            <h4>性格优势：</h4>
+            <h4>性格優勢：</h4>
             <ul>
-                <li><strong>分析思维：</strong>能够深入分析客户需求和市场趋势</li>
-                <li><strong>同理心：</strong>理解客户痛点，提供贴心服务</li>
-                <li><strong>适应能力：</strong>快速学习新技术和市场变化</li>
-                <li><strong>诚信：</strong>建立可靠的专业形象</li>
+                <li><strong>分析思維：</strong>能夠深入分析客戶需求和市場趨勢</li>
+                <li><strong>同理心：</strong>理解客戶痛點，提供貼心服務</li>
+                <li><strong>適應能力：</strong>快速學習新技術和市場變化</li>
+                <li><strong>誠信：</strong>建立可靠的專業形象</li>
             </ul>
 
-            <h4>职业背景：</h4>
+            <h4>職業背景：</h4>
             <ul>
-                <li>10年美容行业经验，积累丰富的专业知识</li>
-                <li>店主理人身份，具备经营管理经验</li>
-                <li>拥有稳定的客户基础和行业资源</li>
+                <li>10年美容行業經驗，積累豐富的專業知識</li>
+                <li>店主理人身份，具備經營管理經驗</li>
+                <li>擁有穩定的客戶基礎和行業資源</li>
             </ul>
 
-            <h3>1.3 目标受众定位</h3>
-            <p>根据Maymei的业务特点和个人特质，目标受众明确为<strong>20-40岁的女性群体</strong>：</p>
+            <h3>1.3 目標受眾定位</h3>
+            <p>根據Maymei的業務特點和個人特質，目標受眾明確為<strong>20-40歲的女性群體</strong>：</p>
             
-            <h4>年龄分层：</h4>
+            <h4>年齡分層：</h4>
             <ul>
-                <li><strong>20-30岁：</strong>年轻职场女性，注重时尚与性价比</li>
-                <li><strong>30-40岁：</strong>成熟女性，更关注抗衰、肌肤问题解决方案等高端服务</li>
+                <li><strong>20-30歲：</strong>年輕職場女性，注重時尚與性價比</li>
+                <li><strong>30-40歲：</strong>成熟女性，更關注抗衰、肌膚問題解決方案等高端服務</li>
             </ul>
 
             <div class="data-point">
-                <strong>消费特征：</strong>72%消费者更愿意通过短视频了解项目细节，视频用户的到店转化率是图文用户的4.6倍。
+                <strong>消費特徵：</strong>72%消費者更願意通過短視頻瞭解專案細節，視頻使用者的到店轉化率是圖文用戶的4.6倍。
             </div>
         </section>
+        </div>
+    </div>
 
-        <!-- 第二章：短视频内容策略规划 -->
-        <section id="strategy" class="section fade-in">
-            <h2><i class="fas fa-lightbulb"></i> 二、短视频内容策略规划</h2>
+        <!-- 第二頁：短視頻內容策略規劃 -->
+        <div id="strategy" class="page">
+        <section class="section fade-in">
+            <h2><i class="fas fa-lightbulb"></i> 二、短視頻內容策略規劃</h2>
             
-            <h3>2.1 人设定位与塑造策略</h3>
-            <p>Maymei的个人IP人设定位为<strong>"专业、值得信赖的美容顾问"</strong>，通过以下策略塑造差异化形象：</p>
+            <h3>2.1 人設定位與塑造策略</h3>
+            <p>Maymei的個人IP人設定位為<strong>"專業、值得信賴的美容顧問"</strong>，通過以下策略塑造差異化形象：</p>
             
             <div class="highlight">
-                <h4>核心定位：皮肤问题解决专家</h4>
-                <p>基于10年行业经验，重点展示专业知识和实战经验，如"Maymei的美容诊室"系列内容。研究表明，专业形象的建立能使转化率提升83%。</p>
+                <h4>核心定位：皮膚問題解決專家</h4>
+                <p>基於10年行業經驗，重點展示專業知識和實戰經驗，如"Maymei的美容診室"系列內容。研究表明，專業形象的建立能使轉化率提升83%。</p>
             </div>
 
-            <h4>人设塑造要点：</h4>
+            <h4>人設塑造要點：</h4>
             <ul>
-                <li><strong>专业权威形象：</strong>展示专业知识和实战经验</li>
-                <li><strong>真实可信人设：</strong>通过真实案例分享建立信任</li>
-                <li><strong>差异化定位：</strong>强调"专业+实战"的双重优势</li>
-                <li><strong>性格特质转化：</strong>将内向性格转化为沉稳专业的表达风格</li>
+                <li><strong>專業權威形象：</strong>展示專業知識和實戰經驗</li>
+                <li><strong>真實可信人設：</strong>通過真實案例分享建立信任</li>
+                <li><strong>差異化定位：</strong>強調"專業+實戰"的雙重優勢</li>
+                <li><strong>性格特質轉化：</strong>將內向性格轉化為沉穩專業的表達風格</li>
             </ul>
 
-            <h3>2.2 内容主题与选题规划</h3>
-            <p>基于Maymei的专业背景和目标受众需求，规划五大内容主题系列：</p>
+            <h3>2.2 內容主題與選題規劃</h3>
+            <p>基於Maymei的專業背景和目標受眾需求，規劃五大內容主題系列：</p>
 
-            <h4>1. 专业知识科普系列</h4>
+            <h4>1. 專業知識科普系列</h4>
             <ul>
-                <li>不同肤质的科学护理方法</li>
-                <li>美甲美睫的最新技术与趋势</li>
-                <li>美容行业常见误区解析</li>
-                <li>皮肤问题的成因与解决方案</li>
-                <li>美容仪器的正确使用方法</li>
+                <li>不同膚質的科學護理方法</li>
+                <li>美甲美睫的最新技術與趨勢</li>
+                <li>美容行業常見誤區解析</li>
+                <li>皮膚問題的成因與解決方案</li>
+                <li>美容儀器的正確使用方法</li>
             </ul>
 
-            <h4>2. 产品评测与试用系列</h4>
+            <h4>2. 產品評測與試用系列</h4>
             <ul>
-                <li>热门护肤品成分解析</li>
-                <li>平价好物VS大牌产品对比测评</li>
-                <li>适合不同肤质的产品推荐</li>
-                <li>美甲美睫产品试用体验</li>
-                <li>环保美妆产品测评</li>
+                <li>熱門護膚品成分解析</li>
+                <li>平價好物VS大牌產品對比測評</li>
+                <li>適合不同膚質的產品推薦</li>
+                <li>美甲美睫產品試用體驗</li>
+                <li>環保美妝產品測評</li>
             </ul>
 
-            <h4>3. 实用教程系列</h4>
+            <h4>3. 實用教程系列</h4>
             <ul>
-                <li>5分钟快速妆容教程</li>
-                <li>不同场合的美甲设计指南</li>
-                <li>在家也能做的护肤小技巧</li>
-                <li>季节性肌肤护理方案</li>
-                <li>职场女性的快速变美秘籍</li>
+                <li>5分鐘快速妝容教程</li>
+                <li>不同場合的美甲設計指南</li>
+                <li>在家也能做的護膚小技巧</li>
+                <li>季節性肌膚護理方案</li>
+                <li>職場女性的快速變美秘笈</li>
             </ul>
 
-            <h4>4. 顾客见证与案例分析系列</h4>
+            <h4>4. 顧客見證與案例分析系列</h4>
             <ul>
-                <li>问题肌肤改善案例分享</li>
-                <li>美甲美睫前后对比展示</li>
-                <li>顾客满意度采访</li>
-                <li>特殊场合的妆容设计案例</li>
-                <li>季节性美容护理方案实施效果</li>
+                <li>問題肌膚改善案例分享</li>
+                <li>美甲美睫前後對比展示</li>
+                <li>顧客滿意度採訪</li>
+                <li>特殊場合的妝容設計案例</li>
+                <li>季節性美容護理方案實施效果</li>
             </ul>
 
-            <h4>5. 生活方式与美学系列</h4>
+            <h4>5. 生活方式與美學系列</h4>
             <ul>
-                <li>美容与心理健康的关系</li>
-                <li>职场女性的自我关爱指南</li>
-                <li>季节变化中的美容调整</li>
-                <li>旅行中的简易护肤方案</li>
-                <li>美学与生活品质提升</li>
+                <li>美容與心理健康的關係</li>
+                <li>職場女性的自我關愛指南</li>
+                <li>季節變化中的美容調整</li>
+                <li>旅行中的簡易護膚方案</li>
+                <li>美學與生活品質提升</li>
             </ul>
 
             <div class="contact-section">
-                <h3><i class="fas fa-phone-alt"></i> 专业剧本与选题定制服务</h3>
-                <p>想要获取更多专业的剧本模板和精准的选题策划？</p>
-                <p>我们为您提供个性化的内容创作指导和专业剧本撰写服务！</p>
-                <div class="contact-placeholder">
-                    <!-- 联系方式预留位置 - 请在此处添加您的联系信息 -->
-                    联系方式预留位置 - 请添加微信、电话或其他联系方式
+                <h3><i class="fas fa-phone-alt"></i> 專業劇本與選題定制服務</h3>
+                <p>想要獲取更多專業的劇本範本和精准的選題策劃？</p>
+                <p>我們為您提供個性化的內容創作指導和專業劇本撰寫服務！</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-user"></i>
+                        <span>吳明蔚 老闆短祝頻-價值派IP</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-weixin"></i>
+                        <span>微信號：Zzzz2ko</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>地區：澳門廣發商業中心15樓</span>
+                    </div>
                 </div>
             </div>
 
-            <h3>2.3 内容规划与发布节奏</h3>
-            <h4>内容生产周期：</h4>
+            <h3>2.3 內容規劃與發佈節奏</h3>
+            <h4>內容生產週期：</h4>
             <ul>
-                <li><strong>新号期：</strong>日更3条（2条剪辑+1条直播切片）</li>
-                <li><strong>成长期：</strong>日更1条+周3场直播</li>
-                <li><strong>成熟期：</strong>隔日更+日播2小时</li>
+                <li><strong>新號期：</strong>日更3條（2條剪輯+1條直播切片）</li>
+                <li><strong>成長期：</strong>日更1條+周3場直播</li>
+                <li><strong>成熟期：</strong>隔日更+日播2小時</li>
             </ul>
 
-            <h4>周更内容框架：</h4>
+            <h4>周更內容框架：</h4>
             <ul>
-                <li><strong>周一：</strong>专业知识科普（深度解析美容知识）</li>
-                <li><strong>周二：</strong>产品评测（介绍热门产品）</li>
-                <li><strong>周三：</strong>实用教程（提供具体技巧）</li>
-                <li><strong>周四：</strong>顾客见证（分享真实案例）</li>
-                <li><strong>周五：</strong>生活美学（传递美的理念）</li>
-                <li><strong>周六：</strong>互动问答（回答粉丝问题）</li>
-                <li><strong>周日：</strong>福利活动（推出特别优惠）</li>
+                <li><strong>週一：</strong>專業知識科普（深度解析美容知識）</li>
+                <li><strong>週二：</strong>產品評測（介紹熱門產品）</li>
+                <li><strong>週三：</strong>實用教程（提供具體技巧）</li>
+                <li><strong>週四：</strong>顧客見證（分享真實案例）</li>
+                <li><strong>週五：</strong>生活美學（傳遞美的理念）</li>
+                <li><strong>週六：</strong>互動問答（回答粉絲問題）</li>
+                <li><strong>周日：</strong>福利活動（推出特別優惠）</li>
             </ul>
 
             <div class="data-point">
-                <strong>最佳发布时间：</strong>
-                抖音：工作日19-21点（家庭决策时段）| 
-                小红书：周末10-12点（变美需求高峰）| 
-                视频号：周三/周五17-19点（职场女性通勤期）
+                <strong>最佳發佈時間：</strong>
+                抖音：工作日19-21點（家庭決策時段）| 
+                小紅書：週末10-12點（變美需求高峰）| 
+                視頻號：週三/週五17-19點（職場女性通勤期）
             </div>
         </section>
+        </div>
 
-        <!-- 第三章：短视频制作与拍摄建议 -->
-        <section id="production" class="section fade-in">
-            <h2><i class="fas fa-video"></i> 三、短视频制作与拍摄建议</h2>
+        <!-- 第三頁：短視頻製作與拍攝建議 -->
+        <div id="production" class="page">
+        <section class="section fade-in">
+            <h2><i class="fas fa-video"></i> 三、短視頻製作與拍攝建議</h2>
             
-            <h3>3.1 拍摄设备与技术建议</h3>
-            <h4>基础设备配置：</h4>
+            <h3>3.1 拍攝設備與技術建議</h3>
+            <h4>基礎設備配置：</h4>
             <ul>
-                <li><strong>手机：</strong>1080p/60fps以上 + 三脚架</li>
-                <li><strong>收音设备：</strong>领夹麦克风，保证收音质量</li>
-                <li><strong>灯光设备：</strong>环形柔光灯 + 补光灯</li>
-                <li><strong>背景道具：</strong>专业背景布，营造整洁环境</li>
+                <li><strong>手機：</strong>1080p/60fps以上 + 三腳架</li>
+                <li><strong>收音設備：</strong>領夾麥克風，保證收音品質</li>
+                <li><strong>燈光設備：</strong>環形柔光燈 + 補光燈</li>
+                <li><strong>背景道具：</strong>專業背景布，營造整潔環境</li>
             </ul>
 
-            <h4>拍摄技术要点：</h4>
+            <h4>拍攝技術要點：</h4>
             <ul>
-                <li><strong>多角度切换：</strong>特写（仪器探头）+ 中景（操作过程）+ 全景（服务环境）</li>
-                <li><strong>医疗级布光：</strong>环形柔光灯消除面部阴影</li>
-                <li><strong>对焦精准：</strong>确保主体清晰，尤其是产品细节</li>
-                <li><strong>黄金公式：</strong>近景 + 中景 + 全景，三种镜头切换</li>
+                <li><strong>多角度切換：</strong>特寫（儀器探頭）+ 中景（操作過程）+ 全景（服務環境）</li>
+                <li><strong>醫療級布光：</strong>環形柔光燈消除面部陰影</li>
+                <li><strong>對焦精准：</strong>確保主體清晰，尤其是產品細節</li>
+                <li><strong>黃金公式：</strong>近景 + 中景 + 全景，三種鏡頭切換</li>
             </ul>
 
             <div class="highlight">
-                <h4>内向性格拍摄技巧：</h4>
+                <h4>內向性格拍攝技巧：</h4>
                 <ul>
-                    <li>用后置摄像头拍摄，看不到自己反而更自然</li>
-                    <li>蓝牙遥控器握手里，假装玩手机实则在拍摄</li>
-                    <li>先拍10秒空镜头再入画，避免僵硬开场</li>
-                    <li>B-roll素材替代真人出镜，减少镜头压力</li>
+                    <li>用後置攝像頭拍攝，看不到自己反而更自然</li>
+                    <li>藍牙遙控器握手裡，假裝玩手機實則在拍攝</li>
+                    <li>先拍10秒空鏡頭再入畫，避免僵硬開場</li>
+                    <li>B-roll素材替代真人出鏡，減少鏡頭壓力</li>
                 </ul>
             </div>
 
-            <h3>3.2 剪辑与后期制作建议</h3>
-            <h4>剪辑软件选择：</h4>
+            <h3>3.2 剪輯與後期製作建議</h3>
+            <h4>剪輯軟體選擇：</h4>
             <ul>
-                <li><strong>新手：</strong>剪映（手机/PC）、必剪（B站官方工具）</li>
-                <li><strong>进阶：</strong>Premiere Pro、DaVinci Resolve</li>
+                <li><strong>新手：</strong>剪映（手機/PC）、必剪（B站官方工具）</li>
+                <li><strong>進階：</strong>Premiere Pro、DaVinci Resolve</li>
             </ul>
 
-            <h4>剪辑技巧：</h4>
+            <h4>剪輯技巧：</h4>
             <ul>
-                <li><strong>节奏把控：</strong>平均每个镜头3-5秒，保持紧凑</li>
-                <li><strong>转场效果：</strong>使用简洁、自然的转场</li>
-                <li><strong>动态字幕：</strong>添加关键信息和重点内容</li>
-                <li><strong>背景音乐：</strong>选择适合内容风格的无版权音乐</li>
+                <li><strong>節奏把控：</strong>平均每個鏡頭3-5秒，保持緊湊</li>
+                <li><strong>轉場效果：</strong>使用簡潔、自然的轉場</li>
+                <li><strong>動態字幕：</strong>添加關鍵資訊和重點內容</li>
+                <li><strong>背景音樂：</strong>選擇適合內容風格的無版權音樂</li>
             </ul>
 
-            <h3>3.3 脚本撰写与内容结构</h3>
-            <h4>脚本框架设计：</h4>
-            <p>采用<strong>"钩子+干货+共鸣"</strong>结构：</p>
+            <h3>3.3 腳本撰寫與內容結構</h3>
+            <h4>腳本框架設計：</h4>
+            <p>採用<strong>"鉤子+乾貨+共鳴"</strong>結構：</p>
             <ul>
-                <li><strong>开头10秒：</strong>用提问/反常识结论吸引观众</li>
-                <li><strong>中间段落：</strong>分段讲解核心知识点（每段不超过2分钟）</li>
-                <li><strong>结尾：</strong>引导互动（"你遇到过类似情况吗？"）</li>
+                <li><strong>開頭10秒：</strong>用提問/反常識結論吸引觀眾</li>
+                <li><strong>中間段落：</strong>分段講解核心知識點（每段不超過2分鐘）</li>
+                <li><strong>結尾：</strong>引導互動（"你遇到過類似情況嗎？"）</li>
             </ul>
 
-            <h4>不同类型视频模板：</h4>
+            <h4>不同類型視頻範本：</h4>
             <ul>
-                <li><strong>产品评测类：</strong>产品特写 → 介绍 → 试用过程 → 效果展示 → 总结评价</li>
-                <li><strong>教程类：</strong>吸引开头 → 步骤分解 → 技巧点拨 → 成品展示 → 总结互动</li>
-                <li><strong>对比类：</strong>对比主题 → 产品介绍 → 对比试用 → 总结对比 → 推荐建议</li>
-                <li><strong>叙事类：</strong>建立矛盾 → 解决方案 → 效果验证 → 价值升华</li>
+                <li><strong>產品評測類：</strong>產品特寫 → 介紹 → 試用過程 → 效果展示 → 總結評價</li>
+                <li><strong>教程類：</strong>吸引開頭 → 步驟分解 → 技巧點撥 → 成品展示 → 總結互動</li>
+                <li><strong>對比類：</strong>對比主題 → 產品介紹 → 對比試用 → 總結對比 → 推薦建議</li>
+                <li><strong>敘事類：</strong>建立矛盾 → 解決方案 → 效果驗證 → 價值昇華</li>
             </ul>
         </section>
+        </div>
 
-        <!-- 第四章：账号运营与转化策略 -->
-        <section id="operation" class="section fade-in">
-            <h2><i class="fas fa-chart-line"></i> 四、账号运营与转化策略</h2>
+        <!-- 第四頁：帳號運營與轉化策略 -->
+        <div id="operation" class="page">
+        <section class="section fade-in">
+            <h2><i class="fas fa-chart-line"></i> 四、帳號運營與轉化策略</h2>
             
-            <h3>4.1 账号定位与矩阵布局</h3>
-            <h4>主账号定位：</h4>
+            <h3>4.1 帳號定位與矩陣佈局</h3>
+            <h4>主帳號定位：</h4>
             <ul>
-                <li><strong>账号名称：</strong>Maymei的美容诊室（突出专业形象）</li>
-                <li><strong>账号简介：</strong>10年美容行业经验 | 店主理人 | 专业护肤顾问 | 美甲美睫设计师 | 帮你找到最适合的美丽方案</li>
-                <li><strong>头像设计：</strong>专业形象照，微笑自信，传递信任感</li>
-                <li><strong>封面图：</strong>专业、整洁的美容环境或精美的美甲作品</li>
+                <li><strong>帳號名稱：</strong>Maymei的美容診室（突出專業形象）</li>
+                <li><strong>帳號簡介：</strong>10年美容行業經驗 | 店主理人 | 專業護膚顧問 | 美甲美睫設計師 | 幫你找到最適合的美麗方案</li>
+                <li><strong>頭像設計：</strong>專業形象照，微笑自信，傳遞信任感</li>
+                <li><strong>封面圖：</strong>專業、整潔的美容環境或精美的美甲作品</li>
             </ul>
 
-            <h4>平台差异化定位：</h4>
+            <h4>平臺差異化定位：</h4>
             <ul>
-                <li><strong>抖音：</strong>侧重年轻客群，重点打造皮肤管理、轻医美内容</li>
-                <li><strong>视频号：</strong>瞄准35+高净值人群，主打抗衰解决方案和专业知识</li>
-                <li><strong>小红书：</strong>聚焦美甲美睫设计、生活美学和产品评测</li>
-            </ul>
-
-            <div class="data-point">
-                <strong>平台效果对比：</strong>同一套面部护理视频在抖音获赞2.3万，在视频号播放量仅8000，但后者咨询转化率高出47%。
-            </div>
-
-            <h4>矩阵账号布局（1+5+N模式）：</h4>
-            <ul>
-                <li><strong>主账号：</strong>Maymei的美容诊室 - 塑造专业权威形象</li>
-                <li><strong>子账号1：</strong>Maymei的美甲工坊 - 专注美甲美睫设计</li>
-                <li><strong>子账号2：</strong>Maymei的护肤课堂 - 聚焦皮肤护理知识</li>
-                <li><strong>子账号3：</strong>Maymei的变美日记 - 分享真实案例和生活美学</li>
-                <li><strong>子账号4：</strong>Maymei的美丽福利 - 发布优惠活动和会员专属内容</li>
-                <li><strong>子账号5：</strong>Maymei的行业洞察 - 分享行业趋势和经营经验</li>
-            </ul>
-
-            <h3>4.2 内容分发与互动策略</h3>
-            <h4>多平台分发策略：</h4>
-            <ul>
-                <li>每周制作3条核心素材，通过智能剪辑生成15+差异化版本</li>
-                <li>根据平台特点调整内容形式和发布时间</li>
-                <li>使用多账号管理工具，实现高效分发</li>
-            </ul>
-
-            <h4>互动引导策略：</h4>
-            <ul>
-                <li><strong>知识型：</strong>"评论区留下你的皮肤问题，我来解答"</li>
-                <li><strong>福利型：</strong>"点赞过千抽免费体验"</li>
-                <li><strong>悬念型：</strong>"下期揭秘美容院不敢说的秘密"</li>
-                <li><strong>投票型：</strong>"喜欢哪种美甲风格？评论区告诉我"</li>
+                <li><strong>抖音：</strong>側重年輕客群，重點打造皮膚管理、輕醫美內容</li>
+                <li><strong>視頻號：</strong>瞄準35+高淨值人群，主打抗衰解決方案和專業知識</li>
+                <li><strong>小紅書：</strong>聚焦美甲美睫設計、生活美學和產品評測</li>
             </ul>
 
             <div class="data-point">
-                <strong>互动效果提升：</strong>某机构通过优化互动话术后，单条视频评论量从200+暴涨至5000+，配合自动化回复系统可提升3倍转化效率。
+                <strong>平臺效果對比：</strong>同一套面部護理視頻在抖音獲贊2.3萬，在視頻號播放量僅8000，但後者諮詢轉化率高出47%。
             </div>
 
-            <h3>4.3 私域转化与流量变现</h3>
-            <h4>私域导流策略：</h4>
+            <h4>矩陣帳號佈局（1+5+N模式）：</h4>
             <ul>
-                <li><strong>评论区互动：</strong>设置三级话术（首层引导点击主页，二层触发私信自动回复，三层跳转企业微信）</li>
-                <li><strong>内容钩子：</strong>在视频中设置悬念，引导用户主动咨询</li>
-                <li><strong>福利诱导：</strong>提供免费咨询、体验券等福利吸引用户</li>
+                <li><strong>主帳號：</strong>Maymei的美容診室 - 塑造專業權威形象</li>
+                <li><strong>子帳號1：</strong>Maymei的美甲工坊 - 專注美甲美睫設計</li>
+                <li><strong>子帳號2：</strong>Maymei的護膚課堂 - 聚焦皮膚護理知識</li>
+                <li><strong>子帳號3：</strong>Maymei的變美日記 - 分享真實案例和生活美學</li>
+                <li><strong>子帳號4：</strong>Maymei的美麗福利 - 發佈優惠活動和會員專屬內容</li>
+                <li><strong>子帳號5：</strong>Maymei的行業洞察 - 分享行業趨勢和經營經驗</li>
             </ul>
 
-            <h4>转化路径设计：</h4>
+            <h3>4.2 內容分發與互動策略</h3>
+            <h4>多平臺分發策略：</h4>
+            <ul>
+                <li>每週製作3條核心素材，通過智慧剪輯生成15+差異化版本</li>
+                <li>根據平臺特點調整內容形式和發佈時間</li>
+                <li>使用多帳號管理工具，實現高效分發</li>
+            </ul>
+
+            <h4>互動引導策略：</h4>
+            <ul>
+                <li><strong>知識型：</strong>"評論區留下你的皮膚問題，我來解答"</li>
+                <li><strong>福利型：</strong>"點贊過千抽免費體驗"</li>
+                <li><strong>懸念型：</strong>"下期揭秘美容院不敢說的秘密"</li>
+                <li><strong>投票型：</strong>"喜歡哪種美甲風格？評論區告訴我"</li>
+            </ul>
+
+            <div class="data-point">
+                <strong>互動效果提升：</strong>某機構通過優化互動話術後，單條視頻評論量從200+暴漲至5000+，配合自動化回復系統可提升3倍轉化效率。
+            </div>
+
+            <h3>4.3 私域轉化與流量變現</h3>
+            <h4>私域導流策略：</h4>
+            <ul>
+                <li><strong>評論區互動：</strong>設置三級話術（首層引導點擊主頁，二層觸發私信自動回復，三層跳轉企業微信）</li>
+                <li><strong>內容鉤子：</strong>在視頻中設置懸念，引導用戶主動諮詢</li>
+                <li><strong>福利誘導：</strong>提供免費諮詢、體驗券等福利吸引用戶</li>
+            </ul>
+
+            <h4>轉化路徑設計：</h4>
             <ol>
-                <li><strong>吸引关注：</strong>优质内容吸引目标用户关注</li>
-                <li><strong>建立信任：</strong>通过专业内容和真实案例建立信任</li>
-                <li><strong>引导咨询：</strong>设置咨询入口，提供个性化服务</li>
-                <li><strong>促成转化：</strong>通过专业诊断和方案推荐促成到店</li>
-                <li><strong>维护复购：</strong>建立会员体系，促进长期消费</li>
+                <li><strong>吸引關注：</strong>優質內容吸引目標使用者關注</li>
+                <li><strong>建立信任：</strong>通過專業內容和真實案例建立信任</li>
+                <li><strong>引導諮詢：</strong>設置諮詢入口，提供個性化服務</li>
+                <li><strong>促成轉化：</strong>通過專業診斷和方案推薦促成到店</li>
+                <li><strong>維護複購：</strong>建立會員體系，促進長期消費</li>
             </ol>
 
-            <h4>关键转化指标：</h4>
+            <h4>關鍵轉化指標：</h4>
             <ul>
-                <li><strong>评论率：</strong>评论数/播放量，理想值>3%</li>
-                <li><strong>点赞率：</strong>点赞数/播放量，理想值>5%</li>
-                <li><strong>分享率：</strong>分享数/播放量，理想值>1%</li>
-                <li><strong>完播率：</strong>完整观看人数/播放量，理想值>30%</li>
+                <li><strong>評論率：</strong>評論數/播放量，理想值>3%</li>
+                <li><strong>點贊率：</strong>點贊數/播放量，理想值>5%</li>
+                <li><strong>分享率：</strong>分享數/播放量，理想值>1%</li>
+                <li><strong>完播率：</strong>完整觀看人數/播放量，理想值>30%</li>
             </ul>
         </section>
+        </div>
 
-        <!-- 图片展示区域 -->
-        <section id="gallery" class="section fade-in">
-            <h2><i class="fas fa-images"></i> 案例展示与参考资料</h2>
+        <!-- 第五頁：案例展示與參考資料 -->
+        <div id="gallery" class="page">
+        <section class="section fade-in">
+            <h2><i class="fas fa-images"></i> 案例展示與參考資料</h2>
             <div class="image-gallery">
                 <div class="image-item">
-                    <img src="https://p9-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/ab9ac614600b4d6bab5ce6099b5cd945.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&x-expires=1786176241&x-signature=TOlUkuLzyvvrbn3DXWJUxsQjzrs%3D&x-wf-file_name=%E5%85%AC%E5%9F%9F.jpg" alt="公域流量运营案例" loading="lazy">
-                    <p>公域流量运营策略参考</p>
+                    <img src="https://p9-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/ab9ac614600b4d6bab5ce6099b5cd945.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&x-expires=1786176241&x-signature=TOlUkuLzyvvrbn3DXWJUxsQjzrs%3D&x-wf-file_name=%E5%85%AC%E5%9F%9F.jpg" alt="公域流量運營案例" loading="lazy">
+                    <p>公域流量運營策略參考</p>
                 </div>
                 <div class="image-item">
-                    <img src="https://p3-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/522ab5e32bf54ba0b2ccc9cc78470cd9.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&x-expires=1786176244&x-signature=EZ2mHPBdJ7gK7Oka9%2B87jX5ClZE%3D&x-wf-file_name=a0d9b4d4a5963de6a5b98c77cde476c.jpg" alt="美业营销案例分析" loading="lazy">
-                    <p>美业营销成功案例分析</p>
+                    <img src="https://p3-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/522ab5e32bf54ba0b2ccc9cc78470cd9.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&x-expires=1786176244&x-signature=EZ2mHPBdJ7gK7Oka9%2B87jX5ClZE%3D&x-wf-file_name=a0d9b4d4a5963de6a5b98c77cde476c.jpg" alt="美業行銷案例分析" loading="lazy">
+                    <p>美業行銷成功案例分析</p>
                 </div>
             </div>
         </section>
 
-        <!-- 内容留白 -->
+        <!-- 內容留白 -->
         <div class="content-spacer"></div>
     </div>
 
-    <!-- 底部导航栏 -->
+    <!-- 底部巡覽列 -->
     <nav class="bottom-nav">
         <div class="nav-container">
-            <a href="#background" class="nav-item" data-section="background">
+            <div class="nav-item active" data-page="background">
                 <i class="fas fa-bullseye"></i>
                 <span>背景</span>
-            </a>
-            <a href="#strategy" class="nav-item" data-section="strategy">
+            </div>
+            <div class="nav-item" data-page="strategy">
                 <i class="fas fa-lightbulb"></i>
                 <span>策略</span>
-            </a>
-            <a href="#production" class="nav-item" data-section="production">
+            </div>
+            <div class="nav-item" data-page="production">
                 <i class="fas fa-video"></i>
-                <span>制作</span>
-            </a>
-            <a href="#operation" class="nav-item" data-section="operation">
+                <span>製作</span>
+            </div>
+            <div class="nav-item" data-page="operation">
                 <i class="fas fa-chart-line"></i>
-                <span>运营</span>
-            </a>
-            <a href="#gallery" class="nav-item" data-section="gallery">
+                <span>運營</span>
+            </div>
+            <div class="nav-item" data-page="gallery">
                 <i class="fas fa-images"></i>
                 <span>案例</span>
-            </a>
+            </div>
         </div>
     </nav>
 
     <script>
-        // 当前位置高亮功能
-        function updateActiveNav() {
-            const sections = document.querySelectorAll('.section');
-            const navItems = document.querySelectorAll('.nav-item');
+        // 頁面切換功能
+        function showPage(pageId) {
+            // 隱藏所有頁面
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
             
-            let currentSection = '';
-            const scrollPosition = window.scrollY + 100;
-
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.offsetHeight;
-                
-                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                    currentSection = section.id;
-                }
-            });
-
-            navItems.forEach(item => {
-                item.classList.remove('active');
-                if (item.dataset.section === currentSection) {
-                    item.classList.add('active');
-                }
-            });
+            // 顯示目標頁面
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                // 滾動到頁面頂部
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            
+            // 更新導航狀態
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            document.querySelector(`[data-page="${pageId}"]`).classList.add('active');
         }
 
-        // 监听滚动事件
-        window.addEventListener('scroll', updateActiveNav);
-        
-        // 页面加载时初始化
-        document.addEventListener('DOMContentLoaded', function() {
-            updateActiveNav();
-            
-            // 添加淡入动画
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('fade-in');
-                    }
-                });
-            });
-
-            document.querySelectorAll('.section').forEach(section => {
-                observer.observe(section);
-            });
-        });
-
-        // 导航点击事件
+        // 導航點擊事件
         document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                const targetElement = document.getElementById(targetId);
-                
-                if (targetElement) {
-                    const offsetTop = targetElement.offsetTop - 20;
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
+            item.addEventListener('click', function() {
+                const pageId = this.getAttribute('data-page');
+                showPage(pageId);
             });
         });
 
-        // 图片懒加载错误处理
+        // 頁面載入動畫
+        window.addEventListener('load', function() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach((element, index) => {
+                setTimeout(() => {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+
+        // 圖片懶載入錯誤處理
         document.querySelectorAll('img').forEach(img => {
             img.addEventListener('error', function() {
                 this.style.display = 'none';
-                this.nextElementSibling.textContent = '图片加载失败，请检查网络连接';
+                this.nextElementSibling.textContent = '圖片載入失敗，請檢查網路連接';
             });
+        });
+
+        // 鍵盤導航支援
+        document.addEventListener('keydown', function(e) {
+            const currentPage = document.querySelector('.page.active');
+            const currentId = currentPage ? currentPage.id : 'background';
+            const pages = ['background', 'strategy', 'production', 'operation', 'gallery'];
+            const currentIndex = pages.indexOf(currentId);
+            
+            if (e.key === 'ArrowLeft' && currentIndex > 0) {
+                showPage(pages[currentIndex - 1]);
+            } else if (e.key === 'ArrowRight' && currentIndex < pages.length - 1) {
+                showPage(pages[currentIndex + 1]);
+            }
         });
     </script>
 </body>
 </html>
+
