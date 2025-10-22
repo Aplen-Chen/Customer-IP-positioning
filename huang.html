@@ -530,16 +530,23 @@
             }
             
             /* 表格响应式 */
+            .table-container {
+                overflow-x: auto;
+                margin: 15px 0;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
+            
             table {
                 font-size: 0.9rem;
-                overflow-x: auto;
-                display: block;
+                min-width: 100%;
                 white-space: nowrap;
             }
             
             th, td {
                 padding: 8px 10px;
                 font-size: 0.85rem;
+                white-space: nowrap;
             }
         }
         
@@ -741,7 +748,7 @@
                     <div class="section-block">
                         <h2><i class="fa fa-bullseye"></i> 核心定位策略：從"可信"到"可親"的專業教育者</h2>
                         <p>
-                            基於20年教育經驗和服務1000+小朋友的深厚積累，結合高途名師IP的"五力模型"（學科力、表達力、感染力、共情力和IP力），建議定位為<span class="highlight">"20年教育經驗守護者"</span>，實現從"可信的專業權威"到"可親的成長夥伴"的身份轉變。
+                            基於20年教育經驗和服務1000+小朋友的深厚積累，結合高途名師IP的"五力模型"（學科力、表達力、感染力、共情力和IP力），建議定位為<span class="highlight">"教育20年經驗守護者"</span>，實現從"可信的專業權威"到"可親的成長夥伴"的身份轉變。
                         </p>
 
                         <div class="grid-container">
@@ -788,32 +795,34 @@
                             借鑒李蠕蠕的成功經驗，反差人設是短視頻IP的核心競爭力。結合教育背景，建議設計以下反差組合：
                         </p>
 
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>反差類型</th>
-                                    <th>專業面</th>
-                                    <th>親和麵</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>嚴厲 vs 溫柔</strong></td>
-                                    <td>認真糾正錯誤，堅持高標準</td>
-                                    <td>耐心安撫情緒，細心照顧學生</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>傳統 vs 創新</strong></td>
-                                    <td>扎實基礎知識，嚴格習慣培養</td>
-                                    <td>新媒體技術應用，趣味互動課程</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>嚴肅 vs 幽默</strong></td>
-                                    <td>專業講解教育理念與方法</td>
-                                    <td>分享教學趣事，展現風趣一面</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>反差類型</th>
+                                        <th>專業面</th>
+                                        <th>親和麵</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>嚴厲 vs 溫柔</strong></td>
+                                        <td>認真糾正錯誤，堅持高標準</td>
+                                        <td>耐心安撫情緒，細心照顧學生</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>傳統 vs 創新</strong></td>
+                                        <td>扎實基礎訓練，嚴格習慣培養</td>
+                                        <td>新穎趣味教學，激發主動創造</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>嚴謹 vs 幽默</strong></td>
+                                        <td>專業講解教育理念與方法</td>
+                                        <td>分享教學趣事，展現風趣一面</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <!-- 1.3 澳門地區本土化特色 -->
@@ -900,42 +909,39 @@
                     <div class="section-block">
                         <h2><i class="fa fa-money"></i> 多元化變現模式</h2>
                         
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>變現模式</th>
-                                    <th>產品形態</th>
-                                    <th>目標客群</th>
-                                    <th>預期收入</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>課程銷售</strong></td>
-                                    <td>線上課程、訓練營</td>
-                                    <td>家長群體</td>
-                                    <td>50萬+/年</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>一對一輔導</strong></td>
-                                    <td>個性化教育諮詢</td>
-                                    <td>高端家庭</td>
-                                    <td>30萬+/年</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>企業培訓</strong></td>
-                                    <td>教師培訓、家長講座</td>
-                                    <td>教育機構</td>
-                                    <td>20萬+/年</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>品牌合作</strong></td>
-                                    <td>產品推廣、代言</td>
-                                    <td>教育品牌</td>
-                                    <td>15萬+/年</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>變現模式</th>
+                                        <th>產品形態</th>
+                                        <th>目標客群</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>課程銷售</strong></td>
+                                        <td>線上課程、訓練營</td>
+                                        <td>家長群體</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>一對一輔導</strong></td>
+                                        <td>個性化教育諮詢</td>
+                                        <td>高端家庭</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>企業培訓</strong></td>
+                                        <td>教師培訓、家長講座</td>
+                                        <td>教育機構</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>品牌合作</strong></td>
+                                        <td>產品推廣、代言</td>
+                                        <td>教育品牌</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <!-- 長期發展規劃 -->
@@ -1060,42 +1066,44 @@
                     <div class="section-block">
                         <h2><i class="fa fa-calendar"></i> 月度選題規劃</h2>
                         
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>周次</th>
-                                    <th>主題方向</th>
-                                    <th>具體選題示例</th>
-                                    <th>預期效果</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>第1周</strong></td>
-                                    <td>專業教育理念</td>
-                                    <td>"20年教學經驗告訴我：這樣培養孩子專注力"</td>
-                                    <td>建立專業權威</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>第2周</strong></td>
-                                    <td>真實教學故事</td>
-                                    <td>"一個內向孩子的蛻變：從不敢發言到主動分享"</td>
-                                    <td>情感共鳴連接</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>第3周</strong></td>
-                                    <td>實用教育技巧</td>
-                                    <td>"3個小遊戲，讓孩子愛上數學計算"</td>
-                                    <td>提供實用價值</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>第4周</strong></td>
-                                    <td>家長互動答疑</td>
-                                    <td>"家長最關心的5個教育問題，我來解答"</td>
-                                    <td>增強互動粘性</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>周次</th>
+                                        <th>主題方向</th>
+                                        <th>具體選題示例</th>
+                                        <th>預期效果</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>第1周</strong></td>
+                                        <td>專業教育理念</td>
+                                        <td>"20年教學經驗告訴我：這樣培養孩子專注力"</td>
+                                        <td>建立專業權威</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>第2周</strong></td>
+                                        <td>真實教學故事</td>
+                                        <td>"一個內向孩子的蛻變：從不敢發言到主動分享"</td>
+                                        <td>情感共鳴連接</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>第3周</strong></td>
+                                        <td>實用教育技巧</td>
+                                        <td>"3個小遊戲，讓孩子愛上數學計算"</td>
+                                        <td>提供實用價值</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>第4周</strong></td>
+                                        <td>家長互動答疑</td>
+                                        <td>"家長最關心的5個教育問題，我來解答"</td>
+                                        <td>增強互動粘性</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <!-- 3.3 爆款內容公式 -->
@@ -1148,42 +1156,44 @@
                             <strong>核心理念：</strong>以微信視頻號為主陣地，多平臺協同發力，形成流量閉環
                         </div>
 
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>平臺</th>
-                                    <th>定位</th>
-                                    <th>內容特色</th>
-                                    <th>運營重點</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>微信視頻號</strong></td>
-                                    <td>主陣地</td>
-                                    <td>專業教育內容</td>
-                                    <td>私域流量轉化</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>抖音</strong></td>
-                                    <td>流量獲取</td>
-                                    <td>趣味教育短視頻</td>
-                                    <td>品牌曝光擴散</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>小紅書</strong></td>
-                                    <td>深度種草</td>
-                                    <td>教育方法分享</td>
-                                    <td>精准用戶獲取</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>微信公眾號</strong></td>
-                                    <td>內容沉澱</td>
-                                    <td>深度教育文章</td>
-                                    <td>專業形象建立</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>平臺</th>
+                                        <th>定位</th>
+                                        <th>內容特色</th>
+                                        <th>運營重點</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>微信視頻號</strong></td>
+                                        <td>主陣地</td>
+                                        <td>專業教育內容</td>
+                                        <td>私域流量轉化</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>抖音</strong></td>
+                                        <td>流量獲取</td>
+                                        <td>趣味教育短視頻</td>
+                                        <td>品牌曝光擴散</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>小紅書</strong></td>
+                                        <td>深度種草</td>
+                                        <td>教育方法分享</td>
+                                        <td>精准用戶獲取</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>微信公眾號</strong></td>
+                                        <td>內容沉澱</td>
+                                        <td>深度教育文章</td>
+                                        <td>專業形象建立</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <!-- 4.2 內容分發策略 -->
@@ -1266,40 +1276,42 @@
                     <div class="section-block">
                         <h2><i class="fa fa-calendar-check-o"></i> 階段性目標與策略</h2>
                         
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>階段</th>
-                                    <th>時間</th>
-                                    <th>主要目標</th>
-                                    <th>關鍵指標</th>
-                                    <th>核心策略</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>認知建立期</strong></td>
-                                    <td>1-30天</td>
-                                    <td>品牌認知建立</td>
-                                    <td>粉絲1000+，播放10萬+</td>
-                                    <td>高品質內容輸出，建立專業形象</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>信任培養期</strong></td>
-                                    <td>31-60天</td>
-                                    <td>用戶信任建立</td>
-                                    <td>私域用戶500+，互動率5%+</td>
-                                    <td>深度互動，提供個性化服務</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>轉化收割期</strong></td>
-                                    <td>61-90天</td>
-                                    <td>付費轉化實現</td>
-                                    <td>付費用戶100+，轉介紹50+</td>
-                                    <td>產品推廣，轉化路徑優化</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>階段</th>
+                                        <th>時間</th>
+                                        <th>主要目標</th>
+                                        <th>關鍵指標</th>
+                                        <th>核心策略</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>認知建立期</strong></td>
+                                        <td>1-30天</td>
+                                        <td>品牌認知建立</td>
+                                        <td>粉絲1000+，播放10萬+</td>
+                                        <td>高品質內容輸出，建立專業形象</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>信任培養期</strong></td>
+                                        <td>31-60天</td>
+                                        <td>用戶信任建立</td>
+                                        <td>私域用戶500+，互動率5%+</td>
+                                        <td>深度互動，提供個性化服務</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>轉化收割期</strong></td>
+                                        <td>61-90天</td>
+                                        <td>付費轉化實現</td>
+                                        <td>付費用戶100+，轉介紹50+</td>
+                                        <td>產品推廣，轉化路徑優化</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <!-- 轉化漏斗設計 -->
@@ -1601,4 +1613,3 @@
      </script>
  </body>
  </html>
-
