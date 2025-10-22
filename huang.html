@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>禮仁教育短視頻IP運營分析框架</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <script>
+        // Tailwind 配置
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#C084FC', // 淡紫色（代表優雅和創意）
+                        secondary: '#F8BBD9', // 桃粉色（代表溫柔和關愛）
+                        tertiary: '#A78BFA', // 深紫色（代表專業和信任）
+                        dark: '#1E293B',
+                        light: '#F8FAFC'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px rgba(0, 0, 0, 0.05)',
+                        'medium': '0 10px 30px rgba(0, 0, 0, 0.1)',
+                    }
+                },
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .app-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #C084FC 0%, #F8BBD9 100%);
+            color: white;
+            box-shadow: 0 5px 20px rgba(192, 132, 252, 0.3);
+            flex-shrink: 0;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+
+        .page {
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-content {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(192, 132, 252, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(192, 132, 252, 0.1);
+            min-height: calc(100vh - 200px);
+        }
+
+        .page-title {
+            color: #C084FC;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #F8BBD9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .page h3 {
+            color: #C084FC;
+            font-size: 1.4rem;
+            margin: 25px 0 15px 0;
+            padding-left: 15px;
+            border-left: 4px solid #F8BBD9;
+        }
+
+        .page h4 {
+            color: #A78BFA;
+            font-size: 1.2rem;
+            margin: 20px 0 10px 0;
+            font-weight: 600;
+        }
+
+        .page p {
+            margin-bottom: 15px;
+            text-align: justify;
+            color: #4b5563;
+        }
+
+        .page ul, .page ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        .page li {
+            margin-bottom: 8px;
+            color: #4b5563;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #fde68a 0%, #fbbf24 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #92400e;
+        }
+
+        .quote {
+            background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+            border-left: 5px solid #C084FC;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+            color: #374151;
+        }
+
+        .section-block {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+        }
+
+        .section-block h2 {
+            color: #495057;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-block h2 i {
+            color: #C084FC;
+        }
+
+        /* 底部巡覽列樣式 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(192, 132, 252, 0.2);
+            padding: 10px 0;
+            z-index: 1000;
+            box-shadow: 0 -5px 20px rgba(192, 132, 252, 0.1);
+            flex-shrink: 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #6b7280;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 8px 12px;
+            border-radius: 12px;
+            min-width: 60px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(192, 132, 252, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 12px;
+        }
+
+        .nav-item:hover::before {
+            opacity: 1;
+        }
+
+        .nav-item:hover {
+            color: #C084FC;
+            transform: translateY(-2px);
+        }
+
+        .nav-item:active {
+            transform: translateY(0) scale(0.95);
+        }
+
+        .nav-item.active {
+            color: #C084FC;
+            background: rgba(192, 132, 252, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .nav-item.active::before {
+            opacity: 0;
+        }
+
+        .nav-item i {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-item:hover i {
+            transform: scale(1.1);
+        }
+
+        .nav-item span {
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* 回應式設計 */
+        @media (max-width: 768px) {
+            .app-container {
+                height: 100vh;
+                height: 100dvh; /* 動態視口高度 */
+            }
+            
+            .main-content {
+                padding: 10px;
+                padding-bottom: 100px;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .header p {
+                font-size: 0.9rem;
+            }
+
+            .page-content {
+                padding: 15px;
+                min-height: calc(100vh - 180px);
+            }
+
+            .page-title {
+                font-size: 1.4rem;
+            }
+
+            .page h3 {
+                font-size: 1.2rem;
+            }
+
+            .nav-item span {
+                font-size: 0.65rem;
+            }
+
+            .nav-item i {
+                font-size: 1rem;
+            }
+            
+            .nav-item {
+                padding: 6px 4px;
+                min-height: 44px; /* iOS推薦的最小觸摸目標 */
+            }
+            
+            .bottom-nav {
+                padding: 8px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 10px;
+            }
+
+            .nav-item {
+                min-width: 50px;
+                padding: 6px 8px;
+            }
+
+            .nav-item span {
+                font-size: 0.65rem;
+            }
+
+            .header {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* 頁面切換動畫 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+
+        .page.fade-out {
+            animation: fadeOut 0.3s ease-out;
+        }
+
+        /* 卡片懸停效果 */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 圖表容器樣式 */
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 20px 0;
+        }
+
+        /* 表格樣式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #C084FC;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #faf5ff;
+        }
+
+        /* 網格佈局 */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .grid-item {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header class="header" style="display: flex; justify-content: space-between; align-items: center; padding: 20px 0px 20px 20px;">
+            <!-- 左側標頭區域 -->
+            <div style="flex: 1; text-align: left;">
+                <h1 style="margin: 0; font-size: 1.8rem; text-align: left;"><i class="fa fa-graduation-cap"></i> 禮仁教育短視頻IP運營分析框架</h1>
+                <p style="margin: 5px 0 0 0; font-size: 0.9rem; text-align: left;">基於20年教育經驗與1000+孩子服務背景，90天實現成交轉化的完整策略</p>
+            </div>
+            
+            <!-- 右側聯繫方式區域 -->
+            <div style="color: #2c3e50; padding: 15px 25px; text-align: center; min-width: 280px;">
+                <div style="color: #2c3e50; margin-bottom: 8px; font-size: 1.1rem;">
+                    <i class="fa fa-user-circle" style="margin-right: 8px;"></i>
+                    <strong>吳明蔚 老闆短祝頻-價值派IP</strong>
+                </div>
+                <div style="font-size: 0.95rem; margin-bottom: 5px;">
+                    <i class="fa fa-wechat" style="margin-right: 8px; color: #07C160;"></i>
+                    <strong>微信號：Zzzz2ko</strong>
+                </div>
+                <div style="font-size: 0.9rem;">
+                    <i class="fa fa-map-marker" style="margin-right: 8px; color: #F97316;"></i>
+                    <strong>地區：澳門廣發商業中心15樓</strong>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- 概覽頁面 -->
+            <div id="overview" class="page active">
+                <div class="page-content">
+                    <h1 class="page-title"><i class="fa fa-home"></i> 項目概覽</h1>
+                    
+                    <!-- 英雄區域 -->
+                    <div class="section-block">
+                        <h2><i class="fa fa-star"></i> 核心價值主張</h2>
+                        <div class="quote">
+                            <strong>禮仁教育20年經驗守護者</strong><br>
+                            融合專業、使命、細心隨和三大標籤，90天實現從認知建立到成交轉化
+                        </div>
+                        
+                        <div class="grid-container">
+                            <div class="grid-item card-hover">
+                                <div style="color: #F97316; font-size: 2rem; margin-bottom: 10px;">
+                                    <i class="fa fa-user-circle"></i>
+                                </div>
+                                <h4>核心定位</h4>
+                                <p>"禮仁教育20年經驗守護者"，融合專業、使命、細心隨和三大標籤</p>
+                            </div>
+                            <div class="grid-item card-hover">
+                                <div style="color: #3B82F6; font-size: 2rem; margin-bottom: 10px;">
+                                    <i class="fa fa-bullseye"></i>
+                                </div>
+                                <h4>目標受眾</h4>
+                                <p>澳門地區幼稚園、小學生家長，高消費能力與國際化視野群體</p>
+                            </div>
+                            <div class="grid-item card-hover">
+                                <div style="color: #10B981; font-size: 2rem; margin-bottom: 10px;">
+                                    <i class="fa fa-calendar-check-o"></i>
+                                </div>
+                                <h4>90天目標</h4>
+                                <p>從認知建立到成交轉化，實現100+付費用戶，50+轉介紹</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 展示圖片 -->
+                    <div class="section-block">
+                        <h2><i class="fa fa-image"></i> 展示圖片</h2>
+                        
+                        <!-- 圖片展示區域 -->
+                        <div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; margin-bottom: 30px;">
+                            <div style="flex: 1; max-width: 45%;">
+                                <img src="https://p9-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/ab9ac614600b4d6bab5ce6099b5cd945.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&x-expires=1786176241&x-signature=TOlUkuLzyvvrbn3DXWJUxsQjzrs%3D&x-wf-file_name=%E5%85%AC%E5%9F%9F.jpg" 
+                                     alt="公域展示" 
+                                     style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                            </div>
+                            <div style="flex: 1; max-width: 45%;">
+                                <img src="https://p3-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/522ab5e32bf54ba0b2ccc9cc78470cd9.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&x-expires=1786176244&x-signature=EZ2mHPBdJ7gK7Oka9%2B87jX5ClZE%3D&x-wf-file_name=a0d9b4d4a5963de6a5b98c77cde476c.jpg" 
+                                     alt="聯繫方式" 
+                                     style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- IP定位與差異化人設頁面 -->
+            <div id="ip-positioning" class="page">
+                <div class="page-content">
+                    <h1 class="page-title"><i class="fa fa-user-circle"></i> IP定位與差異化人設打造</h1>
+
+                    <!-- 1.1 核心定位策略 -->
+                    <div class="section-block">
+                        <h2><i class="fa fa-bullseye"></i> 核心定位策略：從"可信"到"可親"的專業教育者</h2>
+                        <p>
+                            基於20年教育經驗和服務1000+小朋友的深厚積累，結合高途名師IP的"五力模型"（學科力、表達力、感染力、共情力和IP力），建議定位為<span class="highlight">"禮仁教育20年經驗守護者"</span>，實現從"可信的專業權威"到"可親的成長夥伴"的身份轉變。
+                        </p>
+
+                        <div class="grid-container">
+                            <div class="grid-item card-hover">
+                                <div style="color: #F97316; margin-bottom: 15px;">
+                                    <i class="fa fa-book" style="font-size: 1.5rem;"></i>
+                                </div>
+                                <h4>專業標籤</h4>
+                                <ul style="margin-top: 10px;">
+                                    <li><i class="fa fa-check-circle" style="color: #10B981;"></i> 展示教育資質與教學成果</li>
+                                    <li><i class="fa fa-check-circle" style="color: #10B981;"></i> 設計固定視覺符號</li>
+                                    <li><i class="fa fa-check-circle" style="color: #10B981;"></i> 標誌性服裝與教學道具</li>
+                                </ul>
+                            </div>
+                            <div class="grid-item card-hover">
+                                <div style="color: #F97316; margin-bottom: 15px;">
+                                    <i class="fa fa-heart" style="font-size: 1.5rem;"></i>
+                                </div>
+                                <h4>使命標籤</h4>
+                                <ul style="margin-top: 10px;">
+                                    <li><i class="fa fa-check-circle" style="color: #10B981;"></i> 分享感人教育故事</li>
+                                    <li><i class="fa fa-check-circle" style="color: #10B981;"></i> 展現教育事業熱愛</li>
+                                    <li><i class="fa fa-check-circle" style="color: #10B981;"></i> 禮仁大家庭工作經歷</li>
+                                </ul>
+                            </div>
+                            <div class="grid-item card-hover">
+                                <div style="color: #F97316; margin-bottom: 15px;">
+                                    <i class="fa fa-smile-o" style="font-size: 1.5rem;"></i>
+                                </div>
+                                <h4>親和標籤</h4>
+                                <ul style="margin-top: 10px;">
+                                    <li><i class="fa fa-check-circle" style="color: #10B981;"></i> 展示日常生活片段</li>
+                                    <li><i class="fa fa-check-circle" style="color: #10B981;"></i> 打破嚴肅教師刻板印象</li>
+                                    <li><i class="fa fa-check-circle" style="color: #10B981;"></i> 展現溫柔細心一面</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 1.2 反差人設設計 -->
+                    <div class="section-block">
+                        <h2><i class="fa fa-balance-scale"></i> 反差人設設計：專業嚴謹與溫暖有趣的完美結合</h2>
+                        <p>
+                            借鑒李蠕蠕的成功經驗，反差人設是短視頻IP的核心競爭力。結合教育背景，建議設計以下反差組合：
+                        </p>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>反差類型</th>
+                                    <th>專業面</th>
+                                    <th>親和麵</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>嚴厲 vs 溫柔</strong></td>
+                                    <td>認真糾正錯誤，堅持高標準</td>
+                                    <td>耐心安撫情緒，細心照顧學生</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>傳統 vs 創新</strong></td>
+                                    <td>扎實基礎知識，嚴格習慣培養</td>
+                                    <td>新媒體技術應用，趣味互動課程</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>嚴肅 vs 幽默</strong></td>
+                                    <td>專業講解教育理念與方法</td>
+                                    <td>分享教學趣事，展現風趣一面</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 1.3 澳門地區本土化特色 -->
+                    <div class="section-block">
+                        <h2><i class="fa fa-globe"></i> 澳門地區本土化特色：融合中西教育理念的獨特優勢</h2>
+                        <p>
+                            澳門作為中西文化交融的國際化都市，2024-2025學年共有76所非高等教育學校，其中私立學校68所，占比高達89.5%，顯示出澳門家長對優質教育資源的強烈需求。
+                        </p>
+
+                        <div class="grid-container">
+                            <div class="grid-item">
+                                <div style="color: #F97316; font-size: 2rem; margin-bottom: 15px;">
+                                    <i class="fa fa-globe"></i>
+                                </div>
+                                <h4>文化融合優勢</h4>
+                                <p>將中華文化教育理念與西方教育方法結合，融入澳門本土文化元素，展現文化包容的教育理念。</p>
+                            </div>
+                            <div class="grid-item">
+                                <div style="color: #F97316; font-size: 2rem; margin-bottom: 15px;">
+                                    <i class="fa fa-language"></i>
+                                </div>
+                                <h4>雙語教學能力</h4>
+                                <p>展現雙語教學能力，特別是在數學、科學等學科中運用中英文雙語教學，滿足澳門國際化教育需求。</p>
+                            </div>
+                            <div class="grid-item">
+                                <div style="color: #F97316; font-size: 2rem; margin-bottom: 15px;">
+                                    <i class="fa fa-users"></i>
+                                </div>
+                                <h4>小班化教學經驗</h4>
+                                <p>分享小班化教學環境中的經驗和心得，澳門師幼比為1:14.5，展現個性化教育方面的專業能力。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 澳門地區教育行業現狀分析頁面 -->
+            <div id="market-analysis" class="page">
+                <div class="page-content">
+                    <h1 class="page-title"><i class="fa fa-bar-chart"></i> 澳門地區教育行業現狀分析</h1>
+
+                    <!-- 2.1 市場環境 -->
+                    <div class="section-block">
+                        <h2><i class="fa fa-line-chart"></i> 市場環境：政府大力支持與高教育投入</h2>
+                        
+                        <div class="grid-container">
+                            <div class="grid-item">
+                                <p>
+                                    澳門特區政府對教育的重視程度不斷提升，<span class="highlight">2024年教育預算開支達141.3億澳元</span>，實施15年免費教育政策，覆蓋95%的公立及私立學校，惠及約7.4萬名學生。
+                                </p>
+                                
+                                <h4>關鍵資料指標：</h4>
+                                <ul>
+                                    <li><strong>教育投入占比：</strong>政府總預算的重要組成部分</li>
+                                    <li><strong>師幼比例：</strong>1:14.5，優於國際標準</li>
+                                    <li><strong>私立學校占比：</strong>89.5%，顯示家長對優質教育的追求</li>
+                                    <li><strong>學生總數：</strong>約7.4萬名，市場規模可觀</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="grid-item">
+                                <div class="chart-container">
+                                    <canvas id="educationBudgetChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2.2 競爭格局 -->
+                    <div class="section-block">
+                        <h2><i class="fa fa-users"></i> 競爭格局與機會分析</h2>
+                        
+                        <div class="quote">
+                            <strong>市場機會：</strong>澳門教育短視頻領域相對空白，為禮仁教育提供了絕佳的先發優勢機會。
+                        </div>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>競爭維度</th>
+                                    <th>現狀分析</th>
+                                    <th>機會點</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>內容創作者</strong></td>
+                                    <td>本土教育類短視頻創作者較少</td>
+                                    <td>先發優勢，建立品牌認知</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>教育機構</strong></td>
+                                    <td>傳統行銷方式為主</td>
+                                    <td>數位化行銷差異化競爭</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>家長需求</strong></td>
+                                    <td>對優質教育內容需求旺盛</td>
+                                    <td>專業內容填補市場空白</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 2.3 目標受眾畫像 -->
+                    <div class="section-block">
+                        <h2><i class="fa fa-target"></i> 目標受眾畫像</h2>
+                        
+                        <div class="grid-container">
+                            <div class="grid-item card-hover">
+                                <h4><i class="fa fa-female" style="color: #F97316;"></i> 主要決策者</h4>
+                                <ul>
+                                    <li><strong>年齡：</strong>28-45歲</li>
+                                    <li><strong>性別：</strong>女性為主（70%+）</li>
+                                    <li><strong>職業：</strong>公務員、金融、服務業</li>
+                                    <li><strong>收入：</strong>中高收入家庭</li>
+                                </ul>
+                            </div>
+                            <div class="grid-item card-hover">
+                                <h4><i class="fa fa-child" style="color: #3B82F6;"></i> 孩子特徵</h4>
+                                <ul>
+                                    <li><strong>年齡段：</strong>3-12歲</li>
+                                    <li><strong>教育階段：</strong>幼稚園至小學</li>
+                                    <li><strong>語言環境：</strong>中英雙語</li>
+                                    <li><strong>學習需求：</strong>全面發展</li>
+                                </ul>
+                            </div>
+                            <div class="grid-item card-hover">
+                                <h4><i class="fa fa-heart" style="color: #10B981;"></i> 痛點需求</h4>
+                                <ul>
+                                    <li><strong>教育焦慮：</strong>擔心孩子落後</li>
+                                    <li><strong>方法困惑：</strong>不知如何正確引導</li>
+                                    <li><strong>時間壓力：</strong>工作繁忙缺乏陪伴</li>
+                                    <li><strong>選擇困難：</strong>教育資源選擇多樣</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 內容策略與選題規劃頁面 -->
+            <div id="content-strategy" class="page">
+                <div class="page-content">
+                    <h1 class="page-title"><i class="fa fa-lightbulb-o"></i> 內容策略與選題規劃</h1>
+
+                    <!-- 3.1 內容策略框架 -->
+                    <div class="section-block">
+                        <h2><i class="fa fa-sitemap"></i> 內容策略框架</h2>
+                        
+                        <div class="quote">
+                            <strong>核心策略：</strong>以"教育專業性"為基礎，"真實故事"為紐帶，"實用價值"為導向的內容創作策略
+                        </div>
+
+                        <div class="grid-container">
+                            <div class="grid-item card-hover">
+                                <h4><i class="fa fa-graduation-cap" style="color: #F97316;"></i> 專業教育內容</h4>
+                                <p><strong>占比：40%</strong></p>
+                                <ul>
+                                    <li>教育理念分享</li>
+                                    <li>學習方法指導</li>
+                                    <li>成長發展知識</li>
+                                    <li>問題解決方案</li>
+                                </ul>
+                            </div>
+                            <div class="grid-item card-hover">
+                                <h4><i class="fa fa-heart" style="color: #EF4444;"></i> 情感故事內容</h4>
+                                <p><strong>占比：30%</strong></p>
+                                <ul>
+                                    <li>教學感人瞬間</li>
+                                    <li>師生互動故事</li>
+                                    <li>家長回饋分享</li>
+                                    <li>成長見證記錄</li>
+                                </ul>
+                            </div>
+                            <div class="grid-item card-hover">
+                                <h4><i class="fa fa-life-ring" style="color: #10B981;"></i> 實用技巧內容</h4>
+                                <p><strong>占比：30%</strong></p>
+                                <ul>
+                                    <li>日常教育技巧</li>
+                                    <li>親子互動遊戲</li>
+                                    <li>學習工具推薦</li>
+                                    <li>問題快速解決</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3.2 選題規劃 -->
+                    <div class="section-block">
+                        <h2><i class="fa fa-calendar"></i> 月度選題規劃</h2>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>周次</th>
+                                    <th>主題方向</th>
+                                    <th>具體選題示例</th>
+                                    <th>預期效果</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>第1周</strong></td>
+                                    <td>專業教育理念</td>
+                                    <td>"20年教學經驗告訴我：這樣培養孩子專注力"</td>
+                                    <td>建立專業權威</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>第2周</strong></td>
+                                    <td>真實教學故事</td>
+                                    <td>"一個內向孩子的蛻變：從不敢發言到主動分享"</td>
+                                    <td>情感共鳴連接</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>第3周</strong></td>
+                                    <td>實用教育技巧</td>
+                                    <td>"3個小遊戲，讓孩子愛上數學計算"</td>
+                                    <td>提供實用價值</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>第4周</strong></td>
+                                    <td>家長互動答疑</td>
+                                    <td>"家長最關心的5個教育問題，我來解答"</td>
+                                    <td>增強互動粘性</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 3.3 爆款內容公式 -->
+                    <div class="section-block">
+                        <h2><i class="fa fa-fire"></i> 爆款內容創作公式</h2>
+                        
+                        <div class="grid-container">
+                            <div class="grid-item">
+                                <h4>開頭3秒鉤子</h4>
+                                <ul>
+                                    <li>"20年教學經驗告訴我..."</li>
+                                    <li>"這個方法讓1000+孩子受益..."</li>
+                                    <li>"家長們最擔心的問題..."</li>
+                                    <li>"你絕對想不到..."</li>
+                                </ul>
+                            </div>
+                            <div class="grid-item">
+                                <h4>中間價值輸出</h4>
+                                <ul>
+                                    <li>具體方法步驟</li>
+                                    <li>真實案例分享</li>
+                                    <li>專業理論支撐</li>
+                                    <li>實操演示過程</li>
+                                </ul>
+                            </div>
+                            <div class="grid-item">
+                                <h4>結尾行動引導</h4>
+                                <ul>
+                                    <li>"你家孩子有這個問題嗎？"</li>
+                                    <li>"評論區分享你的經驗"</li>
+                                    <li>"關注我，獲取更多方法"</li>
+                                    <li>"私信我，一對一指導"</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 平臺選擇與運營頁面 -->
+            <div id="platform-operation" class="page">
+                <div class="page-content">
+                    <h1 class="page-title"><i class="fa fa-mobile"></i> 平臺選擇與運營策略</h1>
+
+                    <!-- 4.1 平臺選擇策略 -->
+                    <div class="section-block">
+                        <h2><i class="fa fa-th-large"></i> 多平臺協同運營策略</h2>
+                        
+                        <div class="quote">
+                            <strong>核心理念：</strong>以微信視頻號為主陣地，多平臺協同發力，形成流量閉環
+                        </div>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>平臺</th>
+                                    <th>定位</th>
+                                    <th>內容特色</th>
+                                    <th>運營重點</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>微信視頻號</strong></td>
+                                    <td>主陣地</td>
+                                    <td>專業教育內容</td>
+                                    <td>私域流量轉化</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>抖音</strong></td>
+                                    <td>流量獲取</td>
+                                    <td>趣味教育短視頻</td>
+                                    <td>品牌曝光擴散</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>小紅書</strong></td>
+                                    <td>深度種草</td>
+                                    <td>教育方法分享</td>
+                                    <td>精准用戶獲取</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>微信公眾號</strong></td>
+                                    <td>內容沉澱</td>
+                                    <td>深度教育文章</td>
+                                    <td>專業形象建立</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 4.2 內容分發策略 -->
+                    <div class="section-block">
+                        <h2><i class="fa fa-share-alt"></i> 內容分發與適配策略</h2>
+                        
+                        <div class="grid-container">
+                            <div class="grid-item card-hover">
+                                <h4><i class="fa fa-wechat" style="color: #07C160;"></i> 微信視頻號</h4>
+                                <ul>
+                                    <li><strong>時長：</strong>30-60秒</li>
+                                    <li><strong>風格：</strong>專業溫和</li>
+                                    <li><strong>重點：</strong>教育價值輸出</li>
+                                    <li><strong>頻率：</strong>每日1-2條</li>
+                                </ul>
+                            </div>
+                            <div class="grid-item card-hover">
+                                <h4><i class="fa fa-music" style="color: #000;"></i> 抖音平臺</h4>
+                                <ul>
+                                    <li><strong>時長：</strong>15-30秒</li>
+                                    <li><strong>風格：</strong>活潑有趣</li>
+                                    <li><strong>重點：</strong>吸引眼球</li>
+                                    <li><strong>頻率：</strong>每日2-3條</li>
+                                </ul>
+                            </div>
+                            <div class="grid-item card-hover">
+                                <h4><i class="fa fa-book" style="color: #FF2442;"></i> 小紅書</h4>
+                                <ul>
+                                    <li><strong>形式：</strong>圖文+視頻</li>
+                                    <li><strong>風格：</strong>精美實用</li>
+                                    <li><strong>重點：</strong>方法分享</li>
+                                    <li><strong>頻率：</strong>每週3-4條</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4.3 運營時間規劃 -->
+                    <div class="section-block">
+                        <h2><i class="fa fa-clock-o"></i> 運營時間規劃</h2>
+                        
+                        <div class="chart-container">
+                            <canvas id="operationTimeChart"></canvas>
+                        </div>
+                        
+                        <div class="grid-container">
+                            <div class="grid-item">
+                                <h4>最佳發佈時間</h4>
+                                <ul>
+                                    <li><strong>工作日：</strong>7:00-8:00, 12:00-13:00, 19:00-21:00</li>
+                                    <li><strong>週末：</strong>9:00-11:00, 14:00-16:00, 20:00-22:00</li>
+                                    <li><strong>特殊時段：</strong>寒暑假期間調整策略</li>
+                                </ul>
+                            </div>
+                            <div class="grid-item">
+                                <h4>互動回復時間</h4>
+                                <ul>
+                                    <li><strong>即時回復：</strong>發佈後2小時內</li>
+                                    <li><strong>定期回復：</strong>每日晚上8-9點集中回復</li>
+                                    <li><strong>深度互動：</strong>週末進行長時間互動</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 90天轉化路徑頁面 -->
+            <div id="conversion-path" class="page">
+                <div class="page-content">
+                    <h1 class="page-title"><i class="fa fa-line-chart"></i> 90天轉化路徑設計</h1>
+
+                    <!-- 5.1 轉化路徑概覽 -->
+                    <div class="section-block">
+                        <h2><i class="fa fa-road"></i> 轉化路徑概覽</h2>
+                        
+                        <div class="quote">
+                            <strong>轉化目標：</strong>90天內實現100+付費用戶，50+轉介紹，建立穩定的私域流量池
+                        </div>
+
+                        <div class="chart-container">
+                            <canvas id="conversionPathChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- 5.2 階段性目標 -->
+                    <div class="section-block">
+                        <h2><i class="fa fa-calendar-check-o"></i> 階段性目標與策略</h2>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>階段</th>
+                                    <th>時間</th>
+                                    <th>主要目標</th>
+                                    <th>關鍵指標</th>
+                                    <th>核心策略</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>認知建立期</strong></td>
+                                    <td>1-30天</td>
+                                    <td>品牌認知建立</td>
+                                    <td>粉絲1000+，播放10萬+</td>
+                                    <td>高品質內容輸出，建立專業形象</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>信任培養期</strong></td>
+                                    <td>31-60天</td>
+                                    <td>用戶信任建立</td>
+                                    <td>私域用戶500+，互動率5%+</td>
+                                    <td>深度互動，提供個性化服務</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>轉化收割期</strong></td>
+                                    <td>61-90天</td>
+                                    <td>付費轉化實現</td>
+                                    <td>付費用戶100+，轉介紹50+</td>
+                                    <td>產品推廣，轉化路徑優化</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 5.3 轉化漏斗設計 -->
+                    <div class="section-block">
+                        <h2><i class="fa fa-filter"></i> 轉化漏斗設計</h2>
+                        
+                        <div class="grid-container">
+                            <div class="grid-item card-hover">
+                                <h4><i class="fa fa-eye" style="color: #F97316;"></i> 曝光層</h4>
+                                <p><strong>目標：</strong>100萬+曝光</p>
+                                <ul>
+                                    <li>多平臺內容分發</li>
+                                    <li>熱點話題蹭流量</li>
+                                    <li>KOL合作推廣</li>
+                                </ul>
+                            </div>
+                            <div class="grid-item card-hover">
+                                <h4><i class="fa fa-users" style="color: #3B82F6;"></i> 關注層</h4>
+                                <p><strong>目標：</strong>5000+關注</p>
+                                <ul>
+                                    <li>優質內容吸引</li>
+                                    <li>互動引導關注</li>
+                                    <li>福利活動刺激</li>
+                                </ul>
+                            </div>
+                            <div class="grid-item card-hover">
+                                <h4><i class="fa fa-wechat" style="color: #07C160;"></i> 私域層</h4>
+                                <p><strong>目標：</strong>1000+私域</p>
+                                <ul>
+                                    <li>微信群運營</li>
+                                    <li>一對一諮詢</li>
+                                    <li>專屬服務體驗</li>
+                                </ul>
+                            </div>
+                            <div class="grid-item card-hover">
+                                <h4><i class="fa fa-shopping-cart" style="color: #10B981;"></i> 付費層</h4>
+                                <p><strong>目標：</strong>100+付費</p>
+                                <ul>
+                                    <li>課程產品銷售</li>
+                                    <li>一對一輔導</li>
+                                    <li>會員服務訂閱</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5.4 關鍵轉化節點 -->
+                    <div class="section-block">
+                        <h2><i class="fa fa-key"></i> 關鍵轉化節點優化</h2>
+                        
+                        <div class="grid-container">
+                            <div class="grid-item">
+                                <h4>節點1：公域到私域</h4>
+                                <ul>
+                                    <li><strong>引流鉤子：</strong>免費教育資料包</li>
+                                    <li><strong>轉化話術：</strong>"私信獲取完整版"</li>
+                                    <li><strong>承接載體：</strong>微信個人號</li>
+                                    <li><strong>轉化率目標：</strong>10%</li>
+                                </ul>
+                            </div>
+                            <div class="grid-item">
+                                <h4>節點2：私域到付費</h4>
+                                <ul>
+                                    <li><strong>信任建立：</strong>持續價值輸出</li>
+                                    <li><strong>需求挖掘：</strong>一對一深度溝通</li>
+                                    <li><strong>產品匹配：</strong>個性化方案推薦</li>
+                                    <li><strong>轉化率目標：</strong>20%</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IP資產構建頁面 -->
+            <div id="ip-assets" class="page">
+                <div class="page-content">
+                    <h1 class="page-title"><i class="fa fa-diamond"></i> IP資產構建與長期價值</h1>
+
+                    <!-- 6.1 IP資產體系 -->
+                    <div class="section-block">
+                        <h2><i class="fa fa-building"></i> IP資產體系構建</h2>
+                        
+                        <div class="quote">
+                            <strong>核心理念：</strong>構建可持續、可複製、可變現的IP資產體系，實現長期價值最大化
+                        </div>
+
+                        <div class="grid-container">
+                            <div class="grid-item card-hover">
+                                <h4><i class="fa fa-user" style="color: #F97316;"></i> 個人品牌資產</h4>
+                                <ul>
+                                    <li>專業形象塑造</li>
+                                    <li>個人故事IP化</li>
+                                    <li>標誌性視覺符號</li>
+                                    <li>獨特價值主張</li>
+                                </ul>
+                            </div>
+                            <div class="grid-item card-hover">
+                                <h4><i class="fa fa-file-text" style="color: #3B82F6;"></i> 內容資產</h4>
+                                <ul>
+                                    <li>原創教育理念</li>
+                                    <li>系統課程體系</li>
+                                    <li>教學方法論</li>
+                                    <li>案例庫建設</li>
+                                </ul>
+                            </div>
+                            <div class="grid-item card-hover">
+                                <h4><i class="fa fa-users" style="color: #10B981;"></i> 社群資產</h4>
+                                <ul>
+                                    <li>粉絲社群運營</li>
+                                    <li>家長互助網路</li>
+                                    <li>學員成長檔案</li>
+                                    <li>口碑傳播體系</li>
+                                </ul>
+                            </div>
+                            <div class="grid-item card-hover">
+                                <h4><i class="fa fa-cogs" style="color: #8B5CF6;"></i> 產品資產</h4>
+                                <ul>
+                                    <li>標準化課程產品</li>
+                                    <li>教育工具開發</li>
+                                    <li>服務流程優化</li>
+                                    <li>品牌授權體系</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6.2 變現模式設計 -->
+                    <div class="section-block">
+                        <h2><i class="fa fa-money"></i> 多元化變現模式</h2>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>變現模式</th>
+                                    <th>產品形態</th>
+                                    <th>目標客群</th>
+                                    <th>預期收入</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>課程銷售</strong></td>
+                                    <td>線上課程、訓練營</td>
+                                    <td>家長群體</td>
+                                    <td>50萬+/年</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>一對一輔導</strong></td>
+                                    <td>個性化教育諮詢</td>
+                                    <td>高端家庭</td>
+                                    <td>30萬+/年</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>企業培訓</strong></td>
+                                    <td>教師培訓、家長講座</td>
+                                    <td>教育機構</td>
+                                    <td>20萬+/年</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>品牌合作</strong></td>
+                                    <td>產品推廣、代言</td>
+                                    <td>教育品牌</td>
+                                    <td>15萬+/年</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 6.3 長期發展規劃 -->
+                    <div class="section-block">
+                        <h2><i class="fa fa-rocket"></i> 長期發展規劃</h2>
+                        
+                        <div class="grid-container">
+                            <div class="grid-item">
+                                <h4>第一年：基礎建設</h4>
+                                <ul>
+                                    <li>個人IP初步建立</li>
+                                    <li>核心產品開發</li>
+                                    <li>私域流量積累</li>
+                                    <li>變現模式驗證</li>
+                                </ul>
+                            </div>
+                            <div class="grid-item">
+                                <h4>第二年：規模擴張</h4>
+                                <ul>
+                                    <li>團隊建設完善</li>
+                                    <li>產品線豐富化</li>
+                                    <li>市場份額擴大</li>
+                                    <li>品牌影響力提升</li>
+                                </ul>
+                            </div>
+                            <div class="grid-item">
+                                <h4>第三年：生態構建</h4>
+                                <ul>
+                                    <li>教育生態平臺</li>
+                                    <li>合作夥伴網路</li>
+                                    <li>標準化輸出</li>
+                                    <li>可持續性</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6.4 風險控制與應對 -->
+                    <div class="section-block">
+                        <h2><i class="fa fa-shield"></i> 風險控制與應對策略</h2>
+                        
+                        <div class="grid-container">
+                            <div class="grid-item">
+                                <h4>內容風險</h4>
+                                <ul>
+                                    <li><strong>風險：</strong>內容同質化</li>
+                                    <li><strong>應對：</strong>持續創新，差異化定位</li>
+                                    <li><strong>預防：</strong>建立內容審核機制</li>
+                                </ul>
+                            </div>
+                            <div class="grid-item">
+                                 <h4>平臺風險</h4>
+                                 <ul>
+                                     <li><strong>風險：</strong>平臺政策變化</li>
+                                     <li><strong>應對：</strong>多平臺佈局，私域為主</li>
+                                     <li><strong>預防：</strong>關注政策動態</li>
+                                 </ul>
+                             </div>
+                             <div class="grid-item">
+                                 <h4>競爭風險</h4>
+                                 <ul>
+                                     <li><strong>風險：</strong>同質化競爭加劇</li>
+                                     <li><strong>應對：</strong>強化個人特色，深耕專業領域</li>
+                                     <li><strong>預防：</strong>持續學習，保持領先優勢</li>
+                                 </ul>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </main>
+
+         <!-- 底部巡覽列 -->
+         <nav class="bottom-nav">
+             <div class="nav-container">
+                 <div class="nav-item active" onclick="showPage('overview')">
+                     <i class="fa fa-home"></i>
+                     <span>概覽</span>
+                 </div>
+                 <div class="nav-item" onclick="showPage('ip-positioning')">
+                     <i class="fa fa-user-circle"></i>
+                     <span>IP定位</span>
+                 </div>
+                 <div class="nav-item" onclick="showPage('market-analysis')">
+                     <i class="fa fa-bar-chart"></i>
+                     <span>市場分析</span>
+                 </div>
+                 <div class="nav-item" onclick="showPage('content-strategy')">
+                     <i class="fa fa-lightbulb-o"></i>
+                     <span>內容策略</span>
+                 </div>
+                 <div class="nav-item" onclick="showPage('platform-operation')">
+                     <i class="fa fa-mobile"></i>
+                     <span>平臺運營</span>
+                 </div>
+                 <div class="nav-item" onclick="showPage('conversion-path')">
+                     <i class="fa fa-line-chart"></i>
+                     <span>轉化路徑</span>
+                 </div>
+                 <div class="nav-item" onclick="showPage('ip-assets')">
+                     <i class="fa fa-diamond"></i>
+                     <span>IP資產</span>
+                 </div>
+             </div>
+         </nav>
+     </div>
+
+     <!-- JavaScript -->
+     <script>
+         // 頁面切換功能
+         function showPage(pageId) {
+             // 隱藏所有頁面
+             const pages = document.querySelectorAll('.page');
+             pages.forEach(page => {
+                 page.classList.remove('active');
+                 page.classList.add('fade-out');
+             });
+
+             // 移除所有導航項的active狀態
+             const navItems = document.querySelectorAll('.nav-item');
+             navItems.forEach(item => {
+                 item.classList.remove('active');
+             });
+
+             // 延遲顯示新頁面以實現動畫效果
+             setTimeout(() => {
+                 pages.forEach(page => {
+                     page.classList.remove('fade-out');
+                 });
+                 
+                 // 顯示目標頁面
+                 const targetPage = document.getElementById(pageId);
+                 if (targetPage) {
+                     targetPage.classList.add('active');
+                 }
+
+                 // 啟動對應的導航項
+                 const activeNavItem = document.querySelector(`[onclick="showPage('${pageId}')"]`);
+                 if (activeNavItem) {
+                     activeNavItem.classList.add('active');
+                 }
+
+                 // 滾動到頂部
+                 document.querySelector('.main-content').scrollTop = 0;
+             }, 300);
+         }
+
+         // 圖表初始化
+         window.addEventListener('load', function() {
+             // 教育預算圖表
+             const budgetCtx = document.getElementById('educationBudgetChart');
+             if (budgetCtx) {
+                 new Chart(budgetCtx, {
+                     type: 'doughnut',
+                     data: {
+                         labels: ['教育預算', '其他預算'],
+                         datasets: [{
+                             data: [141.3, 858.7],
+                             backgroundColor: ['#F97316', '#E5E7EB'],
+                             borderWidth: 0,
+                             hoverOffset: 4
+                         }]
+                     },
+                     options: {
+                         responsive: true,
+                         maintainAspectRatio: false,
+                         plugins: {
+                             legend: {
+                                 position: 'bottom',
+                                 labels: {
+                                     padding: 20,
+                                     font: { size: 12 }
+                                 }
+                             },
+                             tooltip: {
+                                 callbacks: {
+                                     label: function(context) {
+                                         const label = context.label || '';
+                                         const value = context.raw || 0;
+                                         return `${label}: ${value}億澳元`;
+                                     }
+                                 }
+                             }
+                         },
+                         cutout: '60%'
+                     }
+                 });
+             }
+
+             // 運營時間圖表
+             const timeCtx = document.getElementById('operationTimeChart');
+             if (timeCtx) {
+                 new Chart(timeCtx, {
+                     type: 'line',
+                     data: {
+                         labels: ['7:00', '9:00', '12:00', '14:00', '19:00', '21:00', '23:00'],
+                         datasets: [{
+                             label: '用戶活躍度',
+                             data: [85, 60, 90, 70, 95, 88, 45],
+                             borderColor: '#F97316',
+                             backgroundColor: 'rgba(249, 115, 22, 0.1)',
+                             fill: true,
+                             tension: 0.4
+                         }]
+                     },
+                     options: {
+                         responsive: true,
+                         maintainAspectRatio: false,
+                         plugins: {
+                             legend: {
+                                 display: false
+                             }
+                         },
+                         scales: {
+                             y: {
+                                 beginAtZero: true,
+                                 max: 100,
+                                 ticks: {
+                                     callback: function(value) {
+                                         return value + '%';
+                                     }
+                                 }
+                             }
+                         }
+                     }
+                 });
+             }
+
+             // 轉化路徑圖表
+             const conversionCtx = document.getElementById('conversionPathChart');
+             if (conversionCtx) {
+                 new Chart(conversionCtx, {
+                     type: 'bar',
+                     data: {
+                         labels: ['曝光層', '關注層', '私域層', '付費層'],
+                         datasets: [{
+                             label: '用戶數量',
+                             data: [1000000, 5000, 1000, 100],
+                             backgroundColor: ['#F97316', '#3B82F6', '#10B981', '#EF4444'],
+                             borderRadius: 6
+                         }]
+                     },
+                     options: {
+                         responsive: true,
+                         maintainAspectRatio: false,
+                         plugins: {
+                             legend: {
+                                 display: false
+                             },
+                             tooltip: {
+                                 callbacks: {
+                                     label: function(context) {
+                                         return `${context.label}: ${context.raw.toLocaleString()}人`;
+                                     }
+                                 }
+                             }
+                         },
+                         scales: {
+                             y: {
+                                 beginAtZero: true,
+                                 type: 'logarithmic',
+                                 ticks: {
+                                     callback: function(value) {
+                                         if (value >= 1000000) return (value / 1000000) + 'M';
+                                         if (value >= 1000) return (value / 1000) + 'K';
+                                         return value;
+                                     }
+                                 }
+                             }
+                         }
+                     }
+                 });
+             }
+         });
+
+         // 卡片懸停效果
+         document.addEventListener('DOMContentLoaded', function() {
+             const cards = document.querySelectorAll('.card-hover');
+             cards.forEach(card => {
+                 card.addEventListener('mouseenter', function() {
+                     this.style.transform = 'translateY(-5px)';
+                     this.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.1)';
+                 });
+                 
+                 card.addEventListener('mouseleave', function() {
+                     this.style.transform = 'translateY(0)';
+                     this.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+                 });
+             });
+         });
+
+         // 回應式處理
+         window.addEventListener('resize', function() {
+             // 重新調整圖表大小
+             Chart.helpers.each(Chart.instances, function(instance) {
+                 instance.resize();
+             });
+         });
+
+         // 觸摸設備優化
+         if ('ontouchstart' in window) {
+             document.body.classList.add('touch-device');
+         }
+     </script>
+ </body>
+ </html>
+
+
