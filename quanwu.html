@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>澳门全屋定制家居企业短视频方案</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
+            background: #fafafa;
+            color: #333;
+            line-height: 1.8;
+            padding-bottom: 80px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 顶部品牌横幅 */
+        .brand-header {
+            background: linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 100%);
+            color: #fff;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .brand-header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .brand-header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin-bottom: 16px;
+        }
+
+        .brand-tags {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .brand-tag {
+            background: rgba(255, 255, 255, 0.25);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            backdrop-filter: blur(10px);
+        }
+
+        /* 联系方式 */
+        .contact-bar {
+            background: #fff;
+            padding: 16px 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            text-align: center;
+        }
+
+        .contact-bar h3 {
+            color: #a855f7;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .contact-info span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* 页面容器 */
+        .page {
+            display: none;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 卡片 */
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            border: 1px solid #f0f0f0;
+        }
+
+        .card h2 {
+            color: #a855f7;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f3e8ff;
+        }
+
+        .card h3 {
+            color: #444;
+            font-size: 1.2rem;
+            margin: 24px 0 14px 0;
+            font-weight: 600;
+            padding-left: 14px;
+            border-left: 4px solid #d8b4fe;
+        }
+
+        .card h4 {
+            color: #666;
+            font-size: 1.05rem;
+            margin: 18px 0 12px 0;
+            font-weight: 600;
+        }
+
+        .card p {
+            margin-bottom: 14px;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        .card ul, .card ol {
+            padding-left: 24px;
+            margin-bottom: 16px;
+        }
+
+        .card li {
+            margin-bottom: 12px;
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .card li strong {
+            color: #a855f7;
+            font-weight: 600;
+        }
+
+        /* 数据网格 */
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .data-card {
+            background: linear-gradient(135deg, #faf5ff 0%, #fce7f3 100%);
+            padding: 18px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #f3e8ff;
+            transition: transform 0.2s;
+        }
+
+        .data-card:active {
+            transform: scale(0.98);
+        }
+
+        .data-card .number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #a855f7;
+            margin-bottom: 6px;
+            line-height: 1;
+        }
+
+        .data-card .label {
+            color: #666;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        /* 高亮框 */
+        .highlight-box {
+            background: linear-gradient(135deg, #faf5ff 0%, #fce7f3 100%);
+            border-left: 4px solid #c084fc;
+            padding: 18px;
+            border-radius: 10px;
+            margin: 18px 0;
+        }
+
+        .highlight-box p {
+            margin-bottom: 10px;
+        }
+
+        .highlight-box strong {
+            color: #a855f7;
+            font-weight: 600;
+        }
+
+        /* 标签 */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 16px 0;
+        }
+
+        .tag {
+            background: #faf5ff;
+            color: #a855f7;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid #e9d5ff;
+            font-weight: 500;
+        }
+
+        /* 图标卡片网格 */
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin: 20px 0;
+        }
+
+        .icon-card {
+            background: #fff;
+            padding: 16px;
+            border-radius: 12px;
+            border: 2px solid #f3e8ff;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .icon-card:active {
+            border-color: #d8b4fe;
+            transform: scale(0.98);
+        }
+
+        .icon-card .icon {
+            font-size: 2.5rem;
+            color: #c084fc;
+            margin-bottom: 10px;
+        }
+
+        .icon-card .title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+        }
+
+        .icon-card .desc {
+            font-size: 0.8rem;
+            color: #888;
+            line-height: 1.4;
+        }
+
+        /* 内容类型卡片 */
+        .content-type {
+            background: linear-gradient(135deg, #faf5ff 0%, #fce7f3 100%);
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            border: 1px solid #f3e8ff;
+        }
+
+        .content-type-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .content-type-header h4 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .content-type-header .percentage {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #a855f7;
+        }
+
+        .content-type ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        .content-type li {
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+        }
+
+        /* 进度条 */
+        .progress-item {
+            margin-bottom: 16px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .progress-label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .progress-value {
+            color: #a855f7;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #f3e8ff;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #d8b4fe 0%, #f9a8d4 100%);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        /* 时间轴 */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #d8b4fe, #f9a8d4);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            background: #fff;
+            border: 3px solid #c084fc;
+            border-radius: 50%;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+        }
+
+        .timeline-desc {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* 图表容器 */
+        .chart-container {
+            background: #fff;
+            padding: 16px;
+            border-radius: 12px;
+            margin: 16px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .chart-container h4 {
+            text-align: center;
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 250px;
+        }
+
+        /* 表格 */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: linear-gradient(135deg, #d8b4fe 0%, #f9a8d4 100%);
+            color: #fff;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #f3e8ff;
+            color: #555;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: #faf5ff;
+        }
+
+        /* 底部导航栏 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-top: 1px solid #e5e5e5;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0 8px 0;
+            z-index: 1000;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+
+        .nav-btn {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            padding: 8px 10px;
+            transition: all 0.3s ease;
+            font-size: 0.75rem;
+        }
+
+        .nav-btn i {
+            font-size: 1.4rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn.active {
+            color: #a855f7;
+        }
+
+        .nav-btn.active i {
+            transform: scale(1.1);
+        }
+
+        /* 底部图片 */
+        .bottom-images {
+            margin-top: 24px;
+        }
+
+        .image-wrapper {
+            background: #fff;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+        }
+
+        /* 响应式 */
+        @media (min-width: 768px) {
+            .brand-header h1 {
+                font-size: 2.4rem;
+            }
+
+            .brand-header .subtitle {
+                font-size: 1.3rem;
+            }
+
+            .page {
+                padding: 30px;
+            }
+
+            .card {
+                padding: 32px 28px;
+            }
+
+            .data-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .icon-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .nav-btn {
+                font-size: 0.85rem;
+            }
+
+            .nav-btn i {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* 分割线 */
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #e5e5e5, transparent);
+            margin: 28px 0;
+        }
+
+        /* 数字徽章 */
+        .badge {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #d8b4fe 0%, #f9a8d4 100%);
+            color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        /* 提示框 */
+        .tip-box {
+            background: #fff;
+            border: 2px solid #d8b4fe;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+
+        .tip-box .tip-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #a855f7;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .tip-box .tip-content {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部品牌横幅 -->
+    <div class="brand-header">
+        <h1>澳門全屋定制家居企業</h1>
+        <div class="subtitle">短視頻IP打造全案方案</div>
+        <div class="brand-tags">
+            <span class="brand-tag"><i class="fas fa-crown"></i> 60年企業歷史</span>
+            <span class="brand-tag"><i class="fas fa-star"></i> 行業龍頭地位</span>
+            <span class="brand-tag"><i class="fas fa-award"></i> 澳門世家傳承</span>
+        </div>
+    </div>
+
+    <!-- 联系方式 -->
+    <div class="contact-bar">
+        <h3><i class="fas fa-address-card"></i> 聯繫方式</h3>
+        <div class="contact-info">
+            <span><i class="fas fa-user"></i> 吳明蔚</span>
+            <span><i class="fab fa-weixin"></i> Zzzz2ko</span>
+            <span><i class="fas fa-map-marker-alt"></i> 澳門廣發商業中心15樓</span>
+        </div>
+    </div>
+
+    <!-- 第一页：项目概述 -->
+    <div class="page active" id="page1">
+        <div class="card">
+            <h2><i class="fas fa-chart-line"></i> 項目概述與市場分析</h2>
+            
+            <div class="highlight-box">
+                <p><strong>核心定位：</strong>打造澳門全屋定制家居行業標杆性短視頻IP，以60年企業歷史為根基，傳播匠心工藝與專業服務，建立澳門家居世家品牌形象。</p>
+            </div>
+
+            <h3>澳門全屋定制市場現狀</h3>
+            <div class="data-grid">
+                <div class="data-card">
+                    <div class="number">50億</div>
+                    <div class="label">澳門元家居用品零售額<br>(2022年)</div>
+                </div>
+                <div class="data-card">
+                    <div class="number">30%</div>
+                    <div class="label">過去五年市場增長率</div>
+                </div>
+                <div class="data-card">
+                    <div class="number">0.8%</div>
+                    <div class="label">家具業佔本地GDP比重</div>
+                </div>
+                <div class="data-card">
+                    <div class="number">25%</div>
+                    <div class="label">宜家市場份額佔比</div>
+                </div>
+            </div>
+
+            <h3>市場機遇分析</h3>
+            <ul>
+                <li><strong>住宅需求持續：</strong>澳門住宅單位持續增長，新婚、搬遷、翻新需求穩定</li>
+                <li><strong>消費升級趨勢：</strong>居民收入提升，對個性化、高品質家居的需求增加</li>
+                <li><strong>本土品牌優勢：</strong>60年歷史與本地文化深度綁定，具備天然信任基礎</li>
+                <li><strong>短視頻紅利：</strong>澳門短視頻用戶快速增長，內容營銷潛力巨大</li>
+            </ul>
+
+            <div class="chart-container">
+                <h4>澳門家居市場份額分布</h4>
+                <div class="chart-wrapper">
+                    <canvas id="marketChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>目標受眾畫像</h3>
+            
+            <div class="icon-grid">
+                <div class="icon-card">
+                    <div class="icon"><i class="fas fa-users"></i></div>
+                    <div class="title">年齡層</div>
+                    <div class="desc">30-50歲中青年群體</div>
+                </div>
+                <div class="icon-card">
+                    <div class="icon"><i class="fas fa-home"></i></div>
+                    <div class="title">需求場景</div>
+                    <div class="desc">新婚/新居/翻新</div>
+                </div>
+                <div class="icon-card">
+                    <div class="icon"><i class="fas fa-wallet"></i></div>
+                    <div class="title">消費能力</div>
+                    <div class="desc">中高端消費群體</div>
+                </div>
+                <div class="icon-card">
+                    <div class="icon"><i class="fas fa-star"></i></div>
+                    <div class="title">關注點</div>
+                    <div class="desc">品質/美觀/實用</div>
+                </div>
+            </div>
+
+            <h4>用戶核心訴求</h4>
+            <div class="progress-item">
+                <div class="progress-header">
+                    <span class="progress-label">美觀與個性化設計</span>
+                    <span class="progress-value">60%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 60%"></div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-header">
+                    <span class="progress-label">功能性與空間利用</span>
+                    <span class="progress-value">55%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 55%"></div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-header">
+                    <span class="progress-label">品牌信譽與服務</span>
+                    <span class="progress-value">50%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 50%"></div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-header">
+                    <span class="progress-label">性價比與預算控制</span>
+                    <span class="progress-value">45%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 45%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第二页：人设定位 -->
+    <div class="page" id="page2">
+        <div class="card">
+            <h2><i class="fas fa-user-tie"></i> IP人設定位策略</h2>
+
+            <div class="highlight-box">
+                <p><strong>核心人設：</strong>澳門家居世家第六代傳人 — 沉實可靠的全屋定制專家</p>
+            </div>
+
+            <h3>人設標籤體系</h3>
+            <div class="tags">
+                <span class="tag">#澳門家居世家</span>
+                <span class="tag">#60年匠心傳承</span>
+                <span class="tag">#全屋定制專家</span>
+                <span class="tag">#空間規劃大師</span>
+                <span class="tag">#風水家居顧問</span>
+                <span class="tag">#中西設計融合</span>
+                <span class="tag">#外冷內熱的匠人</span>
+                <span class="tag">#靠譜的家居顧問</span>
+            </div>
+
+            <h3>人設特質分析</h3>
+            <div class="chart-container">
+                <h4>人設氣質構成比例</h4>
+                <div class="chart-wrapper">
+                    <canvas id="personalityChart"></canvas>
+                </div>
+            </div>
+
+            <h3>人設四大核心特質</h3>
+            
+            <div class="content-type">
+                <div class="content-type-header">
+                    <h4><span class="badge">1</span> 專業權威形象</h4>
+                    <span class="percentage">40%</span>
+                </div>
+                <ul>
+                    <li>展示60年企業歷史與行業積累</li>
+                    <li>分享專業的家居設計知識</li>
+                    <li>解答常見家居裝修難題</li>
+                    <li>展現對材料、工藝的深度理解</li>
+                </ul>
+            </div>
+
+            <div class="content-type">
+                <div class="content-type-header">
+                    <h4><span class="badge">2</span> 沉穩可靠氣質</h4>
+                    <span class="percentage">30%</span>
+                </div>
+                <ul>
+                    <li>語速適中，表達清晰有條理</li>
+                    <li>服裝以商務休閒為主，專業得體</li>
+                    <li>承諾必達，展現企業誠信</li>
+                    <li>處理問題冷靜專業，給人安全感</li>
+                </ul>
+            </div>
+
+            <div class="content-type">
+                <div class="content-type-header">
+                    <h4><span class="badge">3</span> 外冷內熱性格</h4>
+                    <span class="percentage">20%</span>
+                </div>
+                <ul>
+                    <li>初看嚴肅專業，深入接觸溫暖貼心</li>
+                    <li>對工作嚴謹認真，對客戶真誠熱情</li>
+                    <li>偶爾展現幽默感，拉近與觀眾距離</li>
+                    <li>分享客戶故事時流露真情實感</li>
+                </ul>
+            </div>
+
+            <div class="content-type">
+                <div class="content-type-header">
+                    <h4><span class="badge">4</span> 健談博學特質</h4>
+                    <span class="percentage">10%</span>
+                </div>
+                <ul>
+                    <li>分享澳門歷史與文化故事</li>
+                    <li>講述家居行業的發展變遷</li>
+                    <li>傳授生活智慧與家居小貼士</li>
+                    <li>展現對美學、人文的廣泛興趣</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>視覺與表達風格</h3>
+            
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>維度</th>
+                            <th>具體要求</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>著裝風格</strong></td>
+                            <td>商務休閒，簡約大方，展現專業與親和力</td>
+                        </tr>
+                        <tr>
+                            <td><strong>語言風格</strong></td>
+                            <td>粵語為主，普通話輔助，語速適中，表達清晰</td>
+                        </tr>
+                        <tr>
+                            <td><strong>背景場景</strong></td>
+                            <td>展廳、工廠、客戶家中，真實工作場景</td>
+                        </tr>
+                        <tr>
+                            <td><strong>拍攝風格</strong></td>
+                            <td>自然光線，穩定鏡頭，突出產品質感</td>
+                        </tr>
+                        <tr>
+                            <td><strong>互動方式</strong></td>
+                            <td>真誠回應評論，定期直播答疑，建立信任</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tip-box">
+                <div class="tip-header">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>關鍵提示</span>
+                </div>
+                <div class="tip-content">
+                    人設塑造需要時間沉澱，保持一致性是關鍵。避免過度表演，真實展現企業文化與個人特質，讓觀眾感受到誠意與專業。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第三页：内容选题 -->
+    <div class="page" id="page3">
+        <div class="card">
+            <h2><i class="fas fa-lightbulb"></i> 內容選題與系列規劃</h2>
+
+            <h3>內容四大系列佈局</h3>
+            <div class="chart-container">
+                <h4>內容類型分配比例</h4>
+                <div class="chart-wrapper">
+                    <canvas id="contentChart"></canvas>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <h3>一、品牌歷史系列（25%）</h3>
+            <p><strong>目標：</strong>建立品牌信任，展現企業底蘊與傳承</p>
+            
+            <h4>選題方向：</h4>
+            <ul>
+                <li><strong>家族傳承故事：</strong>從祖父輩創業到第六代傳人的發展歷程</li>
+                <li><strong>澳門記憶：</strong>結合澳門城市發展，講述企業與城市共同成長</li>
+                <li><strong>匠心工藝：</strong>展示傳統工藝與現代技術的結合</li>
+                <li><strong>企業里程碑：</strong>60年間的重要時刻與經典案例</li>
+                <li><strong>老客戶訪談：</strong>與企業相伴多年的忠實客戶分享</li>
+            </ul>
+
+            <div class="tip-box">
+                <div class="tip-header">
+                    <i class="fas fa-video"></i>
+                    <span>腳本示例</span>
+                </div>
+                <div class="tip-content">
+                    <strong>標題：</strong>"這把椅子，我們家做了60年"<br>
+                    <strong>內容：</strong>從一把老式木椅開始，講述企業從木工坊到現代家居企業的發展，展示不變的匠心與持續創新。<br>
+                    <strong>時長：</strong>45-60秒
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <h3>二、真實故事系列（35%）</h3>
+            <p><strong>目標：</strong>引發情感共鳴，展現服務溫度</p>
+            
+            <h4>選題方向：</h4>
+            <ul>
+                <li><strong>客戶見證：</strong>真實客戶的裝修故事與使用體驗</li>
+                <li><strong>服務背後：</strong>展示從設計到安裝的全流程服務細節</li>
+                <li><strong>問題解決：</strong>如何幫助客戶解決裝修難題</li>
+                <li><strong>特殊案例：</strong>小戶型改造、老房翻新等挑戰性項目</li>
+                <li><strong>行業見聞：</strong>分享行業趣事與專業觀察</li>
+            </ul>
+
+            <h4>經典選題案例：</h4>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>選題</th>
+                            <th>核心內容</th>
+                            <th>情感點</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>新婚夫婦的第一個家</td>
+                            <td>從零開始打造溫馨婚房</td>
+                            <td>愛情、期待、新生活</td>
+                        </tr>
+                        <tr>
+                            <td>為母親改造養老房</td>
+                            <td>無障礙設計，孝心之舉</td>
+                            <td>親情、關愛、感恩</td>
+                        </tr>
+                        <tr>
+                            <td>20年老屋翻新重生</td>
+                            <td>前後對比，舊貌換新顏</td>
+                            <td>回憶、蛻變、希望</td>
+                        </tr>
+                        <tr>
+                            <td>45㎡變出三房一廳</td>
+                            <td>空間魔法，設計智慧</td>
+                            <td>驚喜、實用、佩服</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="divider"></div>
+
+            <h3>三、產品服務系列（25%）</h3>
+            <p><strong>目標：</strong>展示專業能力，促進商業轉化</p>
+            
+            <h4>選題方向：</h4>
+            <ul>
+                <li><strong>產品解析：</strong>材料選擇、工藝特點、質量保證</li>
+                <li><strong>工藝展示：</strong>從設計圖紙到成品的製作過程</li>
+                <li><strong>設計理念：</strong>不同風格的設計思路與搭配技巧</li>
+                <li><strong>功能創新：</strong>智能家居、隱藏式設計等新技術</li>
+                <li><strong>避坑指南：</strong>家居定制常見誤區與注意事項</li>
+            </ul>
+
+            <div class="divider"></div>
+
+            <h3>四、生活方式系列（15%）</h3>
+            <p><strong>目標：</strong>提升品牌格調，建立生活方式聯想</p>
+            
+            <h4>選題方向：</h4>
+            <ul>
+                <li><strong>品質生活：</strong>分享高品質家居生活理念</li>
+                <li><strong>空間美學：</strong>家居佈置的藝術與技巧</li>
+                <li><strong>生活智慧：</strong>居家收納、保養、清潔小貼士</li>
+                <li><strong>風水文化：</strong>傳統風水與現代家居的結合</li>
+                <li><strong>季節主題：</strong>節日裝飾、換季整理等應時內容</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>內容發佈策略</h3>
+            
+            <div class="highlight-box">
+                <p><strong>發佈頻率：</strong>每週5-7條短視頻，保持高頻曝光</p>
+                <p><strong>最佳時段：</strong>早8-9點、午12-13點、晚19-21點</p>
+                <p><strong>內容節奏：</strong>週一行業知識、週三客戶故事、週五產品展示、週末生活美學</p>
+            </div>
+
+            <h4>平台標籤策略</h4>
+            <div class="tags">
+                <span class="tag">#澳門全屋定制</span>
+                <span class="tag">#家居設計</span>
+                <span class="tag">#裝修攻略</span>
+                <span class="tag">#空間改造</span>
+                <span class="tag">#匠心工藝</span>
+                <span class="tag">#家居生活</span>
+                <span class="tag">#澳門老字號</span>
+                <span class="tag">#定制家居</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第四页：脚本模板 -->
+    <div class="page" id="page4">
+        <div class="card">
+            <h2><i class="fas fa-file-alt"></i> 短視頻腳本創作指南</h2>
+
+            <h3>爆款短視頻創作法則</h3>
+            
+            <div class="icon-grid">
+                <div class="icon-card">
+                    <div class="icon">3″</div>
+                    <div class="title">黃金3秒法則</div>
+                    <div class="desc">開頭3秒抓住眼球</div>
+                </div>
+                <div class="icon-card">
+                    <div class="icon"><i class="fas fa-eye"></i></div>
+                    <div class="title">視覺衝擊</div>
+                    <div class="desc">前後對比強烈</div>
+                </div>
+                <div class="icon-card">
+                    <div class="icon"><i class="fas fa-heart"></i></div>
+                    <div class="title">情感共鳴</div>
+                    <div class="desc">真實故事打動人心</div>
+                </div>
+                <div class="icon-card">
+                    <div class="icon"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="title">價值輸出</div>
+                    <div class="desc">提供實用知識</div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <h3>標準腳本結構（60秒版）</h3>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-title">第1-3秒：開場鉤子</div>
+                    <div class="timeline-desc">
+                        <strong>目標：</strong>立即吸引注意力<br>
+                        <strong>方式：</strong>拋出問題/展示驚人效果/製造懸念<br>
+                        <strong>示例：</strong>"45㎡的房子，我們做出了三房一廳！"
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-title">第4-10秒：建立場景</div>
+                    <div class="timeline-desc">
+                        <strong>目標：</strong>引發共鳴，帶入情境<br>
+                        <strong>方式：</strong>展示問題/描述痛點/呈現需求<br>
+                        <strong>示例：</strong>"這對新婚夫婦面臨著小戶型的收納難題..."
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-title">第11-45秒：主體內容</div>
+                    <div class="timeline-desc">
+                        <strong>目標：</strong>展示解決方案，傳遞價值<br>
+                        <strong>方式：</strong>分步驟展示/前後對比/專業講解<br>
+                        <strong>要點：</strong>
+                        • 展示設計方案（10秒）<br>
+                        • 施工過程片段（15秒）<br>
+                        • 完工效果展示（10秒）
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-title">第46-55秒：客戶反饋</div>
+                    <div class="timeline-desc">
+                        <strong>目標：</strong>增強可信度，情感升華<br>
+                        <strong>方式：</strong>客戶真實評價/使用場景/滿意笑容<br>
+                        <strong>示例：</strong>"現在家裡東西再多也不亂了，太感謝你們了！"
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-title">第56-60秒：行動召喚</div>
+                    <div class="timeline-desc">
+                        <strong>目標：</strong>引導互動與轉化<br>
+                        <strong>方式：</strong>點讚/評論/私信/關注<br>
+                        <strong>示例：</strong>"想了解更多案例？關注我，每週分享真實故事！"
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <h3>腳本範例：客戶故事類</h3>
+
+            <div class="highlight-box">
+                <p><strong>標題：</strong>《為媽媽改造的養老房，她哭了...》</p>
+                <p><strong>時長：</strong>60秒 | <strong>類型：</strong>情感故事類</p>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 80px;">時間</th>
+                            <th>畫面</th>
+                            <th>文案/旁白</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0-3秒</td>
+                            <td>老人在新房間露出笑容，眼角有淚</td>
+                            <td>"媽媽看到新房間的那一刻，哭了"</td>
+                        </tr>
+                        <tr>
+                            <td>4-10秒</td>
+                            <td>舊房間實景：昏暗、雜亂、不便</td>
+                            <td>"母親年紀大了，老房子處處不方便"</td>
+                        </tr>
+                        <tr>
+                            <td>11-20秒</td>
+                            <td>與客戶溝通設計方案</td>
+                            <td>"我們做了無障礙設計，處處為老人考慮"</td>
+                        </tr>
+                        <tr>
+                            <td>21-35秒</td>
+                            <td>施工過程快速剪輯</td>
+                            <td>"防滑地板、扶手、感應燈、適老傢俱..."</td>
+                        </tr>
+                        <tr>
+                            <td>36-50秒</td>
+                            <td>新房間全景，細節特寫</td>
+                            <td>"明亮、安全、溫馨，每個角落都充滿關愛"</td>
+                        </tr>
+                        <tr>
+                            <td>51-58秒</td>
+                            <td>老人與兒子的溫馨互動</td>
+                            <td>客戶："謝謝你們，讓我能好好孝敬母親"</td>
+                        </tr>
+                        <tr>
+                            <td>59-60秒</td>
+                            <td>品牌logo + 聯繫方式</td>
+                            <td>"60年家居世家，用心服務每個家庭"</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="divider"></div>
+
+            <h3>拍攝與製作要點</h3>
+
+            <h4>1. 設備配置</h4>
+            <ul>
+                <li><strong>拍攝設備：</strong>專業相機或高端手機（iPhone 14 Pro以上）</li>
+                <li><strong>穩定設備：</strong>雲台/三腳架，確保畫面穩定流暢</li>
+                <li><strong>燈光設備：</strong>LED補光燈，保證畫面清晰明亮</li>
+                <li><strong>收音設備：</strong>領夾麥克風，確保聲音清晰</li>
+            </ul>
+
+            <h4>2. 拍攝技巧</h4>
+            <ul>
+                <li><strong>多角度拍攝：</strong>遠景、中景、特寫結合，增加視覺豐富度</li>
+                <li><strong>自然光優先：</strong>利用自然光展現家居真實質感</li>
+                <li><strong>前後對比：</strong>強烈視覺衝擊，展現改造效果</li>
+                <li><strong>細節特寫：</strong>突出工藝品質與設計巧思</li>
+            </ul>
+
+            <h4>3. 剪輯要點</h4>
+            <ul>
+                <li><strong>節奏控制：</strong>快慢結合，重點處放慢展示細節</li>
+                <li><strong>轉場自然：</strong>避免花哨特效，保持專業簡約</li>
+                <li><strong>字幕清晰：</strong>關鍵信息加字幕，方便靜音觀看</li>
+                <li><strong>背景音樂：</strong>選擇符合內容調性的音樂，烘托氛圍</li>
+            </ul>
+
+            <h4>4. 質量標準</h4>
+            <div class="highlight-box">
+                <p>✓ 畫面清晰，光線充足，色彩真實</p>
+                <p>✓ 聲音清晰，無雜音，音量適中</p>
+                <p>✓ 剪輯流暢，節奏舒適，不拖沓</p>
+                <p>✓ 內容真實，不誇大，有溫度</p>
+                <p>✓ 品牌露出自然，不生硬</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <h3>團隊配置建議</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>崗位</th>
+                            <th>職責</th>
+                            <th>要求</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>內容總監</strong></td>
+                            <td>內容策劃、腳本審核、整體把控</td>
+                            <td>5年以上內容營銷經驗</td>
+                        </tr>
+                        <tr>
+                            <td><strong>攝影師</strong></td>
+                            <td>視頻拍攝、現場調度</td>
+                            <td>熟悉家居拍攝，2年以上經驗</td>
+                        </tr>
+                        <tr>
+                            <td><strong>剪輯師</strong></td>
+                            <td>後期製作、特效包裝</td>
+                            <td>精通PR/FCP，懂短視頻節奏</td>
+                        </tr>
+                        <tr>
+                            <td><strong>文案編輯</strong></td>
+                            <td>腳本撰寫、文案創作</td>
+                            <td>文筆優秀，懂家居行業</td>
+                        </tr>
+                        <tr>
+                            <td><strong>運營專員</strong></td>
+                            <td>賬號運營、數據分析、用戶互動</td>
+                            <td>熟悉短視頻平台規則</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="divider"></div>
+
+            <h3>長期發展規劃</h3>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-title">第1-3個月：基礎建設期</div>
+                    <div class="timeline-desc">
+                        <strong>目標：</strong>建立賬號體系，積累初始粉絲<br>
+                        <strong>KPI：</strong>抖音粉絲1萬+，小紅書5000+<br>
+                        <strong>重點：</strong>穩定更新節奏，測試內容方向
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-title">第4-6個月：快速成長期</div>
+                    <div class="timeline-desc">
+                        <strong>目標：</strong>打造爆款內容，擴大影響力<br>
+                        <strong>KPI：</strong>抖音粉絲5萬+，單條播放10萬+<br>
+                        <strong>重點：</strong>優化爆款內容，適度付費推廣
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-title">第7-12個月：品牌沉澱期</div>
+                    <div class="timeline-desc">
+                        <strong>目標：</strong>成為澳門家居行業標杆IP<br>
+                        <strong>KPI：</strong>抖音粉絲10萬+，月諮詢量200+<br>
+                        <strong>重點：</strong>強化專業形象，開展直播帶貨
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-title">第2年：生態構建期</div>
+                    <div class="timeline-desc">
+                        <strong>目標：</strong>構建家居生活方式生態圈<br>
+                        <strong>KPI：</strong>全平台粉絲50萬+，品牌知名度第一<br>
+                        <strong>重點：</strong>IP商業化、跨界合作、行業影響力
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部图片 -->
+        <div class="bottom-images">
+            <div class="image-wrapper">
+                <img src="https://p9-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/ab9ac614600b4d6bab5ce6099b5cd945.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&x-expires=1786176241&x-signature=TOlUkuLzyvvrbn3DXWJUxsQjzrs%3D&x-wf-file_name=%E5%85%AC%E5%9F%9F.jpg" alt="公域推廣">
+            </div>
+            <div class="image-wrapper">
+                <img src="https://p3-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/522ab5e32bf54ba0b2ccc9cc78470cd9.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&x-expires=1786176244&x-signature=EZ2mHPBdJ7gK7Oka9%2B87jX5ClZE%3D&x-wf-file_name=a0d9b4d4a5963de6a5b98c77cde476c.jpg" alt="聯繫方式">
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="bottom-nav">
+        <button class="nav-btn active" onclick="showPage(1)">
+            <i class="fas fa-chart-line"></i>
+            <span>概述</span>
+        </button>
+        <button class="nav-btn" onclick="showPage(2)">
+            <i class="fas fa-user-tie"></i>
+            <span>人設</span>
+        </button>
+        <button class="nav-btn" onclick="showPage(3)">
+            <i class="fas fa-lightbulb"></i>
+            <span>選題</span>
+        </button>
+        <button class="nav-btn" onclick="showPage(4)">
+            <i class="fas fa-file-alt"></i>
+            <span>劇本</span>
+        </button>
+    </div>
+
+    <script>
+        // 页面切换函数
+        function showPage(pageNum) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById('page' + pageNum).classList.add('active');
+            
+            const navBtns = document.querySelectorAll('.nav-btn');
+            navBtns.forEach((btn, index) => {
+                if (index + 1 === pageNum) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 市场份额图表
+        const marketCtx = document.getElementById('marketChart').getContext('2d');
+        new Chart(marketCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['宜家', '澳門家居中心', '其他本地企業', '國際品牌', '新興力量'],
+                datasets: [{
+                    data: [25, 15, 20, 20, 20],
+                    backgroundColor: ['#a855f7', '#d8b4fe', '#f9a8d4', '#fbcfe8', '#fae8ff'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom', labels: { padding: 12, font: { size: 11 } } }
+                }
+            }
+        });
+
+        // 人设气质图表
+        const personalityCtx = document.getElementById('personalityChart').getContext('2d');
+        new Chart(personalityCtx, {
+            type: 'bar',
+            data: {
+                labels: ['專業權威', '沉穩可靠', '外冷內熱', '健談博學'],
+                datasets: [{
+                    label: '佔比',
+                    data: [40, 30, 20, 10],
+                    backgroundColor: ['#a855f7', '#c084fc', '#d8b4fe', '#f9a8d4']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, max: 50, ticks: { callback: value => value + '%' } }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+
+        // 内容类型图表
+        const contentCtx = document.getElementById('contentChart').getContext('2d');
+        new Chart(contentCtx, {
+            type: 'pie',
+            data: {
+                labels: ['真實故事35%', '品牌歷史25%', '產品服務25%', '生活方式15%'],
+                datasets: [{
+                    data: [35, 25, 25, 15],
+                    backgroundColor: ['#a855f7', '#c084fc', '#d8b4fe', '#f9a8d4'],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom', labels: { padding: 12, font: { size: 11 } } }
+                }
+            }
+        });
+
+        // 防止双击缩放
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage(1);
+        });
+    </script>
+</body>
+</html>
+
