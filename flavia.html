@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Flavia水晶短视频方案</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', Arial, sans-serif;
+            background: #fafafa;
+            color: #333;
+            line-height: 1.8;
+            padding-bottom: 80px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 顶部联系方式 */
+        .contact-header {
+            background: linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 100%);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .contact-header h2 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.25);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .contact-item .label {
+            font-size: 0.75rem;
+            opacity: 0.9;
+            margin-bottom: 2px;
+        }
+
+        .contact-item .value {
+            font-weight: 600;
+        }
+
+        /* 页面容器 */
+        .page {
+            display: none;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 内容卡片 */
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .card h2 {
+            color: #a855f7;
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card h3 {
+            color: #333;
+            font-size: 1.1rem;
+            margin: 20px 0 12px 0;
+            font-weight: 600;
+            padding-left: 12px;
+            border-left: 3px solid #d8b4fe;
+        }
+
+        .card h4 {
+            color: #666;
+            font-size: 1rem;
+            margin: 16px 0 10px 0;
+            font-weight: 600;
+        }
+
+        .card p {
+            margin-bottom: 12px;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        .card ul, .card ol {
+            padding-left: 24px;
+            margin-bottom: 16px;
+        }
+
+        .card li {
+            margin-bottom: 10px;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        .card li strong {
+            color: #a855f7;
+        }
+
+        /* 高亮框 */
+        .highlight {
+            background: linear-gradient(135deg, #faf5ff 0%, #fce7f3 100%);
+            border-left: 3px solid #d8b4fe;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+
+        .highlight p {
+            margin-bottom: 8px;
+        }
+
+        /* 标签组 */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 16px 0;
+        }
+
+        .tag {
+            background: #faf5ff;
+            color: #a855f7;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid #d8b4fe;
+        }
+
+        /* 网格布局 */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .grid-item {
+            background: #fafafa;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #f0f0f0;
+        }
+
+        .grid-item .icon {
+            font-size: 2rem;
+            color: #d8b4fe;
+            margin-bottom: 8px;
+        }
+
+        .grid-item .title {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        /* 数字列表 */
+        .number-list {
+            counter-reset: item;
+            list-style: none;
+            padding: 0;
+        }
+
+        .number-list li {
+            counter-increment: item;
+            position: relative;
+            padding-left: 36px;
+            margin-bottom: 16px;
+        }
+
+        .number-list li::before {
+            content: counter(item);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 26px;
+            height: 26px;
+            background: linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 100%);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        /* 底部图片 */
+        .bottom-images {
+            margin-top: 24px;
+        }
+
+        .image-wrapper {
+            background: #fff;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+        }
+
+        /* 底部导航栏 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-top: 1px solid #e5e5e5;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0 8px 0;
+            z-index: 1000;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+
+        .nav-btn {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            padding: 8px 10px;
+            transition: all 0.3s ease;
+            font-size: 0.75rem;
+        }
+
+        .nav-btn i {
+            font-size: 1.4rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn.active {
+            color: #a855f7;
+        }
+
+        .nav-btn.active i {
+            transform: scale(1.1);
+        }
+
+        /* 响应式 */
+        @media (min-width: 768px) {
+            .page {
+                padding: 30px;
+            }
+
+            .card {
+                padding: 30px;
+            }
+
+            .contact-header {
+                padding: 30px;
+            }
+
+            .contact-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: repeat(4, 1fr);
+                max-width: 800px;
+            }
+
+            .nav-btn {
+                font-size: 0.85rem;
+            }
+
+            .nav-btn i {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* 分割线 */
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #e5e5e5, transparent);
+            margin: 24px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部联系方式 -->
+    <div class="contact-header">
+        <h2>吳明蔚 - 短視頻價值派IP</h2>
+        <div class="contact-grid">
+            <div class="contact-item">
+                <div class="label">微信號</div>
+                <div class="value">Zzzz2ko</div>
+            </div>
+            <div class="contact-item">
+                <div class="label">地址</div>
+                <div class="value">澳門廣發商業中心15樓</div>
+            </div>
+            <div class="contact-item">
+                <div class="label">項目</div>
+                <div class="value">Flavia水晶設計</div>
+            </div>
+            <div class="contact-item">
+                <div class="label">定位</div>
+                <div class="value">澳門手工藝術</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第一页：概述 -->
+    <div class="page active" id="page1">
+        <div class="card">
+            <h2><i class="fas fa-gem"></i> 項目概述</h2>
+            
+            <div class="highlight">
+                <p><strong>核心定位：</strong>澳門客製化水晶設計師Flavia短視頻人設打造與內容策略</p>
+            </div>
+
+            <h3>品牌目標</h3>
+            <div class="grid-2">
+                <div class="grid-item">
+                    <div class="icon"><i class="fas fa-palette"></i></div>
+                    <div class="title">藝術品牌</div>
+                </div>
+                <div class="grid-item">
+                    <div class="icon"><i class="fas fa-gem"></i></div>
+                    <div class="title">工藝傳承</div>
+                </div>
+                <div class="grid-item">
+                    <div class="icon"><i class="fas fa-heart"></i></div>
+                    <div class="title">客製服務</div>
+                </div>
+                <div class="grid-item">
+                    <div class="icon"><i class="fas fa-star"></i></div>
+                    <div class="title">文化傳播</div>
+                </div>
+            </div>
+
+            <h3>目標受眾</h3>
+            <ol class="number-list">
+                <li><strong>高端消費群體</strong><br>追求個性化、高品質的水晶飾品</li>
+                <li><strong>禮品採購者</strong><br>尋找獨特商務禮品或紀念品</li>
+                <li><strong>藝術愛好者</strong><br>對手工藝術和設計美學有興趣</li>
+                <li><strong>澳門遊客</strong><br>尋找當地特色文化紀念品</li>
+            </ol>
+
+            <h3>內容策略核心</h3>
+            <p>以<strong>澳門本地文化</strong>為根基，融合現代設計美學，通過短視頻展示水晶工藝的獨特魅力，建立高端、專業、溫暖的品牌形象。</p>
+        </div>
+    </div>
+
+    <!-- 第二页：人设 -->
+    <div class="page" id="page2">
+        <div class="card">
+            <h2><i class="fas fa-user-circle"></i> IP人設定位</h2>
+
+            <h3>人設標籤</h3>
+            <div class="tags">
+                <span class="tag">#澳門水晶設計師</span>
+                <span class="tag">#手工藝專家</span>
+                <span class="tag">#客製化達人</span>
+                <span class="tag">#文化傳承者</span>
+                <span class="tag">#藝術創作者</span>
+            </div>
+
+            <h3>核心人設特點</h3>
+            <ul>
+                <li><strong>專業形象：</strong>展示精湛的水晶切割與設計技藝</li>
+                <li><strong>藝術氣質：</strong>體現對美學的獨到見解和審美品味</li>
+                <li><strong>親和力：</strong>溫暖、真誠的溝通風格，樂於分享</li>
+                <li><strong>本地特色：</strong>深耕澳門文化，傳播本地工藝</li>
+                <li><strong>匠人精神：</strong>對每件作品精益求精的態度</li>
+            </ul>
+
+            <div class="divider"></div>
+
+            <h3>視覺風格定位</h3>
+            <div class="highlight">
+                <p><strong>色調：</strong>淡紫、桃粉、珍珠白，營造高雅溫潤氛圍</p>
+                <p><strong>光線：</strong>柔和自然光，突出水晶透明質感</p>
+                <p><strong>背景：</strong>簡約素雅的工作室環境</p>
+                <p><strong>鏡頭：</strong>特寫展示工藝細節，中景展示創作過程</p>
+            </div>
+
+            <h3>表達風格</h3>
+            <ul>
+                <li><strong>語言：</strong>溫和、專業，避免過於商業化</li>
+                <li><strong>節奏：</strong>舒緩流暢，配合輕柔背景音樂</li>
+                <li><strong>互動：</strong>真誠回應粉絲問題，分享創作心得</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 第三页：选题 -->
+    <div class="page" id="page3">
+        <div class="card">
+            <h2><i class="fas fa-lightbulb"></i> 內容選題方向</h2>
+
+            <h3>一、工藝展示類（40%）</h3>
+            <ul>
+                <li>水晶原料挑選與鑒別</li>
+                <li>切割打磨過程展示</li>
+                <li>設計草圖到成品全流程</li>
+                <li>工具使用技巧分享</li>
+                <li>細節工藝特寫鏡頭</li>
+            </ul>
+
+            <h3>二、成品展示類（30%）</h3>
+            <ul>
+                <li>高端水晶飾品多角度展示</li>
+                <li>客戶定制案例分享（需授權）</li>
+                <li>不同場景搭配建議</li>
+                <li>新品發布與設計理念</li>
+                <li>光影下的水晶質感呈現</li>
+            </ul>
+
+            <h3>三、故事分享類（20%）</h3>
+            <ul>
+                <li>設計靈感來源故事</li>
+                <li>客戶訂單背後的特殊意義</li>
+                <li>澳門文化元素融入設計</li>
+                <li>個人成長與創業歷程</li>
+                <li>與客戶的溫馨互動</li>
+            </ul>
+
+            <h3>四、知識科普類（10%）</h3>
+            <ul>
+                <li>水晶種類與特性介紹</li>
+                <li>水晶保養小貼士</li>
+                <li>如何挑選優質水晶</li>
+                <li>設計風格與搭配建議</li>
+                <li>行業知識分享</li>
+            </ul>
+
+            <div class="highlight">
+                <p><strong>發佈節奏：</strong>每週3-5條，穩定更新，建立用戶期待</p>
+                <p><strong>最佳時段：</strong>上午10-11點、下午3-4點、晚上8-9點</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>平台運營標籤</h3>
+            <div class="tags">
+                <span class="tag">#水晶設計</span>
+                <span class="tag">#客製化</span>
+                <span class="tag">#澳門手工藝</span>
+                <span class="tag">#Flavia水晶</span>
+                <span class="tag">#高端禮品</span>
+                <span class="tag">#藝術飾品</span>
+                <span class="tag">#匠心工藝</span>
+                <span class="tag">#澳門文化</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第四页：剧本 -->
+    <div class="page" id="page4">
+        <div class="card">
+            <h2><i class="fas fa-file-alt"></i> 短視頻腳本結構</h2>
+
+            <h3>標準腳本框架（15-60秒）</h3>
+            
+            <h4>1. 開場（3-5秒）</h4>
+            <div class="highlight">
+                <p><strong>目標：</strong>快速吸引注意力</p>
+                <p><strong>方式：</strong>精美成品特寫/製作過程高潮片段/引發好奇的問題</p>
+                <p><strong>示例：</strong>"你知道一塊水晶原石如何變成精美飾品嗎？"</p>
+            </div>
+
+            <h4>2. 主體內容（10-45秒）</h4>
+            <ul>
+                <li><strong>展示過程：</strong>按時間順序展現製作步驟</li>
+                <li><strong>重點突出：</strong>特寫關鍵工藝細節</li>
+                <li><strong>配合解說：</strong>簡潔清晰的語言說明</li>
+                <li><strong>情感注入：</strong>分享創作心情與理念</li>
+            </ul>
+
+            <h4>3. 結尾（2-5秒）</h4>
+            <div class="highlight">
+                <p><strong>方式：</strong>成品展示/品牌露出/引導互動</p>
+                <p><strong>示例：</strong>"關注我，帶你了解更多水晶工藝"</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <h3>腳本示例模板</h3>
+            
+            <h4>【工藝展示類】模板</h4>
+            <p><strong>開場：</strong>手持水晶原石特寫鏡頭<br>
+            <strong>文案：</strong>"這塊不起眼的石頭，將變成..."</p>
+            
+            <p><strong>主體：</strong><br>
+            - 切割過程（5秒）<br>
+            - 打磨過程（5秒）<br>
+            - 設計調整（5秒）<br>
+            - 細節處理（5秒）</p>
+            
+            <p><strong>結尾：</strong>成品在光線下閃耀<br>
+            <strong>文案：</strong>"每一件作品都是獨一無二的藝術品"</p>
+
+            <h4>【故事分享類】模板</h4>
+            <p><strong>開場：</strong>展示定制成品<br>
+            <strong>文案：</strong>"這件作品背後有個溫暖的故事..."</p>
+            
+            <p><strong>主體：</strong><br>
+            - 客戶需求（10秒）<br>
+            - 設計過程（15秒）<br>
+            - 特殊意義（10秒）</p>
+            
+            <p><strong>結尾：</strong>客戶滿意的反饋或使用場景<br>
+            <strong>文案：</strong>"用心做好每一件作品"</p>
+
+            <div class="divider"></div>
+
+            <h3>拍攝要點</h3>
+            <ul>
+                <li><strong>穩定性：</strong>使用三腳架或穩定器，避免抖動</li>
+                <li><strong>光線：</strong>自然光為主，必要時補光，突出水晶質感</li>
+                <li><strong>角度：</strong>多角度拍攝，特寫與全景結合</li>
+                <li><strong>聲音：</strong>清晰的環境音或輕柔背景音樂</li>
+                <li><strong>剪輯：</strong>節奏流暢，過渡自然，保持視覺美感</li>
+            </ul>
+
+            <h3>注意事項</h3>
+            <div class="highlight">
+                <p>✓ 保持真實，不過度修飾</p>
+                <p>✓ 突出品質，展現細節</p>
+                <p>✓ 控制時長，精簡內容</p>
+                <p>✓ 統一風格，建立辨識度</p>
+                <p>✓ 適度互動，增強粘性</p>
+            </div>
+        </div>
+
+        <!-- 底部图片 -->
+        <div class="bottom-images">
+            <div class="image-wrapper">
+                <img src="https://p9-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/ab9ac614600b4d6bab5ce6099b5cd945.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&x-expires=1786176241&x-signature=TOlUkuLzyvvrbn3DXWJUxsQjzrs%3D&x-wf-file_name=%E5%85%AC%E5%9F%9F.jpg" alt="公域推廣">
+            </div>
+            <div class="image-wrapper">
+                <img src="https://p3-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/522ab5e32bf54ba0b2ccc9cc78470cd9.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&x-expires=1786176244&x-signature=EZ2mHPBdJ7gK7Oka9%2B87jX5ClZE%3D&x-wf-file_name=a0d9b4d4a5963de6a5b98c77cde476c.jpg" alt="聯繫方式">
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="bottom-nav">
+        <button class="nav-btn active" onclick="showPage(1)">
+            <i class="fas fa-home"></i>
+            <span>概述</span>
+        </button>
+        <button class="nav-btn" onclick="showPage(2)">
+            <i class="fas fa-user-circle"></i>
+            <span>人設</span>
+        </button>
+        <button class="nav-btn" onclick="showPage(3)">
+            <i class="fas fa-lightbulb"></i>
+            <span>選題</span>
+        </button>
+        <button class="nav-btn" onclick="showPage(4)">
+            <i class="fas fa-file-alt"></i>
+            <span>劇本</span>
+        </button>
+    </div>
+
+    <script>
+        function showPage(pageNum) {
+            // 隐藏所有页面
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // 显示选中页面
+            document.getElementById('page' + pageNum).classList.add('active');
+            
+            // 更新导航按钮状态
+            const navBtns = document.querySelectorAll('.nav-btn');
+            navBtns.forEach((btn, index) => {
+                if (index + 1 === pageNum) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // 滚动到页面顶部
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage(1);
+        });
+
+        // 防止双击缩放
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
