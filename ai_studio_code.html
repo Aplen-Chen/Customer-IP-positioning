@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>澳门专业教育IP · 战略全案</title>
+    <title>澳門專業教育IP · 戰略全案</title>
     <style>
         :root {
-            --primary-color: #1A2A3A; /* 深海军蓝：权威、专业 */
-            --accent-color: #C5A065; /* 香槟金：资深、价值 */
-            --bg-color: #F5F5F0; /* 米色：耐心、温和 */
+            --primary-color: #4A148C; /* 主深紫色：權威、專業 */
+            --accent-color: #FF80AB; /* 桃粉色：活力、親和 */
+            --bg-color: #F3E5F5; /* 淺紫色背景：柔和 */
             --card-bg: #FFFFFF;
             --text-main: #333333;
             --text-light: #666666;
@@ -30,14 +30,30 @@
         header {
             background: var(--primary-color);
             color: #fff;
-            padding: 20px;
+            padding: 15px 20px;
             position: sticky;
             top: 0;
             z-index: 100;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        header h1 { font-size: 18px; font-weight: 600; letter-spacing: 1px; }
-        header p { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 5px; }
+        .header-left h1 { font-size: 18px; font-weight: 600; letter-spacing: 1px; }
+        .header-left p { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 5px; }
+        
+        .header-right {
+            text-align: right;
+            font-size: 10px;
+            line-height: 1.5;
+            color: rgba(255,255,255,0.9);
+        }
+        .header-right strong {
+            font-size: 12px;
+            display: block;
+            margin-bottom: 2px;
+            font-weight: 600;
+        }
 
         /* Main Container */
         .container {
@@ -81,11 +97,11 @@
             font-size: 12px;
             padding: 4px 10px;
             border-radius: 20px;
-            background: rgba(26, 42, 58, 0.08);
+            background: rgba(74, 20, 140, 0.08); /* Based on primary purple */
             color: var(--primary-color);
             font-weight: 500;
         }
-        .tag.gold { background: rgba(197, 160, 101, 0.15); color: #8a6d3b; }
+        .tag.gold { background: rgba(255, 128, 171, 0.15); color: #D81B60; /* Adjusted to Pink/Peach theme */ }
 
         /* Accordion for Details */
         details { margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
@@ -104,7 +120,7 @@
 
         /* Chat Bubble Style for DM Scripts */
         .chat-bubble {
-            background: #eef2f5;
+            background: #FFF0F5; /* Light Lavender Blush */
             padding: 12px;
             border-radius: 0 12px 12px 12px;
             margin-bottom: 10px;
@@ -112,7 +128,7 @@
             position: relative;
         }
         .chat-bubble::before {
-            content: '回复';
+            content: '回復';
             position: absolute;
             top: -18px;
             left: 0;
@@ -158,193 +174,200 @@
 <body>
 
     <header>
-        <h1>澳门专业教育顾问 IP</h1>
-        <p>核心定位：可信赖 · 资深 · 耐心</p>
+        <div class="header-left">
+            <h1>澳門專業教育顧問 IP</h1>
+            <p>核心定位：可信賴 · 資深 · 耐心</p>
+        </div>
+        <div class="header-right">
+            <strong>吳明蔚 老闆短視頻-價值派IP</strong>
+            <div>微信號: Zzzz2ko</div>
+            <div>澳門廣發商業中心15樓</div>
+        </div>
     </header>
 
-    <!-- 1. 战略定位 Section -->
+    <!-- 1. 戰略定位 Section -->
     <div id="section-strategy" class="container active">
         <div class="card">
             <h2>核心定位策略</h2>
-            <p><strong>一句定位：</strong>在澳门做教育 12 年的“温柔破壁人”。</p>
+            <p><strong>一句定位：</strong>在澳門做教育 12 年的“溫柔破壁人”。</p>
             <div class="tag-group">
-                <span class="tag">专业教育顾问</span>
-                <span class="tag gold">澳门地域特色</span>
-                <span class="tag">让家长放心</span>
+                <span class="tag">專業教育顧問</span>
+                <span class="tag gold">澳門地域特色</span>
+                <span class="tag">讓家長放心</span>
             </div>
-            <p><strong>差异化公式：</strong>垂直领域（教育）+ 身份标签（专业顾问）+ 价值锚点（消除信息差）。</p>
+            <p><strong>差異化公式：</strong>垂直領域（教育）+ 身份標籤（專業顧問）+ 價值錨點（消除資訊差）。</p>
         </div>
 
         <div class="card accent">
-            <h2>目标人群画像</h2>
+            <h2>目標人群畫像</h2>
             <details open>
-                <summary>核心用户：30-45岁女性家长</summary>
+                <summary>核心用戶：30-45歲女性家長</summary>
                 <div class="details-content">
-                    <p><strong>主要痛点：</strong>"我的孩子会不会在澳门宽松的教育下落后？"、"内地VS澳门，哪里升学更好？"</p>
-                    <p><strong>消费特征：</strong>高客单价接受度高，重视教师资质（87%）和课程效果。</p>
-                    <p><strong>心理状态：</strong>52.7% 采用忽视/宽松教养，急需专业且不焦虑的指导。</p>
+                    <p><strong>主要痛點：</strong>"我的孩子會不會在澳門寬鬆的教育下落後？"、"內地VS澳門，哪裡升學更好？"</p>
+                    <p><strong>消費特徵：</strong>高客單價接受度高，重視教師資質（87%）和課程效果。</p>
+                    <p><strong>心理狀態：</strong>52.7% 採用忽視/寬鬆教養，急需專業且不焦慮的指導。</p>
                 </div>
             </details>
             <details>
-                <summary>视觉识别系统 (VI)</summary>
+                <summary>視覺識別系統 (VI)</summary>
                 <div class="details-content">
-                    <p><strong>色调：</strong>深蓝色（权威）+ 鹅黄色（亲和）。</p>
-                    <p><strong>场景：</strong>固定书架/书桌一角，或简约办公室背景。</p>
-                    <p><strong>形象：</strong>职业装或半商务休闲，戴眼镜（可选），强调“老师/顾问”的质感。</p>
+                    <p><strong>色調：</strong>主深紫色（權威）+ 桃粉色（親和）。</p>
+                    <p><strong>場景：</strong>固定書架/書桌一角，或簡約辦公室背景。</p>
+                    <p><strong>形象：</strong>職業裝或半商務休閒，戴眼鏡（可選），強調“老師/顧問”的質感。</p>
                 </div>
             </details>
         </div>
 
         <div class="card">
-            <h2>澳门地域优势</h2>
+            <h2>澳門地域優勢</h2>
             <ul>
-                <li>利用“内地家长不了解澳门教育”的信息差。</li>
-                <li>利用“澳门15年免费教育”的政策红利解读。</li>
-                <li>结合DSE、港澳台联考等特殊升学路径。</li>
+                <li>利用“內地家長不瞭解澳門教育”的資訊差。</li>
+                <li>利用“澳門15年免費教育”的政策紅利解讀。</li>
+                <li>結合DSE、港澳臺聯考等特殊升學路徑。</li>
             </ul>
         </div>
     </div>
 
-    <!-- 2. 人设与风控 Section -->
+    <!-- 2. 人設與風控 Section -->
     <div id="section-persona" class="container">
         <div class="card accent">
-            <h2>反差人设：温柔的破壁人</h2>
-            <p>打破刻板印象，在“专业”与“生活”中找到平衡。</p>
+            <h2>反差人設：溫柔的破壁人</h2>
+            <p>打破刻板印象，在“專業”與“生活”中找到平衡。</p>
             <div class="tag-group">
-                <span class="tag gold">表层：严肃专业</span>
-                <span class="tag">中层：奋斗经历</span>
-                <span class="tag gold">内核：温暖陪伴</span>
+                <span class="tag gold">表層：嚴肅專業</span>
+                <span class="tag">中層：奮鬥經歷</span>
+                <span class="tag gold">內核：溫暖陪伴</span>
             </div>
             <details open>
-                <summary>人设核心逻辑</summary>
+                <summary>人設核心邏輯</summary>
                 <div class="details-content">
-                    <p><strong>不做：</strong>夸张的表演、哗众取宠的小丑、贩卖廉价焦虑。</p>
-                    <p><strong>要做：</strong>外表温和耐心（像邻家老师），内容犀利一针见血（指出教育陷阱）。</p>
-                    <p><strong>Slogan：</strong>“用 12 年经验，换你少走 10 年弯路”。</p>
+                    <p><strong>不做：</strong>誇張的表演、嘩眾取寵的小丑、販賣廉價焦慮。</p>
+                    <p><strong>要做：</strong>外表溫和耐心（像鄰家老師），內容犀利一針見血（指出教育陷阱）。</p>
+                    <p><strong>Slogan：</strong>“用 12 年經驗，換你少走 10 年彎路”。</p>
                 </div>
             </details>
         </div>
 
         <div class="card">
-            <h2>出镜与隐私保护</h2>
-            <p>采用 <strong>7:3</strong> 比例（70% 专业干货，30% 真实生活感悟）。</p>
+            <h2>出鏡與隱私保護</h2>
+            <p>採用 <strong>7:3</strong> 比例（70% 專業乾貨，30% 真實生活感悟）。</p>
             <details>
-                <summary>隐私保护策略</summary>
+                <summary>隱私保護策略</summary>
                 <div class="details-content">
                     <ul>
-                        <li><strong>场景：</strong>固定家中书房或工作室角落，避免全景展示家庭环境。</li>
-                        <li><strong>拍摄：</strong>多用上半身特写，避免家人正面出镜（可用侧影或声音代替）。</li>
-                        <li><strong>后期：</strong>敏感信息严格打码，不暴露具体居住小区。</li>
+                        <li><strong>場景：</strong>固定家中書房或工作室角落，避免全景展示家庭環境。</li>
+                        <li><strong>拍攝：</strong>多用上半身特寫，避免家人正面出鏡（可用側影或聲音代替）。</li>
+                        <li><strong>後期：</strong>敏感資訊嚴格打碼，不暴露具體居住社區。</li>
                     </ul>
                 </div>
             </details>
         </div>
         
         <div class="card">
-            <h2>内容风控</h2>
+            <h2>內容風控</h2>
             <ul>
-                <li>遵守澳门教育法规，不承诺“包过”。</li>
-                <li>评论区建立“防火墙”，理性回复争议。</li>
-                <li>不涉及政治敏感话题。</li>
+                <li>遵守澳門教育法規，不承諾“包過”。</li>
+                <li>評論區建立“防火牆”，理性回復爭議。</li>
+                <li>不涉及政治敏感話題。</li>
             </ul>
         </div>
     </div>
 
-    <!-- 3. 内容策略 Section -->
+    <!-- 3. 內容策略 Section -->
     <div id="section-content" class="container">
         <div class="card">
-            <h2>内容矩阵：三大系列</h2>
+            <h2>內容矩陣：三大系列</h2>
             
-            <h3>A. 澳门信息差（流量型）</h3>
-            <p><em>"为什么聪明的内地家长把孩子送到澳门读高中？"</em></p>
-            <p>利用地域信息不对称，吸引关注。</p>
+            <h3>A. 澳門資訊差（流量型）</h3>
+            <p><em>"為什麼聰明的內地家長把孩子送到澳門讀高中？"</em></p>
+            <p>利用地域資訊不對稱，吸引關注。</p>
 
-            <h3>B. 命运改变（权威/转化型）</h3>
-            <p><em>"我也是差生：我是如何通过知识改变命运的。"</em></p>
-            <p>结合个人 12 年经验 + 客户成功案例，建立深度信任。</p>
+            <h3>B. 命運改變（權威/轉化型）</h3>
+            <p><em>"我也是差生：我是如何通過知識改變命運的。"</em></p>
+            <p>結合個人 12 年經驗 + 客戶成功案例，建立深度信任。</p>
 
-            <h3>C. 抗焦虑指南（粘性型）</h3>
-            <p><em>"亲爱的妈妈们，你的焦虑是孩子的毒药。"</em></p>
-            <p>情感共鸣，建立“伙伴”关系。</p>
+            <h3>C. 抗焦慮指南（粘性型）</h3>
+            <p><em>"親愛的媽媽們，你的焦慮是孩子的毒藥。"</em></p>
+            <p>情感共鳴，建立“夥伴”關係。</p>
         </div>
 
         <div class="card accent">
-            <h2>90天内容规划表</h2>
+            <h2>90天內容規劃表</h2>
             <details open>
-                <summary>第一阶段（1-30天）：建立信任</summary>
+                <summary>第一階段（1-30天）：建立信任</summary>
                 <div class="details-content">
-                    <p><strong>目标：</strong>立住“澳门教育专家”人设。</p>
-                    <p><strong>内容：</strong>自我介绍、澳门升学政策科普、个人奋斗故事。</p>
+                    <p><strong>目標：</strong>立住“澳門教育專家”人設。</p>
+                    <p><strong>內容：</strong>自我介紹、澳門升學政策科普、個人奮鬥故事。</p>
                 </div>
             </details>
             <details>
-                <summary>第二阶段（31-60天）：展示价值</summary>
+                <summary>第二階段（31-60天）：展示價值</summary>
                 <div class="details-content">
-                    <p><strong>目标：</strong>筛选精准粉，互动。</p>
-                    <p><strong>内容：</strong>具体学科方法、避坑指南、回答粉丝提问。</p>
+                    <p><strong>目標：</strong>篩選精准粉，互動。</p>
+                    <p><strong>內容：</strong>具體學科方法、避坑指南、回答粉絲提問。</p>
                 </div>
             </details>
             <details>
-                <summary>第三阶段（61-90天）：转化成交</summary>
+                <summary>第三階段（61-90天）：轉化成交</summary>
                 <div class="details-content">
-                    <p><strong>目标：</strong>引导私域，高客单价转化。</p>
-                    <p><strong>内容：</strong>深度案例解析、限时诊断名额、产品/服务介绍。</p>
+                    <p><strong>目標：</strong>引導私域，高客單價轉化。</p>
+                    <p><strong>內容：</strong>深度案例解析、限時診斷名額、產品/服務介紹。</p>
                 </div>
             </details>
         </div>
 
         <div class="card">
-            <h2>选题公式</h2>
-            <p class="tag gold">危机事件 + 专业身份 + 解决方案</p>
-            <p>例："孩子写作业磨蹭到半夜？（危机）不是懒，听听12年老师怎么说（身份），这3招彻底解决（方案）。"</p>
+            <h2>選題公式</h2>
+            <p class="tag gold">危機事件 + 專業身份 + 解決方案</p>
+            <p>例："孩子寫作業磨蹭到半夜？（危機）不是懶，聽聽12年老師怎麼說（身份），這3招徹底解決（方案）。"</p>
         </div>
     </div>
 
-    <!-- 4. 粤语脚本 Section -->
+    <!-- 4. 粵語腳本 Section -->
     <div id="section-scripts" class="container">
         <div class="card">
-            <h2>🎥 脚本一：黄金跳板</h2>
-            <p><strong>核心：</strong>打破信息差，建立权威。</p>
+            <h2>🎥 腳本一：黃金跳板</h2>
+            <p><strong>核心：</strong>打破資訊差，建立權威。</p>
             <div class="script-box">
                 <div class="script-row">
                     <div class="script-time">0-3s</div>
-                    <div class="script-action">严肃，敲台面</div>
+                    <div class="script-action">嚴肅，敲檯面</div>
                     <div class="script-dialogue">好多家長問我：喺澳門讀書，係咪真係只要400分就可以讀到內地嘅985名校？</div>
                 </div>
                 <div class="script-row">
                     <div class="script-time">3-15s</div>
-                    <div class="script-action">向后挨，放松</div>
-                    <div class="script-dialogue">我做咗教育12年，話你知，呢句說話既啱，亦都唔啱。啱嘅係，澳門身份的確係「教育嘅金鎖匙」，港澳台聯考競爭少幾十倍。</div>
+                    <div class="script-action">向後挨，放鬆</div>
+                    <div class="script-dialogue">我做咗教育12年，話你知，呢句說話既啱，亦都唔啱。啱嘅係，澳門身份的確係「教育嘅金鎖匙」，港澳臺聯考競爭少幾十倍。</div>
                 </div>
                 <div class="script-row">
                     <div class="script-time">15-35s</div>
-                    <div class="script-action">展示数据图表</div>
+                    <div class="script-action">展示資料圖表</div>
                     <div class="script-dialogue">但是，「容易」唔代表可以「攤喺度」。澳門教材同聯考考綱係兩回事。好多家長以為轉學黎就逆襲，結果兩頭唔到岸。</div>
                 </div>
                 <div class="script-row">
-                    <div class="script-time">结尾</div>
-                    <div class="script-action">眼神诚恳</div>
+                    <div class="script-time">結尾</div>
+                    <div class="script-action">眼神誠懇</div>
                     <div class="script-dialogue">評論區打「規劃」，我將呢12年嘅升學經驗總結Send俾你。</div>
                 </div>
             </div>
         </div>
 
         <div class="card">
-            <h2>🎥 脚本二：避坑指南</h2>
-            <p><strong>核心：</strong>适度焦虑，指出快乐教育陷阱。</p>
+            <h2>🎥 腳本二：避坑指南</h2>
+            <p><strong>核心：</strong>適度焦慮，指出快樂教育陷阱。</p>
             <div class="script-box">
                 <div class="script-row">
                     <div class="script-time">0-3s</div>
-                    <div class="script-action">摇头，看成绩单</div>
+                    <div class="script-action">搖頭，看成績單</div>
                     <div class="script-dialogue">千祈唔好俾所謂嘅「快樂教育」，毀咗你小朋友喺澳門嘅前三年。</div>
                 </div>
                 <div class="script-row">
                     <div class="script-time">核心</div>
-                    <div class="script-action">语重心长</div>
+                    <div class="script-action">語重心長</div>
                     <div class="script-dialogue">學校3點放學，唔係俾你帶小朋友去玩㗎。其實係將「競爭」由校內轉移咗去校外。你睇唔到人地3點後做緊咩——閱讀、思維拓展。</div>
                 </div>
                 <div class="script-row">
-                    <div class="script-time">结尾</div>
+                    <div class="script-time">結尾</div>
                     <div class="script-action">微笑</div>
                     <div class="script-dialogue">我係[名]，一個唔販賣焦慮，只講真話嘅教育人。關注我，少行冤枉路。</div>
                 </div>
@@ -352,45 +375,53 @@
         </div>
 
         <div class="card accent">
-            <h2>💬 私信成交话术 (漏斗模型)</h2>
+            <h2>💬 私信成交話術 (漏斗模型)</h2>
             
-            <h3>第一步：引流 (回复评论)</h3>
+            <h3>第一步：引流 (回復評論)</h3>
             <div class="chat-bubble">
-                家长您好。关于澳门升学路径，我整理了一份详细的 PDF。因为评论区发不了文件，麻烦您直接私信我发『888』，我发给您。
+                家長您好。關於澳門升學路徑，我整理了一份詳細的 PDF。因為評論區發不了檔，麻煩您直接私信我發『888』，我發給您。
             </div>
 
-            <h3>第二步：破冰 & 筛选</h3>
+            <h3>第二步：破冰 & 篩選</h3>
             <div class="chat-bubble">
-                家长您好，感谢信任！👋 这是《澳门升学黄金路线图》。<br>
-                由于文件较大且会有更新，建议加 WeChat 方便接收？您留个ID，我加您。
+                家長您好，感謝信任！👋 這是《澳門升學黃金路線圖》。<br>
+                由於檔較大且會有更新，建議加 WeChat 方便接收？您留個ID，我加您。
             </div>
 
-            <h3>第三步：高客单转化 (拒绝免费咨询)</h3>
+            <h3>第三步：高客單轉化 (拒絕免費諮詢)</h3>
             <div class="chat-bubble">
-                家长，这问题比较复杂，乱建议会害了小朋友。<br>
-                不如约个时间上来我办公室喝杯茶，带小朋友做个 **15分钟免费能力评估**？如果评估完觉得没必要补，我会直接告诉你，不浪费冤枉钱。
+                家長，這問題比較複雜，亂建議會害了小朋友。<br>
+                不如約個時間上來我辦公室喝杯茶，帶小朋友做個 **15分鐘免費能力評估**？如果評估完覺得沒必要補，我會直接告訴你，不浪費冤枉錢。
             </div>
         </div>
     </div>
 
-    <!-- 5. 执行建议 Section -->
+    <!-- 5. 執行建議 Section -->
     <div id="section-action" class="container">
         <div class="card">
-            <h2>启动周计划 (Week 1)</h2>
+            <h2>啟動周計畫 (Week 1)</h2>
             <ul style="list-style: none; padding: 0;">
-                <li>✅ <strong>Day 1-2:</strong> 注册账号，统一头像昵称（如：澳门XX老师）。</li>
-                <li>✅ <strong>Day 3:</strong> 准备拍摄环境，置办简单的补光灯和收音麦克风。</li>
-                <li>✅ <strong>Day 4:</strong> 集中拍摄 5 条视频（自我介绍+理念分享）。</li>
-                <li>✅ <strong>Day 5-7:</strong> 剪辑并发布，每天一条，观察数据。</li>
+                <li>✅ <strong>Day 1-2:</strong> 註冊帳號，統一頭像昵稱（如：澳門XX老師）。</li>
+                <li>✅ <strong>Day 3:</strong> 準備拍攝環境，置辦簡單的補光燈和收音麥克風。</li>
+                <li>✅ <strong>Day 4:</strong> 集中拍攝 5 條視頻（自我介紹+理念分享）。</li>
+                <li>✅ <strong>Day 5-7:</strong> 剪輯並發佈，每天一條，觀察資料。</li>
             </ul>
         </div>
         <div class="card accent">
-            <h2>关键指标监控</h2>
+            <h2>關鍵指標監控</h2>
             <ul>
-                <li><strong>完播率：</strong>前3秒的钩子是否足够吸引人。</li>
-                <li><strong>私信率：</strong>引导语是否有效。</li>
-                <li><strong>客单价：</strong>不要急于变现，前期积累信任，通过线下/深度咨询做高客单。</li>
+                <li><strong>完播率：</strong>前3秒的鉤子是否足夠吸引人。</li>
+                <li><strong>私信率：</strong>引導語是否有效。</li>
+                <li><strong>客單價：</strong>不要急於變現，前期積累信任，通過線下/深度諮詢做高客單。</li>
             </ul>
+        </div>
+
+        <div class="card">
+            <h2>參考示例</h2>
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <img src="https://p9-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/ab9ac614600b4d6bab5ce6099b5cd945.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&x-expires=1786176241&x-signature=TOlUkuLzyvvrbn3DXWJUxsQjzrs%3D&x-wf-file_name=%E5%85%AC%E5%9F%9F.jpg" style="width: 100%; height: auto; border-radius: 8px; object-fit: cover;" alt="參考圖1">
+                <img src="https://p3-bot-workflow-sign.byteimg.com/tos-cn-i-mdko3gqilj/522ab5e32bf54ba0b2ccc9cc78470cd9.jpg~tplv-mdko3gqilj-image.image?rk3s=81d4c505&x-expires=1786176244&x-signature=EZ2mHPBdJ7gK7Oka9%2B87jX5ClZE%3D&x-wf-file_name=a0d9b4d4a5963de6a5b98c77cde476c.jpg" style="width: 100%; height: auto; border-radius: 8px; object-fit: cover;" alt="參考圖2">
+            </div>
         </div>
     </div>
 
@@ -402,19 +433,19 @@
         </div>
         <div class="nav-item" onclick="switchTab('section-persona', this)">
             <div class="nav-icon">🎭</div>
-            <span>人设</span>
+            <span>人設</span>
         </div>
         <div class="nav-item" onclick="switchTab('section-content', this)">
             <div class="nav-icon">📝</div>
-            <span>内容</span>
+            <span>內容</span>
         </div>
         <div class="nav-item" onclick="switchTab('section-scripts', this)">
             <div class="nav-icon">🎬</div>
-            <span>脚本</span>
+            <span>腳本</span>
         </div>
         <div class="nav-item" onclick="switchTab('section-action', this)">
             <div class="nav-icon">🚀</div>
-            <span>执行</span>
+            <span>執行</span>
         </div>
     </nav>
 
@@ -437,3 +468,4 @@
 
 </body>
 </html>
+
