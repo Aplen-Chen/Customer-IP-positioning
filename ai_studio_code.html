@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-MO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>澳门专业教育IP · 战略全案</title>
+    <style>
+        :root {
+            --primary-color: #1A2A3A; /* 深海军蓝：权威、专业 */
+            --accent-color: #C5A065; /* 香槟金：资深、价值 */
+            --bg-color: #F5F5F0; /* 米色：耐心、温和 */
+            --card-bg: #FFFFFF;
+            --text-main: #333333;
+            --text-light: #666666;
+            --nav-height: 60px;
+            --safe-area-bottom: env(safe-area-inset-bottom);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: calc(var(--nav-height) + 20px);
+        }
+
+        /* Header */
+        header {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        header h1 { font-size: 18px; font-weight: 600; letter-spacing: 1px; }
+        header p { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 5px; }
+
+        /* Main Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 15px;
+            display: none; /* Hidden by default, JS toggles this */
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .container.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Card Style */
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .card.accent { border-left-color: var(--accent-color); }
+
+        h2 { font-size: 16px; font-weight: 700; color: var(--primary-color); margin-bottom: 15px; display: flex; align-items: center; }
+        h2::before { content: ''; display: inline-block; width: 6px; height: 6px; background: var(--accent-color); border-radius: 50%; margin-right: 8px; }
+        
+        h3 { font-size: 15px; font-weight: 600; margin: 12px 0 8px; color: var(--text-main); }
+
+        p, li { font-size: 14px; color: var(--text-light); margin-bottom: 8px; text-align: justify; }
+        ul { padding-left: 20px; }
+
+        /* Tags */
+        .tag-group { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+        .tag {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: rgba(26, 42, 58, 0.08);
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        .tag.gold { background: rgba(197, 160, 101, 0.15); color: #8a6d3b; }
+
+        /* Accordion for Details */
+        details { margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        details:last-child { border-bottom: none; }
+        summary { cursor: pointer; font-size: 14px; font-weight: 600; color: var(--primary-color); list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        summary::after { content: '+'; font-size: 18px; color: var(--accent-color); }
+        details[open] summary::after { content: '-'; }
+        .details-content { margin-top: 10px; padding-left: 10px; border-left: 2px solid #eee; }
+
+        /* Script Table Style */
+        .script-box { background: #f9f9f9; border-radius: 8px; padding: 15px; margin-top: 10px; }
+        .script-row { display: flex; margin-bottom: 12px; border-bottom: 1px dashed #ddd; padding-bottom: 12px; }
+        .script-time { width: 60px; font-size: 12px; font-weight: bold; color: var(--accent-color); flex-shrink: 0; }
+        .script-action { width: 30%; font-size: 12px; color: #888; padding-right: 10px; font-style: italic; }
+        .script-dialogue { flex: 1; font-size: 14px; font-weight: 500; color: #333; }
+
+        /* Chat Bubble Style for DM Scripts */
+        .chat-bubble {
+            background: #eef2f5;
+            padding: 12px;
+            border-radius: 0 12px 12px 12px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            position: relative;
+        }
+        .chat-bubble::before {
+            content: '回复';
+            position: absolute;
+            top: -18px;
+            left: 0;
+            font-size: 10px;
+            color: #999;
+        }
+
+        /* Bottom Navigation */
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: calc(var(--nav-height) + var(--safe-area-bottom));
+            background: #fff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            padding-bottom: var(--safe-area-bottom);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 10px;
+            cursor: pointer;
+            flex: 1;
+            height: 100%;
+            transition: color 0.2s;
+        }
+
+        .nav-item.active { color: var(--primary-color); }
+        .nav-item span { margin-top: 4px; font-weight: 500; }
+        .nav-icon { font-size: 20px; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>澳门专业教育顾问 IP</h1>
+        <p>核心定位：可信赖 · 资深 · 耐心</p>
+    </header>
+
+    <!-- 1. 战略定位 Section -->
+    <div id="section-strategy" class="container active">
+        <div class="card">
+            <h2>核心定位策略</h2>
+            <p><strong>一句定位：</strong>在澳门做教育 12 年的“温柔破壁人”。</p>
+            <div class="tag-group">
+                <span class="tag">专业教育顾问</span>
+                <span class="tag gold">澳门地域特色</span>
+                <span class="tag">让家长放心</span>
+            </div>
+            <p><strong>差异化公式：</strong>垂直领域（教育）+ 身份标签（专业顾问）+ 价值锚点（消除信息差）。</p>
+        </div>
+
+        <div class="card accent">
+            <h2>目标人群画像</h2>
+            <details open>
+                <summary>核心用户：30-45岁女性家长</summary>
+                <div class="details-content">
+                    <p><strong>主要痛点：</strong>"我的孩子会不会在澳门宽松的教育下落后？"、"内地VS澳门，哪里升学更好？"</p>
+                    <p><strong>消费特征：</strong>高客单价接受度高，重视教师资质（87%）和课程效果。</p>
+                    <p><strong>心理状态：</strong>52.7% 采用忽视/宽松教养，急需专业且不焦虑的指导。</p>
+                </div>
+            </details>
+            <details>
+                <summary>视觉识别系统 (VI)</summary>
+                <div class="details-content">
+                    <p><strong>色调：</strong>深蓝色（权威）+ 鹅黄色（亲和）。</p>
+                    <p><strong>场景：</strong>固定书架/书桌一角，或简约办公室背景。</p>
+                    <p><strong>形象：</strong>职业装或半商务休闲，戴眼镜（可选），强调“老师/顾问”的质感。</p>
+                </div>
+            </details>
+        </div>
+
+        <div class="card">
+            <h2>澳门地域优势</h2>
+            <ul>
+                <li>利用“内地家长不了解澳门教育”的信息差。</li>
+                <li>利用“澳门15年免费教育”的政策红利解读。</li>
+                <li>结合DSE、港澳台联考等特殊升学路径。</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 2. 人设与风控 Section -->
+    <div id="section-persona" class="container">
+        <div class="card accent">
+            <h2>反差人设：温柔的破壁人</h2>
+            <p>打破刻板印象，在“专业”与“生活”中找到平衡。</p>
+            <div class="tag-group">
+                <span class="tag gold">表层：严肃专业</span>
+                <span class="tag">中层：奋斗经历</span>
+                <span class="tag gold">内核：温暖陪伴</span>
+            </div>
+            <details open>
+                <summary>人设核心逻辑</summary>
+                <div class="details-content">
+                    <p><strong>不做：</strong>夸张的表演、哗众取宠的小丑、贩卖廉价焦虑。</p>
+                    <p><strong>要做：</strong>外表温和耐心（像邻家老师），内容犀利一针见血（指出教育陷阱）。</p>
+                    <p><strong>Slogan：</strong>“用 12 年经验，换你少走 10 年弯路”。</p>
+                </div>
+            </details>
+        </div>
+
+        <div class="card">
+            <h2>出镜与隐私保护</h2>
+            <p>采用 <strong>7:3</strong> 比例（70% 专业干货，30% 真实生活感悟）。</p>
+            <details>
+                <summary>隐私保护策略</summary>
+                <div class="details-content">
+                    <ul>
+                        <li><strong>场景：</strong>固定家中书房或工作室角落，避免全景展示家庭环境。</li>
+                        <li><strong>拍摄：</strong>多用上半身特写，避免家人正面出镜（可用侧影或声音代替）。</li>
+                        <li><strong>后期：</strong>敏感信息严格打码，不暴露具体居住小区。</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+        
+        <div class="card">
+            <h2>内容风控</h2>
+            <ul>
+                <li>遵守澳门教育法规，不承诺“包过”。</li>
+                <li>评论区建立“防火墙”，理性回复争议。</li>
+                <li>不涉及政治敏感话题。</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 3. 内容策略 Section -->
+    <div id="section-content" class="container">
+        <div class="card">
+            <h2>内容矩阵：三大系列</h2>
+            
+            <h3>A. 澳门信息差（流量型）</h3>
+            <p><em>"为什么聪明的内地家长把孩子送到澳门读高中？"</em></p>
+            <p>利用地域信息不对称，吸引关注。</p>
+
+            <h3>B. 命运改变（权威/转化型）</h3>
+            <p><em>"我也是差生：我是如何通过知识改变命运的。"</em></p>
+            <p>结合个人 12 年经验 + 客户成功案例，建立深度信任。</p>
+
+            <h3>C. 抗焦虑指南（粘性型）</h3>
+            <p><em>"亲爱的妈妈们，你的焦虑是孩子的毒药。"</em></p>
+            <p>情感共鸣，建立“伙伴”关系。</p>
+        </div>
+
+        <div class="card accent">
+            <h2>90天内容规划表</h2>
+            <details open>
+                <summary>第一阶段（1-30天）：建立信任</summary>
+                <div class="details-content">
+                    <p><strong>目标：</strong>立住“澳门教育专家”人设。</p>
+                    <p><strong>内容：</strong>自我介绍、澳门升学政策科普、个人奋斗故事。</p>
+                </div>
+            </details>
+            <details>
+                <summary>第二阶段（31-60天）：展示价值</summary>
+                <div class="details-content">
+                    <p><strong>目标：</strong>筛选精准粉，互动。</p>
+                    <p><strong>内容：</strong>具体学科方法、避坑指南、回答粉丝提问。</p>
+                </div>
+            </details>
+            <details>
+                <summary>第三阶段（61-90天）：转化成交</summary>
+                <div class="details-content">
+                    <p><strong>目标：</strong>引导私域，高客单价转化。</p>
+                    <p><strong>内容：</strong>深度案例解析、限时诊断名额、产品/服务介绍。</p>
+                </div>
+            </details>
+        </div>
+
+        <div class="card">
+            <h2>选题公式</h2>
+            <p class="tag gold">危机事件 + 专业身份 + 解决方案</p>
+            <p>例："孩子写作业磨蹭到半夜？（危机）不是懒，听听12年老师怎么说（身份），这3招彻底解决（方案）。"</p>
+        </div>
+    </div>
+
+    <!-- 4. 粤语脚本 Section -->
+    <div id="section-scripts" class="container">
+        <div class="card">
+            <h2>🎥 脚本一：黄金跳板</h2>
+            <p><strong>核心：</strong>打破信息差，建立权威。</p>
+            <div class="script-box">
+                <div class="script-row">
+                    <div class="script-time">0-3s</div>
+                    <div class="script-action">严肃，敲台面</div>
+                    <div class="script-dialogue">好多家長問我：喺澳門讀書，係咪真係只要400分就可以讀到內地嘅985名校？</div>
+                </div>
+                <div class="script-row">
+                    <div class="script-time">3-15s</div>
+                    <div class="script-action">向后挨，放松</div>
+                    <div class="script-dialogue">我做咗教育12年，話你知，呢句說話既啱，亦都唔啱。啱嘅係，澳門身份的確係「教育嘅金鎖匙」，港澳台聯考競爭少幾十倍。</div>
+                </div>
+                <div class="script-row">
+                    <div class="script-time">15-35s</div>
+                    <div class="script-action">展示数据图表</div>
+                    <div class="script-dialogue">但是，「容易」唔代表可以「攤喺度」。澳門教材同聯考考綱係兩回事。好多家長以為轉學黎就逆襲，結果兩頭唔到岸。</div>
+                </div>
+                <div class="script-row">
+                    <div class="script-time">结尾</div>
+                    <div class="script-action">眼神诚恳</div>
+                    <div class="script-dialogue">評論區打「規劃」，我將呢12年嘅升學經驗總結Send俾你。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🎥 脚本二：避坑指南</h2>
+            <p><strong>核心：</strong>适度焦虑，指出快乐教育陷阱。</p>
+            <div class="script-box">
+                <div class="script-row">
+                    <div class="script-time">0-3s</div>
+                    <div class="script-action">摇头，看成绩单</div>
+                    <div class="script-dialogue">千祈唔好俾所謂嘅「快樂教育」，毀咗你小朋友喺澳門嘅前三年。</div>
+                </div>
+                <div class="script-row">
+                    <div class="script-time">核心</div>
+                    <div class="script-action">语重心长</div>
+                    <div class="script-dialogue">學校3點放學，唔係俾你帶小朋友去玩㗎。其實係將「競爭」由校內轉移咗去校外。你睇唔到人地3點後做緊咩——閱讀、思維拓展。</div>
+                </div>
+                <div class="script-row">
+                    <div class="script-time">结尾</div>
+                    <div class="script-action">微笑</div>
+                    <div class="script-dialogue">我係[名]，一個唔販賣焦慮，只講真話嘅教育人。關注我，少行冤枉路。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card accent">
+            <h2>💬 私信成交话术 (漏斗模型)</h2>
+            
+            <h3>第一步：引流 (回复评论)</h3>
+            <div class="chat-bubble">
+                家长您好。关于澳门升学路径，我整理了一份详细的 PDF。因为评论区发不了文件，麻烦您直接私信我发『888』，我发给您。
+            </div>
+
+            <h3>第二步：破冰 & 筛选</h3>
+            <div class="chat-bubble">
+                家长您好，感谢信任！👋 这是《澳门升学黄金路线图》。<br>
+                由于文件较大且会有更新，建议加 WeChat 方便接收？您留个ID，我加您。
+            </div>
+
+            <h3>第三步：高客单转化 (拒绝免费咨询)</h3>
+            <div class="chat-bubble">
+                家长，这问题比较复杂，乱建议会害了小朋友。<br>
+                不如约个时间上来我办公室喝杯茶，带小朋友做个 **15分钟免费能力评估**？如果评估完觉得没必要补，我会直接告诉你，不浪费冤枉钱。
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. 执行建议 Section -->
+    <div id="section-action" class="container">
+        <div class="card">
+            <h2>启动周计划 (Week 1)</h2>
+            <ul style="list-style: none; padding: 0;">
+                <li>✅ <strong>Day 1-2:</strong> 注册账号，统一头像昵称（如：澳门XX老师）。</li>
+                <li>✅ <strong>Day 3:</strong> 准备拍摄环境，置办简单的补光灯和收音麦克风。</li>
+                <li>✅ <strong>Day 4:</strong> 集中拍摄 5 条视频（自我介绍+理念分享）。</li>
+                <li>✅ <strong>Day 5-7:</strong> 剪辑并发布，每天一条，观察数据。</li>
+            </ul>
+        </div>
+        <div class="card accent">
+            <h2>关键指标监控</h2>
+            <ul>
+                <li><strong>完播率：</strong>前3秒的钩子是否足够吸引人。</li>
+                <li><strong>私信率：</strong>引导语是否有效。</li>
+                <li><strong>客单价：</strong>不要急于变现，前期积累信任，通过线下/深度咨询做高客单。</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="nav-bar">
+        <div class="nav-item active" onclick="switchTab('section-strategy', this)">
+            <div class="nav-icon">🎯</div>
+            <span>定位</span>
+        </div>
+        <div class="nav-item" onclick="switchTab('section-persona', this)">
+            <div class="nav-icon">🎭</div>
+            <span>人设</span>
+        </div>
+        <div class="nav-item" onclick="switchTab('section-content', this)">
+            <div class="nav-icon">📝</div>
+            <span>内容</span>
+        </div>
+        <div class="nav-item" onclick="switchTab('section-scripts', this)">
+            <div class="nav-icon">🎬</div>
+            <span>脚本</span>
+        </div>
+        <div class="nav-item" onclick="switchTab('section-action', this)">
+            <div class="nav-icon">🚀</div>
+            <span>执行</span>
+        </div>
+    </nav>
+
+    <script>
+        function switchTab(sectionId, navElement) {
+            // Hide all sections
+            document.querySelectorAll('.container').forEach(el => el.classList.remove('active'));
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update nav active state
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            navElement.classList.add('active');
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+    </script>
+
+</body>
+</html>
