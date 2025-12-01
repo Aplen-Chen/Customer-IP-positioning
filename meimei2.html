@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>獨角獸VIP | 美美IP全案深度報告</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            /* --- 核心配色：桃粉 & 浅紫 (温馨而不稚嫩) --- */
+            /* 背景流光：柔和的桃色过渡到浅薰衣草色 */
+            --bg-gradient-1: #fad0c4; 
+            --bg-gradient-2: #e0c3fc; 
+            
+            /* 卡片：高透白玻，体现高级感 */
+            --card-bg: rgba(255, 255, 255, 0.65);
+            --card-border: rgba(255, 255, 255, 0.8);
+            --card-shadow: 0 8px 32px rgba(157, 78, 221, 0.1);
+
+            /* 文字：深紫灰，保证阅读清晰 */
+            --text-main: #5a4b6e; 
+            --text-sub: #83769c;
+            --text-title: #4a3b59;
+
+            /* 强调色 */
+            --primary: #9d4edd; /* 优雅紫 */
+            --accent: #ff99ac; /* 柔和粉 */
+            --highlight-bg: rgba(157, 78, 221, 0.1); /* 高亮背景 */
+            
+            /* 金色点缀 (保持VIP质感) */
+            --vip-gold: #eebb4d;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #fdf2f8;
+            color: var(--text-main);
+            padding-bottom: 110px;
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        /* --- 动态背景 (晨曦流光) --- */
+        .bg-ambient {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
+            background: linear-gradient(135deg, #fff1eb 0%, #ace0f9 100%); /* Fallback */
+            background: linear-gradient(120deg, var(--bg-gradient-1) 0%, #ffd1ff 50%, var(--bg-gradient-2) 100%);
+            background-size: 200% 200%;
+            animation: gradientMove 15s ease infinite;
+        }
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        /* 漂浮的光斑 */
+        .blob {
+            position: fixed; filter: blur(60px); opacity: 0.6; z-index: -1;
+            animation: float 10s infinite alternate;
+        }
+        .blob-1 { top: 10%; left: 10%; width: 200px; height: 200px; background: rgba(255, 153, 172, 0.4); }
+        .blob-2 { bottom: 20%; right: 10%; width: 250px; height: 250px; background: rgba(157, 78, 221, 0.3); }
+        @keyframes float { 0% { transform: translate(0, 0); } 100% { transform: translate(20px, -30px); } }
+
+
+        /* --- 核心组件 --- */
+        .container { padding: 16px; }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 24px 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--card-shadow);
+        }
+
+        h2 {
+            font-size: 1.2rem; margin-bottom: 15px; color: var(--primary);
+            display: flex; align-items: center; gap: 8px;
+            font-weight: 800;
+        }
+        h2 i { color: var(--accent); }
+
+        h3 { font-size: 1rem; color: var(--text-title); margin: 15px 0 10px; font-weight: bold; }
+        
+        p { font-size: 0.95rem; color: var(--text-main); margin-bottom: 10px; text-align: justify; }
+
+        .highlight-text { color: var(--primary); font-weight: bold; background: rgba(255,255,255,0.5); padding: 0 4px; border-radius: 4px; }
+
+        /* --- 折叠详情 --- */
+        details {
+            background: rgba(255,255,255,0.4);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.5);
+            transition: all 0.3s;
+        }
+        details summary {
+            padding: 14px 15px;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--text-title);
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        details summary::after { content: '+'; color: var(--accent); font-size: 1.2rem; font-weight: 800; }
+        details[open] summary::after { content: '-'; color: var(--primary); }
+        details[open] { background: rgba(255,255,255,0.7); box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+        .details-content { padding: 15px; font-size: 0.9rem; color: var(--text-main); border-top: 1px solid rgba(0,0,0,0.05); }
+
+        /* --- 头部 --- */
+        .header { 
+            padding: 60px 20px 20px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .header-content { flex: 1; min-width: 200px; }
+        .header h1 { 
+            font-size: 1.8rem; margin-bottom: 8px; letter-spacing: 1px; line-height: 1.2; color: var(--text-title);
+        }
+        .vip-badge {
+            font-size: 0.8rem; vertical-align: middle; 
+            background: linear-gradient(45deg, #eebb4d, #d4a017); 
+            color: #fff; padding: 3px 8px; border-radius: 6px; 
+            box-shadow: 0 2px 5px rgba(238, 187, 77, 0.4);
+        }
+        .header p { font-size: 0.9rem; color: var(--text-sub); }
+        
+        .tags { display: flex; gap: 8px; margin-top: 15px; flex-wrap: wrap; }
+        .tag { 
+            font-size: 0.75rem; padding: 4px 12px; border-radius: 20px; 
+            background: #fff; color: var(--primary); 
+            border: 1px solid var(--primary); 
+            font-weight: 500;
+        }
+
+        /* --- 右上角联系人卡片 (白金风格) --- */
+        .contact-card {
+            background: rgba(255, 255, 255, 0.85);
+            border: 2px solid var(--vip-gold);
+            border-radius: 12px;
+            padding: 15px;
+            min-width: 220px;
+            box-shadow: 0 8px 20px rgba(238, 187, 77, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .cc-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: var(--text-main);
+        }
+        .cc-row:last-child { margin-bottom: 0; }
+        .cc-row i { width: 24px; text-align: center; margin-right: 5px; color: var(--vip-gold); font-size: 1rem; }
+        .cc-name { 
+            color: #8a6a28; font-weight: 800; font-size: 0.95rem; 
+            margin-bottom: 10px; border-bottom: 1px dashed #e0c88d; padding-bottom: 8px; 
+        }
+
+        /* --- 导航切换 --- */
+        .section { display: none; animation: fadeIn 0.4s ease; }
+        .section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- 图表容器 --- */
+        .chart-box { height: 220px; margin: 10px 0 20px; }
+
+        /* --- 选題交互 --- */
+        .topic-nav { display: flex; overflow-x: auto; gap: 10px; margin-bottom: 15px; padding-bottom: 5px; }
+        .topic-btn { 
+            white-space: nowrap; padding: 8px 18px; border-radius: 20px; 
+            background: #fff; color: var(--text-sub); border: 1px solid #eee; 
+            transition: all 0.3s; flex-shrink: 0; font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+        .topic-btn.active { 
+            background: var(--primary); color: #fff; border-color: var(--primary); 
+            box-shadow: 0 4px 10px rgba(157, 78, 221, 0.3);
+        }
+        .topic-content { 
+            display: none; background: #fff; padding: 20px; 
+            border-radius: 12px; border-left: 4px solid var(--accent); 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+        .topic-content.active { display: block; animation: slideIn 0.3s; }
+
+        /* --- 剧本表格 --- */
+        .script-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; }
+        .script-table th { 
+            text-align: left; color: var(--primary); padding: 10px; 
+            border-bottom: 2px solid #eee; background: rgba(255,255,255,0.5);
+        }
+        .script-table td { 
+            padding: 12px 10px; border-bottom: 1px solid #f0f0f0; 
+            color: var(--text-main); vertical-align: top; 
+        }
+        .script-table td:first-child { color: var(--accent); font-weight: bold; width: 40px; text-align: center;}
+
+        /* --- 二维码图片样式 --- */
+        .qr-card { text-align: center; }
+        .qr-card img {
+            width: 90%;
+            height: auto;
+            border-radius: 12px;
+            border: 4px solid #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .qr-label {
+            display: inline-block;
+            color: #fff;
+            background: var(--accent);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(255, 153, 172, 0.4);
+        }
+
+        /* --- 底部导航 --- */
+        .navbar {
+            position: fixed; bottom: 20px; left: 5%; width: 90%;
+            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(20px);
+            border-radius: 30px; display: flex; justify-content: space-between;
+            padding: 12px 10px; border: 1px solid #fff;
+            box-shadow: 0 10px 30px rgba(157, 78, 221, 0.15); z-index: 999;
+        }
+        .nav-item { text-align: center; color: var(--text-sub); flex: 1; font-size: 0.7rem; transition: 0.3s; }
+        .nav-item i { display: block; font-size: 1.3rem; margin-bottom: 3px; }
+        .nav-item.active { color: var(--primary); transform: translateY(-3px); }
+        .nav-item.active i { text-shadow: 0 2px 10px rgba(157, 78, 221, 0.4); }
+
+    </style>
+</head>
+<body>
+
+    <div class="bg-ambient"></div>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <header class="header">
+        <!-- 左侧内容 -->
+        <div class="header-content">
+            <h1>美美 IP定位報告 <span class="vip-badge">VIP</span></h1>
+            <p>真實女性成長陪伴者 · 深度分析</p>
+            <div class="tags">
+                <span class="tag">#真實坦誠</span>
+                <span class="tag">#原生家庭</span>
+                <span class="tag">#信任變現</span>
+            </div>
+        </div>
+
+        <!-- 右侧联系人名片 -->
+        <div class="contact-card">
+            <div class="cc-name">吳明蔚 老闆短祝頻-價值派IP</div>
+            <div class="cc-row">
+                <i class="fab fa-weixin"></i> Zzzz2ko
+            </div>
+            <div class="cc-row">
+                <i class="fas fa-map-marker-alt"></i> 澳門廣發商業中心15樓
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION 1: 深度洞察 (市场/性格) -->
+    <div id="sec-market" class="section active container">
+        
+        <!-- 核心性格分析 -->
+        <div class="card">
+            <h2><i class="fas fa-heart"></i> 性格特徵深度分析</h2>
+            <p>通過問卷分析，提煉出三大核心性格特質：</p>
+            
+            <details open>
+                <summary>1. 真實坦誠 (首要特質)</summary>
+                <div class="details-content">
+                    您明確表示"喜歡我的真實"是關注主因，願展現"私底下最真實的一面"。這種對真實的執著反映了高度的自我認同。在充斥虛假包裝的社媒環境下，您的真實特質具有<span class="highlight-text">強大的差異化價值</span>。
+                </div>
+            </details>
+
+            <details>
+                <summary>2. 情感細膩 (天賦優勢)</summary>
+                <div class="details-content">
+                    您將"情感"列為優先級第一。這表明您具備強烈的共情能力和深度洞察，能敏銳捕捉生活細節。這種特質天然適合創作<span class="highlight-text">情感療癒類內容</span>，能與受眾建立深層連接。
+                </div>
+            </details>
+
+            <details>
+                <summary>3. 獨立堅韌 (目標導向)</summary>
+                <div class="details-content">
+                    您選擇"變現"為核心目的，且願全職投入。這反映了明確的目標導向和執行力。對"甜美"風格的排斥，體現了獨立的審美判斷和不迎合世俗的個性。
+                </div>
+            </details>
+        </div>
+
+        <!-- 原生家庭价值 -->
+        <div class="card">
+            <h2><i class="fas fa-home"></i> 原生家庭的雙重價值</h2>
+            <p>您強調原生家庭經歷，這極具戰略意義：</p>
+            <div style="background:rgba(255,255,255,0.5); padding:15px; border-radius:12px; margin-top:10px;">
+                <p><strong>🔥 流量效應：</strong>百度指數顯示"原生家庭"搜索量創新高，是社交平台的流量密碼，直擊20-40歲女性成長痛點。</p>
+                <p style="margin-bottom:0;"><strong>💎 內容資產：</strong>真實創傷能轉化為獨特資產。如脫口秀演員小帕、舒淇，都將苦難轉化為價值，實現了與自我及觀眾的和解。</p>
+            </div>
+        </div>
+
+        <!-- 市场现状 -->
+        <div class="card">
+            <h2><i class="fas fa-chart-line"></i> 市場與受眾分析</h2>
+            <div class="chart-box">
+                <canvas id="marketChart"></canvas>
+            </div>
+            <details>
+                <summary>受眾畫像：20-40歲女性</summary>
+                <div class="details-content">
+                    <ul>
+                        <li><strong>追求獨立：</strong>不再將價值寄託於傳統婚戀，追求經濟精神雙獨立。</li>
+                        <li><strong>自我表達：</strong>92%年輕女性強調特立獨行，您的"真實"標籤契合此需求。</li>
+                        <li><strong>內容偏好：</strong>厭倦完美道德符號，渴望看到"有活人感"、不完美的真實形象。</li>
+                    </ul>
+                </div>
+            </details>
+            <details>
+                <summary>競爭格局與機會</summary>
+                <div class="details-content">
+                    <p><strong>現狀：</strong>女性成長內容增速15%-20%，情感經濟規模將破2萬億。</p>
+                    <p><strong>機會：</strong>頭部集中但細分領域有空白。真實內容需求旺盛，原生家庭療癒仍是藍海。</p>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <!-- SECTION 2: 人设定位 -->
+    <div id="sec-persona" class="section container">
+        <div class="card">
+            <h2><i class="fas fa-user-circle"></i> 核心定位：真實女性成長陪伴者</h2>
+            <p>相比"完美導師"，"真實陪伴者"更具親和力，易建立信任（如案例：琳達不呆、何一老師）。</p>
+            
+            <h3 style="color:var(--primary); text-align:center; background:#fff; padding:15px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+                "不完美的導師，完美的閨蜜"
+            </h3>
+
+            <h3 style="margin-top:20px;">三層架構設計</h3>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+                <div style="background:rgba(255,255,255,0.5); padding:15px; border-radius:12px; border-left:4px solid var(--primary);">
+                    <div style="font-weight:bold; color:var(--primary);">外層：視覺形象</div>
+                    <div style="font-size:0.9rem; margin-top:5px;">簡約大氣著裝，自然妝容。拒絕甜美，打造<span class="highlight-text">"知性大氣"</span>的獨立品味。</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.5); padding:15px; border-radius:12px; border-left:4px solid var(--accent);">
+                    <div style="font-weight:bold; color:var(--accent);">中層：性格特質</div>
+                    <div style="font-size:0.9rem; margin-top:5px;">真誠坦率、善解人意。分享真實經歷與觀點，建立信任。</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.5); padding:15px; border-radius:12px; border-left:4px solid #5a4b6e;">
+                    <div style="font-weight:bold; color:#5a4b6e;">內層：價值主張</div>
+                    <div style="font-size:0.9rem; margin-top:5px;">女性獨立、自我成長。傳遞"做真實的自己"，把傷疤紋成圖騰。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-fingerprint"></i> 差異化要素</h2>
+            <ul>
+                <li style="margin-bottom:10px;"><strong>拒絕完美：</strong>展現小缺點、小情緒，引發"她和我一樣"的共鳴。</li>
+                <li style="margin-bottom:10px;"><strong>原生家庭：</strong>將其作為獨特記憶點，展現從創傷到蛻變的歷程。</li>
+                <li style="margin-bottom:10px;"><strong>情感智慧：</strong>非說教式灌輸，而是分享經歷與思考，提供人生啟發。</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- SECTION 3: 内容策略 -->
+    <div id="sec-content" class="section container">
+        <div class="card">
+            <h2><i class="fas fa-layer-group"></i> 內容主題設計</h2>
+            <p>採用 <strong>"痛點 - 共鳴 - 價值"</strong> 三層結構。從職場困境、婚戀焦慮等真實痛點出發，通過分享相似經歷引發共鳴，最後輸出方法或思維轉變。</p>
+            
+            <h3 style="margin-bottom:10px;">五大核心選題方向 (點擊切換)</h3>
+            <div class="topic-nav">
+                <button class="topic-btn active" onclick="showTopic(0)">情緒管理(重)</button>
+                <button class="topic-btn" onclick="showTopic(1)">自我成長</button>
+                <button class="topic-btn" onclick="showTopic(2)">女性職場</button>
+                <button class="topic-btn" onclick="showTopic(3)">情感關係</button>
+                <button class="topic-btn" onclick="showTopic(4)">生活智慧</button>
+            </div>
+
+            <!-- 动态内容区 -->
+            <div id="topic-0" class="topic-content active">
+                <p><strong>具體內容：</strong>原生家庭創傷療癒、情緒調節技巧、壓力管理。</p>
+                <p><strong>價值：</strong>女性是"高需求供給側"。美美的經歷是核心素材，提供情感支持。</p>
+                <p><strong>頻率：</strong>每週 2-3 條</p>
+            </div>
+            <div id="topic-1" class="topic-content">
+                <p><strong>具體內容：</strong>個人品牌建設、職業規劃、技能提升。</p>
+                <p><strong>價值：</strong>利用美美"個人品牌"業務背景，分享從0到1經驗，滿足獨立需求。</p>
+                <p><strong>頻率：</strong>每週 2-3 條</p>
+            </div>
+            <div id="topic-2" class="topic-content">
+                <p><strong>具體內容：</strong>職場人際、性別歧視應對、轉型經驗。</p>
+                <p><strong>價值：</strong>解決實際問題，提升影響力。</p>
+                <p><strong>頻率：</strong>每週 1-2 條</p>
+            </div>
+            <div id="topic-3" class="topic-content">
+                <p><strong>具體內容：</strong>親密關係經營、單身態度、自我價值。</p>
+                <p><strong>價值：</strong>引發廣泛共鳴，擴大受眾池。</p>
+                <p><strong>頻率：</strong>每週 2-3 條</p>
+            </div>
+            <div id="topic-4" class="topic-content">
+                <p><strong>具體內容：</strong>人生感悟、價值觀探討、生活哲學。</p>
+                <p><strong>價值：</strong>傳遞深度價值，形成獨特標籤。</p>
+                <p><strong>頻率：</strong>每週 1-2 條</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-list-ol"></i> 具體選題建議 (Top 10)</h2>
+            <details>
+                <summary>點擊查看10個具體標題</summary>
+                <div class="details-content">
+                    <ol style="padding-left:15px; line-height:1.8;">
+                        <li>原生家庭創傷系列："那些年，原生家庭給我的禮物"</li>
+                        <li>情緒管理："如何在崩潰邊緣找回平靜"</li>
+                        <li>個人品牌："從0到1，我是如何建立個人IP的"</li>
+                        <li>職場困境："當女性在職場遇到天花板"</li>
+                        <li>自我價值："你遠比自己想象的更有價值"</li>
+                        <li>親密關係："如何在愛別人之前先愛自己"</li>
+                        <li>單身態度："單身不是妥協，而是選擇"</li>
+                        <li>成長心態："把每一次挫折都變成禮物"</li>
+                        <li>時間管理："全職媽媽也能實現自我價值"</li>
+                        <li>人生智慧："40歲才明白的人生道理"</li>
+                    </ol>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <!-- SECTION 4: 执行与剧本 -->
+    <div id="sec-execution" class="section container">
+        <div class="card">
+            <h2><i class="fas fa-film"></i> 劇本結構與模板</h2>
+            <p><strong>黃金結構：</strong>黃金3秒(痛點/懸念) + 情感遞進(15-20s) + 價值收尾(5-7s)。</p>
+            
+            <h3>模板示例：原生家庭主題</h3>
+            <table class="script-table">
+                <tr>
+                    <th>鏡號</th>
+                    <th>畫面</th>
+                    <th>台詞 & 音效</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>近景：略顯疲憊，眼神低垂</td>
+                    <td>"你有沒有覺得，自己永遠無法擺脫原生家庭的陰影？"<br><em style="font-size:0.8rem; color:var(--text-sub);">(輕柔鋼琴前奏)</em></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>閃回：童年畫面(黑白)</td>
+                    <td>"小時候，我總是在父母的爭吵聲中入睡..."<br><em style="font-size:0.8rem; color:var(--text-sub);">(音效：爭吵聲)</em></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>中景：抬頭，眼神堅定</td>
+                    <td>"直到有一天，我意識到，受害者心態才是真正的牢籠。"</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>特寫：微笑，堅定</td>
+                    <td>"你也可以的。關注我，一起走出陰影。"<br><em style="font-size:0.8rem; color:var(--text-sub);">(音樂高潮)</em></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-tasks"></i> 雙平台運營策略</h2>
+            
+            <details open>
+                <summary>抖音 (日更1-2條)</summary>
+                <div class="details-content">
+                    <p><strong>算法：</strong>互動權重(收藏>評論>轉發)。</p>
+                    <p><strong>策略：</strong>快節奏(20-30s)、強情緒。每3-5秒一個信息點。結尾設置互動話題提高評論率。</p>
+                    <p><strong>時間：</strong>晚8-10點。</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>視頻號 (週更2-3條)</summary>
+                <div class="details-content">
+                    <p><strong>機制：</strong>社交推薦+熟人背書。</p>
+                    <p><strong>策略：</strong>有深度(30-60s)、高價值。利用私域啟動流量，引導"分享給需要的朋友"。</p>
+                    <p><strong>時間：</strong>週末上午10點或晚8點。</p>
+                </div>
+            </details>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-calendar-alt"></i> 3個月發展計劃</h2>
+            <div style="border-left:4px solid var(--accent); padding-left:20px; margin-top:10px;">
+                <div style="margin-bottom:20px;">
+                    <strong style="color:var(--primary); font-size:1.05rem;">第1個月：基礎建設期</strong>
+                    <p>完成人設/視覺設計。發布20-30條抖音，3-5條視頻號。積累初始粉絲1000-5000。</p>
+                </div>
+                <div style="margin-bottom:20px;">
+                    <strong style="color:var(--primary); font-size:1.05rem;">第2個月：內容優化期</strong>
+                    <p>嘗試直播互動。粉絲增長至5000-20000。建立社群，開始私域運營。</p>
+                </div>
+                <div>
+                    <strong style="color:var(--primary); font-size:1.05rem;">第3個月：商業探索期</strong>
+                    <p>推出付費產品（如9.9元體驗課）。嘗試商業合作。月收入目標1-3萬元。</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 新增：联系方式二维码卡片 (上下垂直分布) -->
+        <div class="card qr-card">
+            <h2><i class="fas fa-qrcode"></i> 聯繫與合作</h2>
+            <p style="text-align:center; margin-bottom:20px;">掃描下方二維碼，開啟合作之旅</p>
+            
+            <div class="qr-label">公域入口</div>
+            <img src="https://youke1.picui.cn/s1/2025/11/21/692037c329b45.jpg" alt="公域二維碼">
+            
+            <div class="qr-label" style="margin-top:15px;">私域通道</div>
+            <img src="https://youke1.picui.cn/s1/2025/11/21/692036c9c9de0.jpg" alt="私域二維碼">
+        </div>
+
+    </div>
+
+    <!-- 底部导航 -->
+    <nav class="navbar">
+        <div class="nav-item active" onclick="switchTab(this, 'sec-market')">
+            <i class="fas fa-search"></i> 深度洞察
+        </div>
+        <div class="nav-item" onclick="switchTab(this, 'sec-persona')">
+            <i class="fas fa-user-check"></i> 人設構建
+        </div>
+        <div class="nav-item" onclick="switchTab(this, 'sec-content')">
+            <i class="fas fa-book-open"></i> 內容策略
+        </div>
+        <div class="nav-item" onclick="switchTab(this, 'sec-execution')">
+            <i class="fas fa-rocket"></i> 執行落地
+        </div>
+    </nav>
+
+    <script>
+        // 导航切换
+        function switchTab(el, secId) {
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            el.classList.add('active');
+            document.getElementById(secId).classList.add('active');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // 选题切换
+        function showTopic(index) {
+            document.querySelectorAll('.topic-btn').forEach((b, i) => {
+                if(i === index) b.classList.add('active');
+                else b.classList.remove('active');
+            });
+            document.querySelectorAll('.topic-content').forEach((c, i) => {
+                if(i === index) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        // 图表初始化 (调整颜色适配新主题)
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('marketChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['情感經濟(萬億)', '女性用戶(億)', '成長付費增速'],
+                    datasets: [{
+                        label: '市場潛力',
+                        data: [2, 6.24, 20],
+                        backgroundColor: [
+                            'rgba(255, 153, 172, 0.7)', /* 粉 */
+                            'rgba(157, 78, 221, 0.7)',  /* 紫 */
+                            'rgba(238, 187, 77, 0.7)'   /* 金 */
+                        ],
+                        borderColor: 'transparent',
+                        borderRadius: 8,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { 
+                            beginAtZero: true, 
+                            ticks: { color: '#83769c' }, 
+                            grid: { color: 'rgba(0,0,0,0.05)' } 
+                        },
+                        x: { 
+                            ticks: { color: '#5a4b6e' }, 
+                            grid: { display: false } 
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
