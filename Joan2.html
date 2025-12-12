@@ -1,0 +1,505 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>邻家姐姐型保险顾问 - 短视频账号定位方案</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            background-color: #FFFFFF;
+        }
+        .card {
+            background-color: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 1.25rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            overflow: hidden;
+            position: relative;
+        }
+        .card:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+        .highlight-gradient-blue {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0), rgba(59, 130, 246, 0.05));
+        }
+        .highlight-gradient-purple {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0), rgba(139, 92, 246, 0.05));
+        }
+        .highlight-gradient-green {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0), rgba(34, 197, 94, 0.05));
+        }
+        .highlight-gradient-orange {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0), rgba(249, 115, 22, 0.05));
+        }
+        .highlight-gradient-pink {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0), rgba(236, 72, 153, 0.05));
+        }
+        .text-gradient {
+            background: linear-gradient(90deg, #3B82F6, #8B5CF6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .chart-container {
+            position: relative;
+            height: 200px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <div class="max-w-7xl mx-auto p-4 md:p-8">
+        <!-- 主标题 -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 mb-6">
+            <div class="card md:col-span-4 p-8 flex flex-col justify-center">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-blue"></div>
+                <div class="relative">
+                    <div class="text-sm text-blue-500 font-medium tracking-wider uppercase mb-2">Insurance Content Strategy</div>
+                    <h1 class="text-4xl md:text-6xl font-bold text-gray-800 leading-tight">邻家姐姐型<br class="hidden md:block">保险顾问</h1>
+                    <p class="text-xl text-gray-600 mt-4 max-w-3xl">真实、专业、温暖的保险短视频账号定位方案</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 人物IP定位 -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 mb-6">
+            <div class="card md:col-span-2 p-8 flex flex-col">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-purple"></div>
+                <div class="relative flex-grow">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-user-check text-purple-500 text-xl"></i>
+                        <h2 class="text-2xl font-bold text-gray-800">人物IP定位</h2>
+                    </div>
+                    <h3 class="text-3xl font-bold text-gradient mb-4">邻家姐姐型保险顾问</h3>
+                    <p class="text-gray-600 mb-6">打破保险从业者刻板印象，以真实、温暖、专业的形象拉近距离，让观众感受到"可以聊家常的朋友"而非"只想卖保险的业务员"。</p>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-purple-500 mt-1.5"></i>
+                            <span class="text-gray-700"><strong>真实</strong>：不完美但真诚的保险从业者形象</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-purple-500 mt-1.5"></i>
+                            <span class="text-gray-700"><strong>温暖</strong>：像姐姐一样贴心的理财建议者</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-purple-500 mt-1.5"></i>
+                            <span class="text-gray-700"><strong>专业</strong>：10年经验积累的实战型顾问</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-purple-500 mt-1.5"></i>
+                            <span class="text-gray-700"><strong>非典型</strong>：拒绝说教、不打鸡血的温和风格</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card md:col-span-2 p-8 flex flex-col">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-green"></div>
+                <div class="relative flex-grow">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-lightbulb text-green-500 text-xl"></i>
+                        <h2 class="text-2xl font-bold text-gray-800">差异化优势</h2>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-green-50 rounded-lg p-4">
+                            <div class="flex items-center gap-2 mb-2">
+                                <i class="fa-solid fa-trophy text-green-600"></i>
+                                <h4 class="font-bold text-gray-800">10年从业经历的真实性</h4>
+                            </div>
+                            <p class="text-sm text-gray-600">从大学兼职起步、靠Cold Call积累客户的经历本身就是一个很好的故事，真实的成长轨迹能够让观众产生信任感。</p>
+                        </div>
+                        
+                        <div class="bg-green-50 rounded-lg p-4">
+                            <div class="flex items-center gap-2 mb-2">
+                                <i class="fa-solid fa-heart text-green-600"></i>
+                                <h4 class="font-bold text-gray-800">非典型的温和销售风格</h4>
+                            </div>
+                            <p class="text-sm text-gray-600">先聊家常、市场趋势再切入理财建议的软销风格，契合90后、95后消费者更愿意为专业价值买单的趋势。</p>
+                        </div>
+                        
+                        <div class="bg-green-50 rounded-lg p-4">
+                            <div class="flex items-center gap-2 mb-2">
+                                <i class="fa-solid fa-venus text-green-600"></i>
+                                <h4 class="font-bold text-gray-800">独特的女性视角</h4>
+                            </div>
+                            <p class="text-sm text-gray-600">83%的女性更愿意选择女性理财顾问，特别是针对45岁以上高消费力女性群体具有天然优势。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 目标受众分析 -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 mb-6">
+            <div class="card md:col-span-2 p-8 flex flex-col">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-orange"></div>
+                <div class="relative flex-grow">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-users text-orange-500 text-xl"></i>
+                        <h2 class="text-2xl font-bold text-gray-800">目标受众分析</h2>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">25-45岁主力消费群体</h3>
+                        <p class="text-gray-600 mb-4">这一群体呈现明显的"实用主义"特征，注重产品的实用性和性价比，愿意为教育、健康等"刚需"支付溢价。</p>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-orange-50 rounded-lg p-4">
+                                <div class="text-3xl font-bold text-orange-600">42%</div>
+                                <div class="text-sm text-gray-600">职场技能类视频收藏率</div>
+                            </div>
+                            <div class="bg-orange-50 rounded-lg p-4">
+                                <div class="text-3xl font-bold text-orange-600">73%</div>
+                                <div class="text-sm text-gray-600">用户通过短视频完成购买调研</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">45岁以上高净值女性群体</h3>
+                        <p class="text-gray-600 mb-4">极具价值的细分市场，理财参与度高，风险偏好保守，专业服务需求强。</p>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-orange-50 rounded-lg p-4">
+                                <div class="text-3xl font-bold text-orange-600">78%</div>
+                                <div class="text-sm text-gray-600">45-55岁女性主动理财比例</div>
+                            </div>
+                            <div class="bg-orange-50 rounded-lg p-4">
+                                <div class="text-3xl font-bold text-orange-600">83%</div>
+                                <div class="text-sm text-gray-600">女性更愿意选择女性理财顾问</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card md:col-span-2 p-8 flex flex-col">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-pink"></div>
+                <div class="relative flex-grow flex flex-col">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-chart-pie text-pink-500 text-xl"></i>
+                        <h2 class="text-2xl font-bold text-gray-800">女性理财偏好分析</h2>
+                    </div>
+                    
+                    <div class="flex-grow">
+                        <div class="chart-container">
+                            <canvas id="preferenceChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full bg-pink-500"></div>
+                                <span class="text-sm text-gray-700">黄金ETF和养老基金</span>
+                            </div>
+                            <span class="text-sm font-medium text-gray-800">45%</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full bg-pink-300"></div>
+                                <span class="text-sm text-gray-700">银行存款</span>
+                            </div>
+                            <span class="text-sm font-medium text-gray-800">30%</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full bg-pink-200"></div>
+                                <span class="text-sm text-gray-700">保险理财</span>
+                            </div>
+                            <span class="text-sm font-medium text-gray-800">25%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 内容策略 -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 mb-6">
+            <div class="card md:col-span-4 p-8">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-blue"></div>
+                <div class="relative">
+                    <div class="flex items-center gap-3 mb-6">
+                        <i class="fa-solid fa-pen-to-square text-blue-500 text-xl"></i>
+                        <h2 class="text-2xl font-bold text-gray-800">内容策略与创作框架</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- 模板一 -->
+                        <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                                <i class="fa-solid fa-file-invoice-dollar text-blue-600 text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-800 mb-2">储蓄分红险内容模板</h3>
+                            <p class="text-gray-600 text-sm mb-4">针对主推的储蓄分红险产品，设计真实案例分享、产品对比分析和场景化应用三种内容模板。</p>
+                            
+                            <div class="space-y-3">
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-play-circle text-blue-500 mt-1 text-sm"></i>
+                                    <span class="text-sm text-gray-700">真实案例分享型</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-play-circle text-blue-500 mt-1 text-sm"></i>
+                                    <span class="text-sm text-gray-700">产品对比分析型</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-play-circle text-blue-500 mt-1 text-sm"></i>
+                                    <span class="text-sm text-gray-700">场景化应用型</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 模板二 -->
+                        <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+                            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                                <i class="fa-solid fa-person-shelter text-purple-600 text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-800 mb-2">退休规划险内容模板</h3>
+                            <p class="text-gray-600 text-sm mb-4">针对退休规划需求，设计养老规划科普、退休生活展示和风险警示三种内容模板。</p>
+                            
+                            <div class="space-y-3">
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-play-circle text-purple-500 mt-1 text-sm"></i>
+                                    <span class="text-sm text-gray-700">养老规划科普型</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-play-circle text-purple-500 mt-1 text-sm"></i>
+                                    <span class="text-sm text-gray-700">退休生活展示型</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-play-circle text-purple-500 mt-1 text-sm"></i>
+                                    <span class="text-sm text-gray-700">风险警示型</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 模板三 -->
+                        <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                                <i class="fa-solid fa-comments text-green-600 text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-800 mb-2">生活化话题切入技巧</h3>
+                            <p class="text-gray-600 text-sm mb-4">通过场景化导入、类比生活化和热点话题借势，让保险内容变得有趣、有温度。</p>
+                            
+                            <div class="space-y-3">
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-play-circle text-green-500 mt-1 text-sm"></i>
+                                    <span class="text-sm text-gray-700">场景化导入法</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-play-circle text-green-500 mt-1 text-sm"></i>
+                                    <span class="text-sm text-gray-700">类比生活化</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-play-circle text-green-500 mt-1 text-sm"></i>
+                                    <span class="text-sm text-gray-700">热点话题借势</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 拍摄执行与平台运营 -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 mb-6">
+            <div class="card md:col-span-2 p-8 flex flex-col">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-green"></div>
+                <div class="relative flex-grow">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-video text-green-500 text-xl"></i>
+                        <h2 class="text-2xl font-bold text-gray-800">拍摄执行与风格把控</h2>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800 mb-3">新手友好型拍摄技巧</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-xs font-bold mt-0.5">1</div>
+                                    <div>
+                                        <h4 class="font-medium text-gray-800">场景选择</h4>
+                                        <p class="text-sm text-gray-600">选择熟悉的环境如家中客厅或书房，让自己更放松</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-xs font-bold mt-0.5">2</div>
+                                    <div>
+                                        <h4 class="font-medium text-gray-800">光线要求</h4>
+                                        <p class="text-sm text-gray-600">选择窗边自然光，避免顶光造成面部阴影</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-xs font-bold mt-0.5">3</div>
+                                    <div>
+                                        <h4 class="font-medium text-gray-800">拍摄角度</h4>
+                                        <p class="text-sm text-gray-600">机位与眼睛平齐或稍低，避免向上看镜头</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800 mb-3">表情管理与镜头感培养</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-start gap-3">
+                                    <i class="fa-solid fa-face-smile text-green-500 mt-1.5"></i>
+                                    <span class="text-sm text-gray-700">说话时嘴角保持15°上扬的微笑曲线</span>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i class="fa-solid fa-eye text-green-500 mt-1.5"></i>
+                                    <span class="text-sm text-gray-700">把镜头当作最亲的朋友，死死盯着镜头前的中间</span>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i class="fa-solid fa-hand-paper text-green-500 mt-1.5"></i>
+                                    <span class="text-sm text-gray-700">适当加入贴合情景的微表情和小幅度肢体动作</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card md:col-span-2 p-8 flex flex-col">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-orange"></div>
+                <div class="relative flex-grow">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-share-nodes text-orange-500 text-xl"></i>
+                        <h2 class="text-2xl font-bold text-gray-800">平台选择与运营策略</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="bg-orange-50 rounded-xl p-5">
+                            <div class="flex items-center gap-2 mb-3">
+                                <i class="fa-brands fa-tiktok text-orange-600 text-2xl"></i>
+                                <h3 class="font-bold text-gray-800">抖音平台</h3>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3">主阵地，算法推荐机制成熟，容易获得流量曝光。</p>
+                            <ul class="text-xs text-gray-600 space-y-1">
+                                <li>• 15-60秒短视频</li>
+                                <li>• 娱乐性强的内容</li>
+                                <li>• 利用热门音乐、话题</li>
+                                <li>• 晚7-9点发布</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-orange-50 rounded-xl p-5">
+                            <div class="flex items-center gap-2 mb-3">
+                                <i class="fa-brands fa-weixin text-orange-600 text-2xl"></i>
+                                <h3 class="font-bold text-gray-800">视频号平台</h3>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3">辅助阵地，与私域流量紧密结合，转化效果好。</p>
+                            <ul class="text-xs text-gray-600 space-y-1">
+                                <li>• 3-5分钟深度内容</li>
+                                <li>• 专业知识分享</li>
+                                <li>• 引导到私域转化</li>
+                                <li>• 周末发布</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-3">内容发布计划</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between bg-white rounded-lg p-3 border border-gray-200">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-calendar-day text-orange-500"></i>
+                                    <span class="font-medium text-gray-800">日常发布</span>
+                                </div>
+                                <span class="text-sm text-gray-600">每天1条短视频</span>
+                            </div>
+                            <div class="flex items-center justify-between bg-white rounded-lg p-3 border border-gray-200">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-calendar-week text-orange-500"></i>
+                                    <span class="font-medium text-gray-800">深度内容</span>
+                                </div>
+                                <span class="text-sm text-gray-600">每周1-2条长视频</span>
+                            </div>
+                            <div class="flex items-center justify-between bg-white rounded-lg p-3 border border-gray-200">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-tower-broadcast text-orange-500"></i>
+                                    <span class="font-medium text-gray-800">直播安排</span>
+                                </div>
+                                <span class="text-sm text-gray-600">每周1-2次直播</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 结语 -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
+            <div class="card md:col-span-4 p-8 flex flex-col justify-center">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-purple"></div>
+                <div class="relative text-center">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">开启温暖保险顾问之路</h2>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-6">
+                        记住，<strong class="text-purple-600">真实是最强大的力量</strong>。您不需要成为完美的"保险专家"，只需要做最真实的自己，用10年的从业经验和温暖的人格魅力，为观众提供有价值的保险知识和理财建议。
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <div class="bg-purple-100 text-purple-700 px-6 py-3 rounded-full font-medium">差异化优势</div>
+                        <div class="bg-purple-100 text-purple-700 px-6 py-3 rounded-full font-medium">真实内容</div>
+                        <div class="bg-purple-100 text-purple-700 px-6 py-3 rounded-full font-medium">温暖表达</div>
+                        <div class="bg-purple-100 text-purple-700 px-6 py-3 rounded-full font-medium">专业价值</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    // 女性理财偏好图表
+    const ctx = document.getElementById('preferenceChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['黄金ETF和养老基金', '银行存款', '保险理财'],
+            datasets: [{
+                data: [45, 30, 25],
+                backgroundColor: [
+                    '#EC4899',
+                    '#F472B6',
+                    '#F9A8D4'
+                ],
+                borderWidth: 0,
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '70%',
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    enabled: true,
+                    backgroundColor: '#FFFFFF',
+                    titleColor: '#333333',
+                    bodyColor: '#666666',
+                    borderColor: '#EEEEEE',
+                    borderWidth: 1,
+                    padding: 10,
+                    cornerRadius: 8,
+                    displayColors: true,
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.label}: ${context.raw}%`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+</html>
