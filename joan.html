@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Joan | 保险账号全案深度定位</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* 温暖高级配色 */
+            --primary: #d35400; /* 焦糖暖橙 */
+            --primary-light: #edbb99;
+            --secondary: #2c3e50; /* 深邃蓝灰 */
+            --bg-color: #fdf2e9;
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
+            --text-main: #2d3436;
+            --text-sub: #636e72;
+            --radius: 16px;
+            --nav-height: 75px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            background-image: radial-gradient(circle at 10% 20%, rgb(254, 235, 214) 0%, rgb(255, 255, 255) 90%);
+            color: var(--text-main);
+            height: 100vh;
+            overflow: hidden;
+            line-height: 1.6;
+        }
+
+        /* 动态背景 */
+        .bg-shape {
+            position: absolute;
+            filter: blur(60px);
+            z-index: -1;
+            opacity: 0.7;
+            animation: move 20s infinite alternate;
+        }
+        .shape-1 { top: -10%; left: -10%; width: 300px; height: 300px; background: #ffeaa7; border-radius: 40% 60% 70% 30%; }
+        .shape-2 { bottom: 10%; right: -5%; width: 250px; height: 250px; background: #fab1a0; border-radius: 60% 40% 30% 70%; }
+        
+        @keyframes move { from { transform: translate(0,0) rotate(0deg); } to { transform: translate(20px, 40px) rotate(20deg); } }
+
+        /* 布局容器 */
+        .app-layout {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        /* 顶部栏 */
+        .header {
+            padding: 20px 20px 10px;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            z-index: 10;
+        }
+        .header h1 { font-size: 1.3rem; color: var(--secondary); font-weight: 800; }
+        .header p { font-size: 0.8rem; color: var(--text-sub); margin-top: 4px; }
+
+        /* 内容滚动区 */
+        .content-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            padding-bottom: calc(var(--nav-height) + 20px);
+            scroll-behavior: smooth;
+        }
+
+        /* 页面切换 */
+        .tab-page { display: none; animation: fadeIn 0.3s ease; }
+        .tab-page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 通用卡片 */
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .card-head {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed rgba(0,0,0,0.1);
+        }
+        .card-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--secondary);
+            color: #fff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 1rem;
+        }
+        .card-title { font-weight: 700; color: var(--secondary); font-size: 1.05rem; }
+
+        /* 标签云 */
+        .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+        .tag {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .tag.orange { background: rgba(211, 84, 0, 0.1); color: var(--primary); }
+        .tag.blue { background: rgba(44, 62, 80, 0.1); color: var(--secondary); }
+
+        /* 强调文字 */
+        .highlight-box {
+            background: #fff;
+            border-left: 4px solid var(--primary);
+            padding: 12px;
+            border-radius: 0 8px 8px 0;
+            margin: 10px 0;
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        /* 折叠面板 (核心交互) */
+        .accordion-item {
+            background: rgba(255,255,255,0.5);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.6);
+        }
+        .accordion-header {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--secondary);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .accordion-header:active { background: rgba(255,255,255,0.8); }
+        .accordion-header i { transition: transform 0.3s; color: var(--text-sub); }
+        .accordion-header.active i { transform: rotate(180deg); color: var(--primary); }
+        
+        .accordion-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            background: rgba(255,255,255,0.3);
+        }
+        .accordion-content {
+            padding: 15px;
+            font-size: 0.95rem;
+            color: #444;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+        .accordion-header.active + .accordion-body { max-height: 2000px; } /* 允许长内容 */
+
+        /* 列表 */
+        ul.detail-list { list-style: none; padding-left: 5px; }
+        ul.detail-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        ul.detail-list li::before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        /* 脚本样式 */
+        .script-card {
+            background: #fff;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+        .script-part { margin-bottom: 12px; }
+        .script-tag {
+            display: inline-block;
+            background: var(--secondary);
+            color: #fff;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-bottom: 4px;
+        }
+        .script-text { font-size: 0.95rem; color: #333; }
+
+        /* 底部导航 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: var(--nav-height);
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-around;
+            padding-bottom: env(safe-area-inset-bottom);
+            z-index: 100;
+        }
+        .nav-btn {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #95a5a6;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .nav-btn i { font-size: 1.4rem; margin-bottom: 4px; }
+        .nav-btn span { font-size: 0.75rem; font-weight: 500; }
+        .nav-btn.active { color: var(--primary); transform: translateY(-3px); }
+
+    </style>
+</head>
+<body>
+
+    <!-- 动态背景层 -->
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+
+    <div class="app-layout">
+        <!-- 头部 -->
+        <header class="header">
+            <h1>Joan 保险定位方案</h1>
+            <p>真实 · 专业 · 温暖 | 深度实操指南</p>
+        </header>
+
+        <!-- 内容区域 -->
+        <div class="content-container">
+
+            <!-- 1. IP定位 -->
+            <div id="tab1" class="tab-page active">
+                <div class="card">
+                    <div class="card-head">
+                        <div class="card-icon"><i class="fas fa-id-card"></i></div>
+                        <div class="card-title">人物 IP 核心画像</div>
+                    </div>
+                    <div class="highlight-box">
+                        <strong>核心定位：</strong>邻家姐姐型保险顾问<br>
+                        <strong>一句话定义：</strong>不贩卖焦虑，只提供底气的实战派顾问。
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleItem(this)">
+                            关键画像标签 (The Core Identity) <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <ul class="detail-list">
+                                    <li><strong>显性标签：</strong>澳门资深财富顾问 / 10年行业幸存者 / 全职妈妈。</li>
+                                    <li><strong>隐性标签：</strong>非典型E人 / 清醒的长期主义者 / 软销（Soft Sell）。</li>
+                                    <li><strong>IP关键词：</strong>「外柔内刚」、「人间清醒」、「有温度的专业」。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleItem(this)">
+                            人格维度分析 (Personality) <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <p><strong>1. 能量场：中频稳定的「恒温型」选手</strong><br>
+                                您的能量是“恒温”的，给人情绪稳定的安全感。这种特质非常适合吸引高净值人群（特别是45+女性），因为这类人群寻找的是稳靠，而非刺激。</p>
+                                <br>
+                                <p><strong>2. 沟通风格：润物细无声的「聊天流」</strong><br>
+                                您不是站在讲台上拿着教鞭的老师，而是坐在对面喝咖啡的朋友。反感说教，擅长先聊家常、聊宏观经济（美联储、加息），再切入产品。</p>
+                                <br>
+                                <p><strong>3. 底层驱动：极强的「韧性」与「现实感」</strong><br>
+                                10年前能靠Cold Call活下来，说明内心极度坚韧。外表温柔，内核硬净（Hardcore）。这种“温柔的杀手”反差最迷人。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleItem(this)">
+                            专业价值与差异化 (Value) <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <ul class="detail-list">
+                                    <li><strong>视角高度：</strong>从“卖保单”到“谈周期”。不局限于条款，关注美联儲動向，将IP位阶拉高至“财富顾问”。</li>
+                                    <li><strong>信任背书：</strong>“10年全職”+“Cold Call起步”。这代表经过市场验证的靠譜。</li>
+                                    <li><strong>真实案例：</strong>拥有真实的高端案例，是高客单价转化的核心武器。</li>
+                                    <li><strong>避免撞型：</strong>传统保险博主多为“专家”说教，您走“邻家姐姐”路线；不推销产品，而是分享“生活中的理财智慧”。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. 受众分析 -->
+            <div id="tab2" class="tab-page">
+                <div class="card">
+                    <div class="card-head">
+                        <div class="card-icon"><i class="fas fa-users"></i></div>
+                        <div class="card-title">受众深度洞察</div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleItem(this)">
+                            主力群体 (25-45岁) <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <p><strong>特征：实用主义、决策理性</strong></p>
+                                <ul class="detail-list">
+                                    <li><strong>注意力短：</strong>前1.5秒决定去留，快节奏剪辑完播率高47%。</li>
+                                    <li><strong>依赖内容：</strong>产品测评视频转化率高2.3倍，73%通过视频做调研。</li>
+                                    <li><strong>保险需求：</strong>随着家庭责任增加，倾向建立家庭财富和健康护城河；决策趋于理性，愿为教育、健康等“刚需”支付溢价。</li>
+                                    <li><strong>内容偏好：</strong>职场技能类收藏率高，育儿内容渗透率达89%。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleItem(this)">
+                            高净值女性 (45岁+) <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <p><strong>特征：极具价值的细分市场</strong></p>
+                                <ul class="detail-list">
+                                    <li><strong>理财参与度高：</strong>78%主动理财，倾向黄金ETF和养老基金。</li>
+                                    <li><strong>风险厌恶：</strong>过半数仅接受10%以内亏损，14.6%坚持“零亏损”。</li>
+                                    <li><strong>付费意愿：</strong>愿意额外支付1%以上费用购买专业投顾服务（比男性高一倍）。</li>
+                                    <li><strong>性别优势：</strong>83%的女性更愿意选择女性理财顾问。</li>
+                                    <li><strong>内容偏好：</strong>故事化表达（张女士的案例）、情感共鸣（焦虑、掌控感）、实用性（养老储备）。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 内容策略 -->
+            <div id="tab3" class="tab-page">
+                <div class="card">
+                    <div class="card-head">
+                        <div class="card-icon"><i class="fas fa-pencil-alt"></i></div>
+                        <div class="card-title">内容创作方法论</div>
+                    </div>
+
+                    <div class="highlight-box" style="margin-bottom:15px;">
+                        <strong>核心原则：</strong>拒绝说教与硬销，内容有趣以兴趣导向，生活化切入。
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleItem(this)">
+                            切入技巧：生活化话题 <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <p><strong>1. 场景化导入法</strong></p>
+                                <ul class="detail-list">
+                                    <li><strong>职场场景：</strong>“王哥，看你常加班，有没有给自己加个‘健康缓冲垫’？百万医疗险就是不用掏大钱的缓冲。”</li>
+                                    <li><strong>社区场景：</strong>“张姐，小区装了新器材，孩子玩耍有意外防护吗？其实小额意外险很有用。”</li>
+                                </ul>
+                                <br>
+                                <p><strong>2. 类比生活化</strong></p>
+                                <ul class="detail-list">
+                                    <li><strong>手机贴膜：</strong>“给手机贴膜是为了保护它，人生也需要一层膜规避风险。”</li>
+                                    <li><strong>下金蛋的鹅：</strong>强调保护个人创造价值的能力。</li>
+                                </ul>
+                                <br>
+                                <p><strong>3. 热点借势</strong></p>
+                                <p>利用利率下行（20年来最低）、养老政策变化（预定利率下调）自然切入。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 style="margin: 20px 0 10px; color:var(--primary);">储蓄分红险 · 爆款脚本模板</h4>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleItem(this)">
+                            模板一：真实案例分享型 <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <strong>标题：</strong>45岁李女士的养老规划：每年存10万，55岁退休月领4000多
+                                <div class="script-card">
+                                    <div class="script-part">
+                                        <span class="script-tag">开场 3秒</span>
+                                        <div class="script-text">“今天给大家分享一个真实案例，45岁的李女士通过储蓄分红险实现了提前退休的梦想。”</div>
+                                    </div>
+                                    <div class="script-part">
+                                        <span class="script-tag">案例 15秒</span>
+                                        <div class="script-text">“李女士45岁，每年拿出10万放到高领取的产品里，到了55岁刚交完钱就原地退休。每年领4.88万，算下来每月额外到手4000多。”</div>
+                                    </div>
+                                    <div class="script-part">
+                                        <span class="script-tag">解析 15秒</span>
+                                        <div class="script-text">“优势在于除了领钱，账户里还长期有几十万余额，长寿还有两笔额外奖励金。”</div>
+                                    </div>
+                                    <div class="script-part">
+                                        <span class="script-tag">升华 7秒</span>
+                                        <div class="script-text">“其实养老规划不需要等到老了才开始，45岁正是黄金期。”</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleItem(this)">
+                            模板二：产品对比分析型 <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <strong>标题：</strong>储蓄分红险 vs 银行理财：低利率时代怎么选？
+                                <div class="script-card">
+                                    <div class="script-part">
+                                        <span class="script-tag">痛点 5秒</span>
+                                        <div class="script-text">“银行存款利率持续下调，五年期已跌破1.4%，你的钱还只放在银行吗？”</div>
+                                    </div>
+                                    <div class="script-part">
+                                        <span class="script-tag">对比 20秒</span>
+                                        <div class="script-text">“银行理财收益不确定。而储蓄分红险，保证利率1.75%，加上分红预期可达3-4%，最重要的是锁定了长期利率。”</div>
+                                    </div>
+                                    <div class="script-part">
+                                        <span class="script-tag">引导 5秒</span>
+                                        <div class="script-text">“如果你是40-50岁，想为退休做准备，这可能是更好的选择。评论区留言，我为你分析。”</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 style="margin: 20px 0 10px; color:var(--primary);">退休规划险 · 爆款脚本模板</h4>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleItem(this)">
+                            模板：35岁开始准备晚不晚？ <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <div class="script-card">
+                                    <div class="script-part">
+                                        <span class="script-tag">数据 5秒</span>
+                                        <div class="script-text">“调研显示，40%以上的人认为30-40岁就该开始存养老钱。”</div>
+                                    </div>
+                                    <div class="script-part">
+                                        <span class="script-tag">现状 10秒</span>
+                                        <div class="script-text">“觉得遥远？假设你想65岁后月领5000，按4%复利，50岁前至少要攒够150万。35岁开始一点都不早。”</div>
+                                    </div>
+                                    <div class="script-part">
+                                        <span class="script-tag">方案 15秒</span>
+                                        <div class="script-text">“推荐美元保单：35岁每年投5万，交两年，54岁起领。活多久领多久。”</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 4. 拍摄执行 -->
+            <div id="tab4" class="tab-page">
+                <div class="card">
+                    <div class="card-head">
+                        <div class="card-icon"><i class="fas fa-video"></i></div>
+                        <div class="card-title">拍摄与风格把控</div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleItem(this)">
+                            新手环境与设备设置 <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <ul class="detail-list">
+                                    <li><strong>场景选择：</strong>家中客厅或书房。选一个常用的场景，不用每次都找地方，增加熟悉感。</li>
+                                    <li><strong>光线要求：</strong>窗边自然光最佳。避免顶光（显脸阴影），避免正脸强光过曝。</li>
+                                    <li><strong>拍摄角度：</strong>站着拍：机位与眼睛平齐。坐着拍：机位稍低于眼睛，让自己向下俯视。<strong>切记：</strong>不要向上看镜头，会像翻白眼。</li>
+                                    <li><strong>设备：</strong>手机+三脚架。关闭防抖，保持稳定。麦克风距离嘴15cm。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleItem(this)">
+                            表情管理与镜头感 <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <p><strong>表情管理：</strong></p>
+                                <ul class="detail-list">
+                                    <li><strong>微表情：</strong>苹果肌向上提一公分，嘴角保持15°上扬。</li>
+                                    <li><strong>眨眼：</strong>每5秒完整眨眼1次，避免瞪眼疲劳。</li>
+                                    <li><strong>皱眉：</strong>表达困惑时眉头微蹙，但避免过于严肃。</li>
+                                </ul>
+                                <br>
+                                <p><strong>镜头感培养：</strong></p>
+                                <ul class="detail-list">
+                                    <li><strong>眼神：</strong>死死盯着镜头前的中间。每3秒切换一次眼神方向（左-中-右）。</li>
+                                    <li><strong>闺蜜法：</strong>把镜头当朋友。在镜头后贴张便利贴写上“粉丝小美”，想象在和TA一对一交流。</li>
+                                    <li><strong>肢体：</strong>慢而稳。禁忌抱胸（防御感）、插兜、频繁摸头发。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleItem(this)">
+                            内容呈现风格：温暖邻家 <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <ul class="detail-list">
+                                    <li><strong>语言风格：</strong>口语化，多用“咱们”、“你知道吗”。语速适中，重点处加重停顿。</li>
+                                    <li><strong>内容节奏：</strong>黄金3秒开场 -> 20秒关键内容 -> 5秒行动号召。每3-5秒看一次镜头。</li>
+                                    <li><strong>真实感强化（差异化）：</strong>不追求完美。不穿新衣服（常穿同一件T恤）、不留完美发型（偶尔乱发更亲切）、保留口头禅（“这个这个”）。分享被拒绝的经历。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. 运营合规 -->
+            <div id="tab5" class="tab-page">
+                <div class="card">
+                    <div class="card-head">
+                        <div class="card-icon"><i class="fas fa-clipboard-check"></i></div>
+                        <div class="card-title">平台运营与合规</div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleItem(this)">
+                            双平台选择策略 <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <p><strong>1. 抖音平台（主阵地）</strong></p>
+                                <ul class="detail-list">
+                                    <li><strong>内容：</strong>15-60秒短视频，精华知识，节奏快。</li>
+                                    <li><strong>作用：</strong>算法推荐成熟，公域获客，快速积累粉丝。</li>
+                                    <li><strong>运营：</strong>利用热门音乐、话题标签。</li>
+                                </ul>
+                                <br>
+                                <p><strong>2. 视频号平台（辅助/私域）</strong></p>
+                                <ul class="detail-list">
+                                    <li><strong>内容：</strong>3-5分钟深度内容（案例分析、产品详解）。</li>
+                                    <li><strong>作用：</strong>依托微信生态，维护老客户，转化成交。</li>
+                                    <li><strong>运营：</strong>引导到店/私信，建立会员体系。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleItem(this)">
+                            内容发布节奏 (日更+直播) <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <ul class="detail-list">
+                                    <li><strong>工作日（晚7-9点）：</strong>每天1条短视频（15-60秒）。科普、案例、热点轮换。</li>
+                                    <li><strong>周末（下午/晚）：</strong>每周1-2条长视频（3-5分钟）。深度规划方案、完整客户故事。</li>
+                                    <li><strong>互动：</strong>及时回复评论，回复时提问引导互动。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="highlight-box" style="border-left-color: #e74c3c; margin-top:20px;">
+                        <h4 style="color:#c0392b; margin-bottom:10px;"><i class="fas fa-exclamation-triangle"></i> 风险控制与合规红线</h4>
+                        <ul class="detail-list">
+                            <li><strong>严禁话术：</strong>避免使用“保证收益”、“100%理赔”。强调“风险防范”。</li>
+                            <li><strong>新规要求：</strong>2025年银保监新规要求短视频必须植入风险提示浮窗。</li>
+                            <li><strong>收益描述：</strong>理财型产品不可承诺不确定利益，可以用类比，但不能画饼。</li>
+                            <li><strong>背书禁止：</strong>不得使用保险公司工作人员、学术机构形象进行商业宣传。</li>
+                            <li><strong>引流规则：</strong>抖音避免视频中直接留联系方式；视频号注意微信生态审核。</li>
+                        </ul>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 30px; color: var(--text-sub); font-size: 0.9rem;">
+                        <p>做最真实的自己<br>用10年经验温暖守护每一个家庭</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 底部导航栏 -->
+        <nav class="bottom-nav">
+            <a href="#" class="nav-btn active" onclick="switchTab('tab1', this)">
+                <i class="fas fa-user-circle"></i>
+                <span>IP定位</span>
+            </a>
+            <a href="#" class="nav-btn" onclick="switchTab('tab2', this)">
+                <i class="fas fa-bullseye"></i>
+                <span>受众</span>
+            </a>
+            <a href="#" class="nav-btn" onclick="switchTab('tab3', this)">
+                <i class="fas fa-layer-group"></i>
+                <span>内容</span>
+            </a>
+            <a href="#" class="nav-btn" onclick="switchTab('tab4', this)">
+                <i class="fas fa-camera"></i>
+                <span>执行</span>
+            </a>
+            <a href="#" class="nav-btn" onclick="switchTab('tab5', this)">
+                <i class="fas fa-shield-alt"></i>
+                <span>运营</span>
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        // 页面切换逻辑
+        function switchTab(tabId, btn) {
+            // 切换按钮状态
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // 切换页面内容
+            document.querySelectorAll('.tab-page').forEach(page => page.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+
+            // 滚动回顶部
+            document.querySelector('.content-container').scrollTop = 0;
+        }
+
+        // 折叠面板逻辑
+        function toggleItem(header) {
+            const body = header.nextElementSibling;
+            const isOpen = header.classList.contains('active');
+
+            // 关闭当前组内其他打开的项 (手风琴效果)
+            const parent = header.closest('.card');
+            parent.querySelectorAll('.accordion-header').forEach(h => {
+                if(h !== header) {
+                    h.classList.remove('active');
+                    h.nextElementSibling.style.maxHeight = null;
+                }
+            });
+
+            // 切换当前项
+            if (isOpen) {
+                header.classList.remove('active');
+                body.style.maxHeight = null;
+            } else {
+                header.classList.add('active');
+                body.style.maxHeight = body.scrollHeight + "px";
+            }
+        }
+    </script>
+</body>
+</html>
