@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>澳门傢俬短视频IP打造方案</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#9D65C9',    // 主淡紫色
+                        secondary: '#7B4BB7',  // 深紫色
+                        light: '#F9F6FC',      // 淡紫背景
+                        medium: '#EFE5F5',     // 中等淡紫
+                        dark: '#5A348B',       // 暗紫色
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto { content-visibility: auto; }
+            .nav-active {
+                color: #9D65C9;
+                font-weight: 600;
+                position: relative;
+            }
+            .nav-active::after {
+                content: '';
+                position: absolute;
+                bottom: -4px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: #9D65C9;
+            }
+            .card-hover {
+                transition: all 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(157, 101, 201, 0.15);
+            }
+            .btn-feedback {
+                transition: all 0.2s ease;
+            }
+            .btn-feedback:active {
+                transform: scale(0.95);
+            }
+            /* 分页样式 */
+            .page {
+                display: none;
+                animation: fadeIn 0.4s ease-in-out;
+            }
+            .page.active {
+                display: block;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        }
+    </style>
+</head>
+<body class="bg-light text-gray-700 font-sans pb-20">
+    <!-- 头部标题区 - 所有页面共用 -->
+    <header class="bg-gradient-to-r from-primary to-secondary text-white py-8 px-4">
+        <div class="max-w-md mx-auto text-center">
+            <h1 class="text-2xl md:text-3xl font-bold mb-3">澳门傢俬短视频IP打造方案</h1>
+            <p class="text-white/90 text-sm md:text-base">"澳门傢俬搵家聰"品牌升级策略</p>
+        </div>
+    </header>
+
+    <!-- 分页容器 -->
+    <main class="max-w-md mx-auto px-4 py-8">
+        <!-- 第1页：行业现状与机遇 -->
+        <div class="page active" id="page1">
+            <div class="bg-white rounded-xl shadow-sm p-6 card-hover">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                        <i class="fa-solid fa-chart-line text-primary"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">一、行业现状与机遇</h2>
+                </div>
+                <div class="space-y-4 text-sm md:text-base">
+                    <p>澳门傢俬市场规模达25亿澳门元，年增长率8.3%，中高端定制家具需求增长显著。短视频营销在澳门家居行业渗透率仅35%，存在巨大增长空间。</p>
+                    
+                    <div class="bg-medium/30 rounded-lg p-3">
+                        <h3 class="font-semibold text-gray-800 mb-2">核心数据洞察</h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-primary">60年</div>
+                                <div class="text-xs text-gray-500">品牌历史积淀</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-primary">45%</div>
+                                <div class="text-xs text-gray-500">短视频转化率</div>
+                            </div>
+                            <div class="text-center col-span-2 mt-2">
+                                <div class="text-xl font-bold text-primary">35%</div>
+                                <div class="text-xs text-gray-500">澳门家居行业短视频渗透率</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 mt-3">
+                        <h3 class="font-semibold text-gray-800">行业痛点与机会</h3>
+                        <ul class="list-disc list-inside text-sm space-y-1 text-gray-600">
+                            <li>本地老牌家居品牌线上曝光不足，年轻客群认知度低</li>
+                            <li>中高端客户更关注品牌底蕴和专业度，而非单纯价格</li>
+                            <li>澳门本土家居文化内容稀缺，缺乏有温度的品牌IP</li>
+                            <li>短视频内容同质化严重，缺乏结合本地特色的差异化内容</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第2页：IP定位策略 -->
+        <div class="page" id="page2">
+            <div class="bg-white rounded-xl shadow-sm p-6 card-hover">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                        <i class="fa-solid fa-user-tie text-primary"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">二、IP定位：澳门家居文化传承者</h2>
+                </div>
+                <div class="space-y-4 text-sm md:text-base">
+                    <p>结合60年老字号底蕴与外冷内热的真实性格，打造"专业+温度"并存的家居专家形象，突出澳门本土家居文化传承者的独特定位。</p>
+                    
+                    <div class="grid grid-cols-1 gap-3 mt-4">
+                        <div class="bg-medium/30 rounded-lg p-3">
+                            <h4 class="font-medium text-primary mb-2 flex items-center">
+                                <i class="fa-solid fa-shield-halved mr-2"></i>专业可靠
+                            </h4>
+                            <p>60年品牌积淀，资深专业知识，提供精准的家居解决方案</p>
+                            <div class="mt-2 text-xs text-gray-600 pl-6">
+                                <p>✅ 精通澳门本地户型空间规划技巧</p>
+                                <p>✅ 熟悉中高端材质特性与工艺标准</p>
+                                <p>✅ 能根据客户生活习惯定制专属方案</p>
+                            </div>
+                        </div>
+                        <div class="bg-medium/30 rounded-lg p-3">
+                            <h4 class="font-medium text-primary mb-2 flex items-center">
+                                <i class="fa-solid fa-heart mr-2"></i>外冷内热
+                            </h4>
+                            <p>表面专业冷静，内心热情温暖，形成独特的反差萌人设</p>
+                            <div class="mt-2 text-xs text-gray-600 pl-6">
+                                <p>✅ 镜头前专业严谨，解答问题条理清晰</p>
+                                <p>✅ 生活场景中展现暖心细节（如关心客户需求）</p>
+                                <p>✅ 不刻意煽情，用细节体现温度</p>
+                            </div>
+                        </div>
+                        <div class="bg-medium/30 rounded-lg p-3">
+                            <h4 class="font-medium text-primary mb-2 flex items-center">
+                                <i class="fa-solid fa-landmark mr-2"></i>文化传承
+                            </h4>
+                            <p>澳门本土家居文化的守护者和传播者，连接传统与现代</p>
+                            <div class="mt-2 text-xs text-gray-600 pl-6">
+                                <p>✅ 讲述澳门家居风格演变（中西融合特色）</p>
+                                <p>✅ 分享60年老店的工艺传承故事</p>
+                                <p>✅ 结合澳门本地生活习惯的家居设计建议</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-5 border-t border-gray-100 pt-4">
+                        <h3 class="font-semibold text-gray-800 mb-2">IP核心标签</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs">澳门60年老店</span>
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs">家居定制专家</span>
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs">外冷内热</span>
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs">本地文化传承</span>
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs">中高端家居</span>
+                        </div>
+
+                        <h3 class="font-semibold text-gray-800 mb-2 mt-4">目标受众画像</h3>
+                        <div class="bg-light rounded-lg p-3">
+                            <div class="space-y-2 text-xs">
+                                <p><span class="font-medium">核心人群：</span>25-45岁澳门中高端收入人群</p>
+                                <p><span class="font-medium">次要人群：</span>45岁以上有退休置业/家居升级需求的高净值女性</p>
+                                <p><span class="font-medium">需求特征：</span>注重品质、认可品牌价值、重视家居实用性与美观度结合</p>
+                                <p><span class="font-medium">触达场景：</span>微信生态、Instagram、YouTube（本地及大湾区客户）</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第3页：内容体系规划 -->
+        <div class="page" id="page3">
+            <div class="bg-white rounded-xl shadow-sm p-6 card-hover">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                        <i class="fa-solid fa-film text-primary"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">三、内容体系与选题方向</h2>
+                </div>
+                <div class="space-y-4 text-sm md:text-base">
+                    <p>围绕"专业家居知识+澳门文化故事+真实生活场景"三大维度，构建系统化内容矩阵，实现品牌价值传递与用户情感连接。</p>
+                    
+                    <div class="grid grid-cols-1 gap-4 mt-4">
+                        <div class="border border-medium/50 rounded-lg p-3">
+                            <h4 class="font-medium text-gray-800 mb-2">「家聰話家居」专业知识系列</h4>
+                            <p class="text-sm text-gray-600 mb-2">以专业视角解读家居设计、材质选择、空间规划等实用知识</p>
+                            <div class="bg-primary/5 border-l-4 border-primary rounded-r p-3">
+                                <h5 class="font-medium text-xs text-gray-700 mb-1">核心选题库（30+）：</h5>
+                                <ul class="text-xs space-y-1 text-gray-600">
+                                    <li>✅ 澳门小户型扩容技巧（针对本地常见户型）</li>
+                                    <li>✅ 实木家具保养指南（适合澳门潮湿气候）</li>
+                                    <li>✅ 定制家具避坑指南（材质/工艺/报价）</li>
+                                    <li>✅ 中西融合家居设计技巧（澳门特色风格）</li>
+                                    <li>✅ 不同空间（客厅/卧室/书房）定制要点</li>
+                                </ul>
+                                <h5 class="font-medium text-xs text-gray-700 mb-1 mt-2">拍摄剧本框架：</h5>
+                                <p class="text-xs text-gray-600">开头（痛点提问）→ 专业解答 → 案例展示 → 总结建议 → 品牌引导</p>
+                                <p class="text-xs text-gray-600 mt-1">时长：60-90秒，口播为主，配合产品实物展示</p>
+                            </div>
+                        </div>
+                        
+                        <div class="border border-medium/50 rounded-lg p-3">
+                            <h4 class="font-medium text-gray-800 mb-2">「澳門家居故事」文化传承系列</h4>
+                            <p class="text-sm text-gray-600 mb-2">讲述澳门家居文化变迁，展现60年老字号的历史传承与创新</p>
+                            <div class="bg-primary/5 border-l-4 border-primary rounded-r p-3">
+                                <h5 class="font-medium text-xs text-gray-700 mb-1">核心选题库（20+）：</h5>
+                                <ul class="text-xs space-y-1 text-gray-600">
+                                    <li>✅ 60年老店的创业故事（创始人初心）</li>
+                                    <li>✅ 澳门家居风格演变（从传统到现代）</li>
+                                    <li>✅ 老工匠的工艺传承（如榫卯/手工雕刻）</li>
+                                    <li>✅ 老店经典案例回顾（十年以上客户回访）</li>
+                                    <li>✅ 澳门中西文化融合的家居特色</li>
+                                </ul>
+                                <h5 class="font-medium text-xs text-gray-700 mb-1 mt-2">拍摄剧本框架：</h5>
+                                <p class="text-xs text-gray-600">场景引入 → 故事讲述 → 实物展示 → 文化解读 → 品牌价值传递</p>
+                                <p class="text-xs text-gray-600 mt-1">时长：90-120秒，生活记录+访谈结合</p>
+                            </div>
+                        </div>
+                        
+                        <div class="border border-medium/50 rounded-lg p-3">
+                            <h4 class="font-medium text-gray-800 mb-2">「外冷内热」真实生活系列</h4>
+                            <p class="text-sm text-gray-600 mb-2">展现真实工作生活场景，体现外冷内热的性格特质，增强亲和力</p>
+                            <div class="bg-primary/5 border-l-4 border-primary rounded-r p-3">
+                                <h5 class="font-medium text-xs text-gray-700 mb-1">核心选题库（20+）：</h5>
+                                <ul class="text-xs space-y-1 text-gray-600">
+                                    <li>✅ 日常工作记录（接待客户/设计方案/验货）</li>
+                                    <li>✅ 看似严肃实则暖心的瞬间（为客户解决难题）</li>
+                                    <li>✅ 与老员工的日常互动（体现团队氛围）</li>
+                                    <li>✅ 私下的小爱好（展现生活化一面）</li>
+                                    <li>✅ 回访老客户（真实口碑反馈）</li>
+                                </ul>
+                                <h5 class="font-medium text-xs text-gray-700 mb-1 mt-2">拍摄剧本框架：</h5>
+                                <p class="text-xs text-gray-600">真实场景记录 → 自然互动 → 细节体现性格 → 轻量品牌露出</p>
+                                <p class="text-xs text-gray-600 mt-1">时长：30-60秒，真实、无剧本感为主</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <h3 class="font-semibold text-gray-800 mb-2">内容发布节奏</h3>
+                        <div class="bg-light rounded-lg p-3">
+                            <div class="grid grid-cols-2 gap-2 text-xs">
+                                <div>
+                                    <p class="font-medium">每周发布</p>
+                                    <p class="text-gray-600">3-4条短视频</p>
+                                </div>
+                                <div>
+                                    <p class="font-medium">内容配比</p>
+                                    <p class="text-gray-600">专业知识50%、文化故事20%、生活记录30%</p>
+                                </div>
+                                <div>
+                                    <p class="font-medium">发布时段</p>
+                                    <p class="text-gray-600">12:00/18:00/20:00（澳门用户活跃时段）</p>
+                                </div>
+                                <div>
+                                    <p class="font-medium">平台配比</p>
+                                    <p class="text-gray-600">微信视频号60%、IG 25%、YouTube 15%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第4页：平台运营策略 -->
+        <div class="page" id="page4">
+            <div class="bg-white rounded-xl shadow-sm p-6 card-hover">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                        <i class="fa-solid fa-cogs text-primary"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">四、平台运营与执行策略</h2>
+                </div>
+                <div class="space-y-4 text-sm md:text-base">
+                    <p>针对澳门中高端客户群体，制定多平台协同运营策略，实现精准触达与高效转化。</p>
+                    
+                    <div class="space-y-4 mt-4">
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
+                                <i class="fa-brands fa-weixin text-primary text-sm"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium">微信生态（核心阵地）</p>
+                                <p class="text-xs text-gray-600 mb-2">朋友圈+视频号+公众号矩阵，深度触达本地客户</p>
+                                <div class="bg-light rounded-lg p-2 text-xs">
+                                    <p class="font-medium mb-1">运营策略：</p>
+                                    <ul class="list-disc list-inside space-y-1 text-gray-600">
+                                        <li>视频号：发布完整版内容，引导关注+私信咨询</li>
+                                        <li>朋友圈：发布15秒精华片段，配合生活化文案</li>
+                                        <li>公众号：发布图文版干货，沉淀专业内容</li>
+                                        <li>私域群：定期分享家居知识，维护老客户</li>
+                                    </ul>
+                                    <p class="font-medium mb-1 mt-2">算法优化技巧：</p>
+                                    <p class="text-gray-600">封面突出"澳门/60年/定制"关键词，标题用本地话提问（如"澳门仔点样整小户型？"），引导评论互动提升完播率</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
+                                <i class="fa-brands fa-instagram text-primary text-sm"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium">Instagram（年轻高端客群）</p>
+                                <p class="text-xs text-gray-600 mb-2">高质量图片+短视频，吸引年轻中高端客户</p>
+                                <div class="bg-light rounded-lg p-2 text-xs">
+                                    <p class="font-medium mb-1">运营策略：</p>
+                                    <ul class="list-disc list-inside space-y-1 text-gray-600">
+                                        <li>Feed：发布高清产品图+设计案例，突出质感</li>
+                                        <li>Reels：发布60秒内精华视频，节奏紧凑</li>
+                                        <li>Stories：日常工作花絮，增加互动（投票/问答）</li>
+                                        <li>Hashtag：#澳门傢俬 #澳门定制家具 #澳门家居设计</li>
+                                    </ul>
+                                    <p class="font-medium mb-1 mt-2">算法优化技巧：</p>
+                                    <p class="text-gray-600">封面视觉统一（淡紫色调），背景音乐选用澳门本地热门歌曲，@本地家居/生活类账号增加曝光</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
+                                <i class="fa-brands fa-youtube text-primary text-sm"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium">YouTube（深度内容阵地）</p>
+                                <p class="text-xs text-gray-600 mb-2">深度内容+品牌故事，建立专业权威形象</p>
+                                <div class="bg-light rounded-lg p-2 text-xs">
+                                    <p class="font-medium mb-1">运营策略：</p>
+                                    <ul class="list-disc list-inside space-y-1 text-gray-600">
+                                        <li>发布5-10分钟长视频，详解专业知识/品牌故事</li>
+                                        <li>添加精准字幕（粤语+普通话+英文）</li>
+                                        <li>视频描述添加店铺地址/联系方式/关键词</li>
+                                        <li>关联播放：推荐相关家居设计视频</li>
+                                    </ul>
+                                    <p class="font-medium mb-1 mt-2">算法优化技巧：</p>
+                                    <p class="text-gray-600">标题包含"澳门/60年/家居定制"等关键词，缩略图突出人物+产品，引导订阅+点赞提升推荐权重</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-5 border-t border-gray-100 pt-4">
+                        <h3 class="font-semibold text-gray-800 mb-2">90天执行计划</h3>
+                        <div class="bg-light rounded-lg p-3 space-y-3">
+                            <div>
+                                <p class="font-medium text-xs text-primary">第1-30天：IP认知建立期</p>
+                                <ul class="list-disc list-inside text-xs space-y-1 text-gray-600">
+                                    <li>完成IP人设打磨，确定内容风格</li>
+                                    <li>发布10-12条核心内容（专业知识为主）</li>
+                                    <li>搭建各平台账号，完成基础装修（头像/简介/封面）</li>
+                              </ul>
+                            </div>
+                            <div>
+                                <p class="font-medium text-xs text-primary">第31-60天：内容优化期</p>
+                                <ul class="list-disc list-inside text-xs space-y-1 text-gray-600">
+                                    <li>根据数据优化内容选题（保留高互动内容方向）</li>
+                                    <li>增加文化故事/生活记录类内容占比</li>
+                                    <li>开始引导私信咨询/到店体验</li>
+                                    </ul>
+                            </div>
+                            <div>
+                                <p class="font-medium text-xs text-primary">第61-90天：转化提升期</p>
+                                <ul class="list-disc list-inside text-xs space-y-1 text-gray-600">
+                                    <li>推出到店专属福利（短视频粉丝优惠）</li>
+                                    <li>发布客户案例/好评视频，增强信任</li>
+                                    <li>私域运营：建立客户群，定期维护</li>
+                                    </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <h3 class="font-semibold text-gray-800 mb-2">质检与平台适配要点</h3>
+                        <div class="bg-primary/5 rounded-lg p-3 text-xs space-y-2">
+                            <p><span class="font-medium">视频质量标准：</span></p>
+                            <ul class="list-disc list-inside text-gray-600">
+                                <li>画质：1080P以上，光线充足，无杂音</li>
+                                <li>字幕：清晰可见，粤语口语化表达，符合澳门本地用语习惯</li>
+                                <li>时长：严格控制在各平台最优区间（视频号≤90秒，IG≤60秒）</li>
+                                <li>水印：统一添加"澳门傢俬搵家聰"品牌标识（右下角，不遮挡内容）</li>
+                            </ul>
+                            <p><span class="font-medium mt-2 block">平台适配调整：</span></p>
+                            <ul class="list-disc list-inside text-gray-600">
+                                <li>同一内容根据平台特性调整剪辑节奏（IG更快，YouTube更舒缓）</li>
+                                <li>封面/标题根据平台算法偏好差异化设计</li>
+                                <li>互动话术贴合平台用户习惯（微信用本地话，IG用中英双语）</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第5页：商业变现 + 联系方式 + 案例图片 -->
+        <div class="page" id="page5">
+            <!-- 变现路径 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 card-hover mb-6">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                        <i class="fa-solid fa-sack-dollar text-primary"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">五、商业变现路径设计</h2>
+                </div>
+                <div class="space-y-4 text-sm md:text-base">
+                    <p>构建"内容引流→信任建立→到店转化→复购推荐"的完整商业闭环，实现品牌价值与商业价值的双重提升。</p>
+                    
+                    <div class="grid grid-cols-1 gap-3 mt-4">
+                        <div class="bg-medium/30 rounded-lg p-3">
+                            <h4 class="font-medium text-primary mb-2">1. 内容引流（线上曝光）</h4>
+                            <p class="text-xs text-gray-600">通过专业内容吸引目标客户关注，建立初步认知</p>
+                            <div class="mt-2 text-xs text-gray-600 pl-4">
+                                <p>✅ 视频中自然植入店铺地址/联系方式</p>
+                                <p>✅ 评论区引导私信咨询定制方案</p>
+                                <p>✅ 主页简介添加预约到店链接/二维码</p>
+                            </div>
+                        </div>
+                        <div class="bg-medium/30 rounded-lg p-3">
+                            <h4 class="font-medium text-primary mb-2">2. 信任建立（价值传递）</h4>
+                            <p class="text-xs text-gray-600">持续输出价值内容，展现专业实力与品牌温度</p>
+                            <div class="mt-2 text-xs text-gray-600 pl-4">
+                                <p>✅ 发布客户真实案例/好评视频</p>
+                                <p>✅ 展示60年老店的工艺/资质/荣誉</p>
+                                <p>✅ 创始人/核心团队专业背景介绍</p>
+                            </div>
+                        </div>
+                        <div class="bg-medium/30 rounded-lg p-3">
+                            <h4 class="font-medium text-primary mb-2">3. 到店转化（线下体验）</h4>
+                            <p class="text-xs text-gray-600">引导客户到店体验，提供个性化家居解决方案</p>
+                            <div class="mt-2 text-xs text-gray-600 pl-4">
+                                <p>✅ 短视频专属福利：到店送定制小礼品</p>
+                                <p>✅ 免费上门量尺/设计方案（预约制）</p>
+                                <p>✅ 到店体验工艺展示/材质样品</p>
+                            </div>
+                        </div>
+                        <div class="bg-medium/30 rounded-lg p-3">
+                            <h4 class="font-medium text-primary mb-2">4. 复购推荐（口碑裂变）</h4>
+                            <p class="text-xs text-gray-600">优质服务体验促进复购，客户推荐扩大影响力</p>
+                            <div class="mt-2 text-xs text-gray-600 pl-4">
+                                <p>✅ 老客户推荐新客户享折扣/礼品</p>
+                                <p>✅ 定期回访老客户，维护关系</p>
+                                <p>✅ 邀请满意客户拍摄口碑视频（给予奖励）</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <h3 class="font-semibold text-gray-800 mb-2">变现模式详解</h3>
+                        <div class="bg-light rounded-lg p-3 text-xs space-y-3">
+                            <div>
+                                <p class="font-medium">核心变现：定制家具销售</p>
+                                <p class="text-gray-600">中高端定制家具（客单价10万+澳门元），占营收80%</p>
+                            </div>
+                            <div>
+                                <p class="font-medium">补充变现：配套服务</p>
+                                <p class="text-gray-600">家居设计咨询、上门量尺、旧家具翻新，占营收15%</p>
+                            </div>
+                            <div>
+                                <p class="font-medium">潜在变现：情感/服务溢价</p>
+                                <p class="text-gray-600">基于60年老店的品牌价值，提供专属定制服务，收取10-15%溢价</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 联系获取方案 -->
+            <div class="bg-white rounded-xl shadow-sm p-6 card-hover mb-6">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                        <i class="fa-solid fa-handshake text-primary"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">六、联系方式与合作咨询</h2>
+                </div>
+                <div class="space-y-4 text-sm md:text-base">
+                    <!-- 联系方式区域 -->
+                    <div class="border border-gray-200 rounded-lg p-4 bg-light">
+                        <h3 class="font-semibold text-gray-800 mb-3">联系方式</h3>
+                        <div class="mt-3 space-y-3">
+                               <p class="flex items-center">
+                                <i class="fa-brands fa-weixin text-primary w-5 text-center"></i>
+                                <span class="ml-2">微信seko:Zzzz2ko</span>
+                            </p>
+                            <p class="flex items-center">
+                                <i class="fa-solid fa-map-marker-alt text-primary w-5 text-center"></i>
+                                <span class="ml-2">地址：澳門廣發商業中心15樓F</span>
+                            </p>
+                            <p class="flex items-center">
+                                <i class="fa-solid fa-clock text-primary w-5 text-center"></i>
+                                <span class="ml-2">营业时间：周一至周日 9:00 - 18:00</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <button class="w-full bg-primary text-white py-3 rounded-lg btn-feedback flex items-center justify-center">
+                        <i class="fa-solid fa-file-signature mr-2"></i>
+                        联系获取更加详细的方案
+                    </button>
+                    
+                    <div class="text-center text-xs text-gray-500">
+                        <p>完整方案包含：选题库、详细剧本、拍摄分镜、数据分析模板、</p>
+                        <p>澳门ip推广策略、执行计划表</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 案例图片展示 -->
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 text-center">案例展示</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <img src="https://free.picui.cn/free/2025/12/16/6940c6f436734.jpg" 
+                             alt="公域运营展示" 
+                             class="w-full rounded-lg shadow-sm">
+                        <p class="text-center text-sm text-gray-600">公域流量运营案例</p>
+                        <p class="text-xs text-gray-500 text-center">微信视频号多平台曝光</p>
+                    </div>
+                    <div class="space-y-2">
+                        <img src="https://free.picui.cn/free/2025/12/16/6940c6f3e61f7.jpg" 
+                             alt="私域转化策略" 
+                             class="w-full rounded-lg shadow-sm">
+                        <p class="text-center text-sm text-gray-600">私域转化策略案例</p>
+                        <p class="text-xs text-gray-500 text-center">短视频引流到店，转化率达15%，客单价提升20%</p>
+                    </div>
+                </div>
+
+                <div class="mt-4 text-xs text-gray-600 text-center">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 底部固定导航栏 -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-50 px-4">
+        <div class="flex justify-around items-center h-16">
+            <a href="javascript:;" class="nav-item flex flex-col items-center justify-center text-gray-500 text-xs w-1/5 transition-all nav-active" data-page="page1">
+                <i class="fa-solid fa-chart-line text-lg mb-1"></i>
+                <span>行业</span>
+            </a>
+            <a href="javascript:;" class="nav-item flex flex-col items-center justify-center text-gray-500 text-xs w-1/5 transition-all" data-page="page2">
+                <i class="fa-solid fa-user-tie text-lg mb-1"></i>
+                <span>定位</span>
+            </a>
+            <a href="javascript:;" class="nav-item flex flex-col items-center justify-center text-gray-500 text-xs w-1/5 transition-all" data-page="page3">
+                <i class="fa-solid fa-film text-lg mb-1"></i>
+                <span>内容</span>
+            </a>
+            <a href="javascript:;" class="nav-item flex flex-col items-center justify-center text-gray-500 text-xs w-1/5 transition-all" data-page="page4">
+                <i class="fa-solid fa-cogs text-lg mb-1"></i>
+                <span>运营</span>
+            </a>
+            <a href="javascript:;" class="nav-item flex flex-col items-center justify-center text-gray-500 text-xs w-1/5 transition-all" data-page="page5">
+                <i class="fa-solid fa-handshake text-lg mb-1"></i>
+                <span>变现/联系</span>
+            </a>
+        </div>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const pages = document.querySelectorAll('.page');
+            
+            // 导航点击事件 - 切换分页
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // 点击反馈动画
+                    this.classList.add('scale-95');
+                    setTimeout(() => {
+                        this.classList.remove('scale-95');
+                    }, 150);
+                    
+                    // 移除所有导航激活状态
+                    navItems.forEach(nav => nav.classList.remove('nav-active'));
+                    // 添加当前导航激活状态
+                    this.classList.add('nav-active');
+                    
+                    // 获取目标页面ID
+                    const targetPageId = this.getAttribute('data-page');
+                    // 隐藏所有页面
+                    pages.forEach(page => page.classList.remove('active'));
+                    // 显示目标页面
+                    document.getElementById(targetPageId).classList.add('active');
+                    
+                    // 页面切换后滚动到顶部
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
