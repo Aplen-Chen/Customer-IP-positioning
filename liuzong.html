@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>“家聪”IP打造全案手册（深度执行版）</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7B68EE; /* 主紫 */
+            --primary-light: #9370DB;
+            --bg-body: #F5F3F9;
+            --bg-card: #FFFFFF;
+            --text-main: #2D2D2D;
+            --text-sub: #555555;
+            --accent-bg: #EDECFA;
+            --wx-green: #07C160; /* 微信绿 */
+            --border-radius: 12px;
+            --nav-height: 60px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.7;
+            padding-bottom: 80px; /* 底部导航避让 */
+        }
+
+        /* 顶部封面 */
+        .header {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            color: #fff;
+            padding: 40px 20px 30px;
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+            box-shadow: 0 4px 20px rgba(123, 104, 238, 0.25);
+        }
+        .header h1 { font-size: 26px; font-weight: 800; margin-bottom: 8px; letter-spacing: 1px; }
+        .header p { font-size: 13px; opacity: 0.9; font-weight: 300; }
+        .header .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-top: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        /* 容器 */
+        .container { max-width: 750px; margin: -20px auto 0; padding: 0 16px; position: relative; z-index: 10; }
+
+        /* 卡片通用样式 */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+            border-top: 3px solid transparent;
+        }
+        .card.highlight { border-top-color: var(--primary); }
+
+        /* 标题样式 */
+        .card-title {
+            display: flex;
+            align-items: center;
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .card-title i {
+            color: var(--primary);
+            margin-right: 8px;
+            font-size: 18px;
+            background: var(--accent-bg);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        /* 详情折叠组件 */
+        details {
+            margin-bottom: 12px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        details[open] { border-color: var(--primary-light); background: #FBFAFF; }
+        summary {
+            padding: 12px 15px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+        }
+        summary::-webkit-details-marker { display: none; }
+        summary::after {
+            content: '+';
+            font-size: 18px;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        details[open] summary::after { content: '-'; }
+        details[open] summary { border-bottom: 1px solid #eee; color: var(--primary); }
+        .details-content { padding: 15px; font-size: 14px; color: var(--text-sub); }
+
+        /* 标签 */
+        .tag {
+            display: inline-block;
+            background: var(--accent-bg);
+            color: var(--primary);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        /* 列表 */
+        .list-dot li {
+            position: relative;
+            padding-left: 15px;
+            margin-bottom: 6px;
+            list-style: none;
+        }
+        .list-dot li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 9px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--primary);
+        }
+
+        /* 重点引用块 */
+        .quote-box {
+            background: var(--accent-bg);
+            padding: 12px;
+            border-left: 3px solid var(--primary);
+            border-radius: 0 8px 8px 0;
+            font-size: 13px;
+            margin: 10px 0;
+            color: #444;
+        }
+
+        /* 表格样式 */
+        .data-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 10px; }
+        .data-table th, .data-table td { padding: 8px; border: 1px solid #eee; text-align: left; }
+        .data-table th { background: #f8f8f8; color: var(--text-main); }
+
+        /* 图片展示区 */
+        .img-showcase { text-align: center; margin-top: 20px; }
+        .img-item { margin-bottom: 20px; }
+        .img-item h4 { font-size: 12px; color: #fff; background: var(--primary-light); display: inline-block; padding: 4px 10px; border-radius: 4px; margin-bottom: 8px; }
+        .img-item img { width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+        /* ========== 新增：联系人卡片样式 ========== */
+        .contact-info-box {
+            background: #fff;
+            padding: 10px 0;
+        }
+        .info-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #F9F9F9;
+            border-radius: 8px;
+        }
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-bg);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .info-content h4 { font-size: 12px; color: #999; margin-bottom: 2px; font-weight: normal; }
+        .info-content p { font-size: 15px; color: #333; font-weight: 600; }
+        
+        /* 微信按钮 */
+        .wx-action-btn {
+            background: var(--wx-green);
+            color: white;
+            width: 100%;
+            border: none;
+            padding: 14px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(7, 193, 96, 0.3);
+            transition: transform 0.1s;
+        }
+        .wx-action-btn:active { transform: scale(0.98); }
+
+        /* Toast 提示 */
+        #toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.85);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            z-index: 9999;
+            display: none;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* 底部导航 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: var(--nav-height);
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            z-index: 100;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.02);
+        }
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #999;
+            text-decoration: none;
+            font-size: 10px;
+            transition: 0.3s;
+        }
+        .nav-item i { font-size: 18px; margin-bottom: 3px; }
+        .nav-item.active { color: var(--primary); font-weight: 600; }
+        .nav-item.active i { transform: translateY(-2px); }
+
+        /* 适配大屏 */
+        @media (min-width: 750px) {
+            .bottom-nav { width: 750px; left: 50%; transform: translateX(-50%); border-left: 1px solid #eee; border-right: 1px solid #eee; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <h1>“家聪”IP打造全案</h1>
+    <p>基于外冷内热性格与60年老店底蕴的深度策划</p>
+    <div class="badge">90天落地执行版</div>
+</header>
+
+<div class="container">
+
+    <!-- 1. 定位分析 -->
+    <section id="position" class="card highlight">
+        <div class="card-title"><i class="fas fa-id-card-alt"></i> 人物与IP精准定位</div>
+        
+        <details open>
+            <summary>核心性格：外冷内热的真实魅力</summary>
+            <div class="details-content">
+                <p><strong>反差萌策略：</strong>利用您“私底下外冷内热”的真实性格。镜头前展现对工艺严苛、不苟言笑的“冷”专家形象，但在对待客户需求、旧家具情感时流露“热”心肠。</p>
+                <div class="quote-box">话术示例：“这张椅子我不修了，不是不想赚你钱，是不想让你花冤枉钱。”（冷言热心）</div>
+            </div>
+        </details>
+
+        <details>
+            <summary>IP定位：澳门老字号傢俬传承者</summary>
+            <div class="details-content">
+                <ul class="list-dot">
+                    <li><strong>Slogan：</strong>“让传统傢俬焕发新生，让澳门故事走进万家”</li>
+                    <li><strong>信任背书：</strong>扎根澳门60年 + 三代匠心传承。</li>
+                    <li><strong>标签体系：</strong>
+                        <br><span class="tag"># 澳门傢俬专家</span>
+                        <span class="tag"># 60年传承</span>
+                    </li>
+                </ul>
+            </div>
+        </details>
+    </section>
+
+    <!-- 2. 内容策略 -->
+    <section id="content" class="card">
+        <div class="card-title"><i class="fas fa-video"></i> 内容选题与剧本库</div>
+        
+        <details>
+            <summary>四大爆款选题矩阵 (详细标题)</summary>
+            <div class="details-content">
+                <p><strong>1. 反差对比类（吸睛）：</strong></p>
+                <ul class="list-dot">
+                    <li>“60年老师傅改造30年前旧家具，效果惊人”</li>
+                    <li>“澳门老家具 vs 现代网红款，你pick哪一个？”</li>
+                </ul>
+                <p style="margin-top:10px"><strong>2. 专业知识类（立人设）：</strong></p>
+                <ul class="list-dot">
+                    <li>“买家具必看！家聪教你5招鉴别红木真假”</li>
+                    <li>“这三种木材白送都别要！澳门潮湿天气的避坑指南”</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>拍摄执行与分镜技巧</summary>
+            <div class="details-content">
+                <p><strong>拍摄形式：</strong></p>
+                <ul class="list-dot">
+                    <li><strong>访谈式：</strong>利用“三表法”（大事表、痛点表、历程表）讲述。</li>
+                    <li><strong>生活记录：</strong>展厅选品、工厂验货、客户沟通（只拍背影/声音）。</li>
+                </ul>
+                <p><strong>运镜细节：</strong>小件家具使用环绕拍摄，放在画面中心九宫格；微距特写拍摄木纹、雕花。</p>
+            </div>
+        </details>
+    </section>
+
+    <!-- 3. 运营与风控 -->
+    <section id="operation" class="card">
+        <div class="card-title"><i class="fas fa-shield-alt"></i> 平台运营与风控体系</div>
+        <details>
+            <summary>多平台差异化打法</summary>
+            <div class="details-content">
+                <ul class="list-dot">
+                    <li><strong>抖音：</strong>15-60秒，节奏快，晚7-9点发布。</li>
+                    <li><strong>小红书：</strong>高颜值图文 + 干货，上午10-12点。</li>
+                    <li><strong>视频号：</strong>3-5分钟深度讲解，引导转发朋友圈。</li>
+                </ul>
+            </div>
+        </details>
+    </section>
+
+    <!-- 4. 商业变现 -->
+    <section id="business" class="card">
+        <div class="card-title"><i class="fas fa-coins"></i> 商业变现与定价策略</div>
+        <details open>
+            <summary>产品与服务定价体系</summary>
+            <div class="details-content">
+                <p><strong>1. 核心产品：</strong>传统家具、中高端定制（客单价提升30-50%）。</p>
+                <p><strong>2. 增值服务（变现新思路）：</strong></p>
+                <table class="data-table">
+                    <tr><th>服务项目</th><th>建议定价 (MOP)</th></tr>
+                    <tr><td>线上设计咨询</td><td>200 - 500 /次</td></tr>
+                    <tr><td>全屋设计方案</td><td>2000 - 5000 /套</td></tr>
+                    <tr><td>年度保养套餐</td><td>1000 - 3000 /年</td></tr>
+                </table>
+            </div>
+        </details>
+    </section>
+
+    <!-- 5. 90天执行 -->
+    <section id="plan" class="card">
+        <div class="card-title"><i class="fas fa-calendar-check"></i> 90天落地执行表</div>
+        <details>
+            <summary>三个阶段重点</summary>
+            <div class="details-content">
+                <ul class="list-dot">
+                    <li><strong>阶段一 (1-30天)：</strong>基础建设，账号注册认证，储备库存视频。</li>
+                    <li><strong>阶段二 (31-60天)：</strong>优化增长，启动每周直播，建立鉴赏群。</li>
+                    <li><strong>阶段三 (61-90天)：</strong>商业收割，推出预约到店服务，达成成交。</li>
+                </ul>
+            </div>
+        </details>
+    </section>
+
+    <!-- 6. 图片架构 -->
+    <section class="card img-showcase">
+        <div class="card-title"><i class="fas fa-images"></i> 运营架构图解</div>
+        <div class="img-item">
+            <h4>公域流量运营逻辑</h4>
+            <img src="https://free.picui.cn/free/2025/12/16/6940c6f436734.jpg" alt="公域运营架构图">
+        </div>
+        <div class="img-item">
+            <h4>私域流量转化体系</h4>
+            <img src="https://free.picui.cn/free/2025/12/16/6940c6f3e61f7.jpg" alt="私域转化体系图">
+        </div>
+    </section>
+
+    <!-- 7. 联系我们 (新增重点模块) -->
+    <section id="contact" class="card highlight" style="border-top-color: var(--wx-green);">
+        <div class="card-title" style="color: var(--wx-green);">
+            <i class="fas fa-comments" style="background: #e7f9ef; color: var(--wx-green);"></i> 
+            聯繫我們 / 獲取完整方案
+        </div>
+        
+        <div class="contact-info-box">
+            
+            <div class="info-row">
+                <div class="info-icon"><i class="fas fa-user"></i></div>
+                <div class="info-content">
+                    <h4>聯繫人</h4>
+                    <p>seko</p>
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div class="info-content">
+                    <h4>實體地址</h4>
+                    <p>澳門廣發商業中心15樓F</p>
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-icon"><i class="fab fa-weixin"></i></div>
+                <div class="info-content">
+                    <h4>微信號</h4>
+                    <p id="wx-id-text">Zzzz2ko</p>
+                </div>
+            </div>
+
+            <!-- 微信功能按钮 -->
+            <button class="wx-action-btn" onclick="handleWeChat()">
+                <i class="fab fa-weixin"></i> 複製微信號並跳轉
+            </button>
+            <p style="text-align: center; font-size: 12px; color: #999; margin-top: 10px;">點擊按鈕將自動複製微信號並嘗試打開微信</p>
+        </div>
+    </section>
+
+    <!-- 底部占位 -->
+    <div style="height: 20px;"></div>
+
+</div>
+
+<!-- 底部固定导航 -->
+<nav class="bottom-nav">
+    <a href="#position" class="nav-item">
+        <i class="fas fa-user-tie"></i>
+        <span>IP定位</span>
+    </a>
+    <a href="#content" class="nav-item">
+        <i class="fas fa-clapperboard"></i>
+        <span>内容</span>
+    </a>
+    <a href="#business" class="nav-item">
+        <i class="fas fa-coins"></i>
+        <span>变现</span>
+    </a>
+    <a href="#plan" class="nav-item">
+        <i class="fas fa-calendar-check"></i>
+        <span>执行</span>
+    </a>
+    <a href="#contact" class="nav-item active">
+        <i class="fas fa-comment-dots"></i>
+        <span>聯繫我們</span>
+    </a>
+</nav>
+
+<!-- 提示框 -->
+<div id="toast"><i class="fas fa-check-circle"></i> 微信號已複製，正在打開微信...</div>
+
+<script>
+    // 微信复制跳转逻辑
+    function handleWeChat() {
+        const wxId = "Zzzz2ko";
+        
+        // 尝试复制
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(wxId).then(showSuccess, fallbackCopy);
+        } else {
+            fallbackCopy(wxId);
+        }
+    }
+
+    function fallbackCopy(text) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            document.execCommand('copy');
+            showSuccess();
+        } catch (err) {
+            alert('複製失敗，請手動添加微信：' + text);
+        }
+        document.body.removeChild(textarea);
+    }
+
+    function showSuccess() {
+        const toast = document.getElementById('toast');
+        toast.style.display = 'block';
+        
+        setTimeout(() => {
+            toast.style.display = 'none';
+            // 尝试唤起微信 (通用 Scheme)
+            window.location.href = "weixin://";
+        }, 1500);
+    }
+
+    // 导航高亮与滚动逻辑
+    const navItems = document.querySelectorAll('.nav-item');
+    
+    // 点击导航滚动
+    navItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // 样式切换
+            navItems.forEach(nav => nav.classList.remove('active'));
+            item.classList.add('active');
+
+            const targetId = item.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            
+            window.scrollTo({
+                top: targetSection.offsetTop - 80, // 减去头部高度
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // 滚动监听高亮
+    window.addEventListener('scroll', () => {
+        let current = '';
+        const sections = document.querySelectorAll('section');
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (pageYOffset >= (sectionTop - 200)) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        if (current) {
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href').includes(current)) {
+                    item.classList.add('active');
+                }
+            });
+        }
+    });
+</script>
+
+</body>
+</html>
