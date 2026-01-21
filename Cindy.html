@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cindy香港時裝 - 短視頻運營全案</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#9D65C9',    // 主淡紫色
+                        secondary: '#7B4BB7',  // 深紫色
+                        light: '#F9F6FC',      // 淡紫背景
+                        medium: '#EFE5F5',     // 中等淡紫
+                        dark: '#5A348B',       // 暗紫色
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto { content-visibility: auto; }
+            .nav-active {
+                color: #9D65C9;
+                font-weight: 600;
+                position: relative;
+            }
+            .nav-active::after {
+                content: '';
+                position: absolute;
+                bottom: -4px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: #9D65C9;
+            }
+            .card-hover {
+                transition: all 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(157, 101, 201, 0.15);
+            }
+            .btn-feedback {
+                transition: all 0.2s ease;
+            }
+            .btn-feedback:active {
+                transform: scale(0.95);
+            }
+            .page {
+                display: none;
+                animation: fadeIn 0.4s ease-in-out;
+            }
+            .page.active {
+                display: block;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        }
+    </style>
+</head>
+<body class="bg-light text-gray-700 font-sans pb-20">
+    <!-- 頭部標題區 - 所有頁面共用 -->
+    <header class="bg-gradient-to-r from-primary to-secondary text-white py-8 px-4">
+        <div class="max-w-md mx-auto text-center">
+            <h1 class="text-2xl md:text-3xl font-bold mb-3">Cindy香港時裝</h1>
+            <p class="text-white/90 text-sm md:text-base">高客單時裝短視頻運營全案</p>
+        </div>
+    </header>
+
+    <!-- 分頁容器 -->
+    <main class="max-w-md mx-auto px-4 py-8">
+        <!-- 第1頁：行業現狀與市場機會 -->
+        <div class="page active" id="page1">
+            <div class="bg-white rounded-xl shadow-sm p-6 card-hover">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                        <i class="fa-solid fa-chart-line text-primary"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">一、行業現狀與市場機會</h2>
+                </div>
+                <div class="space-y-4 text-sm md:text-base">
+                    <div class="border-l-4 border-primary pl-3 py-1">
+                        <p class="font-medium">核心結論：<span class="text-primary">香港設計師品牌短視頻賽道藍海巨大，高客單小眾單品+私域轉化是破局關鍵</span></p>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-800 mt-2">1.1 香港時裝短視頻核心資料</h3>
+                    <div class="grid grid-cols-2 gap-3 text-xs">
+                        <div class="bg-medium/30 rounded-lg p-2 text-center">
+                            <div class="text-lg font-bold text-primary">58億</div>
+                            <div>2024香港高端設計師品牌市場規模（港元）</div>
+                        </div>
+                        <div class="bg-medium/30 rounded-lg p-2 text-center">
+                            <div class="text-lg font-bold text-primary">12%</div>
+                            <div>年複合增長率</div>
+                        </div>
+                        <div class="bg-medium/30 rounded-lg p-2 text-center">
+                            <div class="text-lg font-bold text-primary">70%</div>
+                            <div>香港消費者願為小眾設計付溢價比例</div>
+                        </div>
+                        <div class="bg-medium/30 rounded-lg p-2 text-center">
+                            <div class="text-lg font-bold text-primary">41%</div>
+                            <div>內地消費者網購香港時尚產品比例</div>
+                        </div>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-800 mt-2">1.2 頭部博主競品分析（差異化機會）</h3>
+                    <div class="space-y-2 text-xs">
+                        <div class="bg-light rounded-lg p-2 flex justify-between items-center">
+                            <div>
+                                <p class="font-medium">章小蕙</p>
+                                <p class="text-gray-500">名媛審美 | 單場直播5000萬+</p>
+                            </div>
+                            <span class="px-2 py-1 bg-primary/10 text-primary rounded-full">強人設強專業</span>
+                        </div>
+                        <div class="bg-light rounded-lg p-2 flex justify-between items-center">
+                            <div>
+                                <p class="font-medium">吳千語</p>
+                                <p class="text-gray-500">明星帶貨 | 小紅書單場1.4億</p>
+                            </div>
+                            <span class="px-2 py-1 bg-primary/10 text-primary rounded-full">強流量弱專業</span>
+                        </div>
+                        <div class="bg-light rounded-lg p-2 flex justify-between items-center">
+                            <div>
+                                <p class="font-medium">魏老闆</p>
+                                <p class="text-gray-500">港風女裝 | 抖音67萬粉絲</p>
+                            </div>
+                            <span class="px-2 py-1 bg-primary/10 text-primary rounded-full">強產品弱人設</span>
+                        </div>
+                    </div>
+                    <div class="bg-primary/5 p-2 rounded-lg text-xs mt-1">
+                        <p class="font-medium">Cindy差異化機會：</p>
+                        <p>✅ 填補「不露臉+專業買手+高客單小眾」空白賽道</p>
+                        <p>✅ 主打「產品稀缺性+搭配專業性」，區別于明星帶貨</p>
+                        <p>✅ 私域慢轉化模式，契合高客單用戶決策週期</p>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-800 mt-2">1.3 目標受眾詳細畫像（25-40歲都市女性）</h3>
+                    <ul class="list-disc list-inside text-xs space-y-1">
+                        <li><span class="font-medium">消費能力：</span>可接受2000-10000元單價，願為獨特設計支付10%-15%溢價</li>
+                        <li><span class="font-medium">消費痛點：</span>厭倦撞款、追求個性化、不會搭配、找不到小眾設計師管道</li>
+                        <li><span class="font-medium">行為特徵：</span>小紅書種草→微信諮詢→私域成交→複購推薦</li>
+                        <li><span class="font-medium">內容偏好：</span>專業搭配技巧>小眾品牌推薦>買手探店>穿搭靈感</li>
+                        <li><span class="font-medium">地域分佈：</span>大灣區（50%）、香港本地（30%）、內地一線城市（20%）</li>
+                    </ul>
+
+                    <h3 class="font-semibold text-gray-800 mt-2">1.4 香港設計師品牌資源清單（可合作）</h3>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <div class="bg-medium/30 rounded-lg p-2">
+                            <p class="font-medium">Cafune</p>
+                            <p>極簡幹練風 | 明星同款 | 包包為主</p>
+                        </div>
+                        <div class="bg-medium/30 rounded-lg p-2">
+                            <p class="font-medium">Anonymous</p>
+                            <p>象徵主義設計 | 復古風 | 服飾為主</p>
+                        </div>
+                        <div class="bg-medium/30 rounded-lg p-2">
+                            <p class="font-medium">Mary KKI</p>
+                            <p>國際前沿風 | 聯名款 | 全品類</p>
+                        </div>
+                        <div class="bg-medium/30 rounded-lg p-2">
+                            <p class="font-medium">本地買手店</p>
+                            <p>中環/尖沙咀 | 小眾集合 | 獨家代理</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第2頁：人設定位與出鏡策略 -->
+        <div class="page" id="page2">
+            <div class="bg-white rounded-xl shadow-sm p-6 card-hover">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                        <i class="fa-solid fa-user-tie text-primary"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">二、人設定位與出鏡策略</h2>
+                </div>
+                <div class="space-y-4 text-sm md:text-base">
+                    <div class="border-l-4 border-primary pl-3 py-1">
+                        <p class="font-medium">核心人設：<span class="text-primary">香港開心果時尚買手</span></p>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-800 mt-2">2.1 三維人設標籤體系（完全貼合Cindy性格）</h3>
+                    <div class="grid grid-cols-1 gap-3">
+                        <div class="bg-medium/30 rounded-lg p-3">
+                            <h4 class="font-medium text-primary mb-1">開心樂觀 → 正能量搭配導師</h4>
+                            <p class="text-xs">內容表現：歡快語調、口頭禪「這件真的絕了！」「姐妹們沖！」</p>
+                            <p class="text-xs mt-1">標誌性動作：手部比贊、搭配完成後拍手滿意</p>
+                            <p class="text-xs mt-1">價值點：用積極情緒感染用戶，降低高客單決策壓力</p>
+                        </div>
+                        <div class="bg-medium/30 rounded-lg p-3">
+                            <h4 class="font-medium text-primary mb-1">愛扮靚搭配 → 專業買手顧問</h4>
+                            <p class="text-xs">內容表現：拆解搭配邏輯、分析身材適配、推薦小眾單品</p>
+                            <p class="text-xs mt-1">標誌性話術：「梨形身材穿這件超顯瘦！」「全香港只有3件！」</p>
+                            <p class="text-xs mt-1">價值點：建立專業信任，突出產品稀缺性</p>
+                        </div>
+                        <div class="bg-medium/30 rounded-lg p-3">
+                            <h4 class="font-medium text-primary mb-1">半角色化 → 神秘時尚偵探</h4>
+                            <p class="text-xs">內容表現：「尋找香港最獨特單品」「買手探店尋寶」系列</p>
+                            <p class="text-xs mt-1">標誌性設定：不露臉，用手部+場景+聲音塑造形象</p>
+                            <p class="text-xs mt-1">價值點：保護隱私，聚焦產品本身，增強神秘感</p>
+                        </div>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-800 mt-2">2.2 三種出鏡方式組合方案（每週2小時高效執行）</h3>
+                    <div class="space-y-3 text-xs">
+                        <div class="border border-medium/50 rounded-lg p-2">
+                            <p class="font-medium">✅ 生活紀錄類（占比40% | 每週1條）</p>
+                            <p><span class="font-medium">拍攝場景：</span>衣帽間整理、買手店探店、搭配過程</p>
+                            <p><span class="font-medium">出鏡方式：</span>手部特寫+環境展示+聲音解說</p>
+                            <p><span class="font-medium">拍攝時長：</span>10分鐘（一次拍2條，分兩周發佈）</p>
+                            <p><span class="font-medium">選題示例：</span>「Cindy的衣帽間大公開！私藏小眾單品分享」</p>
+                        </div>
+                        <div class="border border-medium/50 rounded-lg p-2">
+                            <p class="font-medium">✅ 角色化表演類（占比35% | 每兩周1條）</p>
+                            <p><span class="font-medium">拍攝場景：</span>買手店、工作室、櫥窗</p>
+                            <p><span class="font-medium">出鏡方式：</span>「時尚偵探」角色+手部互動+產品展示</p>
+                            <p><span class="font-medium">拍攝時長：</span>15分鐘（邀請店員配合，增加真實感）</p>
+                            <p><span class="font-medium">選題示例：</span>「時尚偵探Cindy：挖到寶了！香港隱藏小眾設計師店」</p>
+                        </div>
+                        <div class="border border-medium/50 rounded-lg p-2">
+                            <p class="font-medium">✅ 完全不出鏡類（占比25% | 每週1條）</p>
+                            <p><span class="font-medium">拍攝場景：</span>產品平鋪、穿搭細節、面料特寫</p>
+                            <p><span class="font-medium">出鏡方式：</span>純產品展示+語音解說+字幕</p>
+                            <p><span class="font-medium">拍攝時長：</span>5分鐘（最快出片，適合補更）</p>
+                            <p><span class="font-medium">選題示例：</span>「一件真絲襯衫的3種高級穿法！高客單單品利用率翻倍」</p>
+                        </div>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-800 mt-2">2.3 隱私保護拍攝指南（核心執行細節）</h3>
+                    <div class="bg-light rounded-lg p-3 text-xs space-y-2">
+                        <p class="font-medium">✅ 絕對不露臉技巧</p>
+                        <ul class="list-disc list-inside">
+                            <li>拍攝角度：俯拍（產品）、側拍（手部）、遠景（場景）</li>
+                            <li>避免元素：鏡子、反光面、路人鏡頭、帶有個人資訊的物品</li>
+                            <li>後期處理：模糊背景中可能暴露身份的標識</li>
+                        </ul>
+                        <p class="font-medium mt-2">✅ 聲音辨識度打造</p>
+                        <ul class="list-disc list-inside">
+                            <li>固定開場白：「哈嘍姐妹們！我是Cindy，你的香港專屬買手！」</li>
+                            <li>標誌性口頭禪：「這件真的太獨特了！」「全香港找不到第二件！」</li>
+                            <li>語調風格：歡快、熱情、有感染力，語速適中</li>
+                        </ul>
+                        <p class="font-medium mt-2">✅ 視覺符號統一</p>
+                        <ul class="list-disc list-inside">
+                            <li>固定背景：衣帽間粉色牆面、買手店原木貨架</li>
+                            <li>道具元素：香薰、雜誌、花瓶（增加高級感）</li>
+                            <li>配色方案：淡紫色+白色+原木色（與帳號風格統一）</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-800 mt-2">2.4 帳號視覺標準化設計（直接套用）</h3>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <div>
+                            <p class="font-medium">帳號名稱</p>
+                            <p>香港Cindy時尚買手 / Cindy的香港小眾衣櫥</p>
+                        </div>
+                        <div>
+                            <p class="font-medium">頭像設計</p>
+                            <p>手部特寫（拿一件設計師款衣服）+ 淡紫色背景</p>
+                        </div>
+                        <div>
+                            <p class="font-medium">封面範本</p>
+                            <p>產品圖+標題（黃色字體）+ 淡紫色邊框</p>
+                        </div>
+                        <div>
+                            <p class="font-medium">帳號簡介</p>
+                            <p>香港專業買手 | 幫你找到獨一無二的時尚單品 | 高客單小眾設計師品牌 | 微信：XXX（引流）</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第3頁：內容體系與選題腳本 -->
+        <div class="page" id="page3">
+            <div class="bg-white rounded-xl shadow-sm p-6 card-hover">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                        <i class="fa-solid fa-film text-primary"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">三、內容體系與選題腳本</h2>
+                </div>
+                <div class="space-y-4 text-sm md:text-base">
+                    <div class="border-l-4 border-primary pl-3 py-1">
+                        <p class="font-medium">內容核心：<span class="text-primary">專業搭配+小眾稀缺+私域引流，高客單轉化導向</span></p>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-800 mt-2">3.1 四大爆款內容系列（附詳細腳本範本）</h3>
+                    <!-- 系列1 -->
+                    <div class="border border-medium/50 rounded-lg p-3 mb-3">
+                        <h4 class="font-medium text-gray-800 mb-2">🔥 爆款系列1：香港買手探店尋寶（40%）</h4>
+                        <div class="space-y-2 text-xs">
+                            <p class="font-medium">選題1：《香港隱藏小眾店！全店只有10件，每件都是孤品！》</p>
+                            <p class="bg-light p-2 rounded">
+                                <span class="font-medium">腳本框架（30秒）：</span><br>
+                                0-5秒（開場）：<span class="text-primary">（手部推開店門特寫）</span>「姐妹們！今天挖到寶了！這家店全香港90%的人都不知道！」<br>
+                                5-15秒（展示）：<span class="text-primary">（手部拿起衣服特寫）</span>「看這件！設計師手工製作，全店只有3件！面料摸起來真的絕了！」<br>
+                                15-25秒（稀缺性）：<span class="text-primary">（俯拍店鋪環境）</span>「老闆說每件都是孤品，賣完就沒了！價格雖然小貴，但真的不會撞款！」<br>
+                                25-30秒（引流）：<span class="text-primary">（手部比心）</span>「想要地址的姐妹，評論區扣1！或者直接加我微信！」
+                            </p>
+                            <p class="font-medium mt-1">選題2：《中環買手店探店！2000元預算，買到設計師聯名款！》</p>
+                            <p class="font-medium mt-1">選題3：《香港本地人私藏！這幾家店，明星都來打卡！》</p>
+                        </div>
+                    </div>
+                    <!-- 系列2 -->
+                    <div class="border border-medium/50 rounded-lg p-3 mb-3">
+                        <h4 class="font-medium text-gray-800 mb-2">🔥 爆款系列2：高客單搭配技巧（25%）</h4>
+                        <div class="space-y-2 text-xs">
+                            <p class="font-medium">選題1：《梨形身材救星！這件2000元的裙子，穿完顯瘦10斤！》</p>
+                            <p class="bg-light p-2 rounded">
+                                <span class="font-medium">腳本框架（45秒）：</span><br>
+                                0-5秒（痛點）：<span class="text-primary">（手部比劃身材曲線）</span>「梨形身材的姐妹看過來！是不是買裙子總踩雷？」<br>
+                                5-15秒（產品）：<span class="text-primary">（展示裙子細節）</span>「這件設計師款真的太懂梨形了！高腰A字版型，完美遮胯！」<br>
+                                15-30秒（搭配）：<span class="text-primary">（搭配不同配飾）</span>「搭配高跟鞋就是職場女王，搭配小白鞋就是休閒風，一衣多穿！」<br>
+                                30-45秒（轉化）：<span class="text-primary">（手部拿吊牌）</span>「香港專櫃價2800，粉絲專屬價2200！想要的姐妹加微信！」
+                            </p>
+                            <p class="font-medium mt-1">選題2：《高客單單品利用率翻倍！一件真絲襯衫的3種穿法！》</p>
+                            <p class="font-medium mt-1">選題3：《小個子福音！5000元預算，穿出170cm氣場！》</p>
+                        </div>
+                    </div>
+                    <!-- 系列3 -->
+                    <div class="border border-medium/50 rounded-lg p-3 mb-3">
+                        <h4 class="font-medium text-gray-800 mb-2">🔥 爆款系列3：時尚偵探尋寶挑戰（20%）</h4>
+                        <div class="space-y-2 text-xs">
+                            <p class="font-medium">選題1：《10000元預算！在香港能買到多少小眾設計師單品？》</p>
+                            <p class="bg-light p-2 rounded">
+                                <span class="font-medium">腳本框架（60秒）：</span><br>
+                                0-5秒（挑戰開場）：<span class="text-primary">（手部拿錢包特寫）</span>「今天挑戰10000元，在香港買小眾設計師單品！看看能買多少？」<br>
+                                5-25秒（選購1）：<span class="text-primary">（拿起包包）</span>「第一個！Cafune的新款包包，設計感十足，價格4500元！」<br>
+                                25-45秒（選購2）：<span class="text-primary">（拿起衣服）</span>「第二個！Anonymous的限量款襯衫，手工刺繡，價格3500元！」<br>
+                                45-60秒（總結引流）：<span class="text-primary">（展示戰利品）</span>「還剩2000元！剩下的錢能買什麼？想知道的姐妹加微信，下期揭曉！」
+                            </p>
+                            <p class="font-medium mt-1">選題2：《挑戰！用一件單品，搭配出3種不同風格！》</p>
+                            <p class="font-medium mt-1">選題3：《香港設計師盲盒！拆開的瞬間，我驚呆了！》</p>
+                        </div>
+                    </div>
+                    <!-- 系列4 -->
+                    <div class="border border-medium/50 rounded-lg p-3">
+                        <h4 class="font-medium text-gray-800 mb-2">🔥 爆款系列4：粉絲互動定制（15%）</h4>
+                        <div class="space-y-2 text-xs">
+                            <p class="font-medium">選題1：《粉絲定制！預算5000元，幫她搭配職場年會戰袍！》</p>
+                            <p class="bg-light p-2 rounded">
+                                <span class="font-medium">腳本框架（40秒）：</span><br>
+                                0-5秒（需求）：<span class="text-primary">（語音+文字）</span>「粉絲需求：預算5000，職場年會，想要獨特不撞款！」<br>
+                                5-20秒（選品）：<span class="text-primary">（展示連衣裙）</span>「幫她選了這件酒紅色絲絨連衣裙，高級感拉滿，顯瘦又氣質！」<br>
+                                20-35秒（搭配）：<span class="text-primary">（搭配首飾包包）</span>「搭配同色系手拿包+珍珠耳環，年會C位就是你！」<br>
+                                35-40秒（互動）：<span class="text-primary">（手部比心）</span>「你有搭配需求嗎？評論區告訴我！」
+                            </p>
+                            <p class="font-medium mt-1">選題2：《粉絲投稿改造！從路人到女神，只需要一件衣服！》</p>
+                            <p class="font-medium mt-1">選題3：《評論區抽1位！免費幫你搭配全身look！》</p>
+                        </div>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-800 mt-2">3.2 高客單轉化選題黃金公式（直接套用）</h3>
+                    <div class="grid grid-cols-1 gap-2 text-xs">
+                        <div class="bg-medium/30 rounded-lg p-2">
+                            <p class="font-medium">公式1：痛點+稀缺性+解決方案</p>
+                            <p>（梨形身材買不到裙子）+（全香港只有3件）+（這件完美遮胯）= 高轉化</p>
+                        </div>
+                        <div class="bg-medium/30 rounded-lg p-2">
+                            <p class="font-medium">公式2：價格錨定+價值放大</p>
+                            <p>（專櫃2800元）+（粉絲價2200元+一衣三穿）= 促成交</p>
+                        </div>
+                        <div class="bg-medium/30 rounded-lg p-2">
+                            <p class="font-medium">公式3：身份認同+情感共鳴</p>
+                            <p>（職場女性）+（這件衣服讓你氣場全開）= 提客單</p>
+                        </div>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-800 mt-2">3.3 每週2小時時間分配表（精確到分鐘）</h3>
+                    <div class="bg-light rounded-lg p-3 text-xs">
+                        <p class="font-medium text-primary">總投入：每週2小時 = 120分鐘</p>
+                        <div class="space-y-2 mt-1">
+                            <p class="font-medium">✅ 第1小時（60分鐘）：批量拍攝</p>
+                            <ul class="list-disc list-inside">
+                                <li>10分鐘：選題確認+道具準備（衣服、配飾、拍攝背景）</li>
+                                <li>30分鐘：拍攝3條素材（探店1條+搭配1條+純產品1條）</li>
+                                <li>20分鐘：素材整理+初剪（刪除無用片段）</li>
+                            </ul>
+                            <p class="font-medium mt-2">✅ 第2小時（60分鐘）：剪輯發佈</p>
+                            <ul class="list-disc list-inside">
+                                <li>40分鐘：剪輯3條視頻（套用範本+加字幕+配樂）</li>
+                                <li>10分鐘：寫標題+加話題標籤+封面設計</li>
+                                <li>10分鐘：多平臺發佈+回復評論</li>
+                            </ul>
+                        </div>
+                        <p class="font-medium mt-2 text-primary">效率技巧：一次拍攝，分三周發佈，避免重複勞動！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第4頁：平臺運營與90天執行 -->
+        <div class="page" id="page4">
+            <div class="bg-white rounded-xl shadow-sm p-6 card-hover">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                        <i class="fa-solid fa-cogs text-primary"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">四、平臺運營與90天執行計畫</h2>
+                </div>
+                <div class="space-y-4 text-sm md:text-base">
+                    <div class="border-l-4 border-primary pl-3 py-1">
+                        <p class="font-medium">核心策略：<span class="text-primary">小紅書種草+抖音引流+微信私域轉化，高客單閉環運營</span></p>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-800 mt-2">4.1 多平臺差異化運營策略（詳細執行表）</h3>
+                    <div class="space-y-3 text-xs">
+                        <div class="border border-medium/50 rounded-lg p-2">
+                            <p class="font-medium flex items-center"><i class="fa-brands fa-xiaohongshu text-primary mr-2"></i> 小紅書（核心陣地 | 70%精力）</p>
+                            <p><span class="font-medium">目標人群：</span>25-40歲高消費女性，精准匹配高客單需求</p>
+                            <p><span class="font-medium">內容形式：</span>圖文筆記（60%）+ 短視頻（40%），強調質感和細節</p>
+                            <p><span class="font-medium">標題公式：</span>數字+痛點+利益點（如「3件高客單單品，梨形身材穿完顯瘦10斤！」）</p>
+                            <p><span class="font-medium">話題標籤：</span>#香港買手 #小眾設計師品牌 #高客單穿搭 #梨形身材穿搭</p>
+                            <p><span class="font-medium">發佈時間：</span>晚8-10點（用戶活躍期），每週3條（週二/四/六）</p>
+                            <p><span class="font-medium">引流方式：</span>簡介留微信+評論區引導+私信回復</p>
+                        </div>
+                        <div class="border border-medium/50 rounded-lg p-2">
+                            <p class="font-medium flex items-center"><i class="fa-brands fa-tiktok text-primary mr-2"></i> 抖音（流量陣地 | 20%精力）</p>
+                            <p><span class="font-medium">目標人群：</span>泛時尚愛好者，擴大品牌曝光</p>
+                            <p><span class="font-medium">內容形式：</span>15-30秒短視頻，節奏快，視覺衝擊強</p>
+                            <p><span class="font-medium">標題公式：</span>懸念+反差（如「全香港只有3件的衣服，居然被我找到了！」）</p>
+                            <p><span class="font-medium">話題標籤：</span>#香港時尚 #小眾穿搭 #設計師品牌 #高質感穿搭</p>
+                            <p><span class="font-medium">發佈時間：</span>晚6-8點（流量高峰期），每週2條（週一/週五）</p>
+                            <p><span class="font-medium">引流方式：</span>主頁簡介留微信+視頻片尾引導</p>
+                        </div>
+                        <div class="border border-medium/50 rounded-lg p-2">
+                            <p class="font-medium flex items-center"><i class="fa-brands fa-weixin text-primary mr-2"></i> 微信視頻號（私域陣地 | 10%精力）</p>
+                            <p><span class="font-medium">目標人群：</span>已添加微信的精准客戶，促進複購</p>
+                            <p><span class="font-medium">內容形式：</span>3-5分鐘長視頻，深度講解搭配技巧和產品故事</p>
+                            <p><span class="font-medium">內容方向：</span>會員專屬內容+新品預告+搭配教程</p>
+                            <p><span class="font-medium">發佈時間：</span>週末上午10點，每週1條</p>
+                            <p><span class="font-medium">引流方式：</span>直接引導小程式下單/私信諮詢</p>
+                        </div>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-800 mt-2">4.2 演算法優化技巧（提高曝光率）</h3>
+                    <div class="bg-medium/30 rounded-lg p-3 text-xs space-y-2">
+                        <p class="font-medium">✅ 小紅書演算法優化</p>
+                        <ul class="list-disc list-inside">
+                            <li>首圖：高清產品圖/搭配效果圖，避免雜亂背景</li>
+                            <li>正文：分段清晰，每段不超過3行，多用emoji分隔</li>
+                            <li>互動：發佈後1小時內回復所有評論，提高互動率</li>
+                            <li>關鍵字：標題和正文中加入「香港」「小眾」「設計師」「高客單」等精准詞</li>
+                        </ul>
+                        <p class="font-medium mt-2">✅ 抖音演算法優化</p>
+                        <ul class="list-disc list-inside">
+                            <li>黃金3秒：前3秒必須有視覺衝擊（如手部特寫產品、懸念式提問）</li>
+                            <li>完播率：控制時長在15-30秒，前5秒抓住用戶注意力</li>
+                            <li>配樂：選擇時尚類熱門音樂，節奏明快</li>
+                            <li>定位：發佈時添加香港具體位置（如中環、尖沙咀）</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-800 mt-2">4.3 90天分階段執行計畫表（精確到每週任務）</h3>
+                    <div class="space-y-3 text-xs">
+                        <div class="bg-light rounded-lg p-3">
+                            <p class="font-medium text-primary">第一階段：冷開機期（第1-30天）| 目標：精准粉絲+微信引流</p>
+                            <p class="font-medium">核心任務（每週分解）</p>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li><span class="font-medium">第1周：</span>帳號搭建（頭像/封面/簡介）+ 拍攝發佈3條基礎內容（自我介紹+2條搭配）</li>
+                                <li><span class="font-medium">第2周：</span>發佈3條探店內容+ 參與#香港買手 話題+ 邀請好友點贊評論</li>
+                                <li><span class="font-medium">第3周：</span>發佈3條搭配技巧+ 首次粉絲互動（評論區抽1人免費搭配）+ 引流微信50人</li>
+                                <li><span class="font-medium">第4周：</span>資料分析（找出高播放內容方向）+ 優化內容+ 引流微信累計100人</li>
+                            </ul>
+                            <p class="font-medium mt-2">關鍵動作：建立微信粉絲群，首次分享3款設計師單品，測試轉化率</p>
+                        </div>
+                        <div class="bg-light rounded-lg p-3">
+                            <p class="font-medium text-primary">第二階段：增長期（第31-60天）| 目標：粉絲+微信引流+首單成交</p>
+                            <p class="font-medium">核心任務（每週分解）</p>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li><span class="font-medium">第5-6周：</span>加大探店內容占比+ 發起#香港小眾穿搭挑戰 </li>
+                                <li><span class="font-medium">第7-8周：</span>與1-2個香港設計師品牌合作+ 發佈合作款內容+ 微信引流累計500人</li>
+                            </ul>
+                            <p class="font-medium mt-2">關鍵動作：推出粉絲專屬優惠（微信客戶享9折），完成首單成交，積累客戶見證</p>
+                        </div>
+                        <div class="bg-light rounded-lg p-3">
+                            <p class="font-medium text-primary">第三階段：轉化期（第61-90天）| 目標：粉絲+微信引流+穩定成交</p>
+                            <p class="font-medium">核心任務（每週分解）</p>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li><span class="font-medium">第9-10周：</span>發佈客戶見證內容+ 推出高客單套裝（2000-5000元）+ 粉絲數突破</li>
+                                <li><span class="font-medium">第11-12周：</span>優化私域轉化流程+ 培養種子使用者（老客戶推薦返傭）+ 粉絲數再突破</li>
+                            </ul>
+                            <p class="font-medium mt-2">關鍵動作：建立會員體系，穩定周成交3-5單，為三年平臺目標打下基礎</p>
+                        </div>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-800 mt-2">4.4 資料監測與優化指標（必看）</h3>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <div class="bg-medium/30 rounded-lg p-2">
+                            <p class="font-medium">流量指標</p>
+                            <p>播放量：單條≥5000（小紅書）/ ≥10000（抖音）</p>
+                            <p>點贊率：≥5%（合格）/ ≥10%（優秀）</p>
+                            
+                        </div>
+                        <div class="bg-medium/30 rounded-lg p-2">
+                            <p class="font-medium">轉化指標</p>
+                            <p>微信引流率：播放量≥1%</p>
+                            <p>私域轉化率：微信好友≥3%</p>
+                            <p>複購率：成交客戶≥20%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第5頁：私域變現與轉化話術 -->
+        <div class="page" id="page5">
+            <div class="bg-white rounded-xl shadow-sm p-6 card-hover">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                        <i class="fa-solid fa-sack-dollar text-primary"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">五、私域變現與轉化話術</h2>
+                </div>
+                <div class="space-y-4 text-sm md:text-base">
+                    <div class="border-l-4 border-primary pl-3 py-1">
+                        <p class="font-medium">變現核心：<span class="text-primary">高客單慢轉化，信任驅動成交，私域長期複購</span></p>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-800 mt-2">5.1 高客單產品定價策略（香港設計師品牌）</h3>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <div class="bg-medium/30 rounded-lg p-2">
+                            <p class="font-medium">入門級（引流款）</p>
+                            <p>價格：1000-2000元</p>
+                            <p>品類：配飾、襯衫、小件單品</p>
+                            <p>策略：低客單建立信任，引流複購</p>
+                        </div>
+                        <div class="bg-medium/30 rounded-lg p-2">
+                            <p class="font-medium">進階級（利潤款）</p>
+                            <p>價格：2000-5000元</p>
+                            <p>品類：連衣裙、外套、包包</p>
+                            <p>策略：主打設計師款，高利潤核心</p>
+                        </div>
+                        <div class="bg-medium/30 rounded-lg p-2">
+                            <p class="font-medium">高端級（形象款）</p>
+                            <p>價格：5000-10000元</p>
+                            <p>品類：大衣、套裝、限量款</p>
+                            <p>策略：提升品牌形象，吸引高淨值客戶</p>
+                        </div>
+                        <div class="bg-medium/30 rounded-lg p-2">
+                            <p class="font-medium">定制級（稀缺款）</p>
+                            <p>價格：10000元以上</p>
+                            <p>品類：設計師一對一定制</p>
+                            <p>策略：極致稀缺性，超高溢價</p>
+                        </div>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-800 mt-2">5.2 微信私域轉化五步流程（直接套用）</h3>
+                    <div class="space-y-2 text-xs">
+                        <div class="border border-medium/50 rounded-lg p-2">
+                            <p class="font-medium">第一步：引流添加（視頻/筆記引導）</p>
+                            <p><span class="font-medium">引導話術：</span>「想要同款連結/店鋪位址/搭配手冊的姐妹，直接加我微信：XXX，備註【香港】通過更快哦！」</p>
+                            <p><span class="font-medium">自動回復：</span>「哈嘍！我是Cindy！已收到你的請求~ 回復【1】領取《香港小眾品牌清單》，回復【2】諮詢單品，回復【3】加入粉絲群~」</p>
+                        </div>
+                        <div class="border border-medium/50 rounded-lg p-2">
+                            <p class="font-medium">第二步：破冰互動（添加後24小時內）</p>
+                            <p><span class="font-medium">話術範本：</span>「哈嘍XX！謝謝你關注我！看到你是從小紅書來的，想問下你平時喜歡什麼風格的穿搭呀？預算大概多少呢？我可以給你推薦哦~」</p>
+                            <p><span class="font-medium">核心動作：</span>瞭解用戶需求+ 發送1-2款匹配單品+ 不急於推銷</p>
+                        </div>
+                        <div class="border border-medium/50 rounded-lg p-2">
+                            <p class="font-medium">第三步：朋友圈種草（持續7-15天）</p>
+                            <p><span class="font-medium">內容比例：</span>產品展示40% + 搭配技巧30% + 客戶見證20% + 生活分享10%</p>
+                            <p><span class="font-medium">發佈頻率：</span>每天2-3條，避免刷屏</p>
+                            <p><span class="font-medium">客戶見證示例：</span>「又一位姐妹收到貨啦！她說這件連衣裙穿去聚會被誇爆了！太開心了！🥳」（附客戶回饋截圖）</p>
+                        </div>
+                        <div class="border border-medium/50 rounded-lg p-2">
+                            <p class="font-medium">第四步：1對1轉化（用戶諮詢後）</p>
+                            <p><span class="font-medium">話術範本：</span>「這款是香港設計師XXX的2026春夏新款，全香港只有10件，面料是進口真絲，特別適合你的梨形身材，顯瘦又氣質！專櫃價2800，粉絲價2200，還送價值200的配飾哦~」</p>
+                            <p><span class="font-medium">異議處理：</span>「價格確實不低，但這件衣服的設計和面料真的超值，而且不會撞款，穿個3-5年都不過時，平均下來每天才1塊多！」</p>
+                        </div>
+                        <div class="border border-medium/50 rounded-lg p-2">
+                            <p class="font-medium">第五步：複購推薦（成交後）</p>
+                            <p><span class="font-medium">售後話術：</span>「收到貨記得拍穿搭圖給我哦！有任何問題隨時找我~ 另外，老客戶推薦新客戶，雙方都能享受8.8折優惠！」</p>
+                            <p><span class="font-medium">複購引導：</span>「新款到啦！這款和你上次買的連衣裙超配，要不要看看？」</p>
+                        </div>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-800 mt-2">5.3 會員體系設計（提高複購率）</h3>
+                    <div class="bg-light rounded-lg p-3 text-xs">
+                        <p class="font-medium text-primary">三級會員體系</p>
+                        <div class="space-y-2 mt-1">
+                            <p class="font-medium">✅ 普通會員（消費0-5000元）</p>
+                            <ul class="list-disc list-inside">
+                                <li>權益：9.5折優惠+ 新品優先看+ 搭配諮詢</li>
+                            </ul>
+                            <p class="font-medium">✅ VIP會員（消費5000-20000元）</p>
+                            <ul class="list-disc list-inside">
+                                <li>權益：9折優惠+ 免費搭配服務+ 限量款優先購+ 生日禮</li>
+                            </ul>
+                            <p class="font-medium">✅ 鑽石會員（消費20000元以上）</p>
+                            <ul class="list-disc list-inside">
+                                <li>權益：8.5折優惠+ 設計師一對一定制+ 香港買手店探店資格+ 推薦返傭20%</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-800 mt-2">5.4 三年平臺化目標落地路徑</h3>
+                    <div class="bg-primary/10 rounded-lg p-3 text-xs space-y-2">
+                        <p class="font-medium">第一年：個人買手IP（當前-第12個月）</p>
+                        <p>✅ 積累5000+精准私域客戶</p>
+                        <p>✅ 與20+香港設計師品牌建立合作</p>
+                        <p>✅ 月銷售額穩定在10-20萬</p>
+                        <p class="font-medium mt-2">第二年：買手集合平臺（第13-24個月）</p>
+                        <p>✅ 簽約50+設計師品牌，建立供應鏈</p>
+                        <p>✅ 開設微信小程式商城</p>
+                        <p>✅ 月銷售額突破50萬</p>
+                        <p class="font-medium mt-2">第三年：大灣區設計師平臺（第25-36個月）</p>
+                        <p>✅ 覆蓋大灣區主要城市（香港、深圳、廣州、珠海）</p>
+                        <p>✅ 線上平臺+ 線下體驗店結合</p>
+                        <p>✅ 年銷售額突破1000萬</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第6頁：風險控制與執行工具 -->
+        <div class="page" id="page6">
+            <div class="bg-white rounded-xl shadow-sm p-6 card-hover">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                        <i class="fa-solid fa-shield-halved text-primary"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">六、風險控制與執行工具</h2>
+                </div>
+                <div class="space-y-4 text-sm md:text-base">
+                    <h3 class="font-semibold text-gray-800 mt-2">6.1 核心風險應對方案（針對性解決）</h3>
+                    <div class="space-y-2 text-xs">
+                        <div class="border border-medium/50 rounded-lg p-2">
+                            <p class="font-medium">風險1：隱私洩露風險（核心顧慮）</p>
+                            <p><span class="font-medium">應對措施：</span></p>
+                            <ul class="list-disc list-inside">
+                                <li>拍攝前檢查場景：移除所有個人資訊物品（身份證、快遞單、照片）</li>
+                                <li>後期處理：模糊背景中的店鋪招牌、街道標識</li>
+                                <li>微信設置：朋友圈分組可見，客戶僅能看到工作內容</li>
+                                <li>底線原則：絕對不露臉、不透露姓名、不拍攝家庭環境</li>
+                            </ul>
+                        </div>
+                        <div class="border border-medium/50 rounded-lg p-2">
+                            <p class="font-medium">風險2：時間不足風險（每週僅2小時）</p>
+                            <p><span class="font-medium">應對措施：</span></p>
+                            <ul class="list-disc list-inside">
+                                <li>批量操作：一次拍攝3條素材，分三周發佈</li>
+                                <li>範本化剪輯：使用剪映預設範本，一鍵生成視頻</li>
+                                <li>內容複用：一條長內容拆分成多條短視頻</li>
+                                <li>外包部分工作：後期剪輯可考慮兼職外包（預算充足時）</li>
+                            </ul>
+                        </div>
+                        <div class="border border-medium/50 rounded-lg p-2">
+                            <p class="font-medium">風險3：高客單轉化困難</p>
+                            <p><span class="font-medium">應對措施：</span></p>
+                            <ul class="list-disc list-inside">
+                                <li>降低決策門檻：提供分期付款、7天無理由退換</li>
+                                <li>強化價值塑造：詳細講解設計理念、面料品質、稀缺性</li>
+                                <li>積累客戶見證：發佈真實客戶的穿搭回饋和好評</li>
+                                <li>社群口碑行銷：讓老客戶在群內分享體驗，影響新客戶</li>
+                            </ul>
+                        </div>
+                        <div class="border border-medium/50 rounded-lg p-2">
+                            <p class="font-medium">風險4：供應鏈不穩定</p>
+                            <p><span class="font-medium">應對措施：</span></p>
+                            <ul class="list-disc list-inside">
+                                <li>多品牌合作：避免依賴單一設計師品牌</li>
+                                <li>提前備貨：暢銷款提前儲備庫存</li>
+                                <li>明確合作條款：簽訂供貨協議，保證交貨時間和品質</li>
+                                <li>售後保障：建立完善的退換貨流程，處理客戶投訴</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-800 mt-2">6.2 低成本執行工具清單（新手友好）</h3>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <div class="bg-medium/30 rounded-lg p-2 text-center">
+                            <i class="fa-solid fa-mobile-screen-button text-primary text-xl mb-1"></i>
+                            <p class="font-medium">拍攝工具</p>
+                            <p>手機（iPhone/安卓）+ 三腳架（50元）</p>
+                            <p>補光燈（100元）+ 背景布（50元）</p>
+                        </div>
+                        <div class="bg-medium/30 rounded-lg p-2 text-center">
+                            <i class="fa-solid fa-scissors text-primary text-xl mb-1"></i>
+                            <p class="font-medium">剪輯工具</p>
+                            <p>剪映（免費）：預設範本+ 自動字幕</p>
+                            <p>必剪（免費）：時尚類特效豐富</p>
+                        </div>
+                        <div class="bg-medium/30 rounded-lg p-2 text-center">
+                            <i class="fa-solid fa-font text-primary text-xl mb-1"></i>
+                            <p class="font-medium">字幕工具</p>
+                            <p>剪映自動字幕（識別粵語）</p>
+                            <p>訊飛聽見（精准度高，免費額度夠用）</p>
+                        </div>
+                        <div class="bg-medium/30 rounded-lg p-2 text-center">
+                            <i class="fa-solid fa-music text-primary text-xl mb-1"></i>
+                            <p class="font-medium">背景音樂</p>
+                            <p>剪映音樂庫（免費商用）</p>
+                            <p>抖音熱門音樂（增加曝光）</p>
+                        </div>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-800 mt-2">6.3 一周啟動執行清單（照做即可）</h3>
+                    <div class="bg-light rounded-lg p-3 text-xs space-y-1">
+                        <p class="font-medium text-primary">第1天：帳號搭建</p>
+                        <p>✅ 註冊小紅書/抖音/視頻號帳號，設置頭像/封面/簡介</p>
+                        <p>✅ 整理3款香港設計師單品（作為首期內容素材）</p>
+                        <p class="font-medium mt-2">第2天：拍攝準備</p>
+                        <p>✅ 佈置拍攝背景（衣帽間/桌面）</p>
+                        <p>✅ 準備腳本（自我介紹+2條搭配技巧）</p>
+                        <p class="font-medium mt-2">第3天：首次拍攝</p>
+                        <p>✅ 用1小時拍攝3條視頻素材</p>
+                        <p>✅ 用1小時剪輯發佈</p>
+                        <p class="font-medium mt-2">第4-7天：優化反覆運算</p>
+                        <p>✅ 每天回復評論和私信</p>
+                        <p>✅ 分析資料，調整下一期內容方向</p>
+                        <p>✅ 開始引流微信，建立粉絲群</p>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-800 mt-2">6.4 聯繫方式（預留填寫）</h3>
+                    <div class="border border-gray-200 rounded-lg p-4 bg-light">
+                        <div class="space-y-3 text-sm">
+                            <p class="flex items-center">
+                                <i class="fa-brands fa-weixin text-primary w-5 text-center"></i>
+                                <span class="ml-2">微信帳號：<span class="text-gray-500">（預留填寫位置）</span></span>
+                            </p>
+                            <p class="flex items-center">
+                                <i class="fa-brands fa-xiaohongshu text-primary w-5 text-center"></i>
+                                <span class="ml-2">小紅書帳號：<span class="text-gray-500">（預留填寫位置）</span></span>
+                            </p>
+                            <p class="flex items-center">
+                                <i class="fa-brands fa-tiktok text-primary w-5 text-center"></i>
+                                <span class="ml-2">抖音帳號：<span class="text-gray-500">（預留填寫位置）</span></span>
+                            </p>
+                            <p class="flex items-center">
+                                <i class="fa-solid fa-location-dot text-primary w-5 text-center"></i>
+                                <span class="ml-2">工作室地址：<span class="text-gray-500">澳門氹仔（預留填寫位置）</span></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 底部固定巡覽列 -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-50 px-4">
+        <div class="flex justify-around items-center h-16">
+            <a href="javascript:;" class="nav-item flex flex-col items-center justify-center text-gray-500 text-xs w-1/6 transition-all nav-active" data-page="page1">
+                <i class="fa-solid fa-chart-line text-lg mb-1"></i>
+                <span>行業</span>
+            </a>
+            <a href="javascript:;" class="nav-item flex flex-col items-center justify-center text-gray-500 text-xs w-1/6 transition-all" data-page="page2">
+                <i class="fa-solid fa-user-tie text-lg mb-1"></i>
+                <span>人設</span>
+            </a>
+            <a href="javascript:;" class="nav-item flex flex-col items-center justify-center text-gray-500 text-xs w-1/6 transition-all" data-page="page3">
+                <i class="fa-solid fa-film text-lg mb-1"></i>
+                <span>內容</span>
+            </a>
+            <a href="javascript:;" class="nav-item flex flex-col items-center justify-center text-gray-500 text-xs w-1/6 transition-all" data-page="page4">
+                <i class="fa-solid fa-cogs text-lg mb-1"></i>
+                <span>運營</span>
+            </a>
+            <a href="javascript:;" class="nav-item flex flex-col items-center justify-center text-gray-500 text-xs w-1/6 transition-all" data-page="page5">
+                <i class="fa-solid fa-sack-dollar text-lg mb-1"></i>
+                <span>變現</span>
+            </a>
+            <a href="javascript:;" class="nav-item flex flex-col items-center justify-center text-gray-500 text-xs w-1/6 transition-all" data-page="page6">
+                <i class="fa-solid fa-shield-halved text-lg mb-1"></i>
+                <span>風控</span>
+            </a>
+        </div>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const pages = document.querySelectorAll('.page');
+            
+            // 導航點擊事件 - 切換分頁
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // 點擊回饋動畫
+                    this.classList.add('scale-95');
+                    setTimeout(() => {
+                        this.classList.remove('scale-95');
+                    }, 150);
+                    
+                    // 移除所有導航啟動狀態
+                    navItems.forEach(nav => nav.classList.remove('nav-active'));
+                    // 添加當前導航啟動狀態
+                    this.classList.add('nav-active');
+                    
+                    // 獲取目標頁面ID
+                    const targetPageId = this.getAttribute('data-page');
+                    // 隱藏所有頁面
+                    pages.forEach(page => page.classList.remove('active'));
+                    // 顯示目標頁面
+                    document.getElementById(targetPageId).classList.add('active');
+                    
+                    // 頁面切換後滾動到頂部
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
