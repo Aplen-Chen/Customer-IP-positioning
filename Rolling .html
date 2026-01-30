@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>苏浩宁(Rolling)大健康创业IP短视频运营全案 | 澳门专属落地版</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a2a3a; /* 深邃蓝，代表专业与商业 */
+            --gold: #c5a065;    /* 质感金，代表高客单与逆袭 */
+            --bg: #f8f9fa;
+            --text-main: #2c3e50;
+            --text-sub: #596b7d;
+            --white: #ffffff;
+            --danger: #e74c3c;
+            --success: #27ae60;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 90px; /* 底部导航留白 */
+        }
+
+        /* 沉浸式头部 */
+        header {
+            background: linear-gradient(160deg, var(--primary) 0%, #000 100%);
+            color: var(--white);
+            padding: 40px 20px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: var(--bg);
+            border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+        }
+        header h1 { margin: 0; font-size: 1.6rem; font-weight: 700; letter-spacing: 1px; }
+        header .subtitle { color: var(--gold); font-size: 0.9rem; margin-top: 8px; font-weight: 500; }
+        header .tagline { font-size: 0.8rem; opacity: 0.8; margin-top: 15px; border: 1px solid var(--gold); display: inline-block; padding: 4px 12px; border-radius: 20px; }
+
+        /* 内容容器 */
+        .container { max-width: 800px; margin: 0 auto; padding: 0 15px; }
+
+        /* 页面切换逻辑 */
+        .page { display: none; animation: slideUp 0.4s ease-out; }
+        .page.active { display: block; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 卡片组件 */
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 25px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            position: relative;
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .card-header i { color: var(--gold); font-size: 1.4rem; margin-right: 10px; }
+        .card-header h2 { font-size: 1.2rem; margin: 0; color: var(--primary); }
+
+        /* 数据高亮区 */
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0; }
+        .stat-item { background: #fdfbf7; padding: 15px; border-radius: 8px; text-align: center; border: 1px solid #eee; }
+        .stat-num { font-size: 1.5rem; color: var(--primary); font-weight: bold; display: block; }
+        .stat-desc { font-size: 0.8rem; color: var(--text-sub); }
+
+        /* 剧本样式 */
+        .script-box {
+            background: #2b2b2b;
+            color: #eee;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            border-left: 4px solid var(--gold);
+        }
+        .script-label { color: var(--gold); font-weight: bold; font-size: 0.8rem; margin-bottom: 5px; display: block; text-transform: uppercase; }
+        .script-time { background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; margin-right: 5px; }
+
+        /* 列表与表格 */
+        .detail-list li { margin-bottom: 12px; position: relative; padding-left: 25px; list-style: none; }
+        .detail-list li::before { content: '\f00c'; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--success); position: absolute; left: 0; top: 2px; }
+        
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin: 15px 0; }
+        th, td { border: 1px solid #eee; padding: 10px; text-align: left; }
+        th { background: var(--primary); color: var(--white); }
+        tr:nth-child(even) { background: #f9f9f9; }
+
+        /* 底部导航 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0; left: 0; width: 100%;
+            background: var(--white);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0 25px; /* 适配iPhone底部横条 */
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
+            z-index: 999;
+        }
+        .nav-item {
+            text-align: center;
+            color: #95a5a6;
+            font-size: 0.75rem;
+            cursor: pointer;
+            flex: 1;
+            transition: all 0.3s;
+        }
+        .nav-item i { font-size: 1.4rem; margin-bottom: 4px; display: block; }
+        .nav-item.active { color: var(--primary); transform: translateY(-2px); }
+        .nav-item.active i { color: var(--gold); }
+
+        /* 悬浮CTA */
+        .float-cta {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            background: linear-gradient(135deg, #d4af37, #f39c12);
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 50px;
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
+
+        /* 标签 */
+        .tag { background: #eef2f7; color: var(--primary); padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; margin-right: 5px; margin-bottom: 5px; display: inline-block; font-weight: 600; }
+        .tag.gold { background: rgba(212, 175, 55, 0.15); color: #b78a22; }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>苏浩宁(Rolling)</h1>
+    <div class="subtitle">大健康创业IP短视频运营全案（澳门专属）</div>
+    <div class="tagline">基于真实创业经历 · 90天落地 · 信任变现</div>
+</header>
+
+<div class="container">
+
+    <div id="p1" class="page active">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-id-card-alt"></i>
+                <h2>IP核心定位：创业逆袭导师</h2>
+            </div>
+            <p style="font-weight: 500;">结合苏老师“2018年创业失败”到“2020年大健康翻身”的独特经历，打造具备价值观引领的IP。</p>
+            <div style="background: #fdfbf7; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                <h4 style="margin: 0 0 10px; color: var(--gold);">三大核心人设标签</h4>
+                <div style="margin-bottom: 8px;"><span class="tag gold">真逆袭</span> 不装不演，真实还原从负债到翻身的心路历程。</div>
+                <div style="margin-bottom: 8px;"><span class="tag gold">实落地</span> 拒绝鸡汤理论，只给美业转型/创业的具体方法。</div>
+                <div><span class="tag gold">重共赢</span> 强调“长期主义”，不仅自己赚钱，更带团队共富。</div>
+            </div>
+            <p style="font-size: 0.9rem; color: #666; margin-top: 10px; border-top: 1px dashed #ddd; padding-top: 10px;">
+                <strong>Slogan：</strong> 苏浩宁Rolling | 澳门大健康创业逆袭导师，真诚做事，落地赋能，陪你避开创业坑，一起赚稳钱！ 
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-chart-line"></i>
+                <h2>行业现状与数据支撑</h2>
+            </div>
+            <p>大健康短视频市场正处于爆发式增长期，用户对科普和创业内容需求强烈。</p>
+            
+            <div class="stat-grid">
+                <div class="stat-item">
+                    <span class="stat-num">800亿+</span>
+                    <span class="stat-desc">2024短视频医疗市场规模 </span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-num">1200亿</span>
+                    <span class="stat-desc">2025年预计市场规模</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-num">92.1%</span>
+                    <span class="stat-desc">用户观看过健康科普视频</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-num">9万亿</span>
+                    <span class="stat-desc">中国大健康产业总收入 </span>
+                </div>
+            </div>
+            
+            <canvas id="marketChart" style="margin-top:20px;"></canvas>
+            <p style="text-align: center; font-size: 0.8rem; color: #999;">数据来源：大健康行业分析报告</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-bullseye"></i>
+                <h2>目标受众痛点精准狙击</h2>
+            </div>
+            <h4 style="margin: 10px 0;">1. 传统美业老板（核心客群 30-45岁女性）</h4>
+            <ul class="detail-list">
+                <li><strong>痛点：</strong> 客流下滑，同质化竞争，想转型大健康但怕踩坑。</li>
+                <li><strong>需求：</strong> 寻找简单、直接、可落地的转型方案，需要信任背书做高客单。</li>
+            </ul>
+            <h4 style="margin: 10px 0;">2. 大健康创业者（25-40岁）</h4>
+            <ul class="detail-list">
+                <li><strong>痛点：</strong> 找不到靠谱领路人，市面多为空谈理论，缺乏实战经验。</li>
+                <li><strong>需求：</strong> 学习成功经验，规避失败风险，寻找优质项目。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="p2" class="page">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-layer-group"></i>
+                <h2>内容黄金配比策略</h2>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div style="width: 55%;">
+                    <ul class="detail-list" style="font-size: 0.9rem;">
+                        <li style="margin-bottom: 5px;"><strong>创业故事 (35%)</strong><br><span style="color:#666; font-size:0.8rem;">建立信任，核心引流</span></li>
+                        <li style="margin-bottom: 5px;"><strong>美业转型 (25%)</strong><br><span style="color:#666; font-size:0.8rem;">精准转化，解决痛点</span></li>
+                        <li style="margin-bottom: 5px;"><strong>大健康科普 (20%)</strong><br><span style="color:#666; font-size:0.8rem;">展示专业度</span></li>
+                        <li><strong>团队/日常 (20%)</strong><br><span style="color:#666; font-size:0.8rem;">打造真实人设，兼顾家庭</span></li>
+                    </ul>
+                </div>
+                <div style="width: 45%;">
+                    <canvas id="contentPie"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-file-alt"></i>
+                <h2>爆款脚本库 (可直接拍摄)</h2>
+            </div>
+            
+            <div style="margin-bottom: 25px;">
+                <h3 style="font-size: 1rem; color: var(--primary);">🔥 剧本一：《2018年，我创业失败，负债累累》</h3>
+                <p style="font-size: 0.8rem; color: #666;">目标：核心引流，通过真实失败经历引发共鸣。</p>
+                <div class="script-box">
+                    <span class="script-label">0-3秒 (黄金开头)</span>
+                    <p>（苏老师出镜，表情真诚，语气低沉）说实话，我也创业失败过，2018年，我输得一塌糊涂。</p>
+                    
+                    <span class="script-label">3-30秒 (戳痛点)</span>
+                    <p>2018年，我满怀信心做创业项目，砸了所有积蓄，还借了钱，以为能赚大钱，结果不到一年，项目黄了，负债几十万。每天躲在房间里失眠，不敢告诉家人，不敢见朋友，甚至想过放弃。</p>
+                    
+                    <span class="script-label">30-90秒 (转折与希望)</span>
+                    <p>直到2020年，我偶然接触到大健康赛道...从零开始，从最基础的产品了解、客户对接做起，每天只睡5个小时，一点点积累，一点点翻身。</p>
+                    
+                    <span class="script-label">150-180秒 (强引流)</span>
+                    <p>我苏浩宁，真诚做事。如果你也是创业失败想翻身，或者想进大健康怕踩坑，评论区扣“翻身”，我把我2020年的翻身笔记免费发给你。加我微信（屏幕条），备注“创业”，通过更快。</p>
+                </div>
+            </div>
+
+            <div>
+                <h3 style="font-size: 1rem; color: var(--primary);">💡 剧本二：《澳门美业老板必看！客流下滑怎么破？》</h3>
+                <p style="font-size: 0.8rem; color: #666;">目标：精准转化美业老板，解决经营困境 。</p>
+                <div class="script-box">
+                    <span class="script-label">0-3秒 (精准圈人)</span>
+                    <p>澳门做美业的老板们，你们是不是也遇到这样的问题？客流越来越少，大家都在打价格战，赚不到钱，想转型又不知道怎么转？</p>
+                    
+                    <span class="script-label">40-90秒 (给落地方法)</span>
+                    <p>今天给澳门美业老板分享1个最简单、可直接落地的转型方法，不用大投入：<br>1. 不放弃现有美业客户，转化为大健康客户；<br>2. 选对1-2款高客单产品，靠信任成交，不打价格战；<br>3. 轻运营，重服务，利用现有场地做增量。</p>
+                    
+                    <span class="script-label">90-120秒 (案例引流)</span>
+                    <p>我已经帮助3个澳门美业老板实现了盈利翻倍。想转型的，评论区扣“转型”，加我微信领取《美业转型落地手册》。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-video"></i>
+                <h2>高效创作流程 (兼顾家庭)</h2>
+            </div>
+            <p>考虑到苏老师全职带娃且需高效产出，建议采用“集中拍摄+分批发布”模式。</p>
+            <table style="text-align: center;">
+                <tr>
+                    <th width="25%">时间</th>
+                    <th>任务内容</th>
+                    <th>时长/频率</th>
+                </tr>
+                <tr>
+                    <td><strong>每周一</strong></td>
+                    <td>集中拍摄3-4条素材<br>(利用现有场地)</td>
+                    <td>2-3小时</td>
+                </tr>
+                <tr>
+                    <td><strong>周二/四/六</strong></td>
+                    <td>剪辑制作并发布<br>(抖音/小红书)</td>
+                    <td>每日1小时</td>
+                </tr>
+                <tr>
+                    <td><strong>每日碎片</strong></td>
+                    <td>回复私信/评论<br>维护粉丝群</td>
+                    <td>20-30分钟</td>
+                </tr>
+                <tr>
+                    <td><strong>周日</strong></td>
+                    <td>数据复盘 & <br>视频号深度内容</td>
+                    <td>1小时</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div id="p3" class="page">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-tasks"></i>
+                <h2>90天落地执行计划</h2>
+            </div>
+            
+            <div style="border-left: 3px solid var(--primary); padding-left: 20px; margin-bottom: 25px;">
+                <h3 style="color: var(--primary); margin: 0;">🚀 第一阶段：冷启动期 (1-30天)</h3>
+                <p style="color: #7f8c8d; font-size: 0.9rem;">目标：账号搭建，打通私域 </p>
+                <ul class="detail-list" style="margin-top: 10px;">
+                    <li><strong>Day 1-3:</strong> 完成视频号注册认证。设计统一视觉（淡紫色/商务金）。</li>
+                    <li><strong>Day 4-6:</strong> 集中拍摄首批3条视频（创业故事+自我介绍+美业痛点）。</li>
+                    <li><strong>Day 7:</strong> 建立首个粉丝微信群，设计引流诱饵（如“创业避坑笔记”）。</li>
+                    <li><strong>Day 8-14:</strong> 风格测试，观察数据，重点测试“创业故事”系列。</li>
+                </ul>
+            </div>
+
+            <div style="border-left: 3px solid var(--gold); padding-left: 20px; margin-bottom: 25px;">
+                <h3 style="color: #b78a22; margin: 0;">📈 第二阶段：增长期 (31-60天)</h3>
+                <p style="color: #7f8c8d; font-size: 0.9rem;">目标：打造爆款，开始咨询转化 </p>
+                <ul class="detail-list" style="margin-top: 10px;">
+                    <li><strong>动作1:</strong> 选取数据好的视频投放Dou+（定向澳门、美业人群）。</li>
+                    <li><strong>动作2:</strong> 增加“美业转型成功案例”内容，展示合作价值。</li>
+                    <li><strong>动作3:</strong> 完善朋友圈运营，每天3条（生活/产品/干货），不刷屏。</li>
+                </ul>
+            </div>
+
+            <div style="border-left: 3px solid var(--success); padding-left: 20px;">
+                <h3 style="color: var(--success); margin: 0;">💰 第三阶段：转化期 (61-90天)</h3>
+                <p style="color: #7f8c8d; font-size: 0.9rem;">目标：稳定转化，完善产品体系 </p>
+                <ul class="detail-list" style="margin-top: 10px;">
+                    <li><strong>产品:</strong> 明确高客单产品价格区间 及合作模式。</li>
+                    <li><strong>服务:</strong> 启动“大健康创业导师”招募，提供一对一指导。</li>
+                    <li><strong>直播:</strong> 尝试视频号直播，深度讲解创业方法，促进高客单成交。</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-network-wired"></i>
+                <h2>全平台差异化运营</h2>
+            </div>
+            <table>
+                <tr>
+                    <th width="20%">平台</th>
+                    <th>核心策略 </th>
+                    <th>发布时间</th>
+                </tr>
+                <tr>
+                    <td><strong>抖音</strong><br><span style="font-size:0.7rem; color:#999;">流量主战场</span></td>
+                    <td>重点发《苏老师创业说》，讲故事，前3秒必须抓人。投放Dou+推广爆款。</td>
+                    <td>晚 6-8点</td>
+                </tr>
+                <tr>
+                    <td><strong>小红书</strong><br><span style="font-size:0.7rem; color:#999;">种草百科</span></td>
+                    <td>重点发《美业转型指南》，干货图文+视频，关键词优化搜索排名。</td>
+                    <td>晚 8-11点</td>
+                </tr>
+                <tr>
+                    <td><strong>视频号</strong><br><span style="font-size:0.7rem; color:#999;">私域成交</span></td>
+                    <td>适合长视频、深度访谈、直播回放，利用朋友圈和社群强转化。</td>
+                    <td>周末/晚8点</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div id="p4" class="page">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-coins"></i>
+                <h2>商业变现路径设计</h2>
+            </div>
+            <p>基于“高客单价+慢转化”特性，设计<strong>“内容种草 - 信任建立 - 私域转化”</strong>闭环 。</p>
+            
+            <div style="background: #fdfbf7; padding: 15px; border-radius: 8px; border: 1px solid var(--gold);">
+                <h3 style="color: var(--primary); font-size: 1rem; margin-top: 0;">📦 三大产品体系</h3>
+                <ul class="detail-list">
+                    <li>
+                        <strong>核心业务：高客单大健康产品</strong>
+                        <div style="font-size: 0.85rem; color: #666; margin-top: 4px;">
+                            价格：元<br>
+                            对象：美业老板、高端创业者<br>
+                            模式：产品代理、店务植入
+                        </div>
+                    </li>
+                    <li style="margin-top: 15px;">
+                        <strong>潜在变现：创业导师培养</strong>
+                        <div style="font-size: 0.85rem; color: #666; margin-top: 4px;">
+                            价格：<br>
+                            内容：创业培训、一对一辅导、合伙人计划<br>
+                            价值：培养核心团队，裂变市场
+                        </div>
+                    </li>
+                    <li style="margin-top: 15px;">
+                        <strong>附加收入：商业合作咨询</strong>
+                        <div style="font-size: 0.85rem; color: #666; margin-top: 4px;">
+                            价格：元/条<br>
+                            形式：品牌代言、探店推广
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-flag-checkered"></i>
+                <h2>三年宏伟发展规划</h2>
+            </div>
+            <div class="stat-grid" style="grid-template-columns: 1fr;">
+                <div class="stat-item" style="text-align: left; padding: 15px 20px;">
+                    <span class="stat-num" style="font-size: 1.1rem;">第1年：基础建设期</span>
+                    <p style="margin: 5px 0; font-size: 0.9rem;">目标：建立稳定内容生产体系，打造10个成功案例。</p>
+                </div>
+                <div class="stat-item" style="text-align: left; padding: 15px 20px; border-left: 4px solid var(--gold);">
+                    <span class="stat-num" style="font-size: 1.1rem;">第2年：快速增长期</span>
+                    <p style="margin: 5px 0; font-size: 0.9rem;">目标：建立品牌影响力，开展线下培训和峰会，建立区域代理。</p>
+                </div>
+                <div class="stat-item" style="text-align: left; padding: 15px 20px;">
+                    <span class="stat-num" style="font-size: 1.1rem;">第3年：平台化发展期</span>
+                    <p style="margin: 5px 0; font-size: 0.9rem;">目标：实现从个人IP到“港澳设计师大湾区平台”的升级。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-shield-alt"></i>
+                <h2>风险控制与应对</h2>
+            </div>
+            <ul class="detail-list" style="font-size: 0.9rem;">
+                <li><strong>内容风险：</strong> 建立素材库防断更；严格审核避免违规。</li>
+                <li><strong>商业风险：</strong> 严控产品质量；建立完善售后服务体系。</li>
+                <li><strong>精力风险：</strong> 合理安排时间，组建团队分担压力，保持健康生活。</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<div class="float-cta" onclick="copyWeChat()">
+    <i class="fab fa-weixin" style="font-size: 1.2rem;"></i>
+    <div>
+        <div style="font-size: 0.8rem; opacity: 0.9;">获取完整方案</div>
+        <div style="font-size: 1rem;">联系红火独角兽团队</div>
+    </div>
+</div>
+
+<div class="bottom-nav">
+    <div class="nav-item active" onclick="switchPage('p1', this)">
+        <i class="fas fa-compass"></i>
+        <span>定位与风口</span>
+    </div>
+    <div class="nav-item" onclick="switchPage('p2', this)">
+        <i class="fas fa-video"></i>
+        <span>内容策略</span>
+    </div>
+    <div class="nav-item" onclick="switchPage('p3', this)">
+        <i class="fas fa-calendar-check"></i>
+        <span>运营执行</span>
+    </div>
+    <div class="nav-item" onclick="switchPage('p4', this)">
+        <i class="fas fa-sack-dollar"></i>
+        <span>商业变现</span>
+    </div>
+</div>
+
+<script>
+    // 页面切换
+    function switchPage(pageId, navEl) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        navEl.classList.add('active');
+        window.scrollTo(0, 0);
+    }
+
+    // 复制微信
+    function copyWeChat() {
+        const wxId = "17368267144";
+        navigator.clipboard.writeText(wxId).then(() => {
+            alert(`微信号 ${wxId} 已复制！\n请打开微信添加好友，获取更多落地资料。`);
+        }).catch(() => {
+            alert(`请手动添加微信号：${wxId}`);
+        });
+    }
+
+    // 初始化图表
+    window.onload = function() {
+        // 市场趋势图
+        new Chart(document.getElementById('marketChart'), {
+            type: 'bar',
+            data: {
+                labels: ['2020年', '2024年', '2025预测'],
+                datasets: [{
+                    label: '市场规模(亿元)',
+                    data: [260, 800, 1200],
+                    backgroundColor: ['#bdc3c7', '#2c3e50', '#c5a065'],
+                    borderRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: {display: false} },
+                scales: { y: { beginAtZero: true } }
+            }
+        });
+
+        // 内容占比饼图
+        new Chart(document.getElementById('contentPie'), {
+            type: 'doughnut',
+            data: {
+                labels: ['创业故事', '美业转型', '健康科普', '团队日常'],
+                datasets: [{
+                    data: [35, 25, 20, 20],
+                    backgroundColor: ['#c5a065', '#2c3e50', '#27ae60', '#e74c3c'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: {display: false} },
+                cutout: '60%'
+            }
+        });
+    };
+</script>
+
+</body>
+</html>
