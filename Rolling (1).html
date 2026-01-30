@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>苏浩宁（Rolling）大健康创业IP短视频运营全案</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <!-- 自定义Tailwind配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#9333EA', // 主色淡紫
+                        secondary: '#A855F7',
+                        light: '#F5F3FF',
+                        dark: '#4C1D95',
+                        base: '#1F2937'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .page-full {
+                min-height: 100vh;
+                padding: 2rem 1rem;
+                box-sizing: border-box;
+            }
+            .nav-active {
+                @apply bg-primary text-white;
+            }
+            .card-shadow {
+                @apply shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-shadow;
+            }
+            .text-gradient {
+                @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary;
+            }
+        }
+        /* 平滑滚动 */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* 底部固定导航 */
+        .fixed-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        /* 分页内容适配导航高度 */
+        .page-content {
+            padding-bottom: 80px;
+        }
+        /* 响应式图表容器 */
+        .chart-container {
+            position: relative;
+            height: 280px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-white text-base font-sans">
+    <div class="page-content">
+        <!-- 第1页：行业现状（数据驱动+痛点深挖+差异化优势） -->
+        <section id="page1" class="page-full flex flex-col justify-center">
+            <div class="max-w-6xl mx-auto w-full">
+                <h1 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-gradient mb-8 text-center">
+                    澳门+大湾区大健康&美业转型 行业现状
+                </h1>
+                <p class="text-center text-lg mb-12 max-w-3xl mx-auto">
+                    基于澳门本地调研数据，精准对标苏老师核心客群，挖掘行业机会与差异化优势
+                </p>
+
+                <!-- 核心数据卡片 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+                    <div class="bg-light rounded-2xl p-6 card-shadow text-center">
+                        <div class="text-4xl font-bold text-primary mb-2">68亿</div>
+                        <div class="text-sm md:text-base">2025大湾区大健康产业规模<br>（澳门占比12%）</div>
+                    </div>
+                    <div class="bg-light rounded-2xl p-6 card-shadow text-center">
+                        <div class="text-4xl font-bold text-primary mb-2">76%</div>
+                        <div class="text-sm md:text-base">澳门美业老板面临<br>客流下滑/同质化困境</div>
+                    </div>
+                    <div class="bg-light rounded-2xl p-6 card-shadow text-center">
+                        <div class="text-4xl font-bold text-primary mb-2">42%</div>
+                        <div class="text-sm md:text-base">2026澳门美业老板<br>计划转型大健康</div>
+                    </div>
+                    <div class="bg-light rounded-2xl p-6 card-shadow text-center">
+                        <div class="text-4xl font-bold text-primary mb-2">83%</div>
+                        <div class="text-sm md:text-base">创业者选大健康最看重<br>实战经验+靠谱领路人</div>
+                    </div>
+                </div>
+
+                <!-- 行业数据图表 -->
+                <div class="bg-light rounded-2xl p-6 mb-10 card-shadow">
+                    <h3 class="text-xl font-semibold mb-4 text-dark">澳门美业老板转型意向与顾虑分析</h3>
+                    <div class="chart-container">
+                        <canvas id="industryChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- 目标客群痛点深挖 -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+                    <div class="border-l-4 border-primary bg-light rounded-r-2xl p-6 card-shadow">
+                        <h3 class="text-xl font-semibold mb-3 text-dark">🎯 核心客群：传统美业老板</h3>
+                        <ul class="space-y-2 text-base">
+                            <li><i class="fa fa-times-circle text-red-500 mr-2"></i> 开店多年客流骤降，同质化价格战赚不到钱，转型无方向</li>
+                            <li><i class="fa fa-times-circle text-red-500 mr-2"></i> 不懂大健康赛道规则，无行业资源，怕投入踩坑重蹈失败</li>
+                            <li><i class="fa fa-times-circle text-red-500 mr-2"></i> 想做高客单却无信任背书，客户不买单，口碑难建立</li>
+                            <li><i class="fa fa-times-circle text-red-500 mr-2"></i> 忙于生意无时间学习，需要简单、直接、可落地的方法</li>
+                            <li><i class="fa fa-lightbulb-o text-yellow-500 mr-2"></i> 核心需求：低成本转型+高客单盈利+全程赋能</li>
+                        </ul>
+                    </div>
+                    <div class="border-l-4 border-secondary bg-light rounded-r-2xl p-6 card-shadow">
+                        <h3 class="text-xl font-semibold mb-3 text-dark">🎯 次要客群：大健康创业者</h3>
+                        <ul class="space-y-2 text-base">
+                            <li><i class="fa fa-times-circle text-red-500 mr-2"></i> 有创业热情无行业经验，选品、起步全靠自己摸索</li>
+                            <li><i class="fa fa-times-circle text-red-500 mr-2"></i> 找不到靠谱领路人，市面多空谈理论博主，无实战价值</li>
+                            <li><i class="fa fa-times-circle text-red-500 mr-2"></i> 想做高客单，缺乏信任搭建方法，成交率低</li>
+                            <li><i class="fa fa-times-circle text-red-500 mr-2"></i> 希望获得产品+培训+运营的一站式创业支持</li>
+                            <li><i class="fa fa-lightbulb-o text-yellow-500 mr-2"></i> 核心需求：避坑指导+实战方法+长期盈利体系</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 竞争格局与差异化优势 -->
+                <div class="bg-light rounded-2xl p-6 card-shadow">
+                    <h3 class="text-xl font-semibold mb-4 text-dark">💥 行业竞争格局 & 苏老师核心差异化优势</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <h4 class="font-medium text-red-500 mb-2">当前澳门大健康短视频3大痛点（机会点）</h4>
+                            <ul class="space-y-1 list-disc list-inside">
+                                <li>过度专业：满屏术语，美业老板/创业者听不懂、不喜欢</li>
+                                <li>空谈创业：无真实失败经历，全是鸡汤，无落地方法</li>
+                                <li>缺乏本土：全国性内容，不贴合澳门美业/创业环境</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-primary mb-2">苏老师4大独属优势（不可复制）</h4>
+                            <ul class="space-y-1 list-disc list-inside text-primary">
+                                <li>真实逆袭：2018失败→2020大健康翻身，完整故事线共情</li>
+                                <li>价值观引领：真诚贴地，团队共赢，契合高客单信任成交</li>
+                                <li>澳门本土IP：熟悉本地环境，比外地博主更懂目标客群</li>
+                                <li>自然风格：对标蔡琪俊，拒绝说教，聊天式传递价值</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 border border-primary/20">
+                        <p class="text-base"><i class="fa fa-star text-yellow-500 mr-2"></i> <strong>核心结论</strong>：澳门大健康转型赛道存在明显的「实战型本土导师缺口」，苏老师的真实经历+本土属性+价值观标签，是突破竞争的核心抓手。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第2页：人设定位（深度绑定+落地细节+避坑指南） -->
+        <section id="page2" class="page-full flex flex-col justify-center bg-light/50">
+            <div class="max-w-6xl mx-auto w-full">
+                <h1 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-gradient mb-8 text-center">
+                    苏浩宁（Rolling）IP人设全解析
+                </h1>
+                <p class="text-center text-lg mb-12 max-w-3xl mx-auto">
+                    拒绝空泛标签，深度绑定个人特质，兼顾家庭顾虑，打造鲜活、可信、可落地的创业导师人设
+                </p>
+
+                <!-- 核心人设3关键词 -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+                    <div class="bg-white rounded-2xl p-6 card-shadow text-center transform hover:-translate-y-2 transition-transform">
+                        <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl font-bold text-primary">真</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-dark">真逆袭</h3>
+                        <p class="text-base">不装不演，真实分享2018创业失败、2020大健康翻身全经历，不美化、不夸大，直面低谷，引发深度共情</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-6 card-shadow text-center transform hover:-translate-y-2 transition-transform">
+                        <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl font-bold text-primary">实</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-dark">实落地</h3>
+                        <p class="text-base">拒绝鸡汤和理论，每一条内容都给具体方法，美业转型、创业起步能直接用，让客户看到「可执行的希望」</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-6 card-shadow text-center transform hover:-translate-y-2 transition-transform">
+                        <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl font-bold text-primary">共</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-dark">重共赢</h3>
+                        <p class="text-base">以价值观为核心，强调「跟着我创业/合作，不仅赚钱，团队每个人都有收获」，契合高客单信任成交需求</p>
+                    </div>
+                </div>
+
+                <!-- 人设Slogan -->
+                <div class="bg-primary/10 rounded-2xl p-6 text-center mb-10 card-shadow">
+                    <p class="text-[clamp(1.2rem,3vw,1.8rem)] font-bold text-dark">
+                        苏浩宁Rolling | 澳门大健康创业逆袭导师
+                    </p>
+                    <p class="text-lg mt-2 text-primary">
+                        真诚做事，落地赋能，陪你避开创业坑，一起赚稳钱！
+                    </p>
+                </div>
+
+                <!-- 人设落地细节（出镜+语言+真实面） -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+                    <!-- 出镜方式 -->
+                    <div class="bg-white rounded-2xl p-6 card-shadow">
+                        <h3 class="text-lg font-semibold mb-3 text-dark flex items-center">
+                            <i class="fa fa-camera text-primary mr-2"></i> 出镜方式设计
+                        </h3>
+                        <p class="text-sm text-gray-600 mb-2">贴合「角色化表演+完全真诚」，兼顾小孩顾虑</p>
+                        <ul class="space-y-2 text-base">
+                            <li><i class="fa fa-check text-green-500 mr-2"></i> 主力出镜：简约大气穿搭，聊天式表达（对标蔡琪俊）</li>
+                            <li><i class="fa fa-check text-green-500 mr-2"></i> 场景：复用现有场地，降低成本，方便兼顾家庭</li>
+                            <li><i class="fa fa-check text-green-500 mr-2"></i> 小孩自然入镜：不回避，转化为「真实贴地」优势</li>
+                            <li><i class="fa fa-check text-green-500 mr-2"></i> 半角色化：扮演「创业过来人」，增强代入感</li>
+                        </ul>
+                    </div>
+                    <!-- 语言风格 -->
+                    <div class="bg-white rounded-2xl p-6 card-shadow">
+                        <h3 class="text-lg font-semibold mb-3 text-dark flex items-center">
+                            <i class="fa fa-comment text-primary mr-2"></i> 语言风格设计
+                        </h3>
+                        <p class="text-sm text-gray-600 mb-2">拒绝专业化，接地气有网感，强化记忆点</p>
+                        <ul class="space-y-2 text-base">
+                            <li><i class="fa fa-quote-left text-primary mr-2"></i> 口头禅：说实话/不装了/我当年踩过这个坑</li>
+                            <li><i class="fa fa-arrow-right text-primary mr-2"></i> 表达逻辑：自身经历→客群痛点→具体方法</li>
+                            <li><i class="fa fa-ban text-red-500 mr-2"></i> 禁忌：无专业术语/无生硬营销/无空洞理论</li>
+                            <li><i class="fa fa-volume-up text-primary mr-2"></i> 语气：自然亲切，像和朋友聊天，有温度</li>
+                        </ul>
+                    </div>
+                    <!-- 真实面呈现 -->
+                    <div class="bg-white rounded-2xl p-6 card-shadow">
+                        <h3 class="text-lg font-semibold mb-3 text-dark flex items-center">
+                            <i class="fa fa-heart text-primary mr-2"></i> 真实面呈现
+                        </h3>
+                        <p class="text-sm text-gray-600 mb-2">完全真诚，展现多面性，拉近距离建信任</p>
+                        <ul class="space-y-2 text-base">
+                            <li><i class="fa fa-meh-o text-primary mr-2"></i> 创业低谷：分享失败后的挣扎，不美化不卖惨</li>
+                            <li><i class="fa fa-home text-primary mr-2"></i> 生活真实：全职创业+兼顾小孩的日常，引发共鸣</li>
+                            <li><i class="fa fa-users text-primary mr-2"></i> 团队真实：团队讨论/培训日常，凸显共赢价值观</li>
+                            <li><i class="fa fa-money text-primary mr-2"></i> 盈利真实：不夸大收益，传递「赚稳钱」理念</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 人设避坑指南 -->
+                <div class="bg-white rounded-2xl p-6 card-shadow">
+                    <h3 class="text-xl font-semibold mb-4 text-dark flex items-center">
+                        <i class="fa fa-exclamation-triangle text-yellow-500 mr-2"></i> 人设长期避坑指南
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="flex items-start">
+                            <i class="fa fa-times-circle text-red-500 mt-1 mr-2 text-lg"></i>
+                            <div>
+                                <h4 class="font-medium">不做「完美导师」</h4>
+                                <p class="text-sm text-gray-600">不刻意打造从不失败的形象，多提踩坑经历，更显真诚</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fa fa-times-circle text-red-500 mt-1 mr-2 text-lg"></i>
+                            <div>
+                                <h4 class="font-medium">不做「专业说教」</h4>
+                                <p class="text-sm text-gray-600">用经历+案例说话，拒绝术语，让客户听得懂、用得上</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fa fa-times-circle text-red-500 mt-1 mr-2 text-lg"></i>
+                            <div>
+                                <h4 class="font-medium">不做「过度营销」</h4>
+                                <p class="text-sm text-gray-600">以分享赋能为主，营销软性植入，贴合信任成交</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fa fa-times-circle text-red-500 mt-1 mr-2 text-lg"></i>
+                            <div>
+                                <h4 class="font-medium">不回避「家庭顾虑」</h4>
+                                <p class="text-sm text-gray-600">小孩自然入镜，凸显平衡家庭与事业的魅力，吸引同频客群</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第3页：内容体系（4大系列+完整剧本+拍摄技巧） -->
+        <section id="page3" class="page-full flex flex-col justify-center">
+            <div class="max-w-6xl mx-auto w-full">
+                <h1 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-gradient mb-8 text-center">
+                    内容体系全规划
+                </h1>
+                <p class="text-center text-lg mb-12 max-w-3xl mx-auto">
+                    以「故事」为核心，4大系列+可直接开拍完整剧本，适配全职投入+家庭兼顾，高效落地
+                </p>
+
+                <!-- 内容整体规划 -->
+                <div class="bg-light rounded-2xl p-6 mb-10 card-shadow">
+                    <h3 class="text-xl font-semibold mb-4 text-dark">📋 内容核心规划（全职投入适配版）</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-white rounded-xl p-4 text-center">
+                            <div class="text-2xl font-bold text-primary mb-1">3条/周</div>
+                            <div class="text-sm">发布频率<br>（多平台复用）</div>
+                        </div>
+                        <div class="bg-white rounded-xl p-4 text-center">
+                            <div class="text-2xl font-bold text-primary mb-1">1次/周</div>
+                            <div class="text-sm">集中拍摄<br>（2-3小时批量完成）</div>
+                        </div>
+                        <div class="bg-white rounded-xl p-4 text-center">
+                            <div class="text-2xl font-bold text-primary mb-1">1-3分钟</div>
+                            <div class="text-sm">时长控制<br>（前3秒抓注意力）</div>
+                        </div>
+                        <div class="bg-white rounded-xl p-4 text-center">
+                            <div class="text-2xl font-bold text-primary mb-1">4大系列</div>
+                            <div class="text-sm">内容布局<br>（故事为核心）</div>
+                        </div>
+                    </div>
+                    <div class="mt-4 bg-white rounded-xl p-4">
+                        <h4 class="font-medium mb-2 text-dark">内容占比分布</h4>
+                        <div class="w-full bg-gray-200 rounded-full h-4">
+                            <div class="bg-primary h-4 rounded-full" style="width: 35%"></div>
+                        </div>
+                        <div class="grid grid-cols-4 text-xs mt-1 text-center">
+                            <span class="text-primary font-medium">创业故事35%</span>
+                            <span class="text-secondary font-medium">美业转型25%</span>
+                            <span class="text-dark font-medium">创业实战20%</span>
+                            <span class="text-gray-600 font-medium">真实日常20%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4大核心内容系列（附完整剧本） -->
+                <!-- 系列1：创业故事系列 -->
+                <div class="bg-white rounded-2xl p-6 mb-6 card-shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center mr-3">
+                            <span class="text-white font-bold">01</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-dark">🔥 核心引流系列：《苏老师创业逆袭记》</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">核心：以2018失败→2020大健康翻身为故事线，戳中「怕失败、想翻身」痛点，快速建立信任与共情</p>
+                    
+                    <div class="bg-light rounded-xl p-4 mb-4">
+                        <h4 class="font-medium text-primary mb-2">✅ 爆款剧本：《2018年，我创业失败，负债累累，不敢告诉家人》（抖音3分钟）</h4>
+                        <div class="space-y-3 text-base">
+                            <p><span class="font-bold text-dark">0-3秒（抓注意力）</span>：（表情真诚，语气低沉）说实话，我也创业失败过，2018年，我输得一塌糊涂。</p>
+                            <p><span class="font-bold text-dark">3-30秒（讲经历，共情）</span>：2018年砸光积蓄+借钱创业，不到一年项目黄了，负债几十万，每天失眠，不敢告诉家人朋友，甚至想过放弃。（可插老照片素材）</p>
+                            <p><span class="font-bold text-dark">30-90秒（讲转折，留希望）</span>：2020年偶然接触大健康，看到同是失败者的翻身案例，鼓起勇气从零开始，从产品了解、客户对接做起，每天只睡5小时，慢慢积累。</p>
+                            <p><span class="font-bold text-dark">90-150秒（传价值观）</span>：失败不可怕，可怕的是不敢站起来。我踩过的坑，你们不用踩；我走过的弯路，你们不用走。真诚做事，不玩虚的，陪你一起翻身。</p>
+                            <p><span class="font-bold text-dark">150-180秒（引流钩子）</span>：评论区扣「翻身」，免费领我2020年从零开始的创业笔记，加微信XXX（备注创业），一对一分析创业方向。</p>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-medium mb-2">📌 补充选题（可直接开拍）</h4>
+                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <li><i class="fa fa-angle-right text-primary mr-2"></i> 《2020年选大健康，不是跟风，是被逼到绝境的选择》</li>
+                            <li><i class="fa fa-angle-right text-primary mr-2"></i> 《创业路上，最可怕的不是失败，是身边人的不理解》</li>
+                            <li><i class="fa fa-angle-right text-primary mr-2"></i> 《从负债到稳定盈利，2年时间，我靠这3个方法》</li>
+                            <li><i class="fa fa-angle-right text-primary mr-2"></i> 《大健康赛道，我为什么敢说能带你赚稳钱？》</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 系列2：美业转型系列 -->
+                <div class="bg-white rounded-2xl p-6 mb-6 card-shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full bg-secondary flex items-center justify-center mr-3">
+                            <span class="text-white font-bold">02</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-dark">🎯 精准转化系列：《美业老板转型记》</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">核心：针对澳门传统美业老板，提供可落地的大健康转型方法，拒绝理论，精准解决核心痛点</p>
+                    
+                    <div class="bg-light rounded-xl p-4 mb-4">
+                        <h4 class="font-medium text-secondary mb-2">✅ 爆款剧本：《澳门美业老板必看！客流下滑，这样转型大健康快速破局》（小红书2分钟）</h4>
+                        <div class="space-y-3 text-base">
+                            <p><span class="font-bold text-dark">0-3秒（抓注意力）</span>：（语气急切）澳门美业老板们，客流越来越少，价格战赚不到钱，想转型又不知道怎么转？</p>
+                            <p><span class="font-bold text-dark">3-40秒（戳痛点）</span>：身边很多美业老板开店5-10年，现在守店十几个小时，赚的钱不够交房租，想转大健康却不懂产品、不懂运营。</p>
+                            <p><span class="font-bold text-dark">40-90秒（给落地方法）</span>：分享1个澳门美业老板可直接用的转型方法：① 不放弃现有客群，美业转大健康1+1>2；② 聚焦1-2款高客单产品，靠信任成交；③ 轻运营重服务，利用现有场地降成本。</p>
+                            <p><span class="font-bold text-dark">90-120秒（引流促咨询）</span>：已帮3位澳门美业老板转型，从亏损到月赚几万。评论区扣「转型」，免费做一对一转型分析，加微信XXX（备注美业）领《美业转型落地手册》。</p>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-medium mb-2">📌 补充选题（可直接开拍）</h4>
+                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <li><i class="fa fa-angle-right text-secondary mr-2"></i> 《澳门美业+大健康，未来3年的黄金风口》</li>
+                            <li><i class="fa fa-angle-right text-secondary mr-2"></i> 《美业转型大健康，最容易踩的3个坑，我替你踩过了》</li>
+                            <li><i class="fa fa-angle-right text-secondary mr-2"></i> 《美容院加1个项目，盈利直接翻倍，怎么做？》</li>
+                            <li><i class="fa fa-angle-right text-secondary mr-2"></i> 《澳门美业老板，高客单健康产品怎么卖才不反感？》</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 系列3：创业实战系列 & 系列4：真实日常系列 -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+                    <!-- 系列3 -->
+                    <div class="bg-white rounded-2xl p-6 card-shadow">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-full bg-dark flex items-center justify-center mr-3">
+                                <span class="text-white font-bold">03</span>
+                            </div>
+                            <h3 class="text-lg font-semibold text-dark">💡 价值输出系列：《苏老师实战课》</h3>
+                        </div>
+                        <p class="text-gray-600 mb-3 text-sm">核心：分享大健康创业/高客单信任成交实战方法，强化专业度，促进高客单转化</p>
+                        <div class="bg-light rounded-xl p-3 mb-3">
+                            <h4 class="font-medium text-dark mb-2">爆款剧本：《高客单产品，不靠推销靠信任，1个方法教会你》</h4>
+                            <p class="text-sm">核心逻辑：先做朋友了解需求→用同类案例说话→价值前置免费赋能→自然成交，附真实客户案例拆解</p>
+                        </div>
+                        <p class="font-medium text-sm mb-1">补充选题：</p>
+                        <ul class="text-sm space-y-1">
+                            <li><i class="fa fa-angle-right text-dark mr-1"></i> 《大健康创业，从零起步只做2件事就够了》</li>
+                            <li><i class="fa fa-angle-right text-dark mr-1"></i> 《20%精准客户，带来80%的利润，怎么找？》</li>
+                            <li><i class="fa fa-angle-right text-dark mr-1"></i> 《如何培养大健康创业导师，打造自己的团队？》</li>
+                        </ul>
+                    </div>
+                    <!-- 系列4 -->
+                    <div class="bg-white rounded-2xl p-6 card-shadow">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-full bg-primary/70 flex items-center justify-center mr-3">
+                                <span class="text-white font-bold">04</span>
+                            </div>
+                            <h3 class="text-lg font-semibold text-dark">❤️ 人设强化系列：《苏老师的真实日常》</h3>
+                        </div>
+                        <p class="text-gray-600 mb-3 text-sm">核心：展示全职创业+兼顾小孩+团队相处日常，拉近距离，强化「真诚贴地」人设，适配信任成交</p>
+                        <div class="bg-light rounded-xl p-3 mb-3">
+                            <h4 class="font-medium text-dark mb-2">爆款剧本：《全职做大健康，还要兼顾小孩，我的一天是这样的》</h4>
+                            <p class="text-sm">核心逻辑：真实展示工作生活平衡日常，传递正能量，引发有家庭/想创业客群深度共鸣，小孩自然入镜</p>
+                        </div>
+                        <p class="font-medium text-sm mb-1">补充选题：</p>
+                        <ul class="text-sm space-y-1">
+                            <li><i class="fa fa-angle-right text-primary/70 mr-1"></i> 《和团队一起聊产品，没有上下级，只有合伙人》</li>
+                            <li><i class="fa fa-angle-right text-primary/70 mr-1"></i> 《澳门本地创业，没有捷径，只有一步一个脚印》</li>
+                            <li><i class="fa fa-angle-right text-primary/70 mr-1"></i> 《我为什么坚持真诚做事？因为信任才是最贵的》</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 拍摄&剪辑实操技巧 -->
+                <div class="bg-light rounded-2xl p-6 card-shadow">
+                    <h3 class="text-xl font-semibold mb-4 text-dark flex items-center">
+                        <i class="fa fa-film text-primary mr-2"></i> 拍摄&剪辑实操技巧（零专业团队，可直接上手）
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-medium mb-2 text-dark">📸 拍摄技巧（成本最低，效率最高）</h4>
+                            <ul class="space-y-2 text-base">
+                                <li><i class="fa fa-check text-green-500 mr-2"></i> 工具：手机+三脚架（50元内），无需专业设备</li>
+                                <li><i class="fa fa-check text-green-500 mr-2"></i> 场景：复用现有场地，搭建简易「创业分享角」</li>
+                                <li><i class="fa fa-check text-green-500 mr-2"></i> 镜头：以近景为主（面部），产品/笔记用特写</li>
+                                <li><i class="fa fa-check text-green-500 mr-2"></i> 效率：每周1次批量拍摄，2-3小时拍3-4条素材</li>
+                                <li><i class="fa fa-check text-green-500 mr-2"></i> 家庭兼顾：拍摄时间选小孩休息/玩耍时段，偶尔入镜更真实</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-medium mb-2 text-dark">✂️ 剪辑技巧（免费工具，一键上手）</h4>
+                            <ul class="space-y-2 text-base">
+                                <li><i class="fa fa-check text-green-500 mr-2"></i> 工具：剪映（免费），无需专业剪辑知识</li>
+                                <li><i class="fa fa-check text-green-500 mr-2"></i> 模板：套用「生活化创业」模板，一键加字幕/配乐</li>
+                                <li><i class="fa fa-check text-green-500 mr-2"></i> 字幕：自动识别字幕，修正错别字，提升观看体验</li>
+                                <li><i class="fa fa-check text-green-500 mr-2"></i> 配乐：选择轻快/正能量纯音乐，不抢人声</li>
+                                <li><i class="fa fa-check text-green-500 mr-2"></i> 复用：一条素材剪辑多平台版本，减少工作量</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第4页：90天执行计划（精准到每周每日，可直接落地） -->
+        <section id="page4" class="page-full flex flex-col justify-center bg-light/50">
+            <div class="max-w-6xl mx-auto w-full">
+                <h1 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-gradient mb-8 text-center">
+                    90天精准执行计划
+                </h1>
+                <p class="text-center text-lg mb-12 max-w-3xl mx-auto">
+                    贴合全职投入+家庭兼顾，拆分每日/每周任务，确保90天达成合作邀约目标，为3年发展奠基
+                </p>
+
+                <!-- 90天目标总览 -->
+                <div class="bg-white rounded-2xl p-6 mb-10 card-shadow">
+                    <h3 class="text-xl font-semibold mb-4 text-dark text-center">🎯 90天核心目标拆解</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                        <div class="border border-primary/20 rounded-xl p-4 transform hover:-translate-y-1 transition-transform">
+                            <div class="text-3xl font-bold text-primary mb-2">10000+</div>
+                            <div class="text-base">精准粉丝积累<br>（澳门美业/大健康创业者）</div>
+                        </div>
+                        <div class="border border-primary/20 rounded-xl p-4 transform hover:-translate-y-1 transition-transform">
+                            <div class="text-3xl font-bold text-primary mb-2">50+</div>
+                            <div class="text-base">有效合作邀约<br>（精准高意向客户）</div>
+                        </div>
+                        <div class="border border-primary/20 rounded-xl p-4 transform hover:-translate-y-1 transition-transform">
+                            <div class="text-3xl font-bold text-primary mb-2">稳定转化</div>
+                            <div class="text-base">每周3-5个合作/成交<br>（高客单为主）</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第一阶段：冷启动期（1-30天） -->
+                <div class="bg-white rounded-2xl p-6 mb-6 card-shadow border-t-4 border-primary">
+                    <h3 class="text-xl font-semibold mb-4 text-dark flex items-center">
+                        <span class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center mr-2 text-sm">1</span>
+                        冷启动期（第1-30天）：搭建基础·积累精准粉丝·建立信任
+                    </h3>
+                    <p class="text-gray-600 mb-4">阶段目标：完成账号搭建+发布10条优质内容+积累1000-2000精准粉丝+获得10+初步咨询</p>
+                    
+                    <!-- 第1周：账号搭建+内容准备 -->
+                    <div class="bg-light rounded-xl p-4 mb-4">
+                        <h4 class="font-medium text-primary mb-2">📅 第1周：账号搭建+内容准备（每天1-2小时，兼顾家庭）</h4>
+                        <div class="space-y-2 text-base">
+                            <p><span class="font-bold text-dark">Day1</span>：注册抖音/小红书/视频号，完成账号认证（统一命名：苏浩宁Rolling）</p>
+                            <p><span class="font-bold text-dark">Day2</span>：设计视觉形象（头像：本人简约照；封面：统一淡紫色系；简介：人设+引流）</p>
+                            <p><span class="font-bold text-dark">Day3</span>：梳理创业故事素材，确定3个核心选题，准备拍摄脚本</p>
+                            <p><span class="font-bold text-dark">Day4</span>：集中拍摄3条视频（创业故事+美业转型+真实日常，2-3小时完成）</p>
+                            <p><span class="font-bold text-dark">Day5</span>：剪映剪辑3条视频，优化封面/字幕/配乐</p>
+                            <p><span class="font-bold text-dark">Day6</span>：多平台同步发布第一条视频（抖音19点/小红书20点/视频号10点）</p>
+                            <p><span class="font-bold text-dark">Day7</span>：回复所有评论私信，引导加微信，搭建初期粉丝群（50人内）</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 第2-4周：稳定发布+引流优化 -->
+                    <div class="bg-light rounded-xl p-4">
+                        <h4 class="font-medium text-primary mb-2">📅 第2-4周：稳定发布+引流优化（每天1小时左右，灵活调整）</h4>
+                        <ul class="space-y-2 text-base">
+                            <li><i class="fa fa-calendar-check-o text-primary mr-2"></i> 每周一：集中拍摄3条视频（创业故事+美业转型+创业实战）</li>
+                            <li><i class="fa fa-calendar-check-o text-primary mr-2"></i> 每周二/四/六：剪辑发布（抖音2条+小红书1条，内容复用）</li>
+                            <li><i class="fa fa-calendar-check-o text-primary mr-2"></i> 每天10分钟：回复评论私信，引导加微信，粉丝群分享小干货</li>
+                            <li><i class="fa fa-calendar-check-o text-primary mr-2"></i> 每周日：复盘数据，优化下一周选题（重点关注高互动内容）</li>
+                            <li><i class="fa fa-calendar-check-o text-primary mr-2"></i> 每周福利：免费提供3次一对一咨询，积累客户好感与案例</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 第二阶段：增长期（31-60天） -->
+                <div class="bg-white rounded-2xl p-6 mb-6 card-shadow border-t-4 border-secondary">
+                    <h3 class="text-xl font-semibold mb-4 text-dark flex items-center">
+                        <span class="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center mr-2 text-sm">2</span>
+                        增长期（第31-60天）：打造爆款·提升影响力·获得合作邀约
+                    </h3>
+                    <p class="text-gray-600 mb-4">阶段目标：粉丝增长至5000-8000+·打造2-3条10万+爆款·获得30+合作咨询·实现初步转化</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-light rounded-xl p-4">
+                            <h4 class="font-medium text-secondary mb-2">📅 第5-6周：爆款打造+引流优化</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li><i class="fa fa-fire text-red-500 mr-2"></i> 复盘冷启动数据，复制爆款逻辑，制作2-3条潜力爆款</li>
+                                <li><i class="fa fa-fire text-red-500 mr-2"></i> 少量投Dou+（50-100元/条），定向澳门+美业/创业人群</li>
+                                <li><i class="fa fa-fire text-red-500 mr-2"></i> 优化引流诱饵：《澳门美业转型手册》《大健康避坑笔记》</li>
+                                <li><i class="fa fa-fire text-red-500 mr-2"></i> 粉丝群扩容至200人，每周1次15分钟干货直播分享</li>
+                            </ul>
+                        </div>
+                        <div class="bg-light rounded-xl p-4">
+                            <h4 class="font-medium text-secondary mb-2">📅 第7-8周：合作邀约+私域培育</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li><i class="fa fa-handshake-o text-primary mr-2"></i> 发布1-2条合作案例视频，展示真实转型/盈利成果</li>
+                                <li><i class="fa fa-handshake-o text-primary mr-2"></i> 私域分层：美业老板/创业者分类标签，24小时人工跟进</li>
+                                <li><i class="fa fa-handshake-o text-primary mr-2"></i> 朋友圈运营：创业日常30%+产品价值30%+客户案例20%</li>
+                                <li><i class="fa fa-handshake-o text-primary mr-2"></i> 对接澳门美业/创业社群，干货分享引流精准客户</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第三阶段：转化期（61-90天） -->
+                <div class="bg-white rounded-2xl p-6 mb-10 card-shadow border-t-4 border-dark">
+                    <h3 class="text-xl font-semibold mb-4 text-dark flex items-center">
+                        <span class="w-8 h-8 rounded-full bg-dark text-white flex items-center justify-center mr-2 text-sm">3</span>
+                        转化期（第61-90天）：稳定转化·优化变现·达成90天目标
+                    </h3>
+                    <p class="text-gray-600 mb-4">阶段目标：粉丝10000+·50+合作邀约·每周3-5个稳定转化·完善商业变现路径</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-light rounded-xl p-4">
+                            <h4 class="font-medium text-dark mb-2">📅 第9-10周：转化优化+产品体系完善</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li><i class="fa fa-line-chart text-green-500 mr-2"></i> 复盘转化数据，标准化高客单信任成交全流程</li>
+                                <li><i class="fa fa-line-chart text-green-500 mr-2"></i> 明确产品体系：澳门专属合作价+多模式合作（代理/加盟/指导）</li>
+                                <li><i class="fa fa-line-chart text-green-500 mr-2"></i> 发布客户见证视频，邀请合作客户出镜分享收获</li>
+                                <li><i class="fa fa-line-chart text-green-500 mr-2"></i> 筛选核心粉丝，打造500人种子用户群，给予专属福利</li>
+                            </ul>
+                        </div>
+                        <div class="bg-light rounded-xl p-4">
+                            <h4 class="font-medium text-dark mb-2">📅 第11-12周：规模化运营+目标冲刺</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li><i class="fa fa-trophy text-yellow-500 mr-2"></i> 稳定内容发布，重点输出合作案例/实战干货/客户见证</li>
+                                <li><i class="fa fa-trophy text-yellow-500 mr-2"></i> 优化时间分配：2小时谈合作+1小时拍摄+1小时维护粉丝</li>
+                                <li><i class="fa fa-trophy text-yellow-500 mr-2"></i> 开展1次视频号直播分享会（30分钟），引爆合作邀约</li>
+                                <li><i class="fa fa-trophy text-yellow-500 mr-2"></i> 复盘90天数据，制定下3个月计划，为3年长期发展奠基</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 多平台差异化运营策略 -->
+                <div class="bg-white rounded-2xl p-6 card-shadow">
+                    <h3 class="text-xl font-semibold mb-4 text-dark text-center">🌐 多平台差异化运营策略（不浪费精力，精准引流）</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- 抖音 -->
+                        <div class="border border-primary/20 rounded-xl p-4 text-center">
+                            <div class="text-2xl text-primary mb-2"><i class="fa fa-tiktok"></i></div>
+                            <h4 class="font-medium text-dark mb-2">抖音（核心引流）</h4>
+                            <p class="text-sm text-left space-y-1 mb-2">
+                                ✅ 内容：1-3分钟创业故事/真实日常，前3秒抓注意力<br>
+                                ✅ 时间：每晚19-20点（澳门用户活跃期）<br>
+                                ✅ 技巧：添加澳门定位，定向投放本地人群<br>
+                                ✅ 引流：视频结尾/评论区植入微信
+                            </p>
+                            <div class="text-xs text-primary font-medium">发布频率：每周2条</div>
+                        </div>
+                        <!-- 小红书 -->
+                        <div class="border border-secondary/20 rounded-xl p-4 text-center">
+                            <div class="text-2xl text-secondary mb-2"><i class="fa fa-book"></i></div>
+                            <h4 class="font-medium text-dark mb-2">小红书（精准转化）</h4>
+                            <p class="text-sm text-left space-y-1 mb-2">
+                                ✅ 内容：1-2分钟美业转型/实战干货，干货密集<br>
+                                ✅ 时间：每晚20-21点<br>
+                                ✅ 技巧：优化关键词，提升搜索排名<br>
+                                ✅ 引流：正文/评论区植入微信
+                            </p>
+                            <div class="text-xs text-secondary font-medium">发布频率：每周1条</div>
+                        </div>
+                        <!-- 视频号 -->
+                        <div class="border border-dark/20 rounded-xl p-4 text-center">
+                            <div class="text-2xl text-dark mb-2"><i class="fa fa-weixin"></i></div>
+                            <h4 class="font-medium text-dark mb-2">视频号（私域承接）</h4>
+                            <p class="text-sm text-left space-y-1 mb-2">
+                                ✅ 内容：3-5分钟深度分享/直播，适配私域<br>
+                                ✅ 时间：周末上午10点<br>
+                                ✅ 技巧：朋友圈/粉丝群推广，精准触达<br>
+                                ✅ 引流：引导加入粉丝群/添加微信
+                            </p>
+                            <div class="text-xs text-dark font-medium">发布频率：每周1条+每月1-2次直播</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第5页：商业变现（高客单+信任成交+长期变现） -->
+        <section id="page5" class="page-full flex flex-col justify-center">
+            <div class="max-w-6xl mx-auto w-full">
+                <h1 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-gradient mb-8 text-center">
+                    商业变现全路径
+                </h1>
+                <p class="text-center text-lg mb-12 max-w-3xl mx-auto">
+                    以「信任成交」为核心，贴合高客单/招募合作/培养创业导师需求，设计公域-私域完整变现路径
+                </p>
+
+                <!-- 变现体系总览 -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                    <!-- 核心变现 -->
+                    <div class="bg-white rounded-2xl p-6 card-shadow border-b-4 border-primary">
+                        <div class="text-4xl text-primary text-center mb-4"><i class="fa fa-product-hunt"></i></div>
+                        <h3 class="text-xl font-semibold text-dark text-center mb-3">核心变现</h3>
+                        <h4 class="font-medium text-primary text-center mb-4">高客单大健康产品合作</h4>
+                        <div class="space-y-3 text-base">
+                            <p><span class="font-bold text-dark">产品定位</span>：澳门本地适配高端大健康产品/服务</p>
+                            <p><span class="font-bold text-dark">价格区间</span>：2000-10000元（高客单高利润）</p>
+                            <p><span class="font-bold text-dark">合作模式</span>：<br>① 美业老板：产品代理（产品+培训+指导）<br>② 创业者：加盟合作（产品+运营+全程赋能）</p>
+                            <p><span class="font-bold text-dark">核心逻辑</span>：信任成交，不靠推销，靠价值与案例</p>
+                        </div>
+                    </div>
+                    <!-- 潜在变现 -->
+                    <div class="bg-white rounded-2xl p-6 card-shadow border-b-4 border-secondary">
+                        <div class="text-4xl text-secondary text-center mb-4"><i class="fa fa-graduation-cap"></i></div>
+                        <h3 class="text-xl font-semibold text-dark text-center mb-3">潜在变现</h3>
+                        <h4 class="font-medium text-secondary text-center mb-4">大健康创业导师培养</h4>
+                        <div class="space-y-3 text-base">
+                            <p><span class="font-bold text-dark">培养定位</span>：零基础大健康创业者实战导师</p>
+                            <p><span class="font-bold text-dark">价格区间</span>：999-9999元（分级定价）</p>
+                            <p><span class="font-bold text-dark">培养内容</span>：避坑指导+产品培训+成交话术+运营支持</p>
+                            <p><span class="font-bold text-dark">核心逻辑</span>：打造核心团队，实现规模化长期变现</p>
+                        </div>
+                    </div>
+                    <!-- 附加变现 -->
+                    <div class="bg-white rounded-2xl p-6 card-shadow border-b-4 border-dark">
+                        <div class="text-4xl text-dark text-center mb-4"><i class="fa fa-handshake-o"></i></div>
+                        <h3 class="text-xl font-semibold text-dark text-center mb-3">附加变现</h3>
+                        <h4 class="font-medium text-dark text-center mb-4">商业合作&咨询服务</h4>
+                        <div class="space-y-3 text-base">
+                            <p><span class="font-bold text-dark">服务形式</span>：本地企业推广+创业/转型咨询</p>
+                            <p><span class="font-bold text-dark">价格区间</span>：单次咨询500-2000元<br>商业推广5000-20000元/条</p>
+                            <p><span class="font-bold text-dark">适配阶段</span>：90天后IP有影响力后逐步开展</p>
+                            <p><span class="font-bold text-dark">核心逻辑</span>：以IP影响力为背书，实现多元化变现</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 信任成交全路径（核心） -->
+                <div class="bg-light rounded-2xl p-6 mb-10 card-shadow">
+                    <h3 class="text-xl font-semibold mb-6 text-dark text-center">💎 高客单信任成交全路径（可直接套用，贴合真诚风格）</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-2">
+                        <!-- 步骤1 -->
+                        <div class="bg-white rounded-xl p-4 text-center transform hover:-translate-y-2 transition-transform">
+                            <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center mx-auto mb-2">1</div>
+                            <h4 class="font-medium text-dark mb-2">公域种草</h4>
+                            <p class="text-xs">优质内容引发共鸣，建立初步认知，吸引精准粉丝</p>
+                        </div>
+                        <!-- 步骤2 -->
+                        <div class="bg-white rounded-xl p-4 text-center transform hover:-translate-y-2 transition-transform">
+                            <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center mx-auto mb-2">2</div>
+                            <h4 class="font-medium text-dark mb-2">私域引流</h4>
+                            <p class="text-xs">福利诱饵引导加微，粉丝群分层，24小时人工跟进</p>
+                        </div>
+                        <!-- 步骤3 -->
+                        <div class="bg-white rounded-xl p-4 text-center transform hover:-translate-y-2 transition-transform">
+                            <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center mx-auto mb-2">3</div>
+                            <h4 class="font-medium text-dark mb-2">价值前置</h4>
+                            <p class="text-xs">免费干货/一对一咨询，展现专业度，强化信任</p>
+                        </div>
+                        <!-- 步骤4 -->
+                        <div class="bg-white rounded-xl p-4 text-center transform hover:-translate-y-2 transition-transform">
+                            <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center mx-auto mb-2">4</div>
+                            <h4 class="font-medium text-dark mb-2">案例赋能</h4>
+                            <p class="text-xs">展示同类客户成功案例，让客户看到「自己的未来」</p>
+                        </div>
+                        <!-- 步骤5 -->
+                        <div class="bg-white rounded-xl p-4 text-center transform hover:-translate-y-2 transition-transform">
+                            <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center mx-auto mb-2">5</div>
+                            <h4 class="font-medium text-dark mb-2">自然成交</h4>
+                            <p class="text-xs">客户主动咨询，标准化方案讲解，实现高客单成交</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 成交核心话术 -->
+                    <div class="bg-white rounded-xl p-4 mt-6">
+                        <h4 class="font-medium text-primary mb-3 text-center">✅ 核心成交话术（贴合真诚贴地风格，拒绝硬销）</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                            <div>
+                                <p><span class="font-bold">引流话术</span>：「评论区扣XX，免费领《XX手册》，加微信XXX备注XX，一对一给你分析方向」</p>
+                                <p><span class="font-bold">跟进话术</span>：「看你是做美业的，最近是不是也遇到客流问题？我帮几个澳门美业老板做过转型，或许能给你点建议」</p>
+                            </div>
+                            <div>
+                                <p><span class="font-bold">成交话术</span>：「我不敢保证你能一夜暴富，但我能保证，我教你的方法都是我实战过的，跟着我做，稳扎稳打赚稳钱，团队所有人都能有收获」</p>
+                                <p><span class="font-bold">复购/转介绍话术</span>：「跟着我做的伙伴，不仅自己赚钱，还能教身边的人，我们一起把蛋糕做大，不是一个人赚独钱」</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3年长期发展规划 -->
+                <div class="bg-white rounded-2xl p-6 card-shadow">
+                    <h3 class="text-xl font-semibold mb-6 text-dark text-center">🚀 3年长期发展规划（贴合高转化+高粉丝量目标）</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="border-l-4 border-primary rounded-r-xl p-4">
+                            <h4 class="font-bold text-primary mb-3">第1年：IP打造期</h4>
+                            <ul class="space-y-2 text-sm list-disc list-inside">
+                                <li>积累5万+精准粉丝，打造澳门本土头部大健康创业IP</li>
+                                <li>稳定月转化30+高客单合作，建立核心团队</li>
+                                <li>培养10+大健康创业导师，初步实现规模化</li>
+                                <li>完善产品体系与服务流程，建立口碑</li>
+                            </ul>
+                        </div>
+                        <div class="border-l-4 border-secondary rounded-r-xl p-4">
+                            <h4 class="font-bold text-secondary mb-3">第2年：规模化期</h4>
+                            <ul class="space-y-2 text-sm list-disc list-inside">
+                                <li>粉丝增长至20万+，辐射大湾区，提升IP影响力</li>
+                                <li>月转化100+合作，实现盈利翻倍</li>
+                                <li>培养50+创业导师，搭建大湾区运营体系</li>
+                                <li>拓展产品品类，打造自有品牌</li>
+                            </ul>
+                        </div>
+                        <div class="border-l-4 border-dark rounded-r-xl p-4">
+                            <h4 class="font-bold text-dark mb-3">第3年：品牌化期</h4>
+                            <ul class="space-y-2 text-sm list-disc list-inside">
+                                <li>成为大湾区大健康创业赋能标杆品牌</li>
+                                <li>实现全渠道变现，转化效率行业领先</li>
+                                <li>搭建完善的创业导师孵化体系，全国布局</li>
+                                <li>实现「IP+产品+导师」三位一体的商业闭环</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-primary/10 rounded-xl p-4 mt-6 text-center">
+                        <p class="text-lg font-medium text-dark">
+                            核心发展逻辑：以真诚贴地的IP为核心，以落地赋能为抓手，以团队共赢为价值观，实现从个人IP到品牌IP的升级，打造长期可持续的商业生态。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 底部固定导航栏 -->
+    <nav class="fixed-nav bg-white/90 border-t border-primary/20 p-2">
+        <div class="max-w-6xl mx-auto">
+            <ul class="grid grid-cols-5 gap-2">
+                <li><a href="#page1" class="nav-item flex flex-col items-center justify-center p-2 rounded-xl text-sm" data-page="page1"><i class="fa fa-bar-chart text-xl mb-1"></i> 行业现状</a></li>
+                <li><a href="#page2" class="nav-item flex flex-col items-center justify-center p-2 rounded-xl text-sm" data-page="page2"><i class="fa fa-user text-xl mb-1"></i> 人设定位</a></li>
+                <li><a href="#page3" class="nav-item flex flex-col items-center justify-center p-2 rounded-xl text-sm" data-page="page3"><i class="fa fa-video-camera text-xl mb-1"></i> 内容体系</a></li>
+                <li><a href="#page4" class="nav-item flex flex-col items-center justify-center p-2 rounded-xl text-sm" data-page="page4"><i class="fa fa-calendar text-xl mb-1"></i> 90天计划</a></li>
+                <li><a href="#page5" class="nav-item flex flex-col items-center justify-center p-2 rounded-xl text-sm" data-page="page5"><i class="fa fa-money text-xl mb-1"></i> 商业变现</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- JS脚本：图表渲染+导航高亮+页面适配 -->
+    <script>
+        // 渲染行业数据图表
+        const industryChart = new Chart(
+            document.getElementById('industryChart'),
+            {
+                type: 'bar',
+                data: {
+                    labels: ['想转型大健康', '担心无经验', '担心投入过高', '找不到领路人', '观望中'],
+                    datasets: [{
+                        label: '澳门美业老板占比（%）',
+                        data: [42, 68, 59, 73, 35],
+                        backgroundColor: [
+                            '#9333EA',
+                            '#A855F7',
+                            '#C084FC',
+                            '#D946EF',
+                            '#A78BFA'
+                        ],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: '占比（%）'
+                            }
+                        }
+                    }
+                }
+            }
+        );
+
+        // 导航栏高亮逻辑
+        const navItems = document.querySelectorAll('.nav-item');
+        const pages = document.querySelectorAll('section');
+
+        // 初始高亮第一个导航
+        navItems[0].classList.add('nav-active');
+
+        // 滚动时更新导航高亮
+        window.addEventListener('scroll', () => {
+            let currentPage = '';
+            pages.forEach(page => {
+                const pageTop = page.offsetTop;
+                const pageHeight = page.clientHeight;
+                if (window.scrollY >= (pageTop - pageHeight / 3)) {
+                    currentPage = page.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('nav-active');
+                if (item.getAttribute('data-page') === currentPage) {
+                    item.classList.add('nav-active');
+                }
+            });
+        });
+
+        // 点击导航平滑滚动并高亮
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetPage = item.getAttribute('data-page');
+                const pageElement = document.getElementById(targetPage);
+                window.scrollTo({
+                    top: pageElement.offsetTop,
+                    behavior: 'smooth'
+                });
+
+                // 手动更新高亮
+                navItems.forEach(i => i.classList.remove('nav-active'));
+                item.classList.add('nav-active');
+            });
+        });
+
+        // 页面加载完成后适配导航高度
+        window.addEventListener('load', () => {
+            const navHeight = document.querySelector('.fixed-nav').offsetHeight;
+            document.querySelector('.page-content').style.paddingBottom = `${navHeight + 20}px`;
+        });
+    </script>
+</body>
+</html>
