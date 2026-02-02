@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="color-scheme" content="dark" />
+  <title>Healer Bar 深度運營全案 | 2026 戰略版</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root{
+      /* --- 核心配色 --- */
+      --bg0: #0f0518;
+      --bg1: #1a0b2e;
+      --bg2: #2d1b4e;
+
+      --text: #EAF0FF;
+      --muted: rgba(234,240,255,.8);
+      --faint: rgba(234,240,255,.5);
+
+      /* 裝飾色 */
+      --accent: #FFD700; /* 奢華金 */
+      --accent-dim: rgba(255, 215, 0, 0.15);
+      --secondary: #b388ff; /* 療愈紫 */
+      
+      /* 邊框與陰影 */
+      --glass: rgba(255,255,255,.05);
+      --border: rgba(255,255,255,.1);
+      --shadow: 0 10px 30px rgba(0,0,0,.5);
+
+      --navH: 84px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, var(--bg0), var(--bg1) 20%, var(--bg2));
+      overflow-x: hidden;
+      line-height: 1.8;
+    }
+
+    /* 背景紋理 */
+    .grain{
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      opacity: .05;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".8" /></filter><rect width="200" height="200" filter="url(%23n)" opacity=".5"/></svg>');
+    }
+
+    /* 容器 */
+    .wrap{ position: relative; z-index: 1; padding-bottom: calc(var(--navH) + 40px); }
+    .container{ max-width: 800px; margin: 0 auto; padding: 20px; }
+
+    /* 頭部 */
+    header {
+      padding: 60px 20px 40px; text-align: center;
+      background: radial-gradient(circle at 50% -20%, rgba(179,136,255,0.2), transparent 70%);
+    }
+    .main-title {
+      font-size: 2.2rem; margin: 0 0 10px;
+      background: linear-gradient(to right, #fff, var(--accent));
+      -webkit-background-clip: text; color: transparent;
+      font-weight: 700; letter-spacing: 1px;
+    }
+    .sub-title {
+      color: var(--secondary); font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase;
+      border: 1px solid rgba(179,136,255,0.3); display: inline-block; padding: 4px 12px; border-radius: 50px;
+    }
+
+    /* 通用版式 */
+    .section-title {
+      font-size: 1.4rem; color: #fff; margin: 40px 0 20px; padding-left: 15px;
+      border-left: 4px solid var(--accent); display: flex; align-items: center;
+    }
+    .section-title i { margin-left: auto; color: var(--faint); font-size: 1rem; }
+    
+    .card {
+      background: var(--glass); border: 1px solid var(--border);
+      border-radius: 16px; padding: 25px; margin-bottom: 20px;
+      backdrop-filter: blur(20px); box-shadow: var(--shadow);
+    }
+
+    h3 { font-size: 1.1rem; color: var(--accent); margin: 20px 0 10px; }
+    h4 { font-size: 1rem; color: #fff; margin: 15px 0 8px; font-weight: 600; }
+    p { margin: 0 0 12px; text-align: justify; font-size: 0.95rem; color: var(--muted); }
+    
+    /* 清單樣式 */
+    ul.rich-list { padding-left: 20px; margin: 10px 0; }
+    ul.rich-list li { margin-bottom: 8px; color: var(--muted); }
+    ul.rich-list li::marker { color: var(--secondary); }
+
+    /* 強調框 */
+    .highlight {
+      background: var(--accent-dim); border-left: 3px solid var(--accent);
+      padding: 15px; border-radius: 0 8px 8px 0; margin: 15px 0;
+    }
+    .highlight strong { color: var(--accent); }
+
+    /* 數據展示 */
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
+    .stat-box { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; text-align: center; }
+    .stat-num { font-size: 1.5rem; font-weight: bold; color: #fff; display: block; }
+    .stat-label { font-size: 0.8rem; color: var(--faint); }
+
+    /* 劇本樣式 */
+    .script-box {
+      font-family: 'Courier New', monospace; background: rgba(0,0,0,0.4);
+      padding: 15px; border-radius: 8px; border: 1px dashed var(--secondary);
+      margin-top: 10px;
+    }
+    .time-tag { color: var(--secondary); font-weight: bold; font-size: 0.85rem; }
+
+    /* 底部導航 */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: rgba(15, 5, 24, 0.95);
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-around;
+      padding: 10px 0 25px; z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+    .nav-item {
+      text-align: center; color: var(--faint); font-size: 0.75rem;
+      cursor: pointer; flex: 1; transition: all 0.3s;
+    }
+    .nav-item i { display: block; font-size: 1.4rem; margin-bottom: 4px; }
+    .nav-item.active { color: var(--accent); transform: translateY(-2px); }
+
+    /* 頁面切換 */
+    .page-content { display: none; animation: fadeIn 0.5s ease; }
+    .page-content.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* 懸浮按鈕 */
+    .float-btn {
+      position: fixed; bottom: 110px; right: 20px;
+      background: linear-gradient(135deg, var(--accent), #e6c200);
+      color: #000; width: 55px; height: 55px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 5px 20px rgba(255,215,0,0.4);
+      z-index: 90; animation: pulse 2s infinite; cursor: pointer;
+    }
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+  </style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header>
+  <div class="sub-title">2026 全案戰略</div>
+  <h1 class="main-title">Healer Bar</h1>
+  <p style="text-align: center; color: var(--muted);">心理營養師 IP 孵化與商業化全案</p>
+</header>
+
+<div class="container">
+
+  <div id="p1" class="page-content active">
+    <div class="section-title">一、性格深度解析 <i class="fas fa-fingerprint"></i></div>
+    
+    <div class="card">
+      <h3>1.1 核心特質：內向者的降維打擊</h3>
+      <p>通過分析問卷，我們發現您具備三大稀缺特質，這正是短視頻時代最需要的“真實感”來源。</p>
+      
+      <div class="highlight">
+        <h4><i class="fas fa-star" style="color:var(--accent)"></i> 創造力與好奇心</h4>
+        <p>您對未知領域有天然的探索欲。在視頻中，這轉化為對平凡事物的“再發現”能力。例如：不直接講香薰，而是講香薰點燃後光影在牆上的流動。</p>
+      </div>
+      
+      <div class="highlight">
+        <h4><i class="fas fa-heart" style="color:var(--secondary)"></i> 極強共情力 (Superpower)</h4>
+        <p>您強調“人情味”，能敏銳捕捉到都市人“想逃離又無法逃離”的糾結。無需演戲，只需“做自己”，就能成為觀眾的情緒出口。</p>
+      </div>
+
+      <div class="highlight">
+        <h4><i class="fas fa-user-secret" style="color:#fff"></i> 真實即高級</h4>
+        <p>鏡頭前的緊張、停頓甚至“卡殼”，在當下反而成了“反套路”的真誠標籤。內向者擅長用“一人一物一空間”的極簡場景，將觀眾注意力強行錨定在產品與情緒上。</p>
+      </div>
+    </div>
+
+    <div class="section-title">二、精准定位系統 <i class="fas fa-bullseye"></i></div>
+    
+    <div class="card">
+      <h3>2.1 IP 人設：Healer 姐姐</h3>
+      <p><strong>Slogan：</strong> “用療愈產品，點亮生活微光”</p>
+      <ul class="rich-list">
+        <li><strong>專業屬性：</strong> 對療愈產品有深入瞭解，提供專業建議。</li>
+        <li><strong>親和力：</strong> 像姐姐一樣貼心，用溫暖方式分享智慧。</li>
+        <li><strong>可信度：</strong> 真實體驗，不通過說教，而是通過分享建立信任。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>2.2 目標受眾畫像</h3>
+      <div class="stats-grid">
+        <div class="stat-box">
+          <span class="stat-num" style="color:var(--secondary)">60%</span>
+          <span class="stat-label">核心：25-40歲都市女性</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">40%</span>
+          <span class="stat-label">次要：中產家庭用戶</span>
+        </div>
+      </div>
+      <p><strong>核心痛點：</strong> 工作壓力大，追求生活品質，願為“悅己”支付溢價，尋找從忙碌中抽離的片刻寧靜。</p>
+    </div>
+  </div>
+
+  <div id="p2" class="page-content">
+    <div class="section-title">三、內容體系規劃 <i class="fas fa-layer-group"></i></div>
+    
+    <div class="card">
+      <h3>3.1 獨家：三維選題模型</h3>
+      <p>如何確保持續產出？我們構建了“痛點-產品-熱點”三維矩陣。</p>
+      <ul class="rich-list">
+        <li><strong>維度一（痛點）：</strong> 996下的自我療愈、失眠焦慮、情緒崩潰瞬間、都市女性減壓指南。</li>
+        <li><strong>維度二（產品）：</strong> 精油的100種隱藏用法、香薰美學、辦公室必備三款精油。</li>
+        <li><strong>維度三（熱點）：</strong> 季節性情緒調節（春困秋乏）、節日儀式感禮物、疫情後心理健康。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>3.2 五大核心內容系列</h3>
+      
+      <div class="highlight">
+        <h4>系列一：Healer 姐姐的療愈日記（每週2條）</h4>
+        <p>核心：日記體形式，記錄真實感受。分享工作壓力導致的健康問題，及如何通過產品改善。</p>
+        <p><em>示例：《為什麼我選擇了療愈生活》、《這款精油讓我告別了失眠》</em></p>
+      </div>
+
+      <div class="highlight">
+        <h4>系列二：療愈產品大揭秘（每週1條）</h4>
+        <p>核心：滿足好奇心，展示專業度。深入剖析成分與功效。</p>
+        <p><em>示例：《90%的人不知道的精油秘密》、《香薰蠟燭的正確打開方式》</em></p>
+      </div>
+
+      <div class="highlight">
+        <h4>系列三：生活中的療愈時刻（每週1條）</h4>
+        <p>核心：捕捉生活小確幸，場景化種草。</p>
+        <p><em>示例：《雨天的療愈儀式》、《晨練後的精油護理》</em></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>3.3 爆款劇本：告別5年失眠</h3>
+      <div class="script-box">
+        <p><span class="time-tag">【0-3秒 開場】</span><br>
+        （畫面：深夜12點，翻來覆去，音效心跳聲放大）<br>
+        臺詞：“姐妹們，你們有沒有試過，連續5年，每天都要躺2小時才能睡著？”</p>
+        
+        <p><span class="time-tag">【3-30秒 痛點】</span><br>
+        （展示床頭櫃的各種助眠藥）<br>
+        臺詞：“試過褪黑素、安眠藥...直到遇到了它。”</p>
+        
+        <p><span class="time-tag">【30-50秒 高潮】</span><br>
+        （特寫精油滴在手心，暖光燈側打）<br>
+        臺詞：“神奇的是，那天晚上我只用了10分鐘...”</p>
+        
+        <p><span class="time-tag">【50-60秒 結尾】</span><br>
+        臺詞：“照顧好自己，從一個好覺開始。”</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="p3" class="page-content">
+    <div class="section-title">四、2026 行業終局 <i class="fas fa-chart-line"></i></div>
+    
+    <div class="card">
+      <h3>4.1 市場爆發式增長</h3>
+      <div class="stats-grid">
+        <div class="stat-box">
+          <span class="stat-num" style="color:var(--accent)">6500億</span>
+          <span class="stat-label">2026市場規模</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">95%</span>
+          <span class="stat-label">短視頻滲透率</span>
+        </div>
+      </div>
+      <p><strong>趨勢解讀：</strong> 過去靠“價格戰”，未來靠“價值戰”。使用者不再買單資訊差，而是買單“生活方式解決方案”。煙火氣+高客單將是黃金賽道。</p>
+    </div>
+
+    <div class="section-title">五、執行與變現 <i class="fas fa-coins"></i></div>
+    
+    <div class="card">
+      <h3>5.1 90天落地計畫</h3>
+      <ul class="rich-list">
+        <li><strong>Phase 1 (1-30天)：</strong> 帳號基建。拍攝10條測試視頻，確定“本真狀態”。產出3條日記+2條揭秘。</li>
+        <li><strong>Phase 2 (31-60天)：</strong> 增長優化。穩定每週3-4更，嘗試直播，建立粉絲群。推出“21天療愈挑戰”。</li>
+        <li><strong>Phase 3 (61-90天)：</strong> 商業閉環。測試轉化路徑，建立產品購買連結，實現高客單價變現。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>5.2 核心變現路徑</h3>
+      <div class="highlight">
+        <h4>1. 高客單產品 (Core)</h4>
+        <p>Healer Bar 系列產品。不打價格戰，靠信任溢價。</p>
+      </div>
+      <div class="highlight">
+        <h4>2. 療愈社群 (Membership)</h4>
+        <p>建立私域會員體系，提供深度的療愈陪伴服務。</p>
+      </div>
+      <div class="highlight">
+        <h4>3. 生活方式品牌 (Brand)</h4>
+        <p>從個人IP延伸至自有品牌，打造生活方式集合店。</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="p4" class="page-content">
+    <div class="section-title">六、核心執行機密 <i class="fas fa-lock"></i></div>
+    
+    <div class="card" style="text-align: center; border: 1px dashed var(--accent);">
+      <h3>保姆級執行 SOP</h3>
+      <p>我們準備了詳細的每日運營逐字表和設備清單，確保一人也能高效運轉。</p>
+      
+      <div style="filter: blur(4px); opacity: 0.5; text-align: left; margin: 20px 0;">
+        <p>09:00 - 場景佈置與燈光調試（參考參數表）...</p>
+        <p>10:00 - 拍攝素材（含運鏡技巧SOP）...</p>
+        <p>14:00 - 剪輯與發佈（使用預設範本）...</p>
+        <p>設備清單：補光燈型號 Godox... 麥克風 Rode...</p>
+      </div>
+
+      <button class="btn btn-primary" onclick="contactUs('sop')" style="width: 100%; padding: 15px;">
+        <i class="fas fa-key"></i> 點擊解鎖完整 SOP
+      </button>
+    </div>
+
+    <div class="card">
+      <h3>資源配置建議</h3>
+      <ul class="rich-list">
+        <li><strong>基礎設備：</strong> 預算3000-5000元。手機支架、補光燈、無線麥克風。</li>
+        <li><strong>拍攝環境：</strong> 選擇家中最溫馨的角落（臥室飄窗），利用自然光。</li>
+        <li><strong>時間投入：</strong> 前期每天2-3小時，穩定期每天1-2小時。</li>
+      </ul>
+    </div>
+    
+    <div style="height: 50px;"></div>
+  </div>
+
+</div>
+
+<div class="float-btn" onclick="contactUs('float')">
+  <i class="fas fa-comment-dots" style="font-size: 1.5rem;"></i>
+</div>
+
+<div class="bottom-nav">
+  <div class="nav-item active" onclick="switchPage('p1', this)">
+    <i class="fas fa-brain"></i> 深度畫像
+  </div>
+  <div class="nav-item" onclick="switchPage('p2', this)">
+    <i class="fas fa-video"></i> 內容策略
+  </div>
+  <div class="nav-item" onclick="switchPage('p3', this)">
+    <i class="fas fa-rocket"></i> 趨勢變現
+  </div>
+  <div class="nav-item" onclick="switchPage('p4', this)">
+    <i class="fas fa-file-contract"></i> 執行SOP
+  </div>
+</div>
+
+<script>
+  // 頁面切換
+  function switchPage(pageId, element) {
+    document.querySelectorAll('.page-content').forEach(el => el.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+    
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    element.classList.add('active');
+    
+    window.scrollTo(0,0);
+  }
+
+  // 聯繫顧問
+  function contactUs(source) {
+    const wxId = "Zzzz2ko";
+    const phone = "17368267144";
+    const name = "吳明蔚｜企業短視頻顧問";
+    
+    let msg = "";
+    if(source === 'sop') msg = "【申請解鎖執行SOP與腳本庫】";
+    if(source === 'float') msg = "【諮詢全案落地】";
+
+    navigator.clipboard.writeText(wxId).then(() => {
+      alert(`✅ 微信號 [ ${wxId} ] 已複製！\n\n請打開微信添加：${name}\n備註：${msg}\n\n手機號：${phone}`);
+    }).catch(() => {
+      alert(`請聯繫顧問：${name}\n微信號：${wxId}\n手機號：${phone}`);
+    });
+  }
+</script>
+
+</body>
+</html>
