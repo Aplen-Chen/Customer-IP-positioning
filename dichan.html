@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>澳门健康生活倡导者 - 深度商业企划</title>
+    <style>
+        /* ================= 基础重置与全局样式 ================= */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif; }
+        body {
+            background: #e0eafc;
+            background: linear-gradient(135deg, #e4efe9 0%, #93a5ce 100%);
+            color: #2c3e50;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: 90px;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* ================= 动态悬浮艺术背景 (Blobs) ================= */
+        .blob { position: fixed; border-radius: 50%; filter: blur(70px); z-index: -1; opacity: 0.5; animation: float 12s infinite ease-in-out alternate; }
+        .blob-1 { top: -5%; left: -10%; width: 350px; height: 350px; background: #ffb199; }
+        .blob-2 { bottom: 10%; right: -10%; width: 300px; height: 300px; background: #8fd3f4; animation-delay: -4s; }
+        .blob-3 { top: 40%; left: 40%; width: 250px; height: 250px; background: #a1c4fd; animation-duration: 18s; }
+        @keyframes float { 0% { transform: translateY(0) scale(1) rotate(0deg); } 100% { transform: translateY(40px) scale(1.1) rotate(10deg); } }
+
+        /* ================= 布局与容器 ================= */
+        .app-container { max-width: 600px; margin: 0 auto; position: relative; padding: 20px 15px; }
+        
+        .page { display: none; animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
+        .page.active { display: block; }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+        /* 标题区域 */
+        .hero-header { text-align: center; margin-bottom: 30px; margin-top: 10px;}
+        .hero-title { font-size: 26px; font-weight: 900; background: linear-gradient(135deg, #1e3c72, #2a5298); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 1px; }
+        .hero-subtitle { font-size: 13px; color: #555; margin-top: 8px; letter-spacing: 3px; font-weight: bold; }
+
+        /* ================= 毛玻璃卡片系统 ================= */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px 0 rgba(31, 38, 135, 0.08);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover { transform: translateY(-3px); box-shadow: 0 15px 35px 0 rgba(31, 38, 135, 0.12); }
+
+        .section-title { font-size: 20px; font-weight: 800; color: #1a1a1a; margin-bottom: 20px; display: flex; align-items: center; border-bottom: 2px dashed rgba(0,0,0,0.1); padding-bottom: 12px;}
+        .section-title .icon { margin-right: 10px; font-size: 24px; }
+
+        .sub-title { font-size: 17px; font-weight: bold; color: #2a5298; margin: 25px 0 15px 0; display: inline-block; background: rgba(255,255,255,0.6); padding: 4px 12px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);}
+
+        /* 内嵌磨砂文本块 (缓解长文阅读疲劳) */
+        .text-panel { background: rgba(255, 255, 255, 0.4); border-radius: 12px; padding: 15px; margin-bottom: 15px; border-left: 4px solid #8fd3f4; color: #333; text-align: justify; }
+        .text-panel p { margin-bottom: 12px; }
+        .text-panel p:last-child { margin-bottom: 0; }
+        
+        .highlight-quote { font-weight: bold; color: #1e3c72; background: rgba(255,255,255,0.7); padding: 2px 6px; border-radius: 4px; }
+        
+        ul.text-list { padding-left: 20px; margin-bottom: 15px; color: #333;}
+        ul.text-list li { margin-bottom: 8px; }
+        ul.text-list li strong { color: #1e3c72; }
+
+        /* ================= 纯CSS 数据图表系统 ================= */
+        
+        /* 1. CSS 柱状图 (市场规模) */
+        .css-bar-chart { margin: 25px 0; background: rgba(255,255,255,0.3); padding: 15px; border-radius: 15px; }
+        .css-bar-row { display: flex; align-items: center; margin-bottom: 12px; }
+        .css-bar-label { width: 65px; font-size: 13px; font-weight: bold; color: #444; }
+        .css-bar-track { flex: 1; background: rgba(0,0,0,0.05); height: 18px; border-radius: 10px; overflow: hidden; position: relative; }
+        .css-bar-fill { height: 100%; background: linear-gradient(90deg, #84fab0, #8fd3f4); display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; color: #000; font-size: 11px; font-weight: bold; border-radius: 10px; box-shadow: inset 0 0 5px rgba(255,255,255,0.5); animation: growBar 1.5s ease-out forwards; transform-origin: left; }
+        @keyframes growBar { 0% { transform: scaleX(0); } 100% { transform: scaleX(1); } }
+        
+        /* 2. CSS 占比饼图/条带图 (用户画像) */
+        .css-progress-wrap { margin: 15px 0; }
+        .css-progress-title { font-size: 13px; margin-bottom: 5px; color: #555; display: flex; justify-content: space-between;}
+        .css-progress-bar { width: 100%; height: 8px; background: rgba(0,0,0,0.06); border-radius: 4px; overflow: hidden; margin-bottom: 15px; }
+        .css-progress-inner { height: 100%; background: linear-gradient(90deg, #ff9a9e, #fecfef); border-radius: 4px; }
+        .color-2 { background: linear-gradient(90deg, #a1c4fd, #c2e9fb); }
+        .color-3 { background: linear-gradient(90deg, #fccb90, #d57eeb); }
+
+        /* 3. CSS 时间轴 (剧本结构) */
+        .css-timeline { border-left: 3px solid rgba(42, 82, 152, 0.3); margin: 20px 0 20px 15px; padding-left: 20px; }
+        .css-tl-item { position: relative; margin-bottom: 25px; }
+        .css-tl-item::before { content: ''; position: absolute; left: -28.5px; top: 0; width: 14px; height: 14px; background: #2a5298; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 8px rgba(42, 82, 152, 0.4); }
+        .css-tl-time { display: inline-block; font-size: 12px; font-weight: bold; color: #fff; background: #2a5298; padding: 2px 10px; border-radius: 12px; margin-bottom: 8px; }
+        .css-tl-content { background: rgba(255,255,255,0.6); padding: 12px; border-radius: 10px; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.02);}
+
+        /* 4. CSS 漏斗图 (变现漏斗) */
+        .css-funnel { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 20px 0; }
+        .funnel-layer { background: linear-gradient(135deg, #a18cd1, #fbc2eb); color: #fff; display: flex; justify-content: center; align-items: center; font-size: 13px; font-weight: bold; border-radius: 8px; height: 35px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .funnel-1 { width: 100%; background: linear-gradient(135deg, #8fd3f4, #84fab0); color: #333;}
+        .funnel-2 { width: 80%; background: linear-gradient(135deg, #a1c4fd, #c2e9fb); color: #333;}
+        .funnel-3 { width: 60%; background: linear-gradient(135deg, #ff9a9e, #fecfef); color: #333;}
+        .funnel-4 { width: 40%; background: linear-gradient(135deg, #fccb90, #d57eeb); color: #fff;}
+
+        /* ================= 底部固定毛玻璃导航 ================= */
+        .glass-nav {
+            position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%); width: 94%; max-width: 580px;
+            background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.9); border-radius: 35px; display: flex; justify-content: space-around; padding: 8px 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); z-index: 1000;
+        }
+        .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #7f8c8d; font-size: 11px; cursor: pointer; transition: 0.3s; padding: 8px 0; border-radius: 25px; font-weight: 500;}
+        .nav-item.active { background: #fff; color: #1e3c72; box-shadow: 0 4px 15px rgba(0,0,0,0.08); transform: translateY(-3px); font-weight: bold;}
+        .nav-item .icon { font-size: 20px; margin-bottom: 3px; }
+
+        /* ================= 联系卡片特化 ================= */
+        .contact-cta { text-align: center; margin-top: 30px; padding: 25px; border-radius: 20px; background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); border: 2px dashed #a1c4fd; }
+        .btn-call { display: block; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: #fff; text-align: center; padding: 16px; border-radius: 30px; text-decoration: none; font-size: 18px; font-weight: bold; margin-top: 20px; box-shadow: 0 8px 20px rgba(30, 60, 114, 0.3); transition: 0.2s; }
+        .btn-call:active { transform: scale(0.96); }
+    </style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<div class="app-container">
+    
+    <div class="hero-header">
+        <div class="hero-title">房地产IP深度企划</div>
+        <div class="hero-subtitle">全维商业变现落地执行案</div>
+    </div>
+
+    <div id="page-1" class="page active">
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">🧠</span> 一、客户性格深度分析</div>
+            
+            <div class="sub-title">1.1 价值观与职业认同</div>
+            <div class="text-panel">
+                <p>从会议记录中可以看出，客户对房地产行业有着深刻的认知和强烈的职业认同感。他明确表示 <span class="highlight-quote">"做这个账号的核心目的是变现"</span>，反映出目标导向明确、商业思维成熟。同时，他将"价值观念"作为最想展示的标签，希望传递"以后的人都是用钱换药物换健康"的理念。</p>
+                <p>客户展现出独特的洞察力：<span class="highlight-quote">"健康是在餐桌上找到的不是医生给你的"</span>。这种跨界思维不局限于传统销售，而是试图从健康生活方式角度重新定义房产价值，寻找差异化竞争优势。</p>
+            </div>
+
+            <div class="sub-title">1.2 沟通风格与表达特点</div>
+            <div class="text-panel">
+                <p>沟通风格直接、真诚、富有感染力。描述自己时使用 <span class="highlight-quote">"歇斯底里地把事情的本质用生活的方式呈现"</span>。强调"让别人知道我是谁，找我是能帮到他什么"，重视直接连接。</p>
+                <p>具备较强故事叙述能力，通过"家人的大疾病经历"解释定位转变。愿意"完全真诚"呈现，选择"生活纪录"出镜，追求真实性与亲和力。</p>
+            </div>
+
+            <div class="sub-title">1.3 专业素养与发展愿景</div>
+            <div class="text-panel" style="border-left-color: #a1c4fd;">
+                <p><strong>专业资源：</strong>作为澳门心理营养师，具备跨学科背景，能从心理学和营养学双维度解读居住环境。<br>
+                <strong>时间投入：</strong>可"全职"投入，对账号寄予厚望。受"公司规范"限制，侧面印证其稳定的权威医疗/健康机构背景。<br>
+                <strong>风险偏好：</strong>选择"在信任中慢慢成交"，重视高生命周期价值。<br>
+                <strong>宏大愿景：</strong>希望"三年后在全世界都有我的学员"，不满足于简单销售，立志成为知识传播者。</p>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">📊</span> 二、短视频行业现状剖析</div>
+            
+            <div class="sub-title">2.1 市场规模与增长趋势</div>
+            <div class="text-panel">
+                <p>2026年房地产短视频正处于爆发式增长。线上获客占比达 60%，获客成本降至 80元/线索，远低传统200元。购房决策周期从45天延至90天，决策更理性。</p>
+            </div>
+            
+            <div class="css-bar-chart">
+                <div style="text-align: center; font-size: 13px; margin-bottom: 10px; color:#555;">行业市场规模增长预估 (亿元)</div>
+                <div class="css-bar-row">
+                    <div class="css-bar-label">2024年</div>
+                    <div class="css-bar-track"><div class="css-bar-fill" style="width: 50%; background: linear-gradient(90deg, #cfd9df, #e2ebf0);">3800 亿</div></div>
+                </div>
+                <div class="css-bar-row">
+                    <div class="css-bar-label">2025年</div>
+                    <div class="css-bar-track"><div class="css-bar-fill" style="width: 70%; background: linear-gradient(90deg, #a1c4fd, #c2e9fb);">5000 亿</div></div>
+                </div>
+                <div class="css-bar-row">
+                    <div class="css-bar-label">2026年</div>
+                    <div class="css-bar-track"><div class="css-bar-fill" style="width: 100%; background: linear-gradient(90deg, #ff9a9e, #fecfef); color: #333;">突破 8000 亿</div></div>
+                </div>
+            </div>
+
+            <div class="sub-title">2.2 平台生态与算法变革</div>
+            <ul class="text-list">
+                <li><strong>抖音推出来客系统：</strong>从兴趣转向预判行为推荐，房产账号必须使用合规留资组件、房产小房子。推120分制来客分考核。</li>
+                <li><strong>小红书完美匹配高客单：</strong>女性占比 71.18%，采用"拼图式"推荐，知识科普、案例解读易获流量，月活突破3.2亿。</li>
+                <li><strong>视频号私域宝藏：</strong>2025年完成房产直播规则，无缝连接微信生态，构建曝光-留资-私域闭环。</li>
+            </ul>
+
+            <div class="sub-title">2.3 内容生态与政策合规</div>
+            <div class="text-panel">
+                <p><strong>内容格局：</strong>探盘类占40%（同质化严重），知识科普类占40%（实用干货受宠），剧情类占30%（情感连接强）。</p>
+                <p><strong>政策红线：</strong>2026年监管前所未有。抖音严禁"100%、第一、零首付"；小红书严打无资质发布二手房信息；政府严整虚假宣传、恶意唱衰。</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-2" class="page">
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">🎯</span> 三、账号定位策略</div>
+            
+            <div class="sub-title">3.1 核心定位：澳门健康生活方式倡导者</div>
+            <div class="text-panel">
+                <p><strong>地域差异化：</strong>澳门独特中西文化融合，深谙"药食同源"，且人均寿命世界领先(83.1岁)，素材丰富。</p>
+                <p><strong>专业差异化：</strong>心理营养师身份赋予跨界属性，提供"买房+健康管理"的一站式解决方案。</p>
+                <p><strong>价值差异化：</strong>契合"预防大于治疗"趋势，传递"好房子不仅是居住空间，更是健康生活方式"。</p>
+            </div>
+
+            <div class="sub-title">3.2 目标受众精准画像</div>
+            <div class="css-progress-wrap">
+                <div class="css-progress-title"><span>核心受众：25-40岁中产女性</span> <span>60%</span></div>
+                <div class="css-progress-bar"><div class="css-progress-inner" style="width: 60%;"></div></div>
+                <p style="font-size: 12px; color: #666; margin-bottom: 10px;">追求生活品质，关注子女教育与家庭健康，主要分布粤港澳大湾区。</p>
+
+                <div class="css-progress-title"><span>次要受众：投资客/银发族/新移民</span> <span>30%</span></div>
+                <div class="css-progress-bar"><div class="css-progress-inner color-2" style="width: 30%;"></div></div>
+                
+                <div class="css-progress-title"><span>潜在受众：泛健康文化爱好者</span> <span>10%</span></div>
+                <div class="css-progress-bar"><div class="css-progress-inner color-3" style="width: 10%;"></div></div>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">📝</span> 四、选题策略与内容规划</div>
+            
+            <div class="sub-title">4.1 爆款选题四大公式</div>
+            <ul class="text-list">
+                <li><strong>痛点解决型：</strong>"买房后才发现的5个健康隐患，第3个忽略了"</li>
+                <li><strong>区域测评型：</strong>"澳门这3个区域最适合养生，住过都说好"</li>
+                <li><strong>预算规划型：</strong>"300万在澳门能买到怎样的健康住宅"</li>
+                <li><strong>反差对比型：</strong>"以为海景房能养生？住了半年发现这些真相"</li>
+            </ul>
+
+            <div class="sub-title">4.2 五大系列主题规划</div>
+            <div class="text-panel">
+                <p><strong>①《健康住宅揭秘》(30%)：</strong>科普健康标准，如"90%的人不知道，你家客厅正伤害颈椎"。</p>
+                <p><strong>②《澳门生活方式》(25%)：</strong>展示慢生活，如"澳门人长寿的秘密：餐桌上都有什么"。</p>
+                <p><strong>③《家庭健康管理》(20%)：</strong>全家健康方案，如"孩子挑食？心理营养师教你3招"。</p>
+                <p><strong>④《购房避坑指南》(15%)：</strong>健康选房视角，如"看房必带5样东西识别隐患"。</p>
+                <p><strong>⑤《营养厨房》(10%)：</strong>场景食谱，如"小户型也能做的10道养生菜"。</p>
+            </div>
+
+            <div class="sub-title">4.3 排期与节奏控制</div>
+            <div class="text-panel" style="border-left-color: #fccb90;">
+                <p><strong>发布频率：</strong>工作日每日1条(早7点或晚8点)；周末每日2条；每周产出9-10条。</p>
+                <p><strong>节奏控制：</strong>每4周为一个内容周期，各系列循环出现。结合热点与季节，保持账号垂直度，不发散。</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-3" class="page">
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">🎭</span> 五、人设塑造与形象设计</div>
+            
+            <div class="sub-title">5.1 核心人设：健康生活布道者</div>
+            <ul class="text-list">
+                <li><strong>专业权威：</strong>澳门心理营养师，10年以上经验。</li>
+                <li><strong>激情澎湃：</strong>用"歇斯底里"的方式传递理念。</li>
+                <li><strong>生活导师：</strong>不仅是房产专家，更是生活方式引领者。</li>
+            </ul>
+
+            <div class="sub-title">5.2 视觉与语言风格</div>
+            <div class="text-panel">
+                <p><strong>视觉道具：</strong>简洁休闲装融入澳门元素；场景多为真实家居/厨房；常备新鲜食材、血压计、笔记本。</p>
+                <p><strong>语言特色：</strong><br>
+                - 口语化：不说"认知疗法"，说"调整想法"。<br>
+                - 情绪化：恐吓式话术"听我一句劝，这户型千万别买"。<br>
+                - 故事化："去年有个客户买了完美房子，半年后..."</p>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">🎬</span> 六、剧本创作与拍摄</div>
+            
+            <div class="sub-title">6.1 黄金60秒视频结构</div>
+            
+            <div class="css-timeline">
+                <div class="css-tl-item">
+                    <div class="css-tl-time">0-3 秒 (开场钩子)</div>
+                    <div class="css-tl-content">特写+夸张表情，痛点刺激/悬念制造抓住注意力。</div>
+                </div>
+                <div class="css-tl-item">
+                    <div class="css-tl-time">4-10 秒 (问题呈现)</div>
+                    <div class="css-tl-content">展示相关画面，描述具体问题建立共鸣。</div>
+                </div>
+                <div class="css-tl-item">
+                    <div class="css-tl-time">11-25 秒 (原因分析)</div>
+                    <div class="css-tl-content">中景+手势，用专业原理解释痛点根源。</div>
+                </div>
+                <div class="css-tl-item">
+                    <div class="css-tl-time">26-45 秒 (解决方案)</div>
+                    <div class="css-tl-content">动作演示+步骤说明，提供高价值实用干货。</div>
+                </div>
+                <div class="css-tl-item">
+                    <div class="css-tl-time">46-60 秒 (效果与互动)</div>
+                    <div class="css-tl-content">展示前后对比，微笑引导关注与评论区互动。</div>
+                </div>
+            </div>
+
+            <div class="sub-title">6.3 拍摄网感与音效</div>
+            <ul class="text-list">
+                <li><strong>运镜：</strong>一镜到底，稳定器L模式平稳展示空间细节(3-5秒停留)。</li>
+                <li><strong>空间：</strong>小户型超广角贴地；层高不足仰拍吊顶。</li>
+                <li><strong>剪辑：</strong>前15秒用3个快切镜头(0.8倍速)，单镜头不超5秒。</li>
+                <li><strong>音效：</strong>科普用轻音乐卡点，避坑用悬疑音效，生活纪录配温暖民谣。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="page-4" class="page">
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">🛡️</span> 七、风险控制机制</div>
+            <div class="text-panel">
+                <p><strong>合规操作：</strong>所有数据必须标注来源，政策解读引用官方，避免绝对化金融承诺。</p>
+                <p><strong>舆情应对：</strong>建立违禁词自查。一级响应(24h内解释)；二级响应(48h澄清)；三级(立即公关)。</p>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">💰</span> 八、商业变现与私域漏斗</div>
+            
+            <div class="sub-title">8.1 多元化变现模式</div>
+            <ul class="text-list">
+                <li><strong>1. 高端咨询服务(核心)：</strong>个人健康住宅评估、购房顾问。客单高，预计转化率3-5%。</li>
+                <li><strong>2. 知识付费(稳定)：</strong>《21天住宅改造计划》、在线训练营、付费社群年卡。</li>
+                <li><strong>3. 房产中介(佣金)：</strong>与澳门本地中介合作，推荐成交获1-3%佣金，提供健康评估增值服务。</li>
+                <li><strong>4. 品牌广告(流量)：</strong>健康家居植入、开发商样板间合作。</li>
+            </ul>
+
+            <div class="sub-title">8.2 私域转化漏斗体系</div>
+            
+            <div class="css-funnel">
+                <div class="funnel-layer funnel-1">公域曝光 (抖音/小红书/视频号)</div>
+                <div class="funnel-layer funnel-2">精准筛选 (9.9元福利钩子/资料包)</div>
+                <div class="funnel-layer funnel-3">企微私域 (7天深度培育/交流群)</div>
+                <div class="funnel-layer funnel-4">高客单付费转化</div>
+            </div>
+            <div class="text-panel" style="margin-top: 15px;">
+                <p><strong>分层运营：</strong>普通群每日分享基础知识；VIP群提供深度服务；合伙人群建立转介绍奖励机制。</p>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">🏆</span> 九、执行总结</div>
+            <div class="text-panel">
+                <p><strong>一个定位：</strong>澳门健康生活方式倡导者。</p>
+                <p><strong>两大优势：</strong>跨界专业背景 + 澳门地域文化稀缺性。</p>
+                <p><strong>三个重点：</strong>干货内容为王 + 真实人设为魂 + 精细私域高转化。</p>
+                <p>坚持长期主义，用"完全真诚"的态度打透信任壁垒，必将成为该垂直赛道的头部IP。</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-5" class="page">
+        <div class="glass-card">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#2a5298" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            </div>
+            <h2 style="text-align: center; color: #1e3c72; margin-bottom: 10px;">获取深度落地陪跑</h2>
+            <p style="text-align: center; color: #555; font-size: 14px; margin-bottom: 20px;">专业的企划需要强有力的执行团队护航。<br>从账号搭建、内容制作到私域变现闭环，我们为您提供一站式陪跑服务。</p>
+            
+            <div class="contact-cta">
+                <div style="font-size: 14px; color: #777;">项目主理人</div>
+                <div style="font-size: 28px; font-weight: 900; color: #1e3c72; margin: 10px 0;">吴明蔚</div>
+                <div style="background: #fff; padding: 15px; border-radius: 15px; margin-top: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                    <div style="font-size: 15px; color: #555; margin-bottom: 8px;">专属咨询热线</div>
+                    <div style="font-size: 22px; font-weight: bold; color: #2a5298; letter-spacing: 1px;">173-6826-7144</div>
+                    <div style="height: 1px; background: #eee; margin: 15px 0;"></div>
+                    <div style="font-size: 15px; color: #555; margin-bottom: 8px;">官方微信号</div>
+                    <div style="font-size: 20px; font-weight: bold; color: #2a5298;">Zzzz2ko</div>
+                </div>
+            </div>
+            
+            <a href="tel:17368267144" class="btn-call">立即拨打电话</a>
+        </div>
+    </div>
+
+</div>
+
+<div class="glass-nav">
+    <div class="nav-item active" data-target="page-1">
+        <div class="icon">📊</div>
+        <div>市场分析</div>
+    </div>
+    <div class="nav-item" data-target="page-2">
+        <div class="icon">🎯</div>
+        <div>定位规划</div>
+    </div>
+    <div class="nav-item" data-target="page-3">
+        <div class="icon">🎬</div>
+        <div>剧本拍摄</div>
+    </div>
+    <div class="nav-item" data-target="page-4">
+        <div class="icon">💎</div>
+        <div>变现执行</div>
+    </div>
+    <div class="nav-item" data-target="page-5">
+        <div class="icon">📞</div>
+        <div>联系我们</div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const navItems = document.querySelectorAll('.nav-item');
+        const pages = document.querySelectorAll('.page');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // 震动反馈 (支持的设备)
+                if(navigator.vibrate) navigator.vibrate(40);
+
+                // 移除高亮状态
+                navItems.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+
+                // 切换页面显示
+                const targetId = this.getAttribute('data-target');
+                pages.forEach(page => page.classList.remove('active'));
+                
+                // 触发动画重绘
+                const targetPage = document.getElementById(targetId);
+                targetPage.style.animation = 'none';
+                targetPage.offsetHeight; 
+                targetPage.style.animation = null;
+                targetPage.classList.add('active');
+
+                // 页面切换时平滑滚动到顶部
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // 触发柱状图动画
+                if(targetId === 'page-1') {
+                    const bars = document.querySelectorAll('.css-bar-fill');
+                    bars.forEach(bar => {
+                        bar.style.animation = 'none';
+                        bar.offsetHeight;
+                        bar.style.animation = null;
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
