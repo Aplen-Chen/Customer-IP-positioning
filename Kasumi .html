@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Kasumi小莊 - 香港房产IP深度商业企划</title>
+    <style>
+        /* ================= 基础重置与全局样式 ================= */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif; }
+        body {
+            /* 采用契合香港高端房产的深蓝/香槟金基调渐变 */
+            background: #e0eafc;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            color: #2c3e50;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: 90px;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* ================= 动态悬浮艺术背景 (Blobs) ================= */
+        .blob { position: fixed; border-radius: 50%; filter: blur(70px); z-index: -1; opacity: 0.45; animation: float 12s infinite ease-in-out alternate; }
+        .blob-1 { top: -5%; left: -10%; width: 350px; height: 350px; background: #c2e9fb; }
+        .blob-2 { bottom: 10%; right: -10%; width: 300px; height: 300px; background: #e0c3fc; animation-delay: -4s; }
+        .blob-3 { top: 40%; left: 40%; width: 250px; height: 250px; background: #fdfbfb; animation-duration: 18s; }
+        @keyframes float { 0% { transform: translateY(0) scale(1) rotate(0deg); } 100% { transform: translateY(40px) scale(1.1) rotate(10deg); } }
+
+        /* ================= 布局与容器 ================= */
+        .app-container { max-width: 600px; margin: 0 auto; position: relative; padding: 20px 15px; }
+        
+        .page { display: none; animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
+        .page.active { display: block; }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+        /* 标题区域 */
+        .hero-header { text-align: center; margin-bottom: 30px; margin-top: 10px;}
+        .hero-title { font-size: 26px; font-weight: 900; background: linear-gradient(135deg, #1a2980, #26d0ce); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 1px; }
+        .hero-subtitle { font-size: 13px; color: #555; margin-top: 8px; letter-spacing: 3px; font-weight: bold; text-transform: uppercase;}
+
+        /* ================= 毛玻璃卡片系统 ================= */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px 0 rgba(31, 38, 135, 0.06);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover { transform: translateY(-3px); box-shadow: 0 15px 35px 0 rgba(31, 38, 135, 0.1); }
+
+        .section-title { font-size: 20px; font-weight: 800; color: #1a1a1a; margin-bottom: 20px; display: flex; align-items: center; border-bottom: 2px dashed rgba(26,41,128,0.15); padding-bottom: 12px;}
+        .section-title .icon { margin-right: 10px; font-size: 24px; }
+
+        .sub-title { font-size: 17px; font-weight: bold; color: #1a2980; margin: 25px 0 15px 0; display: inline-block; background: rgba(255,255,255,0.8); padding: 4px 12px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);}
+
+        /* 内嵌磨砂文本块 (缓解长文阅读疲劳) */
+        .text-panel { background: rgba(255, 255, 255, 0.5); border-radius: 12px; padding: 16px; margin-bottom: 15px; border-left: 4px solid #26d0ce; color: #333; text-align: justify; }
+        .text-panel p { margin-bottom: 12px; }
+        .text-panel p:last-child { margin-bottom: 0; }
+        
+        .highlight-quote { font-weight: bold; color: #1a2980; background: rgba(38,208,206,0.15); padding: 2px 6px; border-radius: 4px; }
+        
+        ul.text-list { padding-left: 20px; margin-bottom: 15px; color: #333;}
+        ul.text-list li { margin-bottom: 10px; }
+        ul.text-list li strong { color: #1a2980; }
+
+        /* ================= 纯CSS 数据图表系统 ================= */
+        
+        /* 1. CSS 柱状图 (市场规模) */
+        .css-bar-chart { margin: 25px 0; background: rgba(255,255,255,0.4); padding: 18px; border-radius: 15px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);}
+        .css-bar-row { display: flex; align-items: center; margin-bottom: 15px; }
+        .css-bar-label { width: 75px; font-size: 13px; font-weight: bold; color: #444; }
+        .css-bar-track { flex: 1; background: rgba(0,0,0,0.05); height: 20px; border-radius: 10px; overflow: hidden; position: relative; }
+        .css-bar-fill { height: 100%; background: linear-gradient(90deg, #26d0ce, #1a2980); display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; color: #fff; font-size: 11px; font-weight: bold; border-radius: 10px; animation: growBar 1.5s ease-out forwards; transform-origin: left; }
+        @keyframes growBar { 0% { transform: scaleX(0); } 100% { transform: scaleX(1); } }
+        
+        /* 2. CSS 占比饼图/条带图 (用户画像) */
+        .css-progress-wrap { margin: 20px 0; padding: 15px; background: rgba(255,255,255,0.4); border-radius: 12px;}
+        .css-progress-title { font-size: 13px; font-weight: bold; margin-bottom: 6px; color: #1a2980; display: flex; justify-content: space-between;}
+        .css-progress-bar { width: 100%; height: 10px; background: rgba(0,0,0,0.06); border-radius: 5px; overflow: hidden; margin-bottom: 12px; }
+        .css-progress-inner { height: 100%; background: linear-gradient(90deg, #1a2980, #26d0ce); border-radius: 5px; }
+        .color-2 { background: linear-gradient(90deg, #e0c3fc, #8ec5fc); }
+        .color-3 { background: linear-gradient(90deg, #fbc2eb, #a6c1ee); }
+        .color-4 { background: linear-gradient(90deg, #f6d365, #fda085); }
+
+        /* 3. CSS 时间轴 (剧本结构) */
+        .css-timeline { border-left: 3px solid rgba(26, 41, 128, 0.2); margin: 25px 0 25px 15px; padding-left: 20px; }
+        .css-tl-item { position: relative; margin-bottom: 25px; }
+        .css-tl-item::before { content: ''; position: absolute; left: -28.5px; top: 0; width: 14px; height: 14px; background: #26d0ce; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 8px rgba(38, 208, 206, 0.5); }
+        .css-tl-time { display: inline-block; font-size: 12px; font-weight: bold; color: #fff; background: #1a2980; padding: 3px 12px; border-radius: 12px; margin-bottom: 8px; box-shadow: 0 2px 6px rgba(26, 41, 128, 0.3);}
+        .css-tl-content { background: rgba(255,255,255,0.7); padding: 15px; border-radius: 10px; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);}
+
+        /* 4. CSS 漏斗图 (变现漏斗) */
+        .css-funnel { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 25px 0; }
+        .funnel-layer { color: #fff; display: flex; justify-content: center; align-items: center; font-size: 13px; font-weight: bold; border-radius: 8px; height: 38px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: all 0.3s;}
+        .funnel-layer:hover { transform: scale(1.02); }
+        .funnel-1 { width: 100%; background: linear-gradient(135deg, #a6c1ee, #fbc2eb); color: #333;}
+        .funnel-2 { width: 85%; background: linear-gradient(135deg, #8ec5fc, #e0c3fc); color: #333;}
+        .funnel-3 { width: 65%; background: linear-gradient(135deg, #26d0ce, #1a2980); color: #fff;}
+        .funnel-4 { width: 45%; background: linear-gradient(135deg, #f6d365, #fda085); color: #fff;}
+
+        /* ================= 底部固定毛玻璃导航 ================= */
+        .glass-nav {
+            position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%); width: 94%; max-width: 580px;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.9); border-radius: 35px; display: flex; justify-content: space-around; padding: 8px 10px; box-shadow: 0 10px 40px rgba(26,41,128,0.15); z-index: 1000;
+        }
+        .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #95a5a6; font-size: 11px; cursor: pointer; transition: 0.3s; padding: 8px 0; border-radius: 25px; font-weight: 500;}
+        .nav-item.active { background: #f0f4f8; color: #1a2980; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transform: translateY(-3px); font-weight: bold;}
+        .nav-item .icon { font-size: 20px; margin-bottom: 3px; }
+
+        /* ================= 联系卡片特化 ================= */
+        .contact-cta { text-align: center; margin-top: 30px; padding: 30px; border-radius: 20px; background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%); border: 2px dashed #26d0ce; box-shadow: 0 10px 30px rgba(0,0,0,0.05);}
+        .btn-call { display: block; background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%); color: #fff; text-align: center; padding: 18px; border-radius: 30px; text-decoration: none; font-size: 18px; font-weight: bold; margin-top: 25px; box-shadow: 0 8px 25px rgba(26, 41, 128, 0.35); transition: 0.2s; letter-spacing: 1px;}
+        .btn-call:active { transform: scale(0.96); }
+    </style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<div class="app-container">
+    
+    <div class="hero-header">
+        <div class="hero-title">香港房产IP商业企划</div>
+        <div class="hero-subtitle">Kasumi 小莊 · 专属定制方案</div>
+    </div>
+
+    <div id="page-1" class="page active">
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">👩‍💼</span> 一、Kasumi 性格与IP契合分析</div>
+            
+            <div class="sub-title">1.1 积极友善的破冰优势</div>
+            <div class="text-panel">
+                <p>Kasumi具备典型的外向型人格优势（"積極友善專業"）。在高端房产领域，亲和力是打破富豪及中产客户防线的首要资产。有别于传统中介的刻板推销，这种特质能迅速建立"邻家房产顾问"的信任感，与客户形成朋友式的深度交流偏好。</p>
+            </div>
+
+            <div class="sub-title">1.2 "慢热"特质的专业高转化</div>
+            <div class="text-panel" style="border-left-color: #1a2980;">
+                <p>Kasumi自述的"慢熱且偶爾粗心"，在短视频语境下不仅不是劣势，反而是极佳的人设锚点。慢热意味着深思熟虑和谨慎决策。<br><br>
+                在内容中展现 <span class="highlight-quote">"理性分析、不急于成交、只做最适合推荐"</span> 的服务理念，能与急于推销的市场形成鲜明割裂。同时，"偶尔粗心"的真实感（适度展现不完美）能大幅降低包装感，更容易获得高净值人群的信任与包容。</p>
+            </div>
+
+            <div class="sub-title">1.3 差异化竞争：情感连接优先</div>
+            <ul class="text-list">
+                <li><strong>节奏控制：</strong>利用慢热特质，视频采用"渐进式价值输出"（前3秒破冰，中段专业铺陈，后段建议）。</li>
+                <li><strong>信任驱动：</strong>设计"信任-了解-需求-匹配-成交"五步慢转化路径，高度契合香港豪宅的高客单决策周期。</li>
+                <li><strong>长期主义：</strong>不追求单次割韭菜，构建资产配置与全生命周期管理，瞄准"三年千万收入"的宏大愿景。</li>
+            </ul>
+        </div>
+
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">📈</span> 二、2026香港房产风口剖析</div>
+            
+            <div class="sub-title">2.1 豪宅爆发与"四低"供应</div>
+            <div class="text-panel">
+                <p>2026年香港楼市迎重要拐点，1月逾亿元一手住宅成交狂揽26宗，较去年同期暴涨7倍，创单月历史新高。同时，私宅供应呈"四低"（施工、落成、货尾新低），潜在一手供应较2025年减少20%，创14年新低。这种极度的供需失衡，为短视频制造了绝佳的稀缺性话题。</p>
+            </div>
+            
+            
+            
+            <div class="css-bar-chart">
+                <div style="text-align: center; font-size: 13px; margin-bottom: 12px; color:#555;">香港单月逾亿元豪宅成交量飙升预估</div>
+                <div class="css-bar-row">
+                    <div class="css-bar-label">25年平均</div>
+                    <div class="css-bar-track"><div class="css-bar-fill" style="width: 25%; background: linear-gradient(90deg, #bdc3c7, #95a5a6);">低位徘徊</div></div>
+                </div>
+                <div class="css-bar-row">
+                    <div class="css-bar-label">25年12月</div>
+                    <div class="css-bar-track"><div class="css-bar-fill" style="width: 55%; background: linear-gradient(90deg, #a6c1ee, #fbc2eb);">回暖拉升</div></div>
+                </div>
+                <div class="css-bar-row">
+                    <div class="css-bar-label">26年开年</div>
+                    <div class="css-bar-track"><div class="css-bar-fill" style="width: 100%;">暴涨7倍 (单月26宗)</div></div>
+                </div>
+            </div>
+
+            <div class="sub-title">2.2 政策利好与平台红利</div>
+            <ul class="text-list">
+                <li><strong>全面"撤辣"：</strong>非本地买家税负从30%降至4.25%（5000万物业省750万），跨境置业门槛骤降。</li>
+                <li><strong>人才扩容：</strong>高才通大学名单扩至198所，超22万人才抵港，带来巨大的刚需买卖与租赁红利。</li>
+                <li><strong>平台矩阵：</strong>抖音（港漂主阵地）、小红书（高客单女性、拼图式推荐算法极易两周内起号）、视频号（微信生态私域王牌）。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="page-2" class="page">
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">🎯</span> 三、精准用户画像与需求</div>
+            
+            <div class="sub-title">3.1 目标群体K型分层拆解</div>
+            
+            
+
+            <div class="css-progress-wrap">
+                <div class="css-progress-title"><span>1. 高才通新移民 (30-40岁中产)</span></div>
+                <div class="css-progress-bar"><div class="css-progress-inner" style="width: 45%;"></div></div>
+                <p style="font-size: 12px; color: #666; margin-bottom: 12px;">预算400-800万中小户型；核心痛点：政策解读、房贷流程、融入香港本地生活圈的经验。</p>
+
+                <div class="css-progress-title"><span>2. 高端投资客群 (40-60岁高净值)</span></div>
+                <div class="css-progress-bar"><div class="css-progress-inner color-2" style="width: 30%;"></div></div>
+                <p style="font-size: 12px; color: #666; margin-bottom: 12px;">偏好南区/浅水湾等豪宅；核心痛点：抗险资产配置、宏观回报率测算、专业尽职调查。</p>
+                
+                <div class="css-progress-title"><span>3. 陪读家长群体 (35-50岁)</span></div>
+                <div class="css-progress-bar"><div class="css-progress-inner color-3" style="width: 15%;"></div></div>
+                <p style="font-size: 12px; color: #666; margin-bottom: 12px;">教育驱动，核心关注1公里内优质学区房、升学政策及成本效益。</p>
+
+                <div class="css-progress-title"><span>4. 财富新贵 (30-45岁创业高管)</span></div>
+                <div class="css-progress-bar"><div class="css-progress-inner color-4" style="width: 10%;"></div></div>
+                <p style="font-size: 12px; color: #666; margin-bottom: 0;">追求设计感与科技感住宅，决策极快（1-3个月）。</p>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">👑</span> 四、核心IP：房产生活方式顾问</div>
+            
+            <div class="sub-title">4.1 差异化人设重构</div>
+            <div class="text-panel">
+                <p>将Kasumi定位为 <strong>"香港房产生活方式顾问"</strong>。不局限于卖砖头，而是贩卖"阶层跃升与理想生活方式"。</p>
+                <p><strong>三位一体标签：</strong><br>
+                - 专业：投资分析师、政策达人。<br>
+                - 亲和：邻家姐姐、生活导师。<br>
+                - 真实：不完美但真诚（适度展现慢热与小粗心带来的反差萌）。</p>
+            </div>
+
+            
+
+            <div class="sub-title">4.2 视觉与语言识别系统</div>
+            <ul class="text-list">
+                <li><strong>着装场景：</strong>工作日利落职业装；周末展现亲和力的休闲/港风服饰。多在高端咖啡厅、无敌海景样板房出镜。</li>
+                <li><strong>标志动作：</strong>思考时习惯性托腮；结尾专属"OK"手势。</li>
+                <li><strong>金句洗脑：</strong><span class="highlight-quote">"买房不是买房子，是买生活"</span>、<span class="highlight-quote">"相信我，慢决策才能选对好资产"</span>。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="page-3" class="page">
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">🎬</span> 五、内容策略与爆款剧本</div>
+            
+            <div class="sub-title">5.1 黄金三秒与四维选题矩阵</div>
+            <div class="text-panel">
+                <p><strong>热点(30%)：</strong>撤辣后续发酵、明星同款豪宅揭秘。<br>
+                <strong>痛点(50%)：</strong>内地人在港买房10大踩坑、租金回报率深度拆解。<br>
+                <strong>爆点(20%)：</strong>5平米劏房 vs 1亿浅水湾豪宅的极致折叠感。</p>
+            </div>
+
+            <div class="sub-title">5.2 黄金60秒高完播剧本结构</div>
+            
+            <div class="css-timeline">
+                <div class="css-tl-item">
+                    <div class="css-tl-time">0-15 秒：起 (悬念钩子)</div>
+                    <div class="css-tl-content"><strong>示例：</strong>"同样是500万，在香港不同区域的命运天差地别！"（夸张表情+快切镜头）</div>
+                </div>
+                <div class="css-tl-item">
+                    <div class="css-tl-time">16-35 秒：承 (对比/痛点展露)</div>
+                    <div class="css-tl-content"><strong>示例：</strong>画面左切港岛南区老破小，右切启德新区大三房。直击客户买错区域的焦虑感。</div>
+                </div>
+                <div class="css-tl-item">
+                    <div class="css-tl-time">36-50 秒：转 (专业降维打击)</div>
+                    <div class="css-tl-content"><strong>示例：</strong>托腮思考状，抛出"租金回报率模型"和"未来5年港府规划"，提供不可替代的专家干货。</div>
+                </div>
+                <div class="css-tl-item">
+                    <div class="css-tl-time">51-60 秒：合 (信任收口互动)</div>
+                    <div class="css-tl-content"><strong>示例：</strong>"如果是你，为了孩子会选哪套？来我粉丝群，拿独家避坑指南。"（标志性OK手势结尾）</div>
+                </div>
+            </div>
+
+            <div class="sub-title">5.3 五大吸粉内容栏目</div>
+            <ul class="text-list">
+                <li><strong>《香港房产真相》(30%)：</strong>揭秘开发商与中介潜规则，强化真实真诚人设。</li>
+                <li><strong>《区域深度解析》(25%)：</strong>航拍+数据化梳理九龙塘/启德/南区投资价值。</li>
+                <li><strong>《生活方式体验》(20%)：</strong>跟拍香港中产的一天，满足内地客户的向往。</li>
+                <li><strong>《投资策略分享》(15%)：</strong>宏观视野定调，拉高客单属性。</li>
+                <li><strong>《购房全流程指南》(10%)：</strong>税费、贷款工具包输出，作为私域引流诱饵。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="page-4" class="page">
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">💰</span> 六、商业变现与私域漏斗</div>
+            
+            <div class="sub-title">6.1 预估600万+的多元收入结构</div>
+            <div class="text-panel">
+                <p><strong>1. 高端交易佣金 (核心基本盘)：</strong><br>按香港豪宅均价2000万，佣金率2.5%测算，单套抽成50万。全年仅需成交12-15套，即可实现600-800万核心收入。<br><br>
+                <strong>2. 高附加值咨询：</strong><br>防入坑尽调服务、高净值资产配置规划（按单次或单项目收费）。<br><br>
+                <strong>3. 知识付费社群：</strong><br>《香港高端房产防坑课》、VIP投资圈子年费。</p>
+            </div>
+
+            <div class="sub-title">6.2 七步高转化私域漏斗</div>
+            
+            
+
+            <div class="css-funnel">
+                <div class="funnel-layer funnel-1">公域曝光 (抖音/小红书/视频号 内容矩阵)</div>
+                <div class="funnel-layer funnel-2">私域引流 (企微/公众号 钩子诱饵)</div>
+                <div class="funnel-layer funnel-3">深度培育 (VIP社群/价值输出/信任建立)</div>
+                <div class="funnel-layer funnel-4">千万级高客单转化</div>
+            </div>
+            
+            <div class="text-panel" style="margin-top: 15px; border-left-color: #f6d365;">
+                <p><strong>精细化执行步骤：</strong><br>
+                ① 内容吸引 (30%关注) → ② 互动激活 (24小时内私信响应) → ③ 需求识别 (1对1表单) → ④ 价值输出 (定制化方案) → ⑤ 信任建立 (慢热人设发力) → ⑥ 产品推荐 → ⑦ 线下带看成交。</p>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">🛡️</span> 七、风控与90天落地执行</div>
+            
+            <div class="sub-title">7.1 每周2小时的时间破局策略</div>
+            <ul class="text-list">
+                <li><strong>批量生产：</strong>利用周末"主题日"集中拍摄7条短视频，助理负责周内分发剪辑。</li>
+                <li><strong>AI工具赋能：</strong>全案引入AI脚本生成、智能数字人配音提效。</li>
+            </ul>
+
+            <div class="sub-title">7.2 政策合规与口碑风控</div>
+            <div class="text-panel">
+                <p>应对2026年史上最严新规：禁用"最/第一"等极限词。建立"专业律师审核+事实核查"机制，所有数据必须标明港府官方出处。投资视频强制挂载"投资有风险"免责声明。面对政策波动，设立24小时内快速解读的响应机制，永远快同行一步。</p>
+            </div>
+
+            <div class="sub-title">7.3 90天起盘里程碑</div>
+            <div class="text-panel" style="background: rgba(26,41,128,0.05); border-left-color: #1a2980;">
+                <p><strong>前30天 (基础建设)：</strong> 建立四端矩阵，输出首批10条种子内容。<br>
+                <strong>31-60天 (测试优化)：</strong> 找出爆款流量密码，互动率拉升至5%。<br>
+                <strong>61-90天 (商业闭环)：</strong> 跑通VIP社群模型，斩获首个千万级看房团线索。</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-5" class="page">
+        <div class="glass-card">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <svg width="65" height="65" viewBox="0 0 24 24" fill="none" stroke="#26d0ce" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            </div>
+            <h2 style="text-align: center; color: #1a2980; margin-bottom: 12px; font-weight: 900;">获取全案落地陪跑服务</h2>
+            <p style="text-align: center; color: #666; font-size: 14px; margin-bottom: 25px;">三分策划，七分执行。从IP定位、爆款脚本产出到私域千万级变现模型搭建，我们为您提供全方位的一站式陪跑落地服务。</p>
+            
+            <div class="contact-cta">
+                <div style="font-size: 14px; color: #7f8c8d; font-weight: bold; letter-spacing: 2px;">项目执行主理人</div>
+                <div style="font-size: 32px; font-weight: 900; color: #1a2980; margin: 15px 0;">吴明蔚</div>
+                <div style="background: rgba(255,255,255,0.9); padding: 20px; border-radius: 15px; margin-top: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.06);">
+                    <div style="font-size: 14px; color: #7f8c8d; margin-bottom: 8px;">专属咨询热线</div>
+                    <div style="font-size: 24px; font-weight: 900; color: #26d0ce; letter-spacing: 1px;">173-6826-7144</div>
+                    <div style="height: 1px; background: #ecf0f1; margin: 15px 0;"></div>
+                    <div style="font-size: 14px; color: #7f8c8d; margin-bottom: 8px;">官方微信号</div>
+                    <div style="font-size: 22px; font-weight: 800; color: #1a2980;">Zzzz2ko</div>
+                </div>
+            </div>
+            
+            <a href="tel:17368267144" class="btn-call">一键拨号启动项目</a>
+        </div>
+    </div>
+
+</div>
+
+<div class="glass-nav">
+    <div class="nav-item active" data-target="page-1">
+        <div class="icon">📊</div>
+        <div>人设与市场</div>
+    </div>
+    <div class="nav-item" data-target="page-2">
+        <div class="icon">🎯</div>
+        <div>目标客群</div>
+    </div>
+    <div class="nav-item" data-target="page-3">
+        <div class="icon">🎬</div>
+        <div>内容与剧本</div>
+    </div>
+    <div class="nav-item" data-target="page-4">
+        <div class="icon">💎</div>
+        <div>变现与风控</div>
+    </div>
+    <div class="nav-item" data-target="page-5">
+        <div class="icon">📞</div>
+        <div>联系我们</div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const navItems = document.querySelectorAll('.nav-item');
+        const pages = document.querySelectorAll('.page');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // 设备震动反馈 (提升交互质感)
+                if(navigator.vibrate) navigator.vibrate(30);
+
+                // 切换底部导航高亮
+                navItems.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+
+                // 切换页面显示
+                const targetId = this.getAttribute('data-target');
+                pages.forEach(page => page.classList.remove('active'));
+                
+                // 触发页面浮现动画重绘
+                const targetPage = document.getElementById(targetId);
+                targetPage.style.animation = 'none';
+                targetPage.offsetHeight; 
+                targetPage.style.animation = null;
+                targetPage.classList.add('active');
+
+                // 自动平滑滚动回顶部
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // 如果切换回第一页，重新触发柱状图动画
+                if(targetId === 'page-1') {
+                    const bars = document.querySelectorAll('.css-bar-fill');
+                    bars.forEach(bar => {
+                        bar.style.animation = 'none';
+                        bar.offsetHeight;
+                        bar.style.animation = null;
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
