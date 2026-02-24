@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>吳金霞 - 香港房產IP深度商業企劃</title>
+    <style>
+        /* ================= 基礎重置與全域樣式 ================= */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif; }
+        body {
+            /* 採用契合香港高端房產的深藍/香檳金基調漸變 */
+            background: #e0eafc;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            color: #2c3e50;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: 90px;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* ================= 動態懸浮藝術背景 (Blobs) ================= */
+        .blob { position: fixed; border-radius: 50%; filter: blur(70px); z-index: -1; opacity: 0.45; animation: float 12s infinite ease-in-out alternate; }
+        .blob-1 { top: -5%; left: -10%; width: 350px; height: 350px; background: #c2e9fb; }
+        .blob-2 { bottom: 10%; right: -10%; width: 300px; height: 300px; background: #e0c3fc; animation-delay: -4s; }
+        .blob-3 { top: 40%; left: 40%; width: 250px; height: 250px; background: #fdfbfb; animation-duration: 18s; }
+        @keyframes float { 0% { transform: translateY(0) scale(1) rotate(0deg); } 100% { transform: translateY(40px) scale(1.1) rotate(10deg); } }
+
+        /* ================= 佈局與容器 ================= */
+        .app-container { max-width: 600px; margin: 0 auto; position: relative; padding: 20px 15px; }
+        
+        .page { display: none; animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
+        .page.active { display: block; }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+        /* 標題區域 */
+        .hero-header { text-align: center; margin-bottom: 30px; margin-top: 10px;}
+        .hero-title { font-size: 26px; font-weight: 900; background: linear-gradient(135deg, #1a2980, #26d0ce); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 1px; }
+        .hero-subtitle { font-size: 13px; color: #555; margin-top: 8px; letter-spacing: 3px; font-weight: bold; text-transform: uppercase;}
+
+        /* ================= 毛玻璃卡片系統 ================= */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px 0 rgba(31, 38, 135, 0.06);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover { transform: translateY(-3px); box-shadow: 0 15px 35px 0 rgba(31, 38, 135, 0.1); }
+
+        .section-title { font-size: 20px; font-weight: 800; color: #1a1a1a; margin-bottom: 20px; display: flex; align-items: center; border-bottom: 2px dashed rgba(26,41,128,0.15); padding-bottom: 12px;}
+        .section-title .icon { margin-right: 10px; font-size: 24px; }
+
+        .sub-title { font-size: 17px; font-weight: bold; color: #1a2980; margin: 25px 0 15px 0; display: inline-block; background: rgba(255,255,255,0.8); padding: 4px 12px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);}
+
+        /* 內嵌磨砂文字區塊 (緩解長文閱讀疲勞) */
+        .text-panel { background: rgba(255, 255, 255, 0.5); border-radius: 12px; padding: 16px; margin-bottom: 15px; border-left: 4px solid #26d0ce; color: #333; text-align: justify; }
+        .text-panel p { margin-bottom: 12px; }
+        .text-panel p:last-child { margin-bottom: 0; }
+        
+        .highlight-quote { font-weight: bold; color: #1a2980; background: rgba(38,208,206,0.15); padding: 2px 6px; border-radius: 4px; }
+        
+        ul.text-list { padding-left: 20px; margin-bottom: 15px; color: #333;}
+        ul.text-list li { margin-bottom: 10px; }
+        ul.text-list li strong { color: #1a2980; }
+
+        /* ================= 純CSS 資料圖表系統 ================= */
+        
+        /* 1. CSS 柱狀圖 (市場規模) */
+        .css-bar-chart { margin: 25px 0; background: rgba(255,255,255,0.4); padding: 18px; border-radius: 15px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);}
+        .css-bar-row { display: flex; align-items: center; margin-bottom: 15px; }
+        .css-bar-label { width: 75px; font-size: 13px; font-weight: bold; color: #444; }
+        .css-bar-track { flex: 1; background: rgba(0,0,0,0.05); height: 20px; border-radius: 10px; overflow: hidden; position: relative; }
+        .css-bar-fill { height: 100%; background: linear-gradient(90deg, #26d0ce, #1a2980); display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; color: #fff; font-size: 11px; font-weight: bold; border-radius: 10px; animation: growBar 1.5s ease-out forwards; transform-origin: left; }
+        @keyframes growBar { 0% { transform: scaleX(0); } 100% { transform: scaleX(1); } }
+        
+        /* 2. CSS 占比圓形圖/條帶圖 (用戶畫像) */
+        .css-progress-wrap { margin: 20px 0; padding: 15px; background: rgba(255,255,255,0.4); border-radius: 12px;}
+        .css-progress-title { font-size: 13px; font-weight: bold; margin-bottom: 6px; color: #1a2980; display: flex; justify-content: space-between;}
+        .css-progress-bar { width: 100%; height: 10px; background: rgba(0,0,0,0.06); border-radius: 5px; overflow: hidden; margin-bottom: 12px; }
+        .css-progress-inner { height: 100%; background: linear-gradient(90deg, #1a2980, #26d0ce); border-radius: 5px; }
+        .color-2 { background: linear-gradient(90deg, #e0c3fc, #8ec5fc); }
+        .color-3 { background: linear-gradient(90deg, #fbc2eb, #a6c1ee); }
+
+        /* 3. CSS 時間軸 (劇本結構) */
+        .css-timeline { border-left: 3px solid rgba(26, 41, 128, 0.2); margin: 25px 0 25px 15px; padding-left: 20px; }
+        .css-tl-item { position: relative; margin-bottom: 25px; }
+        .css-tl-item::before { content: ''; position: absolute; left: -28.5px; top: 0; width: 14px; height: 14px; background: #26d0ce; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 8px rgba(38, 208, 206, 0.5); }
+        .css-tl-time { display: inline-block; font-size: 12px; font-weight: bold; color: #fff; background: #1a2980; padding: 3px 12px; border-radius: 12px; margin-bottom: 8px; box-shadow: 0 2px 6px rgba(26, 41, 128, 0.3);}
+        .css-tl-content { background: rgba(255,255,255,0.7); padding: 15px; border-radius: 10px; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);}
+
+        /* 4. CSS 漏斗圖 (變現漏斗) */
+        .css-funnel { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 25px 0; }
+        .funnel-layer { color: #fff; display: flex; justify-content: center; align-items: center; font-size: 13px; font-weight: bold; border-radius: 8px; height: 38px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: all 0.3s;}
+        .funnel-layer:hover { transform: scale(1.02); }
+        .funnel-1 { width: 100%; background: linear-gradient(135deg, #a6c1ee, #fbc2eb); color: #333;}
+        .funnel-2 { width: 85%; background: linear-gradient(135deg, #8ec5fc, #e0c3fc); color: #333;}
+        .funnel-3 { width: 65%; background: linear-gradient(135deg, #26d0ce, #1a2980); color: #fff;}
+        .funnel-4 { width: 45%; background: linear-gradient(135deg, #f6d365, #fda085); color: #fff;}
+
+        /* ================= 底部固定毛玻璃導航 ================= */
+        .glass-nav {
+            position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%); width: 94%; max-width: 580px;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.9); border-radius: 35px; display: flex; justify-content: space-around; padding: 8px 10px; box-shadow: 0 10px 40px rgba(26,41,128,0.15); z-index: 1000;
+        }
+        .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #95a5a6; font-size: 11px; cursor: pointer; transition: 0.3s; padding: 8px 0; border-radius: 25px; font-weight: 500;}
+        .nav-item.active { background: #f0f4f8; color: #1a2980; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transform: translateY(-3px); font-weight: bold;}
+        .nav-item .icon { font-size: 20px; margin-bottom: 3px; }
+
+        /* ================= 聯繫卡片特化 ================= */
+        .contact-cta { text-align: center; margin-top: 30px; padding: 30px; border-radius: 20px; background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%); border: 2px dashed #26d0ce; box-shadow: 0 10px 30px rgba(0,0,0,0.05);}
+        .btn-call { display: block; background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%); color: #fff; text-align: center; padding: 18px; border-radius: 30px; text-decoration: none; font-size: 18px; font-weight: bold; margin-top: 25px; box-shadow: 0 8px 25px rgba(26, 41, 128, 0.35); transition: 0.2s; letter-spacing: 1px;}
+        .btn-call:active { transform: scale(0.96); }
+    </style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<div class="app-container">
+    
+    <div class="hero-header">
+        <div class="hero-title">香港房產IP商業企劃</div>
+        <div class="hero-subtitle">吳金霞 · 導遊視角的房產顧問</div>
+    </div>
+
+    <div id="page-1" class="page active">
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">👩‍💼</span> 一、吳金霞性格特徵與IP匹配度</div>
+            
+            <div class="sub-title">1.1 四大性格特質的專業轉化</div>
+            <div class="text-panel">
+                <p><strong>專業特質：</strong>轉化為"資料驅動型房產分析師"標籤。打破資訊差是房產IP成功的關鍵，聚焦香港高客單房產投資回報率、區域價值與政策評估。</p>
+                <p><strong>細心特質：</strong>轉化為"細節控顧問"。在普遍追求看房爽感的短視頻市場，細緻入微的物業、維修基金、稅費精算，是極度稀缺的差異化價值。</p>
+                <p><strong>客觀特質：</strong>轉化為"中立協力廠商"。敢說真話，不誇大不貶低。採用"優勢劣勢雙面分析法"，這種坦誠是拿下高淨值客戶信任的重器。</p>
+                <p><strong>隨和特質：</strong>轉化為"鄰家顧問"。迎合當下"少點仲介味兒，多點人味兒"的內容趨勢，用生活化語言拉近距離。</p>
+            </div>
+
+            
+
+            <div class="sub-title">1.2 導遊跨界：降維打擊的差異化IP</div>
+            <div class="text-panel" style="border-left-color: #1a2980;">
+                <p>相較于傳統房產仲介，吳金霞從導遊轉型是一把獨特的利器。將導遊的"觀察力、表達力、服務意識"與房產專業結合，打造 <span class="highlight-quote">"導遊視角的香港房產顧問"</span>。</p>
+                <p>在帶看和視頻講解中，不僅講鋼筋水泥，更融入香港區域歷史、文化背景、生活特色，讓房產內容具備故事性和極強的文化情緒溢價。</p>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">📈</span> 二、2026香港房產風口剖析</div>
+            
+            <div class="sub-title">2.1 結構性復蘇與政策利好</div>
+            <div class="text-panel">
+                <p>2026年香港樓市確立溫和上漲態勢。CBRE預測住宅交易總量將達6.5萬-7萬套，一手房銷售超2萬套。摩根士丹利預測房價漲幅超10%。</p>
+                <p>2024年初的全面"撤辣"（非本地買家稅負從30%降至約4.25%）極大刺激了內地買家。2025年內地買家購入金額創1380億港元歷史新高。</p>
+            </div>
+            
+            
+
+            <div class="css-bar-chart">
+                <div style="text-align: center; font-size: 13px; margin-bottom: 12px; color:#555;">香港5000萬以上一手豪宅買家畫像占比</div>
+                <div class="css-bar-row">
+                    <div class="css-bar-label">香港本地</div>
+                    <div class="css-bar-track"><div class="css-bar-fill" style="width: 25%; background: linear-gradient(90deg, #bdc3c7, #95a5a6);">約 25%</div></div>
+                </div>
+                <div class="css-bar-row">
+                    <div class="css-bar-label">其他海外</div>
+                    <div class="css-bar-track"><div class="css-bar-fill" style="width: 5%; background: linear-gradient(90deg, #e0c3fc, #8ec5fc);">約 5%</div></div>
+                </div>
+                <div class="css-bar-row">
+                    <div class="css-bar-label">內地買家</div>
+                    <div class="css-bar-track"><div class="css-bar-fill" style="width: 70%;">高達 70%</div></div>
+                </div>
+            </div>
+            <p style="font-size: 12px; color: #777; text-align: center;">*資料趨勢：價格越高的豪宅，內地客戶比例越大，高客單市場潛力巨大。</p>
+        </div>
+    </div>
+
+    <div id="page-2" class="page">
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">🎯</span> 三、精准客群畫像與需求</div>
+            
+            <div class="sub-title">3.1 三大核心目標人群細分</div>
+            
+            
+
+            <div class="css-progress-wrap">
+                <div class="css-progress-title"><span>1. 內地高淨值投資客 (40-60歲)</span></div>
+                <div class="css-progress-bar"><div class="css-progress-inner" style="width: 45%;"></div></div>
+                <p style="font-size: 13px; color: #555; margin-bottom: 15px;"><strong>核心需求：</strong>全球資產配置、稅務規劃、身份投資。<br><strong>內容策略：</strong>宏觀經濟分析、投資回報率深度測算、風險對沖。吳金霞的"客觀+專業"將精准收割這波高客單流量。</p>
+
+                <div class="css-progress-title"><span>2. "高才通"新移民 (30-40歲)</span></div>
+                <div class="css-progress-bar"><div class="css-progress-inner color-2" style="width: 35%;"></div></div>
+                <p style="font-size: 13px; color: #555; margin-bottom: 15px;"><strong>核心需求：</strong>自住落腳、子女教育規劃、生活便利性。<br><strong>內容策略：</strong>學區房測評、交通圈解析。吳金霞的"導遊+隨和"視角將説明他們在文化融入上找到歸屬感。</p>
+                
+                <div class="css-progress-title"><span>3. 香港本地改善買家 (35-50歲)</span></div>
+                <div class="css-progress-bar"><div class="css-progress-inner color-3" style="width: 20%;"></div></div>
+                <p style="font-size: 13px; color: #555; margin-bottom: 0;"><strong>核心需求：</strong>社區環境升級、投資組合優化。<br><strong>內容策略：</strong>換房成本與收益精算。發揮"細心控"優勢，死磕物業與維修基金細節。</p>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">📱</span> 四、差異化平臺運營矩陣</div>
+            
+            <ul class="text-list">
+                <li><strong>抖音 (流量基本盤)：</strong>發佈"香港豪宅探秘"、"投資策略分析"。強調節奏緊湊、資訊密度高，主打獵奇與專業降維打擊。</li>
+                <li><strong>小紅書 (高轉化女粉)：</strong>發佈"香港生活方式"、"學區房攻略"等實用避坑指南。契合平臺"拼圖式"精准匹配，極易快速起號變現。</li>
+                <li><strong>視頻號 (高淨值私域)：</strong>發佈"深度投資分析"、"政策解讀"。聯動微信生態，低調獲客，沉澱高端買家私域。</li>
+                <li><strong>B站 (長效權威建立)：</strong>發佈10分鐘以上"香港房產投資全攻略"長視頻，建立深度的信任背書。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="page-3" class="page">
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">🎬</span> 五、內容策略與爆款欄目</div>
+            
+            <div class="sub-title">5.1 五大核心內容產品線</div>
+            <div class="text-panel">
+                <p><strong>①《香港高客單投資邏輯解密》(30%)：</strong>資料視覺化解析回報率與稅務，樹立"專家"人設。</p>
+                <p><strong>②《港漂置業全攻略》(25%)：</strong>高才通申請、國際學校盤點、稅費精算，提供保姆級實用指南。</p>
+                <p><strong>③《香港各區深度測評》(20%)：</strong>航拍+實地，分析九龍塘、啟德新區等板塊真實價值。</p>
+                <p><strong>④《房產投資風險與機會》(15%)：</strong>堅持客觀中立，揭露陷阱，預警政策與流動性風險。</p>
+                <p><strong>⑤《吳金霞說房：導遊視角看香港》(10%)：</strong>獨家標籤欄目，講述板塊歷史、名人軼事與本地生活體驗，強化親和力與差異化IP。</p>
+            </div>
+
+            <div class="sub-title">5.2 黃金60秒爆款劇本公式</div>
+            
+            <div class="css-timeline">
+                <div class="css-tl-item">
+                    <div class="css-tl-time">0-5 秒：痛點/懸念開場</div>
+                    <div class="css-tl-content"><strong>示例：</strong>"注意了！香港買房，90%的內地人都不知道的5個致命陷阱！"（直擊焦慮，拉滿完播率）</div>
+                </div>
+                <div class="css-tl-item">
+                    <div class="css-tl-time">6-25 秒：數據/案例呈現</div>
+                    <div class="css-tl-content"><strong>示例：</strong>拋出真實的投資失敗案例，或者展示各區極差懸殊的投資回報率圖表，用"客觀+細心"特質做拆解。</div>
+                </div>
+                <div class="css-tl-item">
+                    <div class="css-tl-time">26-50 秒：專業降維打擊</div>
+                    <div class="css-tl-content"><strong>示例：</strong>給出避坑策略或選籌標準（如稅費計算器、學區劃分邏輯）。語言需"說人話"，將晦澀術語生活化。</div>
+                </div>
+                <div class="css-tl-item">
+                    <div class="css-tl-time">51-60 秒：引導私域互動</div>
+                    <div class="css-tl-content"><strong>示例：</strong>"關注吳金霞，用導遊的視角幫你選對香港好房。需要內部學區圖的，評論區留言。"</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-4" class="page">
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">💎</span> 六、私域轉化與商業漏斗</div>
+            
+            <div class="sub-title">6.1 陪伴式高轉化私域漏斗</div>
+            
+            
+
+            <div class="css-funnel">
+                <div class="funnel-layer funnel-1">多平臺矩陣公域曝光 (抖音/小紅書/視頻號)</div>
+                <div class="funnel-layer funnel-2">工具包引流 (學區地圖/稅費計算器/避坑指南)</div>
+                <div class="funnel-layer funnel-3">微信私域深度溝通 (五步轉化：信任-瞭解-需求-匹配)</div>
+                <div class="funnel-layer funnel-4">高客單房產成交與長期資產託管</div>
+            </div>
+            
+            <div class="text-panel" style="margin-top: 15px; border-left-color: #f6d365;">
+                <p><strong>商業轉化策略：</strong>拋棄賺快錢思維。聚焦5000萬以上高淨值群體，設計基礎諮詢(99元) → 深度分析(999元) → 全程陪跑(9999元) 的梯次服務包，最終落腳于高額成交傭金。</p>
+            </div>
+
+            <div class="sub-title">6.2 風險控制與合規防線</div>
+            <ul class="text-list">
+                <li><strong>最嚴新規紅線：</strong>嚴格遵守2026年抖音房產新規，禁用"第一、最、必買"等絕對化極限詞。</li>
+                <li><strong>客觀底線：</strong>所有涉及政策、回報率的資料必須標注官方來源出處；所有投資推薦強制掛載風險提示。</li>
+                <li><strong>版權保護：</strong>防範音樂、航拍素材侵權，脫敏處理所有真實客戶案例隱私。</li>
+            </ul>
+        </div>
+
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">🚀</span> 七、三年戰略與執行路線圖</div>
+            
+            <div class="sub-title">7.1 90天起盤攻堅戰</div>
+            <div class="text-panel" style="background: rgba(26,41,128,0.05); border-left-color: #1a2980;">
+                <p><strong>第1-30天：</strong> 帳號基建。主打《港漂置業全攻略》，積累首批5000名高意向粉絲。<br>
+                <strong>第31-60天：</strong> 測試打樣。發佈各區測評與風險提示，測出爆款模型，粉絲衝刺3萬。<br>
+                <strong>第61-90天：</strong> 轉化衝刺。全面鋪開高客單投資邏輯解析，打通直播與私域，完成首批成交指標。</p>
+            </div>
+
+            <div class="sub-title">7.2 三年平臺化願景</div>
+            <p style="color:#555; text-align:justify;">
+            <strong>2026年（基建期）：</strong>建立"導遊視角房產顧問"品牌認知，跑通商業閉環。<br>
+            <strong>2027年（爆發期）：</strong>建立多帳號矩陣，服務鏈條從一手買賣延伸至海外資產配置與租賃託管。<br>
+            <strong>2028年（生態期）：</strong>向平臺化運營轉型，連接開發商、移民機構、教育機構，成為全球華人配置香港資產的頭部領導品牌。
+            </p>
+        </div>
+    </div>
+
+    <div id="page-5" class="page">
+        <div class="glass-card">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <svg width="65" height="65" viewBox="0 0 24 24" fill="none" stroke="#26d0ce" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            </div>
+            <h2 style="text-align: center; color: #1a2980; margin-bottom: 12px; font-weight: 900;">獲取全案落地陪跑服務</h2>
+            <p style="text-align: center; color: #666; font-size: 14px; margin-bottom: 25px;">戰略的價值在於執行。從IP人設精雕、多端矩陣運營到私域高客單轉化閉環，我們為您提供一站式的落地陪跑方案。</p>
+            
+            <div class="contact-cta">
+                <div style="font-size: 14px; color: #7f8c8d; font-weight: bold; letter-spacing: 2px;">專案執行主理人</div>
+                <div style="font-size: 32px; font-weight: 900; color: #1a2980; margin: 15px 0;">吳明蔚</div>
+                <div style="background: rgba(255,255,255,0.9); padding: 20px; border-radius: 15px; margin-top: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.06);">
+                    <div style="font-size: 14px; color: #7f8c8d; margin-bottom: 8px;">專屬諮詢熱線</div>
+                    <div style="font-size: 24px; font-weight: 900; color: #26d0ce; letter-spacing: 1px;">173-6826-7144</div>
+                    <div style="height: 1px; background: #ecf0f1; margin: 15px 0;"></div>
+                    <div style="font-size: 14px; color: #7f8c8d; margin-bottom: 8px;">官方微信號</div>
+                    <div style="font-size: 22px; font-weight: 800; color: #1a2980;">Zzzz2ko</div>
+                </div>
+            </div>
+            
+            <a href="tel:17368267144" class="btn-call">一鍵撥號 啟動IP起盤</a>
+        </div>
+    </div>
+
+</div>
+
+<div class="glass-nav">
+    <div class="nav-item active" data-target="page-1">
+        <div class="icon">👩‍💼</div>
+        <div>人設與市場</div>
+    </div>
+    <div class="nav-item" data-target="page-2">
+        <div class="icon">🎯</div>
+        <div>目標客群</div>
+    </div>
+    <div class="nav-item" data-target="page-3">
+        <div class="icon">🎬</div>
+        <div>內容劇本</div>
+    </div>
+    <div class="nav-item" data-target="page-4">
+        <div class="icon">💎</div>
+        <div>變現戰略</div>
+    </div>
+    <div class="nav-item" data-target="page-5">
+        <div class="icon">📞</div>
+        <div>聯繫落地</div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const navItems = document.querySelectorAll('.nav-item');
+        const pages = document.querySelectorAll('.page');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // 手機端微震動回饋 (若設備支援)
+                if(navigator.vibrate) navigator.vibrate(30);
+
+                // 切換底部導航啟動態
+                navItems.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+
+                // 切換對應頁面
+                const targetId = this.getAttribute('data-target');
+                pages.forEach(page => page.classList.remove('active'));
+                
+                // 重新觸發頁面上升浮現動畫
+                const targetPage = document.getElementById(targetId);
+                targetPage.style.animation = 'none';
+                targetPage.offsetHeight; 
+                targetPage.style.animation = null;
+                targetPage.classList.add('active');
+
+                // 平滑滾回頂部
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // 第一頁CSS柱狀圖動畫重置
+                if(targetId === 'page-1') {
+                    const bars = document.querySelectorAll('.css-bar-fill');
+                    bars.forEach(bar => {
+                        bar.style.animation = 'none';
+                        bar.offsetHeight;
+                        bar.style.animation = null;
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
