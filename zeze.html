@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>大湾区生活投资短视频账号运营方案</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif; }
+        body {
+            background: #e0eafc;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            color: #2c3e50;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: 90px;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        .blob { position: fixed; border-radius: 50%; filter: blur(70px); z-index: -1; opacity: 0.45; animation: float 12s infinite ease-in-out alternate; }
+        .blob-1 { top: -5%; left: -10%; width: 350px; height: 350px; background: #c2e9fb; }
+        .blob-2 { bottom: 10%; right: -10%; width: 300px; height: 300px; background: #e0c3fc; animation-delay: -4s; }
+        .blob-3 { top: 40%; left: 40%; width: 250px; height: 250px; background: #fdfbfb; animation-duration: 18s; }
+        @keyframes float { 0% { transform: translateY(0) scale(1) rotate(0deg); } 100% { transform: translateY(40px) scale(1.1) rotate(10deg); } }
+
+        .app-container { max-width: 600px; margin: 0 auto; position: relative; padding: 20px 15px; }
+        .page { display: none; animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
+        .page.active { display: block; }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+        .hero-header { text-align: center; margin-bottom: 30px; margin-top: 10px; }
+        .hero-title { font-size: 26px; font-weight: 900; background: linear-gradient(135deg, #1a2980, #26d0ce); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 1px; }
+        .hero-subtitle { font-size: 13px; color: #555; margin-top: 8px; letter-spacing: 3px; font-weight: bold; text-transform: uppercase; }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px 0 rgba(31, 38, 135, 0.06);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover { transform: translateY(-3px); box-shadow: 0 15px 35px 0 rgba(31, 38, 135, 0.1); }
+
+        .section-title { font-size: 20px; font-weight: 800; color: #1a1a1a; margin-bottom: 20px; display: flex; align-items: center; border-bottom: 2px dashed rgba(26,41,128,0.15); padding-bottom: 12px; }
+        .section-title .icon { margin-right: 10px; font-size: 24px; }
+        .sub-title { font-size: 17px; font-weight: bold; color: #1a2980; margin: 25px 0 15px 0; display: inline-block; background: rgba(255,255,255,0.8); padding: 4px 12px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+
+        .text-panel { background: rgba(255, 255, 255, 0.5); border-radius: 12px; padding: 16px; margin-bottom: 15px; border-left: 4px solid #26d0ce; color: #333; text-align: justify; }
+        .text-panel p { margin-bottom: 12px; }
+        .text-panel p:last-child { margin-bottom: 0; }
+        .highlight-quote { font-weight: bold; color: #1a2980; background: rgba(38,208,206,0.15); padding: 2px 6px; border-radius: 4px; }
+        ul.text-list { padding-left: 20px; margin-bottom: 15px; color: #333; }
+        ul.text-list li { margin-bottom: 10px; }
+        ul.text-list li strong { color: #1a2980; }
+
+        .css-bar-chart { margin: 25px 0; background: rgba(255,255,255,0.4); padding: 18px; border-radius: 15px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.02); }
+        .css-bar-row { display: flex; align-items: center; margin-bottom: 15px; }
+        .css-bar-label { width: 90px; font-size: 13px; font-weight: bold; color: #444; }
+        .css-bar-track { flex: 1; background: rgba(0,0,0,0.05); height: 20px; border-radius: 10px; overflow: hidden; position: relative; }
+        .css-bar-fill { height: 100%; background: linear-gradient(90deg, #26d0ce, #1a2980); display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; color: #fff; font-size: 11px; font-weight: bold; border-radius: 10px; animation: growBar 1.5s ease-out forwards; transform-origin: left; }
+        @keyframes growBar { 0% { transform: scaleX(0); } 100% { transform: scaleX(1); } }
+
+        .css-progress-wrap { margin: 20px 0; padding: 15px; background: rgba(255,255,255,0.4); border-radius: 12px; }
+        .css-progress-title { font-size: 13px; font-weight: bold; margin-bottom: 6px; color: #1a2980; display: flex; justify-content: space-between; }
+        .css-progress-bar { width: 100%; height: 10px; background: rgba(0,0,0,0.06); border-radius: 5px; overflow: hidden; margin-bottom: 12px; }
+        .css-progress-inner { height: 100%; background: linear-gradient(90deg, #1a2980, #26d0ce); border-radius: 5px; }
+        .color-2 { background: linear-gradient(90deg, #e0c3fc, #8ec5fc); }
+        .color-3 { background: linear-gradient(90deg, #fbc2eb, #a6c1ee); }
+
+        .css-timeline { border-left: 3px solid rgba(26, 41, 128, 0.2); margin: 25px 0 25px 15px; padding-left: 20px; }
+        .css-tl-item { position: relative; margin-bottom: 25px; }
+        .css-tl-item::before { content: ''; position: absolute; left: -28.5px; top: 0; width: 14px; height: 14px; background: #26d0ce; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 8px rgba(38, 208, 206, 0.5); }
+        .css-tl-time { display: inline-block; font-size: 12px; font-weight: bold; color: #fff; background: #1a2980; padding: 3px 12px; border-radius: 12px; margin-bottom: 8px; box-shadow: 0 2px 6px rgba(26, 41, 128, 0.3); }
+        .css-tl-content { background: rgba(255,255,255,0.7); padding: 15px; border-radius: 10px; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+
+        .css-funnel { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 25px 0; }
+        .funnel-layer { color: #fff; display: flex; justify-content: center; align-items: center; font-size: 13px; font-weight: bold; border-radius: 8px; height: 38px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: all 0.3s; text-align: center; padding: 0 10px; }
+        .funnel-layer:hover { transform: scale(1.02); }
+        .funnel-1 { width: 100%; background: linear-gradient(135deg, #a6c1ee, #fbc2eb); color: #333; }
+        .funnel-2 { width: 85%; background: linear-gradient(135deg, #8ec5fc, #e0c3fc); color: #333; }
+        .funnel-3 { width: 65%; background: linear-gradient(135deg, #26d0ce, #1a2980); color: #fff; }
+        .funnel-4 { width: 45%; background: linear-gradient(135deg, #f6d365, #fda085); color: #fff; }
+
+        .glass-nav {
+            position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%); width: 94%; max-width: 580px;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.9); border-radius: 35px; display: flex; justify-content: space-around; padding: 8px 10px; box-shadow: 0 10px 40px rgba(26,41,128,0.15); z-index: 1000;
+        }
+        .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #95a5a6; font-size: 11px; cursor: pointer; transition: 0.3s; padding: 8px 0; border-radius: 25px; font-weight: 500; }
+        .nav-item.active { background: #f0f4f8; color: #1a2980; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transform: translateY(-3px); font-weight: bold; }
+        .nav-item .icon { font-size: 20px; margin-bottom: 3px; }
+
+        .contact-cta { text-align: center; margin-top: 30px; padding: 30px; border-radius: 20px; background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%); border: 2px dashed #26d0ce; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .btn-call { display: block; background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%); color: #fff; text-align: center; padding: 18px; border-radius: 30px; text-decoration: none; font-size: 18px; font-weight: bold; margin-top: 25px; box-shadow: 0 8px 25px rgba(26, 41, 128, 0.35); transition: 0.2s; letter-spacing: 1px; }
+        .btn-call:active { transform: scale(0.96); }
+
+        .section-block { margin-top: 28px; background: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.9); border-radius: 20px; padding: 22px 18px; text-align: center; box-shadow: 0 8px 25px rgba(31, 38, 135, 0.05); }
+        .section-block h2 { font-size: 18px; color: #1a2980; line-height: 1.7; font-weight: 800; margin-bottom: 18px; }
+        .images-container { display: flex; justify-content: center; align-items: center; }
+        .image-item { background: rgba(255,255,255,0.8); padding: 14px; border-radius: 18px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+        .image-item img { width: 220px; max-width: 100%; display: block; border-radius: 12px; }
+        .small-note { font-size: 13px; color: #666; margin-top: 12px; line-height: 1.6; }
+
+        @media (max-width: 480px) {
+            .hero-title { font-size: 22px; }
+            .section-title { font-size: 18px; }
+            .btn-call { font-size: 16px; padding: 16px; }
+            .section-block h2 { font-size: 16px; }
+            .image-item img { width: 190px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<div class="app-container">
+
+    <div class="hero-header">
+        <div class="hero-title">大湾区生活投资账号运营方案</div>
+        <div class="hero-subtitle">香港视角 × 湾区经验 × 高客单转化</div>
+    </div>
+
+    <div id="page-1" class="page active">
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">👤</span> 一、人物性格与IP定位分析</div>
+
+            <div class="sub-title">1.1 性格特征的内容化转化</div>
+            <div class="text-panel">
+                <p><strong>有内涵：</strong>内容不能停在表面吃喝玩乐，而要往大湾区发展的深层逻辑走，讲生活，也讲背后的政策、经济和机会。</p>
+                <p><strong>认知高：</strong>意味着你适合做“看得更深”的账号，不只是告诉别人哪里便宜，而是告诉别人为什么会这样、未来会怎样。</p>
+                <p><strong>专业：</strong>这是你和普通生活博主最大的分水岭。你不是拍热闹，而是做判断、做筛选、做解读。</p>
+                <p><strong>能解决问题：</strong>账号的核心价值不是输出情绪，而是帮香港人解决“来不来、住不住、买不买、值不值”的实际问题。</p>
+            </div>
+
+            <div class="sub-title">1.2 独特经历的差异化价值</div>
+            <div class="text-panel" style="border-left-color:#1a2980;">
+                <p>你的核心优势在于 <span class="highlight-quote">“香港土生土长 + 珠三角 10 年生活工作经验”</span> 这组双重身份。你既懂香港人的思维、顾虑和表达方式，也真正踩过内地生活工作的坑。</p>
+                <p>这会自然形成三层定位：香港人看湾区的翻译官、跨境生活的实战派、政策与投资机会的中立解读者。别人是在介绍湾区，你是在帮人做判断。</p>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">📊</span> 二、目标用户与市场机会</div>
+
+            <div class="sub-title">2.1 香港人群的核心需求窗口</div>
+            <div class="text-panel">
+                <p>当前香港人对大湾区的态度很矛盾：知道有机会，但行动上仍犹豫。原因不是他们不想了解，而是市场上真正同时懂香港和内地的人太少，能把复杂制度、成本、风险说清楚的人更少。</p>
+                <p>你的内容机会就藏在这条缝里：不是单纯拍“北上很爽”，也不是单纯唱衰香港，而是用真实经验把生活成本、投资逻辑、跨境制度差异讲明白。</p>
+            </div>
+
+            <div class="css-bar-chart">
+                <div style="text-align: center; font-size: 13px; margin-bottom: 12px; color:#555;">香港用户关注大湾区的三大核心动因</div>
+                <div class="css-bar-row">
+                    <div class="css-bar-label">生活成本</div>
+                    <div class="css-bar-track"><div class="css-bar-fill" style="width: 42%;">住与医最敏感</div></div>
+                </div>
+                <div class="css-bar-row">
+                    <div class="css-bar-label">跨境便利</div>
+                    <div class="css-bar-track"><div class="css-bar-fill" style="width: 31%; background: linear-gradient(90deg, #e0c3fc, #8ec5fc);">制度摩擦待解决</div></div>
+                </div>
+                <div class="css-bar-row">
+                    <div class="css-bar-label">投资机会</div>
+                    <div class="css-bar-track"><div class="css-bar-fill" style="width: 27%;">高净值需求上升</div></div>
+                </div>
+            </div>
+            <p style="font-size: 12px; color: #777; text-align: center;">机会点很明确：香港人不是没需求，而是缺少一个值得信任的“湾区生活投资顾问型账号”。</p>
+        </div>
+    </div>
+
+    <div id="page-2" class="page">
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">🎯</span> 三、账号定位与内容支柱</div>
+
+            <div class="sub-title">3.1 目标用户画像</div>
+            <div class="css-progress-wrap">
+                <div class="css-progress-title"><span>1. 35-50 岁香港中产家庭</span></div>
+                <div class="css-progress-bar"><div class="css-progress-inner" style="width: 48%;"></div></div>
+                <p style="font-size:13px; color:#555; margin-bottom:15px;"><strong>核心需求：</strong>生活成本优化、教育医疗资源、更高性价比的居住体验。<br><strong>内容抓手：</strong>房租、看病、通勤、消费对比，越具体越容易打动。</p>
+
+                <div class="css-progress-title"><span>2. 有跨境生活意向的香港专业人士</span></div>
+                <div class="css-progress-bar"><div class="css-progress-inner color-2" style="width: 32%;"></div></div>
+                <p style="font-size:13px; color:#555; margin-bottom:15px;"><strong>核心需求：</strong>税务、社保、法律规则、港车北上、医疗券等制度问题。<br><strong>内容抓手：</strong>指南型内容和流程拆解型内容最有吸引力。</p>
+
+                <div class="css-progress-title"><span>3. 关注湾区资产配置的高净值人群</span></div>
+                <div class="css-progress-bar"><div class="css-progress-inner color-3" style="width: 20%;"></div></div>
+                <p style="font-size:13px; color:#555; margin-bottom:0;"><strong>核心需求：</strong>区域投资机会、房产回报、风险判断、长期布局。<br><strong>内容抓手：</strong>政策解读、数据分析、选区逻辑和风险提示。</p>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">📱</span> 四、四大内容系列规划</div>
+            <ul class="text-list">
+                <li><strong>大湾区生活成本对比（30%）：</strong>围绕住房、医疗、餐饮、交通、消费，把香港与深圳、珠海、惠州等地做强反差展示，这是最容易让目标人群停下来的流量入口。</li>
+                <li><strong>跨境生活实用指南（25%）：</strong>讲港车北上、看病、税务、社保、手机支付、租房与买房流程，解决实际摩擦点，天然适合高收藏内容。</li>
+                <li><strong>投资机会深度分析（25%）：</strong>讲区域、讲趋势、讲风险、讲回报，把账号从“生活分享”抬到“决策辅助”，这是高客单服务的信任底座。</li>
+                <li><strong>文化融合与生活方式（20%）：</strong>讲香港人与湾区城市的生活差异、关系模式、节奏变化、美食体验与融入过程，让账号不只理性，也有人味。</li>
+            </ul>
+
+            <div class="sub-title">4.1 三种出镜方式组合</div>
+            <div class="text-panel">
+                <p><strong>只说话：</strong>适合观点输出与专业分析，用“脱口秀 + 图表”的方式快速建立专业感。</p>
+                <p><strong>生活纪录：</strong>适合真实体验类内容，用第一视角把“香港人在湾区”的生活样本拍出来，可信度最高。</p>
+                <p><strong>角色化表演：</strong>适合还原决策冲突，比如“朋友问我该不该买惠州房”，有戏剧性，也有传播性。</p>
+                <p><strong>推荐策略：</strong>每周 3 条核心内容里，用 1 条观点输出 + 1 条生活纪录 + 1 条角色表演形成节奏闭环。</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-3" class="page">
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">🎬</span> 五、爆款公式与执行计划</div>
+
+            <div class="sub-title">5.1 爆款内容创作公式</div>
+            <div class="css-timeline">
+                <div class="css-tl-item">
+                    <div class="css-tl-time">公式一：数字对比 + 强烈反差</div>
+                    <div class="css-tl-content">用惊人数字开头，比如“香港 1000 万只能买什么？在大湾区又能买什么？”数字是最狠的钩子，尤其适合房产、租金、医疗、生活成本类内容。</div>
+                </div>
+                <div class="css-tl-item">
+                    <div class="css-tl-time">公式二：痛点解决 + 实用价值</div>
+                    <div class="css-tl-content">先说问题，再给步骤，比如“香港人在内地看病怎么搞？”这种内容不一定最炸，但最容易被收藏、转发、加微信咨询。</div>
+                </div>
+                <div class="css-tl-item">
+                    <div class="css-tl-time">公式三：真实故事 + 情感共鸣</div>
+                    <div class="css-tl-content">以“我在深圳住了 10 年”这类真实经历开头，用细节撑起故事，适合做信任类内容和账号人格化沉淀。</div>
+                </div>
+                <div class="css-tl-item">
+                    <div class="css-tl-time">公式四：专家观点 + 权威背书</div>
+                    <div class="css-tl-content">适合高客单转化前置，用数据、案例、市场逻辑做深讲，让内容不仅被看见，更被信任。</div>
+                </div>
+            </div>
+
+            <div class="sub-title">5.2 平台节奏与拍摄安排</div>
+            <div class="text-panel">
+                <p><strong>抖音：</strong>主平台，日更 1 条，晚上 8-10 点发，承担流量测试和爆款任务。</p>
+                <p><strong>小红书：</strong>每周 3-4 条，下午 3-5 点发，适合生活成本、跨境指南与生活方式种草。</p>
+                <p><strong>视频号：</strong>每周 2-3 条，重点承接私域，后续可结合直播做慢转化。</p>
+                <p><strong>YouTube：</strong>每周 1 条深度版，做长期沉淀和权威背书。</p>
+            </div>
+
+            <div class="sub-title">5.3 时间管理与场景规划</div>
+            <ul class="text-list">
+                <li><strong>室内拍摄：</strong>占比 60%，用于观点输出和图表分析，适合平日晚间高效生产。</li>
+                <li><strong>户外拍摄：</strong>占比 30%，周末与家人出行时顺带拍生活纪录，一举两得。</li>
+                <li><strong>特殊场景：</strong>占比 10%，用于跨境、看房、实地考察等重点内容。</li>
+                <li><strong>设备建议：</strong>手机支架、补光灯、无线麦克风先上齐，先把稳定输出跑起来，比一开始卷大片更重要。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="page-4" class="page">
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">💎</span> 六、高客单服务与长期规划</div>
+
+            <div class="sub-title">6.1 高客单转化路径</div>
+            <div class="css-funnel">
+                <div class="funnel-layer funnel-1">短视频内容引流</div>
+                <div class="funnel-layer funnel-2">私域沉淀与持续信任</div>
+                <div class="funnel-layer funnel-3">一对一需求沟通与方案定制</div>
+                <div class="funnel-layer funnel-4">线下成交与长期顾问服务</div>
+            </div>
+
+            <div class="text-panel" style="margin-top: 15px; border-left-color: #f6d365;">
+                <p><strong>核心逻辑：</strong>你不是卖低价课，而是卖“判断、经验、资源整合和陪跑能力”。短视频只是门，真正值钱的是门后面的咨询、顾问、定制化服务与长期关系。</p>
+            </div>
+
+            <div class="sub-title">6.2 产品体系设计</div>
+            <div class="text-panel" style="background: rgba(26,41,128,0.05); border-left-color: #1a2980;">
+                <p><strong>入门级：</strong>大湾区生活指南电子书、30 分钟咨询、购房避坑清单，用来筛选意向用户。</p>
+                <p><strong>中端：</strong>深度考察团、季度投资机会报告、跨境生活全攻略课程，承接半决策用户。</p>
+                <p><strong>高端：</strong>一对一投资顾问服务、定制化购房方案、企业大湾区布局咨询，作为利润核心。</p>
+            </div>
+
+            <div class="sub-title">6.3 长期发展方向</div>
+            <ul class="text-list">
+                <li><strong>内容升级：</strong>从“信息提供者”升级为“解决方案提供者”，后期再走向“陪跑型顾问”。</li>
+                <li><strong>品牌矩阵：</strong>主账号做人设，子账号切房产、生活、跨境指南等垂类，逐步矩阵化。</li>
+                <li><strong>风控重点：</strong>所有数据来源要可追溯，避免夸大与敏感表达；收入与公司化运营同步规划，税务和版权别留坑。</li>
+            </ul>
+        </div>
+
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">🚀</span> 七、结论与行动建议</div>
+            <p style="color:#555; text-align:justify;">
+                这套账号最强的地方，不是“懂大湾区”这四个字，而是你能用<strong>香港人的语言，讲清湾区的真实机会和真实成本</strong>。这件事本身就有壁垒。<br><br>
+                你的定位不该只是生活博主，而应该是 <strong>“大湾区生活投资决策顾问型IP”</strong>。前期靠生活成本和跨境指南吸流量，中期靠投资分析和真实经历立信任，后期靠私域咨询和高客单服务赚钱。<br><br>
+                真正要做的不是拍很多，而是拍得有判断、有筛选、有结果。别人给信息，你给决策依据，这就是你最值钱的地方。
+            </p>
+        </div>
+    </div>
+
+    <div id="page-5" class="page">
+        <div class="glass-card">
+            <div style="text-align: center; margin-bottom: 20px; font-size: 62px; line-height: 1;">📞</div>
+            <h2 style="text-align: center; color: #1a2980; margin-bottom: 12px; font-weight: 900;">获取全案落地陪跑服务</h2>
+            <p style="text-align: center; color: #666; font-size: 14px; margin-bottom: 25px;">
+                战略的价值在于执行。从IP人设精雕、多端矩阵运营到私域高客单转化闭环，我们为您提供一站式的落地陪跑方案。
+            </p>
+
+            <div class="contact-cta">
+                <div style="font-size: 14px; color: #7f8c8d; font-weight: bold; letter-spacing: 2px;">专案执行主理人</div>
+                <div style="font-size: 32px; font-weight: 900; color: #1a2980; margin: 15px 0;">吴明蔚</div>
+
+                <div style="background: rgba(255,255,255,0.9); padding: 20px; border-radius: 15px; margin-top: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.06);">
+                    <div style="font-size: 14px; color: #7f8c8d; margin-bottom: 8px;">专属咨询热线</div>
+                    <div style="font-size: 24px; font-weight: 900; color: #26d0ce; letter-spacing: 1px;">173-6826-7144</div>
+                    <div style="height: 1px; background: #ecf0f1; margin: 15px 0;"></div>
+                    <div style="font-size: 14px; color: #7f8c8d; margin-bottom: 8px;">官方微信号</div>
+                    <div style="font-size: 22px; font-weight: 800; color: #1a2980;">Zzzz2ko</div>
+                </div>
+            </div>
+
+            <a href="tel:17368267144" class="btn-call">一键拨号 启动IP起盘</a>
+
+            <div class="section-block">
+                <h2>診斷結果正在生成。請添加 SEKO 微信，領取你的 1 對 1 定位解讀報告。</h2>
+                <div class="images-container">
+                    <div class="image-item">
+                        <img src="https://aplen-chen.github.io/picture/seko.jpg" alt="SEKO微信" loading="lazy">
+                    </div>
+                </div>
+                <div class="small-note">扫码添加后，可获取专属定位分析与后续陪跑建议。</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="glass-nav">
+    <div class="nav-item active" data-target="page-1">
+        <div class="icon">👤</div>
+        <div>人设市场</div>
+    </div>
+    <div class="nav-item" data-target="page-2">
+        <div class="icon">🎯</div>
+        <div>定位内容</div>
+    </div>
+    <div class="nav-item" data-target="page-3">
+        <div class="icon">🎬</div>
+        <div>执行节奏</div>
+    </div>
+    <div class="nav-item" data-target="page-4">
+        <div class="icon">💎</div>
+        <div>变现规划</div>
+    </div>
+    <div class="nav-item" data-target="page-5">
+        <div class="icon">📞</div>
+        <div>联系落地</div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const navItems = document.querySelectorAll('.nav-item');
+        const pages = document.querySelectorAll('.page');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                if (navigator.vibrate) navigator.vibrate(30);
+                navItems.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                const targetId = this.getAttribute('data-target');
+                pages.forEach(page => page.classList.remove('active'));
+                const targetPage = document.getElementById(targetId);
+                targetPage.style.animation = 'none';
+                targetPage.offsetHeight;
+                targetPage.style.animation = null;
+                targetPage.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                if (targetId === 'page-1') {
+                    const bars = document.querySelectorAll('.css-bar-fill');
+                    bars.forEach(bar => {
+                        bar.style.animation = 'none';
+                        bar.offsetHeight;
+                        bar.style.animation = null;
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
