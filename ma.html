@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>澳門小馬 - 地產短視頻帳號運營方案</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif; }
+        body {
+            background: #e0eafc;
+            background: linear-gradient(135deg, #f3e8ff 0%, #fce7f3 100%);
+            color: #2c3e50;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: 90px;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        .blob { position: fixed; border-radius: 50%; filter: blur(70px); z-index: -1; opacity: 0.45; animation: float 12s infinite ease-in-out alternate; }
+        .blob-1 { top: -5%; left: -10%; width: 350px; height: 350px; background: #e9d5ff; }
+        .blob-2 { bottom: 10%; right: -10%; width: 300px; height: 300px; background: #fbcfe8; animation-delay: -4s; }
+        .blob-3 { top: 40%; left: 40%; width: 250px; height: 250px; background: #f5d0fe; animation-duration: 18s; }
+        @keyframes float { 0% { transform: translateY(0) scale(1) rotate(0deg); } 100% { transform: translateY(40px) scale(1.1) rotate(10deg); } }
+
+        .app-container { max-width: 600px; margin: 0 auto; position: relative; padding: 20px 15px; }
+        .page { display: none; animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
+        .page.active { display: block; }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+        .hero-header { text-align: center; margin-bottom: 30px; margin-top: 10px; }
+        .hero-title { font-size: 26px; font-weight: 900; background: linear-gradient(135deg, #a78bfa, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 1px; }
+        .hero-subtitle { font-size: 13px; color: #555; margin-top: 8px; letter-spacing: 3px; font-weight: bold; text-transform: uppercase; }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px 0 rgba(31, 38, 135, 0.06);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover { transform: translateY(-3px); box-shadow: 0 15px 35px 0 rgba(31, 38, 135, 0.1); }
+
+        .section-title { font-size: 20px; font-weight: 800; color: #1a1a1a; margin-bottom: 20px; display: flex; align-items: center; border-bottom: 2px dashed rgba(26,41,128,0.15); padding-bottom: 12px; }
+        .section-title .icon { margin-right: 10px; font-size: 24px; }
+        .sub-title { font-size: 17px; font-weight: bold; color: #7c3aed; margin: 25px 0 15px 0; display: inline-block; background: rgba(255,255,255,0.8); padding: 4px 12px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+
+        .text-panel { background: rgba(255, 255, 255, 0.5); border-radius: 12px; padding: 16px; margin-bottom: 15px; border-left: 4px solid #f472b6; color: #333; text-align: justify; }
+        .text-panel p { margin-bottom: 12px; }
+        .text-panel p:last-child { margin-bottom: 0; }
+        .highlight-quote { font-weight: bold; color: #7c3aed; background: rgba(38,208,206,0.15); padding: 2px 6px; border-radius: 4px; }
+        ul.text-list { padding-left: 20px; margin-bottom: 15px; color: #333; }
+        ul.text-list li { margin-bottom: 10px; }
+        ul.text-list li strong { color: #7c3aed; }
+
+        .css-bar-chart { margin: 25px 0; background: rgba(255,255,255,0.4); padding: 18px; border-radius: 15px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.02); }
+        .css-bar-row { display: flex; align-items: center; margin-bottom: 15px; }
+        .css-bar-label { width: 90px; font-size: 13px; font-weight: bold; color: #444; }
+        .css-bar-track { flex: 1; background: rgba(0,0,0,0.05); height: 20px; border-radius: 10px; overflow: hidden; position: relative; }
+        .css-bar-fill { height: 100%; background: linear-gradient(90deg, #c084fc, #f472b6); display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; color: #fff; font-size: 11px; font-weight: bold; border-radius: 10px; animation: growBar 1.5s ease-out forwards; transform-origin: left; }
+        @keyframes growBar { 0% { transform: scaleX(0); } 100% { transform: scaleX(1); } }
+
+        .css-progress-wrap { margin: 20px 0; padding: 15px; background: rgba(255,255,255,0.4); border-radius: 12px; }
+        .css-progress-title { font-size: 13px; font-weight: bold; margin-bottom: 6px; color: #7c3aed; display: flex; justify-content: space-between; }
+        .css-progress-bar { width: 100%; height: 10px; background: rgba(0,0,0,0.06); border-radius: 5px; overflow: hidden; margin-bottom: 12px; }
+        .css-progress-inner { height: 100%; background: linear-gradient(90deg, #a78bfa, #f472b6); border-radius: 5px; }
+        .color-2 { background: linear-gradient(90deg, #e0c3fc, #8ec5fc); }
+        .color-3 { background: linear-gradient(90deg, #fbc2eb, #a6c1ee); }
+
+        .css-timeline { border-left: 3px solid rgba(26, 41, 128, 0.2); margin: 25px 0 25px 15px; padding-left: 20px; }
+        .css-tl-item { position: relative; margin-bottom: 25px; }
+        .css-tl-item::before { content: ''; position: absolute; left: -28.5px; top: 0; width: 14px; height: 14px; background: #26d0ce; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 8px rgba(38, 208, 206, 0.5); }
+        .css-tl-time { display: inline-block; font-size: 12px; font-weight: bold; color: #fff; background: #a78bfa; padding: 3px 12px; border-radius: 12px; margin-bottom: 8px; box-shadow: 0 2px 6px rgba(26, 41, 128, 0.3); }
+        .css-tl-content { background: rgba(255,255,255,0.7); padding: 15px; border-radius: 10px; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+
+        .css-funnel { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 25px 0; }
+        .funnel-layer { color: #fff; display: flex; justify-content: center; align-items: center; font-size: 13px; font-weight: bold; border-radius: 8px; height: 38px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: all 0.3s; text-align: center; padding: 0 10px; }
+        .funnel-layer:hover { transform: scale(1.02); }
+        .funnel-1 { width: 100%; background: linear-gradient(135deg, #a6c1ee, #fbc2eb); color: #333; }
+        .funnel-2 { width: 85%; background: linear-gradient(135deg, #8ec5fc, #e0c3fc); color: #333; }
+        .funnel-3 { width: 65%; background: linear-gradient(135deg, #26d0ce, #1a2980); color: #fff; }
+        .funnel-4 { width: 45%; background: linear-gradient(135deg, #f6d365, #fda085); color: #fff; }
+
+        .glass-nav {
+            position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%); width: 94%; max-width: 580px;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.9); border-radius: 35px; display: flex; justify-content: space-around; padding: 8px 10px; box-shadow: 0 10px 40px rgba(26,41,128,0.15); z-index: 1000;
+        }
+        .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #95a5a6; font-size: 11px; cursor: pointer; transition: 0.3s; padding: 8px 0; border-radius: 25px; font-weight: 500; }
+        .nav-item.active { background: #f0f4f8; color: #7c3aed; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transform: translateY(-3px); font-weight: bold; }
+        .nav-item .icon { font-size: 20px; margin-bottom: 3px; }
+
+        .contact-cta { text-align: center; margin-top: 30px; padding: 30px; border-radius: 20px; background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%); border: 2px dashed #f472b6; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .btn-call { display: block; background: linear-gradient(135deg, #a78bfa 0%, #f472b6 100%); color: #fff; text-align: center; padding: 18px; border-radius: 30px; text-decoration: none; font-size: 18px; font-weight: bold; margin-top: 25px; box-shadow: 0 8px 25px rgba(26, 41, 128, 0.35); transition: 0.2s; letter-spacing: 1px; }
+        .btn-call:active { transform: scale(0.96); }
+
+        .section-block { margin-top: 28px; background: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.9); border-radius: 20px; padding: 22px 18px; text-align: center; box-shadow: 0 8px 25px rgba(31, 38, 135, 0.05); }
+        .section-block h2 { font-size: 18px; color: #7c3aed; line-height: 1.7; font-weight: 800; margin-bottom: 18px; }
+        .images-container { display: flex; justify-content: center; align-items: center; }
+        .image-item { background: rgba(255,255,255,0.8); padding: 14px; border-radius: 18px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+        .image-item img { width: 220px; max-width: 100%; display: block; border-radius: 12px; }
+        .small-note { font-size: 13px; color: #666; margin-top: 12px; line-height: 1.6; }
+
+        @media (max-width: 480px) {
+            .hero-title { font-size: 22px; }
+            .section-title { font-size: 18px; }
+            .btn-call { font-size: 16px; padding: 16px; }
+            .section-block h2 { font-size: 16px; }
+            .image-item img { width: 190px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<div class="app-container">
+
+    <div class="hero-header">
+        <div class="hero-title">澳門小馬地產IP商業企劃</div>
+        <div class="hero-subtitle">20歲買房達人 · 澳門金灣雙料地產顧問</div>
+    </div>
+
+    <div id="page-1" class="page active">
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">👤</span> 一、性格特徵與IP匹配度</div>
+
+            <div class="sub-title">1.1 性格優勢的內容化轉化</div>
+            <div class="text-panel">
+                <p><strong>有內涵：</strong>代表內容不能只停在“介紹這個盤有多大”，而是要講清楚房產背後的投資邏輯、區域價值和生活方式意義。</p>
+                <p><strong>認知高：</strong>意味著你不是單純講樓盤，而是能做判斷、做對比、做前瞻分析，讓用戶覺得你不是在賣房，而是在幫他避坑。</p>
+                <p><strong>專業：</strong>是帳號的底盤。通過市場分析、回報率推演、區域價值拆解，把“專業”從一句標籤變成用戶能感知到的能力。</p>
+                <p><strong>能解決問題：</strong>這決定了你最終不是一個地產博主，而是一個地產決策顧問。用戶來，不只是為了看房，是為了知道值不值、買不買、怎麼買更穩。</p>
+            </div>
+
+            <div class="sub-title">1.2 獨特經歷的差異化價值</div>
+            <div class="text-panel" style="border-left-color:#1a2980;">
+                <p>你最強的標籤不是“年輕”，而是 <span class="highlight-quote">“20歲就買了第一套物業”</span>。這不是普通經歷，是天然的信任入口，也是整個IP的超級符號。</p>
+                <p>這層經歷可以直接轉化成三重優勢：第一，證明你不是紙上談兵；第二，天然具備傳播話題性；第三，能吸引年輕購房者和高認知客戶，因為他們會覺得你不是只會介紹房，而是真的做過關鍵決策的人。</p>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">📈</span> 二、澳門與金灣市場機會</div>
+
+            <div class="sub-title">2.1 雙區域市場的內容視窗</div>
+            <div class="text-panel">
+                <p>澳門地產市場正處於價格調整與價值重估階段，用戶對“現在值不值得買”這類判斷需求變得更強。金灣則呈現明顯分化：航空新城成熟穩，週邊低價區跌幅大，這恰恰說明市場很需要真正懂區域、懂價值的人出來做篩選。</p>
+                <p>對你來說，這不是壞市場，反而是最適合專業IP跑出來的階段。因為市場越模糊，使用者越需要一個敢講真話、能講明白的人。</p>
+            </div>
+
+            <div class="css-bar-chart">
+                <div style="text-align: center; font-size: 13px; margin-bottom: 12px; color:#555;">澳門小馬帳號的三大內容機會</div>
+                <div class="css-bar-row">
+                    <div class="css-bar-label">澳門市場</div>
+                    <div class="css-bar-track"><div class="css-bar-fill" style="width: 36%;">價格回檔，判斷需求高</div></div>
+                </div>
+                <div class="css-bar-row">
+                    <div class="css-bar-label">金灣市場</div>
+                    <div class="css-bar-track"><div class="css-bar-fill" style="width: 34%; background: linear-gradient(90deg, #e0c3fc, #8ec5fc);">區域分化，最怕看錯</div></div>
+                </div>
+                <div class="css-bar-row">
+                    <div class="css-bar-label">客戶需求</div>
+                    <div class="css-bar-track"><div class="css-bar-fill" style="width: 30%;">高端客更需要顧問</div></div>
+                </div>
+            </div>
+            <p style="font-size: 12px; color: #777; text-align: center;">市場不缺房源，缺的是能把“值不值”講透的人，這正是小馬最能切進去的位置。 fileciteturn0file0</p>
+        </div>
+    </div>
+
+    <div id="page-2" class="page">
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">🎯</span> 三、帳號定位與人設標籤</div>
+
+            <div class="sub-title">3.1 三類核心目標客群</div>
+            <div class="css-progress-wrap">
+                <div class="css-progress-title"><span>1. 澳門本地中高收入客群</span></div>
+                <div class="css-progress-bar"><div class="css-progress-inner" style="width: 45%;"></div></div>
+                <p style="font-size:13px; color:#555; margin-bottom:15px;"><strong>核心需求：</strong>資產保值增值、優質物業篩選、市場判斷。<br><strong>內容抓手：</strong>澳門房價回檔、區域價值重估、高端物業分析。</p>
+
+                <div class="css-progress-title"><span>2. 金灣工作與改善型人群</span></div>
+                <div class="css-progress-bar"><div class="css-progress-inner color-2" style="width: 33%;"></div></div>
+                <p style="font-size:13px; color:#555; margin-bottom:15px;"><strong>核心需求：</strong>通勤便利、教育配套、改善居住、預算匹配。<br><strong>內容抓手：</strong>航空新城、四房改善盤、週邊低價盤的機會與風險。</p>
+
+                <div class="css-progress-title"><span>3. 港澳投資型客戶</span></div>
+                <div class="css-progress-bar"><div class="css-progress-inner color-3" style="width: 22%;"></div></div>
+                <p style="font-size:13px; color:#555; margin-bottom:0;"><strong>核心需求：</strong>區位優勢、收租邏輯、未來增值、風險控制。<br><strong>內容抓手：</strong>港珠澳大橋、深中通道、區域發展紅利與投資回報邏輯。</p>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">🏷️</span> 四、定位與差異化策略</div>
+            <ul class="text-list">
+                <li><strong>核心定位：</strong>年輕專業的地產價值發現者，不只是介紹房，而是幫客戶做判斷、做篩選、做決策。</li>
+                <li><strong>專業標籤：</strong>20歲買房達人、澳門金灣雙料專家、房產投資價值分析師、物業規劃顧問。</li>
+                <li><strong>性格標籤：</strong>理性的理想主義者、務實的機會發現者、溫暖的專業顧問。</li>
+                <li><strong>差異化關鍵：</strong>別人帶看房，你幫用戶不買錯房；別人講優點，你講值不值；別人賣房源，你賣判斷。</li>
+            </ul>
+
+            <div class="sub-title">4.1 出鏡方式策略</div>
+            <div class="text-panel">
+                <p><strong>只說話：</strong>用於觀點輸出、資料分析、政策解讀，建立專業感。</p>
+                <p><strong>生活紀錄：</strong>用於看房日常、客戶服務、個人投資經歷，建立真實感。</p>
+                <p><strong>半角色化：</strong>工作場景呈現專業顧問，生活場景呈現年輕創業者，讓帳號既穩又不死板。</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-3" class="page">
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">🎬</span> 五、內容策略與爆款結構</div>
+
+            <div class="sub-title">5.1 五大核心內容系列</div>
+            <div class="text-panel">
+                <p><strong>①《小馬說房》30%：</strong>市場分析、政策解讀、區域價值判斷，是專業心智的地基。</p>
+                <p><strong>②《20歲買房的秘密》25%：</strong>圍繞個人真實經歷做內容，是帳號最強信任標籤。</p>
+                <p><strong>③《小馬帶你看盤》20%：</strong>實地測盤、價值拆解、風險判斷，最適合承接買房需求。</p>
+                <p><strong>④《灣區生活哲學》15%：</strong>把房產投資和人生選擇、生活方式結合，提升IP厚度。</p>
+                <p><strong>⑤《小馬答疑》10%：</strong>承接評論區與私信問題，強化專業形象與互動率。</p>
+            </div>
+
+            <div class="sub-title">5.2 爆款內容公式</div>
+            <div class="css-timeline">
+                <div class="css-tl-item">
+                    <div class="css-tl-time">痛點解決型</div>
+                    <div class="css-tl-content">先拋問題，再給方案，例如“澳門買房最怕什麼？這3個坑足夠讓你損失百萬”，適合做避坑與判斷內容。</div>
+                </div>
+                <div class="css-tl-item">
+                    <div class="css-tl-time">資料對比型</div>
+                    <div class="css-tl-content">用房價、跌幅、區域差異做衝擊開場，再給趨勢判斷，最適合澳門和金灣的市場內容。</div>
+                </div>
+                <div class="css-tl-item">
+                    <div class="css-tl-time">經歷分享型</div>
+                    <div class="css-tl-content">圍繞“我20歲買房”做真實複盤，講決策、講踩坑、講後悔和轉折，這類內容最容易建立人設。</div>
+                </div>
+                <div class="css-tl-item">
+                    <div class="css-tl-time">價值發現型</div>
+                    <div class="css-tl-content">不是所有低價都是機會，也不是所有高價都不值。你要做的是講清“哪裡被低估、哪裡別碰”，這是最值錢的內容。 fileciteturn0file0</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">🗓️</span> 六、90天運營與轉化路徑</div>
+
+            <div class="sub-title">6.1 90天階段目標</div>
+            <div class="text-panel">
+                <p><strong>第1-30天：</strong>完成帳號冷開機，打出“20歲買房達人”標籤，建立專業形象與種子用戶基礎。</p>
+                <p><strong>第31-60天：</strong>測試內容模型，優化選題方向，提高互動率和私信諮詢量。</p>
+                <p><strong>第61-90天：</strong>進入成交衝刺期，通過高價值內容與一對一服務完成成交轉化。</p>
+            </div>
+
+            <div class="sub-title">6.2 發佈與轉化策略</div>
+            <ul class="text-list">
+                <li><strong>抖音：</strong>主平臺，每週3條重點內容，承擔流量獲取和爆款測試。</li>
+                <li><strong>小紅書：</strong>每週2條圖文/短視頻，適合樓盤美圖、分析卡片和生活方式表達。</li>
+                <li><strong>視頻號：</strong>每週1條深度內容，承接私域轉化與高客單服務。</li>
+                <li><strong>成交路徑：</strong>內容種草 → 評論互動 → 私信溝通 → 需求挖掘 → 定制方案 → 看房簽約。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="page-4" class="page">
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">💎</span> 七、商業變現與長期發展</div>
+
+            <div class="sub-title">7.1 高客單商業漏斗</div>
+            <div class="css-funnel">
+                <div class="funnel-layer funnel-1">短視頻專業內容引流</div>
+                <div class="funnel-layer funnel-2">微信/私域沉澱信任</div>
+                <div class="funnel-layer funnel-3">一對一物業規劃與投資分析</div>
+                <div class="funnel-layer funnel-4">高客單成交與長期顧問關係</div>
+            </div>
+
+            <div class="text-panel" style="margin-top: 15px; border-left-color: #f6d365;">
+                <p><strong>核心邏輯：</strong>你不適合走低價流量路線，而是要走“高價值判斷 + 高客單服務”路線。使用者買的不是內容，而是你的經驗、眼光和幫他少走彎路的能力。</p>
+            </div>
+
+            <div class="sub-title">7.2 產品體系與風控建議</div>
+            <div class="text-panel" style="background: rgba(26,41,128,0.05); border-left-color: #7c3aed;">
+                <p><strong>基礎產品：</strong>購房諮詢、區域分析、避坑清單、投資判斷。</p>
+                <p><strong>高端產品：</strong>一對一物業規劃、投資回報測算、選房談判、全流程顧問服務。</p>
+                <p><strong>風控重點：</strong>避免絕對化承諾、所有資料可驗證、價格僅供參考、投資建議保持邊界，內容既要鋒利，也要合規。</p>
+            </div>
+
+            <div class="sub-title">7.3 長期發展方向</div>
+            <ul class="text-list">
+                <li><strong>從個人IP到品牌矩陣：</strong>後續可延伸為“小馬看房”“小馬投資”等垂類子帳號。</li>
+                <li><strong>從內容到服務：</strong>逐步升級為“物業規劃 + 資產配置 + 長期顧問”的綜合模式。</li>
+                <li><strong>從成交到影響力：</strong>長期目標不是單純月月開單，而是成為澳門與金灣市場裡，用戶一想到“買房判斷”就會想起的人。 fileciteturn0file0</li>
+            </ul>
+        </div>
+
+        <div class="glass-card">
+            <div class="section-title"><span class="icon">🚀</span> 八、結論與執行建議</div>
+            <p style="color:#555; text-align:justify;">
+                澳門小馬這套IP，最值錢的不是“年輕”，也不是“會講地產”，而是你有一個別人很難複製的標籤：<strong>20歲買房，並且真的懂得如何把買房這件事講成人能聽懂的判斷邏輯</strong>。<br><br>
+                所以這套帳號最該堅持的，不是單純拍樓，而是持續輸出“值不值、為什麼、誰適合、誰別碰”這類判斷內容。別人是帶看型仲介，你更應該成為<strong>判斷型地產顧問</strong>。<br><br>
+                一句話總結：<strong>不只是賣房，而是幫客戶不買錯房。</strong>
+            </p>
+        </div>
+    </div>
+
+    <div id="page-5" class="page">
+        <div class="glass-card">
+            <div style="text-align: center; margin-bottom: 20px; font-size: 62px; line-height: 1;">📞</div>
+            <h2 style="text-align: center; color: #7c3aed; margin-bottom: 12px; font-weight: 900;">獲取全案落地陪跑服務</h2>
+            <p style="text-align: center; color: #666; font-size: 14px; margin-bottom: 25px;">
+                戰略的價值在於執行。從IP人設精雕、多端矩陣運營到私域高客單轉化閉環，我們為您提供一站式的落地陪跑方案。
+            </p>
+
+            <div class="contact-cta">
+                <div style="font-size: 14px; color: #7f8c8d; font-weight: bold; letter-spacing: 2px;">專案執行主理人</div>
+                <div style="font-size: 32px; font-weight: 900; color: #7c3aed; margin: 15px 0;">吳明蔚</div>
+
+                <div style="background: rgba(255,255,255,0.9); padding: 20px; border-radius: 15px; margin-top: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.06);">
+                    <div style="font-size: 14px; color: #7f8c8d; margin-bottom: 8px;">專屬諮詢熱線</div>
+                    <div style="font-size: 24px; font-weight: 900; color: #26d0ce; letter-spacing: 1px;">173-6826-7144</div>
+                    <div style="height: 1px; background: #ecf0f1; margin: 15px 0;"></div>
+                    <div style="font-size: 14px; color: #7f8c8d; margin-bottom: 8px;">官方微信號</div>
+                    <div style="font-size: 22px; font-weight: 800; color: #7c3aed;">Zzzz2ko</div>
+                </div>
+            </div>
+
+            <a href="tel:17368267144" class="btn-call">一鍵撥號 啟動IP起盤</a>
+
+            <div class="section-block">
+                <h2>診斷結果正在生成。請添加 SEKO 微信，領取你的 1 對 1 定位解讀報告。</h2>
+                <div class="images-container">
+                    <div class="image-item">
+                        <img src="https://aplen-chen.github.io/picture/seko.jpg" alt="SEKO微信" loading="lazy">
+                    </div>
+                </div>
+                <div class="small-note">掃碼添加後，可獲取專屬定位分析與後續陪跑建議。</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="glass-nav">
+    <div class="nav-item active" data-target="page-1">
+        <div class="icon">👤</div>
+        <div>人設市場</div>
+    </div>
+    <div class="nav-item" data-target="page-2">
+        <div class="icon">🎯</div>
+        <div>定位客群</div>
+    </div>
+    <div class="nav-item" data-target="page-3">
+        <div class="icon">🎬</div>
+        <div>內容運營</div>
+    </div>
+    <div class="nav-item" data-target="page-4">
+        <div class="icon">💎</div>
+        <div>變現規劃</div>
+    </div>
+    <div class="nav-item" data-target="page-5">
+        <div class="icon">📞</div>
+        <div>聯繫落地</div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const navItems = document.querySelectorAll('.nav-item');
+        const pages = document.querySelectorAll('.page');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                if (navigator.vibrate) navigator.vibrate(30);
+                navItems.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                const targetId = this.getAttribute('data-target');
+                pages.forEach(page => page.classList.remove('active'));
+                const targetPage = document.getElementById(targetId);
+                targetPage.style.animation = 'none';
+                targetPage.offsetHeight;
+                targetPage.style.animation = null;
+                targetPage.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                if (targetId === 'page-1') {
+                    const bars = document.querySelectorAll('.css-bar-fill');
+                    bars.forEach(bar => {
+                        bar.style.animation = 'none';
+                        bar.offsetHeight;
+                        bar.style.animation = null;
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
